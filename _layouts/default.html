@@ -4,41 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
 </head>
 <body>
 
+  <!-- Top Navbar -->
   <header class="top-nav">
-    <div class="nav-left">
-      <button id="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
-      <a class="site-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://github.com/{{ site.github_username }}/system-commands" target="_blank">GitHub Repo</a>
+    <div class="nav-container">
+      <a class="site-brand" href="{{ site.baseurl }}/">
+        <span class="brand-badge">Docs</span>
+        <span class="brand-title">{{ site.title }}</span>
+      </a>
+      <div class="nav-actions">
+        <a href="https://github.com/{{ site.github_username }}/system-commands" target="_blank" class="github-btn">
+          GitHub
+        </a>
+      </div>
     </div>
   </header>
 
+  <!-- Layout Container -->
   <div class="app-layout">
+    <!-- Fixed Sidebar -->
     <aside class="sidebar" id="sidebar">
-      <nav class="sidebar-nav">
-        {% for section in site.data.navigation %}
-          <details class="week-group" open>
-            <summary class="week-title">{{ section.week }}</summary>
-            <ul class="topic-list">
-              {% for topic in section.topics %}
-                <li>
-                  <a href="{{ site.baseurl }}{{ topic.url }}"
-                     class="{% if page.url == topic.url %}active{% endif %}">
-                    {{ topic.title }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </details>
-        {% endfor %}
-      </nav>
+      <div class="sidebar-inner">
+        <nav class="sidebar-nav">
+          {% for section in site.data.navigation %}
+            <div class="week-group">
+              <div class="week-title">{{ section.week }}</div>
+              <ul class="topic-list">
+                {% for topic in section.topics %}
+                  <li>
+                    <a href="{{ site.baseurl }}{{ topic.url }}"
+                       class="nav-link {% if page.url == topic.url %}active{% endif %}">
+                      {{ topic.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </nav>
+      </div>
     </aside>
 
+    <!-- Content Workspace -->
     <main class="main-content">
       <article class="content-wrapper">
         {{ content }}
@@ -46,12 +59,5 @@
     </main>
   </div>
 
-  <script>
-    const toggleBtn = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar');
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-    });
-  </script>
 </body>
 </html>
