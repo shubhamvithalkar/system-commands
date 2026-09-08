@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+</head>
+<body>
+
+  <header class="top-nav">
+    <div class="nav-left">
+      <button id="sidebar-toggle" aria-label="Toggle Sidebar">☰</button>
+      <a class="site-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://github.com/{{ site.github_username }}/system-commands" target="_blank">GitHub Repo</a>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-nav">
+        {% for section in site.data.navigation %}
+          <details class="week-group" open>
+            <summary class="week-title">{{ section.week }}</summary>
+            <ul class="topic-list">
+              {% for topic in section.topics %}
+                <li>
+                  <a href="{{ site.baseurl }}{{ topic.url }}"
+                     class="{% if page.url == topic.url %}active{% endif %}">
+                    {{ topic.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </details>
+        {% endfor %}
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <article class="content-wrapper">
+        {{ content }}
+      </article>
+    </main>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+  </script>
+</body>
+</html>

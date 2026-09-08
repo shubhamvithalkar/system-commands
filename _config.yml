@@ -1,0 +1,11 @@
+title: "System Commands Handbook"
+description: "Comprehensive 10-Week System Commands Handbook"
+baseurl: "/system-commands" # 
+url: "https://shubhamvithalkar.github.io"
+github_username: "shubhamvithalkar"
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
