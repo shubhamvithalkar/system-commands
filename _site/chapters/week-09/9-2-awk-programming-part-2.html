@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9.2 - AWK Programming Part 2 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link active">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 9</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>9.2 - AWK Programming Part 2</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="92---awk-programming-part-2">9.2 - AWK Programming Part 2</h1>
+
+<h1 id="awk-arrays-loops-functions-formatting-and-advanced-file-processing">AWK Arrays, Loops, Functions, Formatting, and Advanced File Processing</h1>
+
+<h2 id="1-arrays-in-awk">1. Arrays in AWK</h2>
+
+<p>AWK supports <strong>associative arrays</strong>.</p>
+
+<p>Unlike arrays in languages such as C or Java, AWK arrays:</p>
+
+<ul>
+  <li>Use keys instead of requiring integer indexes.</li>
+  <li>Can use strings as indexes.</li>
+  <li>Are <strong>sparse</strong>, meaning unused indexes do not need to exist.</li>
+  <li>Store values using key-value pairs.</li>
+</ul>
+
+<p>The basic syntax is:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">arr</span><span class="p">[</span><span class="nb">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="nx">salary</span><span class="p">[</span><span class="s2">"Alice"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50000</span>
+    <span class="nx">salary</span><span class="p">[</span><span class="s2">"Bob"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60000</span>
+    <span class="nx">salary</span><span class="p">[</span><span class="s2">"Charlie"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">55000</span>
+
+    <span class="k">print</span> <span class="nx">salary</span><span class="p">[</span><span class="s2">"Alice"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50000
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Key       Value
+----------------
+Alice     50000
+Bob       60000
+Charlie   55000
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-creating-an-array-element">2. Creating an Array Element</h1>
+
+<p>The basic syntax is:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">arr</span><span class="p">[</span><span class="nb">index</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Alice"</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="nx">arr</span><span class="p">[</span><span class="s2">"city"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Delhi"</span>
+
+    <span class="k">print</span> <span class="nx">arr</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+    <span class="k">print</span> <span class="nx">arr</span><span class="p">[</span><span class="s2">"age"</span><span class="p">]</span>
+    <span class="k">print</span> <span class="nx">arr</span><span class="p">[</span><span class="s2">"city"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice
+25
+Delhi
+</code></pre></div></div>
+
+<p>The index does not have to be an integer.</p>
+
+<p>For example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"one"</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"thousand"</span>
+<span class="nx">arr</span><span class="p">[</span><span class="s2">"hello"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"world"</span>
+<span class="nx">arr</span><span class="p">[</span><span class="s2">"employee"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Alice"</span>
+</code></pre></div></div>
+
+<p>All of these are valid.</p>
+
+<hr />
+
+<h1 id="3-iterating-through-an-awk-array">3. Iterating Through an AWK Array</h1>
+
+<p>AWK provides:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="nx">var</span> <span class="o">in</span> <span class="nx">arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>to iterate over array elements.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    salary["Alice"] = 50000
+    salary["Bob"] = 60000
+    salary["Charlie"] = 55000
+
+    for (name in salary)
+        print name, salary[name]
+}'</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bob 60000
+Alice 50000
+Charlie 55000
+</code></pre></div></div>
+
+<blockquote>
+  <p>The order of iteration of an associative array should not be assumed to be sorted.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="4-checking-array-membership">4. Checking Array Membership</h1>
+
+<p>Use the <code class="language-plaintext highlighter-rouge">in</code> operator:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nb">index</span> <span class="o">in</span> <span class="nx">arr</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s2">"Exists"</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    salary["Alice"] = 50000
+
+    if ("Alice" in salary)
+        print "Alice exists"
+
+    if ("Bob" in salary)
+        print "Bob exists"
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice exists
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-deleting-an-array-element">5. Deleting an Array Element</h1>
+
+<p>Use:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">delete</span> <span class="nx">arr</span><span class="p">[</span><span class="nb">index</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    salary["Alice"] = 50000
+    salary["Bob"] = 60000
+
+    delete salary["Alice"]
+
+    for (name in salary)
+        print name, salary[name]
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bob 60000
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">delete</code> removes the specified array element.</p>
+
+<hr />
+
+<h1 id="6-types-of-loops-in-awk">6. Types of Loops in AWK</h1>
+
+<p>AWK supports several programming constructs for repetition and decision-making.</p>
+
+<p>Common constructs include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for
+while
+do-while
+C-style for
+if
+if-else
+if-else-if
+switch
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-for-loop">7. <code class="language-plaintext highlighter-rouge">for</code> Loop</h1>
+
+<p>The general form is:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="nx">var</span> <span class="o">in</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="nx">names</span><span class="p">[</span><span class="s2">"a"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Alice"</span>
+    <span class="nx">names</span><span class="p">[</span><span class="s2">"b"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Bob"</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">in</span> <span class="nx">names</span><span class="p">)</span>
+        <span class="k">print</span> <span class="nx">names</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This form is especially useful for associative arrays.</p>
+
+<hr />
+
+<h1 id="8-c-style-for-loop">8. C-style <code class="language-plaintext highlighter-rouge">for</code> Loop</h1>
+
+<p>AWK also supports the familiar C-style loop:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="nx">initialization</span><span class="p">;</span> <span class="nx">condition</span><span class="p">;</span> <span class="nx">increment</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    for (i = 1; i &lt;= 5; i++)
+        print i
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    for (i = 10; i &gt;= 1; i--)
+        print i
+}'</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-while-loop">9. <code class="language-plaintext highlighter-rouge">while</code> Loop</h1>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    i = 1
+
+    while (i &lt;= 5) {
+        print i
+        i++
+    }
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-do-while-loop">10. <code class="language-plaintext highlighter-rouge">do-while</code> Loop</h1>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">do</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The body executes <strong>at least once</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    i = 1
+
+    do {
+        print i
+        i++
+    } while (i &lt;= 5)
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-if-statement">11. <code class="language-plaintext highlighter-rouge">if</code> Statement</h1>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{
+    if ($3 &gt;= 50000)
+        print $1, "High Salary"
+}'</span> employees.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-if-else">12. <code class="language-plaintext highlighter-rouge">if-else</code></h1>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{
+    if ($3 &gt;= 50000)
+        print $1, "High"
+    else
+        print $1, "Low"
+}'</span> employees.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-if-else-if">13. <code class="language-plaintext highlighter-rouge">if-else-if</code></h1>
+
+<p>Multiple conditions can be checked using:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">condition1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{
+    if ($3 &gt;= 80000)
+        print $1, "Excellent"
+    else if ($3 &gt;= 50000)
+        print $1, "Good"
+    else
+        print $1, "Low"
+}'</span> employees.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-switch-statement">14. <code class="language-plaintext highlighter-rouge">switch</code> Statement</h1>
+
+<p>Modern AWK implementations such as GNU awk support <code class="language-plaintext highlighter-rouge">switch</code>.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">switch</span> <span class="p">(</span><span class="nx">expression</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">case</span> <span class="nx">value</span><span class="p">:</span>
+        <span class="nx">statements</span>
+        <span class="k">break</span>
+
+    <span class="nx">case</span> <span class="nx">value</span><span class="p">:</span>
+        <span class="nx">statements</span>
+        <span class="k">break</span>
+
+    <span class="nx">default</span><span class="p">:</span>
+        <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    day = "Monday"
+
+    switch (day) {
+        case "Monday":
+            print "Start of week"
+            break
+
+        case "Friday":
+            print "Almost weekend"
+            break
+
+        default:
+            print "Regular day"
+    }
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start of week
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-payroll-management-system-using-awk">15. Payroll Management System Using AWK</h1>
+
+<p>AWK can be used to build small text-file-based management systems.</p>
+
+<p>Suppose <code class="language-plaintext highlighter-rouge">employees.txt</code> contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>101 Alice 30000
+102 Bob 45000
+103 Charlie 55000
+104 David 70000
+</code></pre></div></div>
+
+<p>Fields:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$1 → Employee ID
+$2 → Name
+$3 → Basic Salary
+</code></pre></div></div>
+
+<p>We can calculate a payroll amount.</p>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nx">basic</span> <span class="o">=</span> <span class="nv">$3</span>
+    <span class="nx">hra</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">*</span> <span class="mf">0.20</span>
+    <span class="nx">da</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">*</span> <span class="mf">0.10</span>
+    <span class="nx">gross</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">+</span> <span class="nx">hra</span> <span class="o">+</span> <span class="nx">da</span>
+
+    <span class="k">printf</span> <span class="s2">"%-5s %-10s %10.2f %10.2f %10.2f\n"</span><span class="p">,</span>
+           <span class="nv">$1</span><span class="p">,</span> <span class="nv">$2</span><span class="p">,</span> <span class="nx">basic</span><span class="p">,</span> <span class="nx">hra</span><span class="p">,</span> <span class="nx">gross</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Run it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="nt">-f</span> payroll.awk employees.txt
+</code></pre></div></div>
+
+<p>A more complete script:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/awk -f</span>
+
+<span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="k">printf</span> <span class="s2">"%-5s %-10s %10s %10s %10s\n"</span><span class="p">,</span>
+           <span class="s2">"ID"</span><span class="p">,</span> <span class="s2">"Name"</span><span class="p">,</span> <span class="s2">"Basic"</span><span class="p">,</span> <span class="s2">"HRA"</span><span class="p">,</span> <span class="s2">"Gross"</span>
+    <span class="k">print</span> <span class="s2">"---------------------------------------------"</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="nx">basic</span> <span class="o">=</span> <span class="nv">$3</span>
+    <span class="nx">hra</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">*</span> <span class="mf">0.20</span>
+    <span class="nx">da</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">*</span> <span class="mf">0.10</span>
+    <span class="nx">gross</span> <span class="o">=</span> <span class="nx">basic</span> <span class="o">+</span> <span class="nx">hra</span> <span class="o">+</span> <span class="nx">da</span>
+
+    <span class="k">printf</span> <span class="s2">"%-5s %-10s %10.2f %10.2f %10.2f\n"</span><span class="p">,</span>
+           <span class="nv">$1</span><span class="p">,</span> <span class="nv">$2</span><span class="p">,</span> <span class="nx">basic</span><span class="p">,</span> <span class="nx">hra</span><span class="p">,</span> <span class="nx">gross</span>
+<span class="p">}</span>
+
+<span class="kr">END</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s2">"---------------------------------------------"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This demonstrates that AWK is more than a simple column-extraction tool. It can perform calculations and generate reports.</p>
+
+<hr />
+
+<h1 id="16-user-defined-functions">16. User-Defined Functions</h1>
+
+<p>AWK allows you to define your own functions.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">function_name</span><span class="p">(</span><span class="nx">parameters</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">statements</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="p">}</span>
+
+<span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="nx">square</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>25
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-function-libraries">17. Function Libraries</h1>
+
+<p>Functions can be stored in a separate file.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lib.awk
+</code></pre></div></div>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">cube</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then create:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script.awk
+</code></pre></div></div>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="nx">square</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">print</span> <span class="nx">cube</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Run both files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="nt">-f</span> lib.awk <span class="nt">-f</span> script.awk
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>25
+27
+</code></pre></div></div>
+
+<p>This allows reusable AWK functions to be separated from the main program.</p>
+
+<hr />
+
+<h1 id="18-printf-in-awk">18. <code class="language-plaintext highlighter-rouge">printf</code> in AWK</h1>
+
+<p><code class="language-plaintext highlighter-rouge">printf</code> provides formatted output.</p>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">print</code>, <code class="language-plaintext highlighter-rouge">printf</code> does not automatically add a newline.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    printf "Hello\n"
+}'</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="formatting-strings">Formatting Strings</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    printf "%s\n", "Hello"
+}'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">%s</code> is used for strings.</p>
+
+<hr />
+
+<h2 id="formatting-integers">Formatting Integers</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    printf "%d\n", 25
+}'</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">%d</code> is used for integers.</p>
+
+<hr />
+
+<h2 id="formatting-floating-point-numbers">Formatting Floating-Point Numbers</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    printf "%.2f\n", 10 / 3
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.33
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-width-and-alignment-with-printf">19. Width and Alignment with <code class="language-plaintext highlighter-rouge">printf</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    printf "%-10s %10s\n", "Name", "Salary"
+    printf "%-10s %10.2f\n", "Alice", 50000
+    printf "%-10s %10.2f\n", "Bob", 60000
+}'</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name           Salary
+Alice        50000.00
+Bob          60000.00
+</code></pre></div></div>
+
+<p>Common format specifiers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s       String
+%d       Integer
+%f       Floating-point number
+%.2f     Floating-point with 2 decimal places
+%-10s    Left-aligned string of width 10
+%10s     Right-aligned string of width 10
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-awk-as-a-programming-language">20. AWK as a Programming Language</h1>
+
+<p>AWK is not limited to text filtering.</p>
+
+<p>It supports:</p>
+
+<ul>
+  <li>Variables</li>
+  <li>Arrays</li>
+  <li>Loops</li>
+  <li>Conditions</li>
+  <li>Functions</li>
+  <li>Regular expressions</li>
+  <li>Arithmetic</li>
+  <li>String manipulation</li>
+  <li>File processing</li>
+  <li>Command execution</li>
+</ul>
+
+<p>Therefore, AWK can be used as a small programming language for system administration and data processing.</p>
+
+<hr />
+
+<h1 id="21-generating-random-numbers">21. Generating Random Numbers</h1>
+
+<p>AWK provides the <code class="language-plaintext highlighter-rouge">rand()</code> function.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    print rand()
+}'</span>
+</code></pre></div></div>
+
+<p>It produces a pseudo-random floating-point number between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>To generate a number between <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">100</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    print int(rand() * 100) + 1
+}'</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>73
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-seeding-random-numbers">22. Seeding Random Numbers</h1>
+
+<p>AWK provides <code class="language-plaintext highlighter-rouge">srand()</code> to seed the random-number generator.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    srand()
+    print int(rand() * 100) + 1
+}'</span>
+</code></pre></div></div>
+
+<p>Calling <code class="language-plaintext highlighter-rouge">srand()</code> without an argument typically uses a time-dependent seed.</p>
+
+<p>You can provide a specific seed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    srand(42)
+    print rand()
+}'</span>
+</code></pre></div></div>
+
+<p>Using the same seed can produce a reproducible sequence.</p>
+
+<hr />
+
+<h1 id="23-comments-in-awk">23. Comments in AWK</h1>
+
+<p>AWK uses <code class="language-plaintext highlighter-rouge">#</code> for comments.</p>
+
+<p>Example:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># This is an AWK comment</span>
+
+<span class="kr">BEGIN</span> <span class="p">{</span>
+    <span class="c1"># Initialize the counter</span>
+    <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">}</span>
+
+<span class="p">{</span>
+    <span class="c1"># Process every record</span>
+    <span class="nx">count</span><span class="o">++</span>
+<span class="p">}</span>
+
+<span class="kr">END</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="nx">count</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Comments are ignored by AWK.</p>
+
+<hr />
+
+<h1 id="24-processing-million-line-files">24. Processing Million-Line Files</h1>
+
+<p>AWK is designed for efficient sequential text processing.</p>
+
+<p>For a very large file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> huge.log
+</code></pre></div></div>
+
+<p>AWK processes records sequentially instead of requiring the entire file to be loaded into memory.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Huge File
+    ↓
+Record 1 → Process
+Record 2 → Process
+Record 3 → Process
+...
+Record 1,000,000 → Process
+</code></pre></div></div>
+
+<p>This makes AWK useful for:</p>
+
+<ul>
+  <li>Large log files</li>
+  <li>Server logs</li>
+  <li>Data exports</li>
+  <li>CSV-like files</li>
+  <li>System administration</li>
+  <li>ETL-style processing</li>
+</ul>
+
+<hr />
+
+<h1 id="25-awk-vs-spreadsheet-applications">25. AWK vs Spreadsheet Applications</h1>
+
+<p>Spreadsheet applications are convenient for interactive analysis, but they are not designed to be the ideal tool for every extremely large text-processing task.</p>
+
+<p>AWK can process very large text files using streaming, record-by-record processing.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'$3 &gt; 50000 {print $1, $3}'</span> huge_file.txt
+</code></pre></div></div>
+
+<p>This can filter records without opening the complete file in a spreadsheet.</p>
+
+<p>The key advantage is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Large Text File
+      ↓
+   AWK reads
+ one record at a time
+      ↓
+ Process
+      ↓
+ Output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-processing-web-server-logs">26. Processing Web Server Logs</h1>
+
+<p>AWK is particularly useful for analyzing web server logs.</p>
+
+<p>Suppose a log contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.10 - - [08/Sep/2026:10:15:20 +0530] "GET /index.html HTTP/1.1" 200 1024
+192.168.1.20 - - [08/Sep/2026:10:16:10 +0530] "GET /login HTTP/1.1" 200 2048
+192.168.1.10 - - [08/Sep/2026:10:17:05 +0530] "GET /about HTTP/1.1" 404 512
+</code></pre></div></div>
+
+<p>The first field is the IP address.</p>
+
+<p>Extract IP addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> access.log
+</code></pre></div></div>
+
+<p>Count requests:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{count[$1]++} END {
+    for (ip in count)
+        print ip, count[ip]
+}'</span> access.log
+</code></pre></div></div>
+
+<p>This creates an associative array where:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>count[IP] = number of requests
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-get-the-first-field-of-each-line">27. Get the First Field of Each Line</h1>
+
+<p>The simplest form is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice 25 50000
+Bob 30 60000
+Charlie 28 55000
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice
+Bob
+Charlie
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-substr-function">28. <code class="language-plaintext highlighter-rouge">substr()</code> Function</h1>
+
+<p><code class="language-plaintext highlighter-rouge">substr()</code> extracts part of a string.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">substr</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nb">length</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    print substr("HelloWorld", 1, 5)
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    text = "ABCDEFGHIJ"
+    print substr(text, 3, 4)
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CDEF
+</code></pre></div></div>
+
+<p>The first character has position <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<hr />
+
+<h1 id="29-substr-without-length">29. <code class="language-plaintext highlighter-rouge">substr()</code> Without Length</h1>
+
+<p>The length argument can be omitted.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">substr</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">start</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    print substr("HelloWorld", 6)
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>World
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-getting-a-date-from-the-shell">30. Getting a Date from the Shell</h1>
+
+<p>The Linux <code class="language-plaintext highlighter-rouge">date</code> command can calculate relative dates.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span> <span class="nt">--date</span><span class="o">=</span><span class="s2">"5 days ago"</span> +%d/%m/%Y
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>03/09/2026
+</code></pre></div></div>
+
+<p>The exact result depends on the current date.</p>
+
+<p>The format:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%d/%m/%Y
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%d → Day
+%m → Month
+%Y → Four-digit year
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-sprintf-function">31. <code class="language-plaintext highlighter-rouge">sprintf()</code> Function</h1>
+
+<p><code class="language-plaintext highlighter-rouge">sprintf()</code> formats a value and <strong>returns the formatted string</strong>.</p>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">printf</code>, it does not directly print the result.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">variable</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="nx">format</span><span class="p">,</span> <span class="nx">values</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    salary = 50000
+    result = sprintf("%.2f", salary)
+    print result
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50000.00
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-sprintf-vs-printf">32. <code class="language-plaintext highlighter-rouge">sprintf()</code> vs <code class="language-plaintext highlighter-rouge">printf</code></h1>
+
+<h3 id="printf"><code class="language-plaintext highlighter-rouge">printf</code></h3>
+
+<p>Prints formatted output:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">printf</span> <span class="s2">"%.2f\n"</span><span class="p">,</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<h3 id="sprintf"><code class="language-plaintext highlighter-rouge">sprintf</code></h3>
+
+<p>Creates a formatted string:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">x</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s2">"%.2f"</span><span class="p">,</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="nx">x</span>
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printf  → format and print
+sprintf → format and store
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-getline">33. <code class="language-plaintext highlighter-rouge">getline</code></h1>
+
+<p>AWK can execute an external command and read its output.</p>
+
+<p>The basic form is:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">cmd</span> <span class="o">|</span> <span class="k">getline</span> <span class="nx">var</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    cmd = "date"
+    cmd | getline current_date
+    close(cmd)
+
+    print current_date
+}'</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cmd
+ ↓
+External command
+ ↓
+getline
+ ↓
+current_date
+</code></pre></div></div>
+
+<p>The command output is stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>current_date
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-why-close-matters">34. Why <code class="language-plaintext highlighter-rouge">close()</code> Matters</h1>
+
+<p>When using:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">cmd</span> <span class="o">|</span> <span class="k">getline</span> <span class="nx">var</span>
+</code></pre></div></div>
+
+<p>it is good practice to close the command when finished:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">close</span><span class="p">(</span><span class="nx">cmd</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    cmd = "date"
+    cmd | getline result
+    close(cmd)
+
+    print result
+}'</span>
+</code></pre></div></div>
+
+<p>This is especially important when repeatedly opening external commands.</p>
+
+<hr />
+
+<h1 id="35-match-function">35. <code class="language-plaintext highlighter-rouge">match()</code> Function</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">match()</code> function searches a string using a regular expression.</p>
+
+<p>Syntax:</p>
+
+<div class="language-awk highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">match</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">regexp</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    position = match("hello world", /world/)
+    print position
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">match()</code> also sets:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RSTART
+RLENGTH
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    text = "hello world"
+
+    match(text, /world/)
+
+    print "Start:", RSTART
+    print "Length:", RLENGTH
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start: 7
+Length: 5
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-using-match-to-extract-information">36. Using <code class="language-plaintext highlighter-rouge">match()</code> to Extract Information</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'BEGIN {
+    text = "ID=12345"
+
+    if (match(text, /[0-9]+/)) {
+        print substr(text, RSTART, RLENGTH)
+    }
+}'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345
+</code></pre></div></div>
+
+<p>The process is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>match()
+   ↓
+RSTART + RLENGTH
+   ↓
+substr()
+   ↓
+Extract matched text
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="37-sort-command">37. <code class="language-plaintext highlighter-rouge">sort</code> Command</h1>
+
+<p>The Linux <code class="language-plaintext highlighter-rouge">sort</code> command sorts lines of text.</p>
+
+<p>Basic usage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort </span>file.txt
+</code></pre></div></div>
+
+<p>For numeric sorting, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort</span> <span class="nt">-n</span> file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50
+10
+30
+20
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort</span> <span class="nt">-n</span> numbers.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10
+20
+30
+50
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-reverse-sorting">38. Reverse Sorting</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort</span> <span class="nt">-r</span> file.txt
+</code></pre></div></div>
+
+<p>For numeric reverse sorting:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort</span> <span class="nt">-nr</span> file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50
+10
+30
+20
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sort</span> <span class="nt">-nr</span> numbers.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50
+30
+20
+10
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-awk--sort">39. AWK + Sort</h1>
+
+<p>AWK and <code class="language-plaintext highlighter-rouge">sort</code> can be combined.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice 50000
+Bob 70000
+Charlie 45000
+David 90000
+</code></pre></div></div>
+
+<p>Sort by salary numerically:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $2, $1}'</span> employees.txt | <span class="nb">sort</span> <span class="nt">-n</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>45000 Charlie
+50000 Alice
+70000 Bob
+90000 David
+</code></pre></div></div>
+
+<p>Reverse:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $2, $1}'</span> employees.txt | <span class="nb">sort</span> <span class="nt">-nr</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>90000 David
+70000 Bob
+50000 Alice
+45000 Charlie
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="40-dig-command">40. <code class="language-plaintext highlighter-rouge">dig</code> Command</h1>
+
+<p><code class="language-plaintext highlighter-rouge">dig</code> is a DNS lookup utility.</p>
+
+<p>It can be used to find the IP address associated with a domain.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig example.com
+</code></pre></div></div>
+
+<p>A shorter answer can be obtained with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig +short example.com
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>93.184.216.34
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-reverse-dns-lookup-with-dig--x">41. Reverse DNS Lookup with <code class="language-plaintext highlighter-rouge">dig -x</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-x</code> option performs a reverse DNS lookup.</p>
+
+<p>It attempts to find the domain name associated with an IP address.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig <span class="nt">-x</span> 8.8.8.8
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="42-dig-noall-answer">42. <code class="language-plaintext highlighter-rouge">dig +noall +answer</code></h1>
+
+<p>DNS output can contain a lot of information.</p>
+
+<p>To display only the answer section:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig +noall +answer example.com
+</code></pre></div></div>
+
+<p>For reverse lookup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig +noall +answer <span class="nt">-x</span> 8.8.8.8
+</code></pre></div></div>
+
+<p>This produces a concise answer containing the relevant DNS record.</p>
+
+<hr />
+
+<h1 id="43-useful-awk--linux-tool-combination">43. Useful AWK + Linux Tool Combination</h1>
+
+<p>AWK becomes particularly powerful when combined with standard Unix utilities.</p>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> access.log | <span class="nb">sort</span> | <span class="nb">uniq</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> access.log | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> access.log | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-nr</span>
+</code></pre></div></div>
+
+<p>The last pipeline can be used to identify the most frequent IP addresses.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>access.log
+    ↓
+awk
+Extract IP
+    ↓
+sort
+Group identical values
+    ↓
+uniq -c
+Count values
+    ↓
+sort -nr
+Rank by frequency
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-important-concepts-to-remember">44. Important Concepts to Remember</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AWK Arrays
+    arr[index] = value
+    for (var in arr)
+    delete arr[index]
+    index in arr
+
+Loops
+    for
+    while
+    do-while
+    C-style for
+
+Conditions
+    if
+    if-else
+    if-else-if
+    switch
+
+Functions
+    function name(args) { ... }
+    return value
+
+Formatting
+    printf
+    sprintf
+
+Random Numbers
+    rand()
+    srand()
+
+String Processing
+    substr()
+    match()
+
+External Commands
+    command | getline variable
+    close(command)
+
+Large Files
+    Process records sequentially
+
+Linux Integration
+    awk + sort
+    awk + uniq
+    awk + date
+    awk + dig
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="45-awk-programming-mental-model">45. AWK Programming Mental Model</h1>
+
+<p>AWK can be viewed as a small programming language sitting between shell commands and larger programming languages.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 AWK
+                  │
+       ┌──────────┼──────────┐
+       │          │          │
+    Records     Fields     Patterns
+       │          │          │
+       └──────────┼──────────┘
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+     Variables           Arrays
+        │                   │
+        ├───────┐     ┌─────┤
+        │       │     │     │
+      Loops    If    Add   Delete
+        │       │     │
+        └───────┴─────┘
+                │
+             Functions
+                │
+        ┌───────┴────────┐
+        │                │
+     printf           sprintf
+        │                │
+        └───────┬────────┘
+                │
+          External Commands
+                │
+             getline
+</code></pre></div></div>
+
+<p>The key idea is:</p>
+
+<blockquote>
+  <p><strong>AWK can treat text as structured data and combine fields, patterns, arrays, loops, functions, and external commands to perform sophisticated processing directly from the command line or from scripts.</strong></p>
+</blockquote>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">9.1 - AWK Programming Part 1</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L10.1 - Version Control - Part 01</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

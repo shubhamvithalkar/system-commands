@@ -1,0 +1,4239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L3.5 - Linux process management | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link active">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 3</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L3.5 - Linux process management</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l35---linux-process-management">L3.5 - Linux process management</h1>
+
+<h1 id="linux-process-management-job-control-bash-history-brace-expansion-and-exit-codes">Linux Process Management, Job Control, Bash History, Brace Expansion, and Exit Codes</h1>
+
+<h2 id="1-sleep">1. <code class="language-plaintext highlighter-rouge">sleep</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">sleep</code> command pauses execution for a specified amount of time.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>NUMBER
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>5
+</code></pre></div></div>
+
+<p>The command waits for 5 seconds and then exits.</p>
+
+<p>You can also specify units:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>10s
+<span class="nb">sleep </span>2m
+<span class="nb">sleep </span>1h
+<span class="nb">sleep </span>1d
+</code></pre></div></div>
+
+<p>Where:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">s</code> = seconds</li>
+  <li><code class="language-plaintext highlighter-rouge">m</code> = minutes</li>
+  <li><code class="language-plaintext highlighter-rouge">h</code> = hours</li>
+  <li><code class="language-plaintext highlighter-rouge">d</code> = days</li>
+</ul>
+
+<h3 id="example">Example</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Start"</span>
+<span class="nb">sleep </span>5
+<span class="nb">echo</span> <span class="s2">"End"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start
+</code></pre></div></div>
+
+<p>After approximately 5 seconds:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>End
+</code></pre></div></div>
+
+<h3 id="why-is-sleep-useful">Why is <code class="language-plaintext highlighter-rouge">sleep</code> useful?</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sleep</code> is especially useful when learning process management because it creates a process that stays alive for a predictable amount of time.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>Now you can practice:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+Ctrl-Z
+fg
+bg
+jobs
+kill
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-coproc">2. <code class="language-plaintext highlighter-rouge">coproc</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">coproc</code> is a Bash feature used to start a command asynchronously as a <strong>coprocess</strong>.</p>
+
+<p>A coprocess runs independently while the current shell continues.</p>
+
+<h3 id="basic-syntax">Basic Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coproc <span class="nb">command</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coproc <span class="nb">sleep </span>10
+</code></pre></div></div>
+
+<p>The shell does not wait 10 seconds. It immediately gives you the prompt.</p>
+
+<p>You can then continue executing commands.</p>
+
+<hr />
+
+<h2 id="21-why-does-coproc-exist">2.1 Why Does <code class="language-plaintext highlighter-rouge">coproc</code> Exist?</h2>
+
+<p>Normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>10
+<span class="nb">echo</span> <span class="s2">"Done"</span>
+</code></pre></div></div>
+
+<p>works synchronously:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sleep 10
+   ↓
+wait
+   ↓
+echo "Done"
+</code></pre></div></div>
+
+<p>With:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coproc <span class="nb">sleep </span>10
+<span class="nb">echo</span> <span class="s2">"Done"</span>
+</code></pre></div></div>
+
+<p>the coprocess runs asynchronously:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             ┌──→ coprocess: sleep 10
+Shell ───────┤
+             └──→ echo "Done"
+</code></pre></div></div>
+
+<p>The important feature of <code class="language-plaintext highlighter-rouge">coproc</code> is that Bash also provides communication channels between the shell and the coprocess.</p>
+
+<hr />
+
+<h2 id="22-named-coprocess">2.2 Named Coprocess</h2>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coproc myproc <span class="o">{</span> <span class="nb">sleep </span>3<span class="p">;</span> <span class="nb">echo</span> <span class="s2">"done"</span><span class="p">;</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>Bash provides information about the coprocess.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$myproc_PID</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>gives the PID of the coprocess.</p>
+
+<p>A named coprocess also has file descriptors that can be used to communicate with it.</p>
+
+<p>For basic process-management purposes, remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coproc
+  ↓
+Asynchronous Bash process
+  +
+Communication pipes/file descriptors
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-kill">3. <code class="language-plaintext highlighter-rouge">kill</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">kill</code> command sends a <strong>signal</strong> to a process.</p>
+
+<h3 id="syntax-1">Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<p>By default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+</code></pre></div></div>
+
+<p>sends:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTERM
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="31-important-meaning-of-kill">3.1 Important Meaning of <code class="language-plaintext highlighter-rouge">kill</code></h2>
+
+<p>The name <code class="language-plaintext highlighter-rouge">kill</code> can be misleading.</p>
+
+<p>It does not necessarily mean:</p>
+
+<blockquote>
+  <p>Immediately destroy the process.</p>
+</blockquote>
+
+<p>It actually means:</p>
+
+<blockquote>
+  <p>Send a signal to the specified process.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-STOP</span> 12345
+</code></pre></div></div>
+
+<p>does not terminate the process. It stops it.</p>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-CONT</span> 12345
+</code></pre></div></div>
+
+<p>can continue a stopped process.</p>
+
+<hr />
+
+<h1 id="4-signals">4. Signals</h1>
+
+<p>A signal is a notification sent to a process.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Process
+   ▲
+   │
+   │ signal
+   │
+Kernel / Shell / Another Process
+</code></pre></div></div>
+
+<p>Common signals include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Signal</th>
+      <th style="text-align: right">Number</th>
+      <th>Typical purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGINT</code></td>
+      <td style="text-align: right">2</td>
+      <td>Interrupt</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGTERM</code></td>
+      <td style="text-align: right">15</td>
+      <td>Request termination</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGKILL</code></td>
+      <td style="text-align: right">9</td>
+      <td>Force termination</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGSTOP</code></td>
+      <td style="text-align: right">19</td>
+      <td>Stop process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGCONT</code></td>
+      <td style="text-align: right">18</td>
+      <td>Continue stopped process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGTSTP</code></td>
+      <td style="text-align: right">20</td>
+      <td>Terminal stop request</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Signal numbers can vary on some systems, but these are the standard values on Linux.</p>
+
+<hr />
+
+<h1 id="5-sigterm">5. <code class="language-plaintext highlighter-rouge">SIGTERM</code></h1>
+
+<p>The default signal from:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+</code></pre></div></div>
+
+<p>is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTERM
+</code></pre></div></div>
+
+<p>You can explicitly specify it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-TERM</span> PID
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-15</span> PID
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">SIGTERM</code> politely asks the process to terminate.</p>
+
+<p>A program can catch <code class="language-plaintext highlighter-rouge">SIGTERM</code> and perform cleanup before exiting.</p>
+
+<p>For example, a server might:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Receive SIGTERM
+      ↓
+Stop accepting requests
+      ↓
+Finish current work
+      ↓
+Close files/connections
+      ↓
+Exit
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-sigkill">6. <code class="language-plaintext highlighter-rouge">SIGKILL</code></h1>
+
+<p>You can forcefully terminate a process using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> PID
+</code></pre></div></div>
+
+<p>This sends:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGKILL
+</code></pre></div></div>
+
+<p>Equivalent form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-KILL</span> PID
+</code></pre></div></div>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">SIGTERM</code>, <code class="language-plaintext highlighter-rouge">SIGKILL</code> cannot be caught or ignored by the process.</p>
+
+<h3 id="recommended-approach">Recommended approach</h3>
+
+<p>Usually try:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+</code></pre></div></div>
+
+<p>first.</p>
+
+<p>If the process refuses to terminate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> PID
+</code></pre></div></div>
+
+<p>may be necessary.</p>
+
+<h3 id="remember">Remember</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kill PID
+   ↓
+SIGTERM
+   ↓
+Graceful termination request
+
+
+kill -9 PID
+   ↓
+SIGKILL
+   ↓
+Force termination
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-running-a-process-in-the-background-using-">7. Running a Process in the Background Using <code class="language-plaintext highlighter-rouge">&amp;</code></h1>
+
+<p>Normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>runs in the foreground.</p>
+
+<p>The shell waits for it to finish.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shell
+  │
+  ▼
+sleep 100
+  │
+  │
+  ▼
+Shell waits
+</code></pre></div></div>
+
+<p>To run it in the background:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">&amp;</code> tells Bash to start the command as a background job.</p>
+
+<p>The shell immediately gives you the prompt again.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 12345
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1     → Job number
+12345 → PID
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-job-number-vs-pid">8. Job Number vs PID</h1>
+
+<p>This distinction is extremely important.</p>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 12345
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Job number = 1
+PID        = 12345
+</code></pre></div></div>
+
+<p>The <strong>job number</strong> is used by the shell’s job-control system.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span> %1
+</code></pre></div></div>
+
+<p>The <strong>PID</strong> is used by the operating system to identify the process.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<h3 id="mental-model">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Job number
+    ↓
+Shell's identifier
+
+PID
+    ↓
+Operating system's process identifier
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-fg">9. <code class="language-plaintext highlighter-rouge">fg</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">fg</code> means:</p>
+
+<blockquote>
+  <p>Foreground</p>
+</blockquote>
+
+<p>It brings a background or stopped job into the foreground.</p>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+</code></pre></div></div>
+
+<p>is running.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span>
+</code></pre></div></div>
+
+<p>The job becomes the foreground job.</p>
+
+<p>You can specify a particular job:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span> %1
+</code></pre></div></div>
+
+<p>where:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%1
+</code></pre></div></div>
+
+<p>means job number 1.</p>
+
+<h3 id="flow">Flow</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Background
+    │
+    │ fg
+    ▼
+Foreground
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-ctrl-c">10. <code class="language-plaintext highlighter-rouge">Ctrl-C</code></h1>
+
+<p>When a process is running in the foreground, pressing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+</code></pre></div></div>
+
+<p>normally causes the terminal to send:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGINT
+</code></pre></div></div>
+
+<p>to the foreground process group.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">sleep</code> command normally terminates.</p>
+
+<h3 id="mental-model-1">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+   ↓
+Terminal
+   ↓
+SIGINT
+   ↓
+Foreground process group
+   ↓
+Process normally terminates
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-C</code> does not literally mean:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"kill PID"
+</code></pre></div></div>
+
+<p>It is a keyboard-generated interrupt that causes a signal to be sent to the foreground process group.</p>
+
+<p>A program can handle <code class="language-plaintext highlighter-rouge">SIGINT</code>, so <code class="language-plaintext highlighter-rouge">Ctrl-C</code> does not guarantee immediate termination.</p>
+
+<hr />
+
+<h1 id="11-two-ways-of-killingterminating-a-process">11. Two Ways of Killing/Terminating a Process</h1>
+
+<p>There are two common situations.</p>
+
+<h2 id="method-1-ctrl-c">Method 1: <code class="language-plaintext highlighter-rouge">Ctrl-C</code></h2>
+
+<p>For a foreground process:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+</code></pre></div></div>
+
+<p>This normally sends:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGINT
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="method-2-kill-pid">Method 2: <code class="language-plaintext highlighter-rouge">kill PID</code></h2>
+
+<p>For a process identified by PID:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<p>This normally sends:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTERM
+</code></pre></div></div>
+
+<h3 id="comparison">Comparison</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+   ↓
+SIGINT
+   ↓
+Foreground process group
+
+
+kill PID
+   ↓
+SIGTERM
+   ↓
+Specified process
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-jobs">12. <code class="language-plaintext highlighter-rouge">jobs</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">jobs</code> command displays jobs managed by the current shell.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+<span class="nb">sleep </span>200 &amp;
+<span class="nb">jobs</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]-  Running    sleep 100 &amp;
+[2]+  Running    sleep 200 &amp;
+</code></pre></div></div>
+
+<p>The exact <code class="language-plaintext highlighter-rouge">+</code> and <code class="language-plaintext highlighter-rouge">-</code> markers depend on which jobs are the current and previous jobs.</p>
+
+<hr />
+
+<h2 id="121-jobs--l">12.1 <code class="language-plaintext highlighter-rouge">jobs -l</code></h2>
+
+<p>For more information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]- 12345 Running    sleep 100 &amp;
+[2]+ 12346 Running    sleep 200 &amp;
+</code></pre></div></div>
+
+<p>Now you can see both:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Job number
+PID
+State
+Command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-top">13. <code class="language-plaintext highlighter-rouge">top</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">top</code> is an interactive process-monitoring utility.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>top
+</code></pre></div></div>
+
+<p>It displays information about processes and system activity.</p>
+
+<p>Typical information includes:</p>
+
+<ul>
+  <li>PID</li>
+  <li>User</li>
+  <li>CPU usage</li>
+  <li>Memory usage</li>
+  <li>Process state</li>
+  <li>Runtime</li>
+  <li>Command</li>
+</ul>
+
+<p>A simplified representation:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID     USER      CPU%    MEM%    COMMAND
+1234    user      25.0     2.1    python
+2345    user       5.0     1.0    bash
+3456    user       0.0     0.1    sleep
+</code></pre></div></div>
+
+<p>The exact display depends on the system.</p>
+
+<hr />
+
+<h2 id="131-exiting-top">13.1 Exiting <code class="language-plaintext highlighter-rouge">top</code></h2>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<p>to quit <code class="language-plaintext highlighter-rouge">top</code>.</p>
+
+<hr />
+
+<h1 id="14-ctrl-z">14. <code class="language-plaintext highlighter-rouge">Ctrl-Z</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-Z</code> normally suspends the foreground process.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-Z
+</code></pre></div></div>
+
+<p>The terminal normally sends:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTSTP
+</code></pre></div></div>
+
+<p>to the foreground process group.</p>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]+  Stopped    sleep 100
+</code></pre></div></div>
+
+<h3 id="important-1">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-Z</code> does <strong>not</strong> normally kill the process.</p>
+
+<p>It suspends it.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Running
+   │
+ Ctrl-Z
+   ▼
+Stopped
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-fg-and-bg-after-ctrl-z">15. <code class="language-plaintext highlighter-rouge">fg</code> and <code class="language-plaintext highlighter-rouge">bg</code> After <code class="language-plaintext highlighter-rouge">Ctrl-Z</code></h1>
+
+<p>After:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-Z
+</code></pre></div></div>
+
+<p>the job is stopped.</p>
+
+<p>You can bring it back to the foreground:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span>
+</code></pre></div></div>
+
+<p>Or continue it in the background:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">bg</span>
+</code></pre></div></div>
+
+<h3 id="complete-flow">Complete Flow</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              Running
+                 │
+          ┌──────┴──────┐
+          │             │
+       Ctrl-C         Ctrl-Z
+          │             │
+          ▼             ▼
+     Terminated       Stopped
+                        │
+                  ┌─────┴─────┐
+                  │           │
+                 fg           bg
+                  │           │
+                  ▼           ▼
+             Foreground   Background
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-process-state">16. Process State</h1>
+
+<p>A process can move through different states.</p>
+
+<p>A simplified model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 ┌──────────────┐
+                 │   Running    │
+                 └──────┬───────┘
+                        │
+                     Ctrl-Z
+                        │
+                        ▼
+                 ┌──────────────┐
+                 │    Stopped   │
+                 └──────┬───────┘
+                    ┌───┴───┐
+                   fg      bg
+                    │       │
+                    ▼       ▼
+                 Running  Running
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Running
+   │
+ Ctrl-C / kill
+   ▼
+Terminated
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-echo--">17. <code class="language-plaintext highlighter-rouge">echo $-</code></h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$-</span>
+</code></pre></div></div>
+
+<p>This displays the current Bash shell’s option flags.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>himBHs
+</code></pre></div></div>
+
+<p>The exact characters depend on your shell configuration.</p>
+
+<p>One particularly important flag is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>which indicates that the shell is interactive.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$-</span>
+</code></pre></div></div>
+
+<p>can help determine the current shell’s mode/options.</p>
+
+<hr />
+
+<h1 id="18-child-shell">18. Child Shell</h1>
+
+<p>A shell can create another shell.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+</code></pre></div></div>
+
+<p>starts a new Bash shell.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent Bash
+     │
+     │ bash
+     ▼
+Child Bash
+</code></pre></div></div>
+
+<p>The child shell is a separate process.</p>
+
+<hr />
+
+<h1 id="19-checking-the-shell-pid">19. Checking the Shell PID</h1>
+
+<p>The special Bash variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>contains the PID of the current shell.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1000
+</code></pre></div></div>
+
+<p>Now start another Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>You may get:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1050
+</code></pre></div></div>
+
+<p>This demonstrates that you are now inside another shell process.</p>
+
+<hr />
+
+<h1 id="20-exiting-a-child-shell">20. Exiting a Child Shell</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>The current shell exits.</p>
+
+<p>If it was a child shell:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent Shell
+     │
+     │ bash
+     ▼
+Child Shell
+     │
+     │ exit
+     ▼
+Parent Shell
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-parent-and-child-processes">21. Parent and Child Processes</h1>
+
+<p>The relationship can be represented as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent Process
+      │
+      ├── Child Process
+      │
+      ├── Child Process
+      │
+      └── Child Process
+</code></pre></div></div>
+
+<p>A process can therefore create another process.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+</code></pre></div></div>
+
+<p>causes the current shell to create/start another Bash process.</p>
+
+<hr />
+
+<h1 id="22-environment-inheritance">22. Environment Inheritance</h1>
+
+<p>A child process inherits the environment of its parent.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">NAME</span><span class="o">=</span><span class="s2">"Shubham"</span>
+bash
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$NAME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">NAME</code> was exported.</p>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">NAME</span><span class="o">=</span><span class="s2">"Shubham"</span>
+bash
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$NAME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>does not make <code class="language-plaintext highlighter-rouge">NAME</code> part of the child’s environment merely because it was a normal shell variable.</p>
+
+<h3 id="mental-model-2">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent shell
+     │
+     ├── normal shell variable
+     │       ↓
+     │    not automatically inherited
+     │
+     └── exported variable
+             ↓
+         inherited by child
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-bash-history">23. Bash History</h1>
+
+<p>Bash remembers previously executed commands.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">history</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  101  pwd
+  102  ls
+  103  date
+  104  whoami
+</code></pre></div></div>
+
+<p>Each command has a history number.</p>
+
+<hr />
+
+<h1 id="24-n">24. <code class="language-plaintext highlighter-rouge">!n</code></h1>
+
+<p>You can execute a specific history entry using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span>n
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>101  pwd
+102  ls
+103  date
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span>102
+</code></pre></div></div>
+
+<p>executes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<h3 id="mental-model-3">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>History
+   │
+   ├── 101 → pwd
+   ├── 102 → ls
+   └── 103 → date
+
+!102
+  ↓
+ls
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-">25. <code class="language-plaintext highlighter-rouge">!!</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!!</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Execute the previous command again.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+<span class="o">!!</span>
+</code></pre></div></div>
+
+<p>The second command executes <code class="language-plaintext highlighter-rouge">date</code> again.</p>
+
+<hr />
+
+<h2 id="251-practical-use-of-">25.1 Practical Use of <code class="language-plaintext highlighter-rouge">!!</code></h2>
+
+<p>Suppose you run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+</code></pre></div></div>
+
+<p>and discover that root privileges are required.</p>
+
+<p>Instead of typing the entire command again:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>you can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> <span class="o">!!</span>
+</code></pre></div></div>
+
+<p>Bash expands the history reference to the previous command.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> <span class="o">!!</span>
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-brace-expansion">26. Brace Expansion</h1>
+
+<p>Bash supports <strong>brace expansion</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..5<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5
+</code></pre></div></div>
+
+<p>Brace expansion is performed by Bash before the command is executed.</p>
+
+<hr />
+
+<h1 id="27-numeric-brace-expansion">27. Numeric Brace Expansion</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..10<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8 9 10
+</code></pre></div></div>
+
+<p>You can specify a step:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..10..2<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 3 5 7 9
+</code></pre></div></div>
+
+<p>Reverse order:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>5..1<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 4 3 2 1
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-alphabetic-brace-expansion">28. Alphabetic Brace Expansion</h1>
+
+<p>You can use letters:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>a..e<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a b c d e
+</code></pre></div></div>
+
+<p>Reverse:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>e..a<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e d c b a
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-comma-based-brace-expansion">29. Comma-Based Brace Expansion</h1>
+
+<p>You can specify alternatives:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>red,green,blue<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>red green blue
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>file<span class="o">{</span>1,2,3<span class="o">}</span>.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file1.txt file2.txt file3.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-creating-multiple-files">30. Creating Multiple Files</h1>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file1.txt
+<span class="nb">touch </span>file2.txt
+<span class="nb">touch </span>file3.txt
+</code></pre></div></div>
+
+<p>you can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file<span class="o">{</span>1,2,3<span class="o">}</span>.txt
+</code></pre></div></div>
+
+<p>The shell expands it to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file1.txt file2.txt file3.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-creating-multiple-directories">31. Creating Multiple Directories</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> project/<span class="o">{</span>src,tests,docs<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The shell expands it approximately to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> project/src project/tests project/docs
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── src/
+├── tests/
+└── docs/
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-brace-expansion-is-not-a-loop">32. Brace Expansion Is Not a Loop</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..5<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is not a loop.</p>
+
+<p>The shell expands the expression before executing <code class="language-plaintext highlighter-rouge">echo</code>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo {1..5}
+     │
+     ▼
+Brace expansion
+     │
+     ▼
+echo 1 2 3 4 5
+     │
+     ▼
+Command executes
+</code></pre></div></div>
+
+<p>For repeated execution, you would use a loop such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>1..5<span class="o">}</span><span class="p">;</span> <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-multiple-commands-on-one-line">33. Multiple Commands on One Line</h1>
+
+<p>Bash allows multiple commands on a single line.</p>
+
+<p>The simplest separator is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span><span class="p">;</span> <span class="nb">ls</span><span class="p">;</span> <span class="nb">date</span>
+</code></pre></div></div>
+
+<p>Execution:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd
+ ↓
+ls
+ ↓
+date
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-">34. <code class="language-plaintext highlighter-rouge">;</code></h1>
+
+<p>The semicolon means:</p>
+
+<blockquote>
+  <p>Execute the next command regardless of whether the previous command succeeded or failed.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<p>Even though:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false</span>
+</code></pre></div></div>
+
+<p>returns a nonzero exit status, <code class="language-plaintext highlighter-rouge">echo</code> still runs.</p>
+
+<hr />
+
+<h1 id="35-">35. <code class="language-plaintext highlighter-rouge">&amp;&amp;</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> operator runs the next command only when the previous command succeeds.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test</span> <span class="o">&amp;&amp;</span> <span class="nb">cd test</span>
+</code></pre></div></div>
+
+<p>If:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test</span>
+</code></pre></div></div>
+
+<p>succeeds, then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd test</span>
+</code></pre></div></div>
+
+<p>runs.</p>
+
+<p>If it fails, the second command does not run.</p>
+
+<h3 id="mental-model-4">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1
+   │
+   ├── success → command2
+   │
+   └── failure → stop
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-">36. <code class="language-plaintext highlighter-rouge">||</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">||</code> operator runs the next command when the previous command fails.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"Could not create directory"</span>
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">mkdir</code> fails:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Could not create directory
+</code></pre></div></div>
+
+<p>is printed.</p>
+
+<h3 id="mental-model-5">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1
+   │
+   ├── success → skip command2
+   │
+   └── failure → run command2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="37-comparing---and-">37. Comparing <code class="language-plaintext highlighter-rouge">;</code>, <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, and <code class="language-plaintext highlighter-rouge">||</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Next command runs when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">;</code></td>
+      <td>Always</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;&amp;</code></td>
+      <td>Previous command succeeds</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">||</code></td>
+      <td>Previous command fails</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1<span class="p">;</span> command2
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&amp;&amp;</span> command2
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">||</span> command2
+</code></pre></div></div>
+
+<p>These operators are closely connected to <strong>exit codes</strong>.</p>
+
+<hr />
+
+<h1 id="38-exit-codes">38. Exit Codes</h1>
+
+<p>Every command normally finishes with an exit status.</p>
+
+<p>In Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>contains the exit status of the immediately preceding command.</p>
+
+<p>By convention:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Success</p>
+</blockquote>
+
+<p>A nonzero value generally means:</p>
+
+<blockquote>
+  <p>Failure, error, or another exceptional condition.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="39-checking-an-exit-code">39. Checking an Exit Code</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0     → success
+non-0 → unsuccessful/exceptional result
+</code></pre></div></div>
+
+<p>Do not assume that every failure returns exactly <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>Different programs can use different nonzero values for different conditions.</p>
+
+<hr />
+
+<h1 id="40-why-is-success-0">40. Why Is Success <code class="language-plaintext highlighter-rouge">0</code>?</h1>
+
+<p>This can initially feel strange.</p>
+
+<p>You might think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 = nothing
+1 = something
+</code></pre></div></div>
+
+<p>But in Unix/Linux command status conventions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 = success
+nonzero = failure/exceptional condition
+</code></pre></div></div>
+
+<p>This makes sense because there can be many different types of failure:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 → success
+
+1 → general failure
+2 → incorrect usage
+3 → another condition
+...
+</code></pre></div></div>
+
+<p>The exact meanings depend on the command/program.</p>
+
+<hr />
+
+<h1 id="41--changes-after-every-command">41. <code class="language-plaintext highlighter-rouge">$?</code> Changes After Every Command</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="s2">"Hello"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>The final:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>reports the exit status of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>not <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<h3 id="mental-model-6">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command A
+   ↓
+$? = status of A
+
+Command B
+   ↓
+$? = status of B
+
+Command C
+   ↓
+$? = status of C
+</code></pre></div></div>
+
+<p>Therefore, if you need to preserve an exit code:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command
+</span><span class="nv">status</span><span class="o">=</span><span class="nv">$?</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="42-exit-codes-and-">42. Exit Codes and <code class="language-plaintext highlighter-rouge">&amp;&amp;</code></h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&amp;&amp;</span> command2
+</code></pre></div></div>
+
+<p>Bash checks the exit status of <code class="language-plaintext highlighter-rouge">command1</code>.</p>
+
+<p>If:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 → 0
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command2 runs
+</code></pre></div></div>
+
+<p>If:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 → nonzero
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command2 does not run
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Success"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Success
+</code></pre></div></div>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Success"</span>
+</code></pre></div></div>
+
+<p>produces no <code class="language-plaintext highlighter-rouge">Success</code>.</p>
+
+<hr />
+
+<h1 id="43-exit-codes-and-">43. Exit Codes and <code class="language-plaintext highlighter-rouge">||</code></h1>
+
+<p>Similarly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">||</span> command2
+</code></pre></div></div>
+
+<p>runs <code class="language-plaintext highlighter-rouge">command2</code> if <code class="language-plaintext highlighter-rouge">command1</code> returns nonzero.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"Command failed"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command failed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-killing-a-process-running-in-a-separate-shell">44. Killing a Process Running in a Separate Shell</h1>
+
+<p>A process can be started in one terminal and killed from another terminal.</p>
+
+<p>Suppose you have two terminals.</p>
+
+<h2 id="terminal-1">Terminal 1</h2>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>1000
+</code></pre></div></div>
+
+<p>The process is running in Terminal 1.</p>
+
+<p>Find its PID:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Suppose the process is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345   ...   sleep 1000
+</code></pre></div></div>
+
+<p>Its PID is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="terminal-2">Terminal 2</h2>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<p>The process receives the signal.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Terminal 1
+    │
+    └── sleep 1000
+            │
+            └── PID 12345
+
+
+Terminal 2
+    │
+    └── kill 12345
+            │
+            ▼
+       Process 12345
+</code></pre></div></div>
+
+<p>The important point is:</p>
+
+<blockquote>
+  <p>A process is identified by its PID, not by the terminal from which you send the signal.</p>
+</blockquote>
+
+<p>You must have sufficient permission to signal a process owned by another user.</p>
+
+<hr />
+
+<h1 id="45-ps--e">45. <code class="language-plaintext highlighter-rouge">ps -e</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>lists processes on the system.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID     TTY      TIME     CMD
+1       ?        00:00:02 systemd
+1000    pts/0    00:00:00 bash
+12345   pts/1    00:00:00 sleep
+</code></pre></div></div>
+
+<p>The exact output varies between systems.</p>
+
+<p>The most important field for process control is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="46-ps-vs-ps--e">46. <code class="language-plaintext highlighter-rouge">ps</code> vs <code class="language-plaintext highlighter-rouge">ps -e</code></h1>
+
+<p>Running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>normally shows processes associated with the current terminal/session in the default view.</p>
+
+<p>Running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>requests a view of all processes.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+ ↓
+Default/current process view
+
+ps -e
+ ↓
+All processes
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="47-useful-ps-variations">47. Useful <code class="language-plaintext highlighter-rouge">ps</code> Variations</h1>
+
+<p>You can get more information using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>This provides a more detailed listing.</p>
+
+<p>You can also choose your own columns:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span> <span class="nt">-o</span> pid,ppid,stat,cmd
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID   PPID  STAT  CMD
+1     0     Ss    /sbin/init
+1000  900   Ss    bash
+1234  1000  S     sleep 1000
+</code></pre></div></div>
+
+<p>Important columns:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID  → Process ID
+PPID → Parent Process ID
+STAT → Process state
+CMD  → Command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-exit-code-for-child-processes">48. Exit Code for Child Processes</h1>
+
+<p>A child process can finish with an exit status.</p>
+
+<p>The parent process can obtain that status.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s1">'exit 42'</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>42
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Child process
+      │
+      │ exit 42
+      ▼
+Exit status = 42
+      │
+      ▼
+Parent shell receives status
+      │
+      ▼
+$? = 42
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-explicit-exit-code-example">49. Explicit Exit Code Example</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s1">'exit 7'</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<p>Another:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s1">'exit 0'</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p>Therefore, a child process can communicate information to its parent using its exit status.</p>
+
+<hr />
+
+<h1 id="50-background-child-process-and-wait">50. Background Child Process and <code class="language-plaintext highlighter-rouge">wait</code></h1>
+
+<p>Suppose you start a command in the background:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">exit </span>7<span class="o">)</span> &amp;
+</code></pre></div></div>
+
+<p>The shell immediately continues.</p>
+
+<p>The special variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$!</span>
+</code></pre></div></div>
+
+<p>contains the PID of the most recently started background process.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">exit </span>7<span class="o">)</span> &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>prints the background process’s PID.</p>
+
+<hr />
+
+<h1 id="51-wait">51. <code class="language-plaintext highlighter-rouge">wait</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">wait</code> command waits for a background process to finish.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">exit </span>7<span class="o">)</span> &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">wait</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<p>Here is what happened:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(exit 7) &amp;
+     │
+     ▼
+Background child
+     │
+     └── PID stored in $!
+              │
+              ▼
+         wait "$pid"
+              │
+              ▼
+      Child finishes with 7
+              │
+              ▼
+            $?
+             ↓
+             7
+</code></pre></div></div>
+
+<p>This is an important example of a parent receiving the exit status of a child process.</p>
+
+<hr />
+
+<h1 id="52-">52. <code class="language-plaintext highlighter-rouge">$!</code></h1>
+
+<p>The special Bash variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$!</span>
+</code></pre></div></div>
+
+<p>contains the PID of the most recently started background process.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+<span class="nb">echo</span> <span class="nv">$!</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$!
+ ↓
+PID of latest background process
+</code></pre></div></div>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$
+ ↓
+PID of current shell
+
+$!
+ ↓
+PID of most recent background process
+
+$?
+ ↓
+Exit status of previous command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="53-exit-status-when-a-process-is-terminated-by-a-signal">53. Exit Status When a Process Is Terminated by a Signal</h1>
+
+<p>When a process is terminated by a signal, shells commonly represent the resulting command status as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>128 + signal number
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGINT  = 2
+128 + 2 = 130
+</code></pre></div></div>
+
+<p>So a command interrupted by <code class="language-plaintext highlighter-rouge">SIGINT</code> commonly results in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>130
+</code></pre></div></div>
+
+<p>Similarly:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTERM = 15
+128 + 15 = 143
+</code></pre></div></div>
+
+<p>So termination by <code class="language-plaintext highlighter-rouge">SIGTERM</code> commonly results in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>143
+</code></pre></div></div>
+
+<p>This is a common Unix shell convention, not a universal requirement for every program or environment.</p>
+
+<hr />
+
+<h1 id="54-bc--basic-calculator">54. <code class="language-plaintext highlighter-rouge">bc</code> — Basic Calculator</h1>
+
+<p><code class="language-plaintext highlighter-rouge">bc</code> is a command-line calculator language.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bc
+</code></pre></div></div>
+
+<p>Then type:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10 + 20
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100 * 5
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>500
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="55-decimal-calculations-with-bc">55. Decimal Calculations with <code class="language-plaintext highlighter-rouge">bc</code></h1>
+
+<p>Integer division:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 / 2
+</code></pre></div></div>
+
+<p>may produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+<p>You can use <code class="language-plaintext highlighter-rouge">scale</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scale=2
+5/2
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2.50
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bc <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-l</code> option loads the standard math library and sets a useful default scale for many calculations.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"10 / 3"</span> | bc <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Output similar to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.33333333333333333333
+</code></pre></div></div>
+
+<p>The exact number of decimal places depends on the <code class="language-plaintext highlighter-rouge">bc</code> configuration/version.</p>
+
+<hr />
+
+<h1 id="56-bc-as-a-pipeline">56. <code class="language-plaintext highlighter-rouge">bc</code> as a Pipeline</h1>
+
+<p>You can provide an expression to <code class="language-plaintext highlighter-rouge">bc</code> through standard input.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"10 + 20"</span> | bc
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"scale=2; 10/3"</span> | bc
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.33
+</code></pre></div></div>
+
+<p>This is useful in shell scripts.</p>
+
+<hr />
+
+<h1 id="57-bc-and-bash-arithmetic">57. <code class="language-plaintext highlighter-rouge">bc</code> and Bash Arithmetic</h1>
+
+<p>For simple integer arithmetic, Bash itself can calculate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="k">$((</span><span class="m">10</span> <span class="o">+</span> <span class="m">20</span><span class="k">))</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>But <code class="language-plaintext highlighter-rouge">bc</code> is useful for:</p>
+
+<ul>
+  <li>Decimal calculations</li>
+  <li>Arbitrary precision</li>
+  <li>More advanced mathematical expressions</li>
+  <li>Mathematical functions</li>
+</ul>
+
+<hr />
+
+<h1 id="58-ctrl-d">58. <code class="language-plaintext highlighter-rouge">Ctrl-D</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-D</code> is fundamentally different from <code class="language-plaintext highlighter-rouge">Ctrl-C</code> and <code class="language-plaintext highlighter-rouge">Ctrl-Z</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-D</code> indicates an <strong>EOF condition</strong> when the terminal is providing input to a program.</p>
+
+<p>EOF means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>End Of File
+</code></pre></div></div>
+
+<p>It is not a signal like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGINT
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTSTP
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="59-ctrl-d-in-an-interactive-shell">59. <code class="language-plaintext highlighter-rouge">Ctrl-D</code> in an Interactive Shell</h1>
+
+<p>At an empty Bash prompt:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>Bash receives EOF and normally exits.</p>
+
+<p>If you are inside a child shell:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent Shell
+     │
+     │ bash
+     ▼
+Child Shell
+     │
+   Ctrl-D
+     │
+     ▼
+Parent Shell
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="60-ctrl-d-with-cat">60. <code class="language-plaintext highlighter-rouge">Ctrl-D</code> with <code class="language-plaintext highlighter-rouge">cat</code></h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span> file.txt
+</code></pre></div></div>
+
+<p>Now type:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+World
+</code></pre></div></div>
+
+<p>The terminal sends that input to <code class="language-plaintext highlighter-rouge">cat</code>.</p>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>This signals EOF to <code class="language-plaintext highlighter-rouge">cat</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">cat</code> then finishes.</p>
+
+<p>The file contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+World
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="61-ctrl-d-with-bc">61. <code class="language-plaintext highlighter-rouge">Ctrl-D</code> with <code class="language-plaintext highlighter-rouge">bc</code></h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bc
+</code></pre></div></div>
+
+<p>Type:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10 + 20
+</code></pre></div></div>
+
+<p>You get:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>Then press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>The input ends and <code class="language-plaintext highlighter-rouge">bc</code> exits.</p>
+
+<hr />
+
+<h1 id="62-ctrl-c-vs-ctrl-z-vs-ctrl-d">62. <code class="language-plaintext highlighter-rouge">Ctrl-C</code> vs <code class="language-plaintext highlighter-rouge">Ctrl-Z</code> vs <code class="language-plaintext highlighter-rouge">Ctrl-D</code></h1>
+
+<p>This distinction is extremely important.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Typical effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-C</code></td>
+      <td>Sends <code class="language-plaintext highlighter-rouge">SIGINT</code> to foreground process group</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-Z</code></td>
+      <td>Sends <code class="language-plaintext highlighter-rouge">SIGTSTP</code> to foreground process group</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-D</code></td>
+      <td>Provides EOF to a program reading terminal input</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C → Interrupt
+Ctrl-Z → Suspend
+Ctrl-D → EOF
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="63-why-learn-exit-codes">63. Why Learn Exit Codes?</h1>
+
+<p>Exit codes are one of the most important concepts in Linux shell scripting.</p>
+
+<p>They allow commands and programs to communicate their result.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>backup
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>If:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p>the operation was successful.</p>
+
+<p>If nonzero:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>or another value, something went wrong or another exceptional condition occurred.</p>
+
+<hr />
+
+<h1 id="64-exit-codes-enable-decision-making">64. Exit Codes Enable Decision Making</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>backup
+</code></pre></div></div>
+
+<p>returns success.</p>
+
+<p>You can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>backup <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Directory created"</span>
+</code></pre></div></div>
+
+<p>The shell checks the exit status.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir
+  │
+  ├── 0 → echo runs
+  │
+  └── nonzero → echo does not run
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="65-exit-codes-in-shell-scripts">65. Exit Codes in Shell Scripts</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if </span><span class="nb">mkdir </span>backup<span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory created successfully"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Failed to create directory"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">if</code> statement directly checks the command’s exit status.</p>
+
+<p>This is cleaner than unnecessarily doing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>backup
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    ...
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="66-exit-codes-in-automation">66. Exit Codes in Automation</h1>
+
+<p>Exit codes are essential for:</p>
+
+<ul>
+  <li>Shell scripts</li>
+  <li>Cron jobs</li>
+  <li>CI/CD</li>
+  <li>Deployment</li>
+  <li>System administration</li>
+  <li>Monitoring</li>
+  <li>Backup scripts</li>
+  <li>Automation</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Backup script
+     │
+     ▼
+Create archive
+     │
+     ├── success → continue
+     │
+     └── failure → report error
+</code></pre></div></div>
+
+<p>Without exit codes, automation would have difficulty determining whether a command succeeded.</p>
+
+<hr />
+
+<h1 id="67-example-backup-automation">67. Example: Backup Automation</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz project/
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz project/<span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Backup successful"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Backup failed"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>The exit status controls the decision.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar
+ │
+ ├── 0
+ │    ↓
+ │  Success
+ │
+ └── nonzero
+      ↓
+    Failure
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="68-exit-codes-and---">68. Exit Codes and <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> / <code class="language-plaintext highlighter-rouge">||</code></h1>
+
+<p>This is why these operators are so powerful.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Backup successful"</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If backup succeeds
+        ↓
+Print success
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"Backup failed"</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>If backup fails
+        ↓
+Print failure
+</code></pre></div></div>
+
+<p>You can combine them:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Backup successful"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"Backup failed"</span>
+</code></pre></div></div>
+
+<p>For simple commands, this is useful, but for complex scripts an explicit <code class="language-plaintext highlighter-rouge">if</code> statement is often clearer and avoids ambiguity.</p>
+
+<hr />
+
+<h1 id="69-process-control-complete-mental-model">69. Process Control: Complete Mental Model</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                         PROCESS
+                            │
+             ┌──────────────┼──────────────┐
+             │              │              │
+             ▼              ▼              ▼
+            PID            State        Exit status
+             │              │              │
+             │              │              │
+        identifies       Running/       How it
+        process          Stopped/...    finished
+             │
+             ▼
+       Process control
+             │
+      ┌──────┼────────┐
+      │      │        │
+    kill   Ctrl-C   Ctrl-Z
+      │      │        │
+      ▼      ▼        ▼
+   signal   SIGINT   SIGTSTP
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="70-important-bash-special-variables">70. Important Bash Special Variables</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$$</code></td>
+      <td>PID of the current shell</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$!</code></td>
+      <td>PID of the most recent background process</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$?</code></td>
+      <td>Exit status of the immediately preceding command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$-</code></td>
+      <td>Current shell option flags</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Shell PID: </span><span class="nv">$$</span><span class="s2">"</span>
+
+<span class="nb">sleep </span>100 &amp;
+<span class="nb">echo</span> <span class="s2">"Background PID: </span><span class="nv">$!</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="s2">"Previous status: </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Be careful: <code class="language-plaintext highlighter-rouge">$?</code> changes after commands execute.</p>
+
+<hr />
+
+<h1 id="71-complete-job-control-example">71. Complete Job-Control Example</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+</code></pre></div></div>
+
+<p>The process is in the foreground.</p>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-Z
+</code></pre></div></div>
+
+<p>Now it is stopped.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span>
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]+  Stopped    sleep 100
+</code></pre></div></div>
+
+<p>Resume in the background:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">bg</span> %1
+</code></pre></div></div>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span>
+</code></pre></div></div>
+
+<p>Now it should show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]+  Running    sleep 100 &amp;
+</code></pre></div></div>
+
+<p>Bring it back:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span> %1
+</code></pre></div></div>
+
+<p>Now <code class="language-plaintext highlighter-rouge">sleep</code> is in the foreground.</p>
+
+<p>Finally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C
+</code></pre></div></div>
+
+<p>The process normally terminates.</p>
+
+<h3 id="complete-flow-1">Complete Flow</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sleep 100
+    │
+    ▼
+Foreground
+    │
+ Ctrl-Z
+    ▼
+Stopped
+    │
+   bg
+    ▼
+Background
+    │
+   fg
+    ▼
+Foreground
+    │
+ Ctrl-C
+    ▼
+Terminated
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="72-finding-and-killing-a-process">72. Finding and Killing a Process</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>1000 &amp;
+</code></pre></div></div>
+
+<p>You can get its PID:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$!</span>
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span>
+</code></pre></div></div>
+
+<p>The job should eventually disappear or be reported as terminated.</p>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>to inspect processes.</p>
+
+<hr />
+
+<h1 id="73-separate-terminal-process-management">73. Separate-Terminal Process Management</h1>
+
+<h3 id="terminal-1-1">Terminal 1</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>1000
+</code></pre></div></div>
+
+<h3 id="terminal-2-1">Terminal 2</h3>
+
+<p>Find the process:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span> | <span class="nb">grep sleep</span>
+</code></pre></div></div>
+
+<p>You might see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345 pts/0 00:00:00 sleep
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>12345
+</code></pre></div></div>
+
+<p>Return to Terminal 1.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">sleep</code> process has been terminated.</p>
+
+<p>This demonstrates that process control is independent of which terminal executes the <code class="language-plaintext highlighter-rouge">kill</code> command.</p>
+
+<hr />
+
+<h1 id="74-practice-questions">74. Practice Questions</h1>
+
+<h2 id="q1-run-sleep-for-30-seconds-in-the-background">Q1. Run <code class="language-plaintext highlighter-rouge">sleep</code> for 30 seconds in the background.</h2>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>30 &amp;
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2-show-all-jobs-managed-by-the-current-shell">Q2. Show all jobs managed by the current shell.</h2>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3-show-jobs-together-with-their-pids">Q3. Show jobs together with their PIDs.</h2>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4-bring-job-number-2-to-the-foreground">Q4. Bring job number 2 to the foreground.</h2>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">fg</span> %2
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5-suspend-a-foreground-process">Q5. Suspend a foreground process.</h2>
+
+<h3 id="solution-4">Solution</h3>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-Z
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6-resume-a-stopped-job-in-the-background">Q6. Resume a stopped job in the background.</h2>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">bg</span> %1
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7-send-the-normal-termination-request-to-pid-5000">Q7. Send the normal termination request to PID <code class="language-plaintext highlighter-rouge">5000</code>.</h2>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>5000
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8-forcefully-terminate-pid-5000">Q8. Forcefully terminate PID <code class="language-plaintext highlighter-rouge">5000</code>.</h2>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> 5000
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9-what-signal-does-ctrl-c-normally-generate">Q9. What signal does <code class="language-plaintext highlighter-rouge">Ctrl-C</code> normally generate?</h2>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGINT
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10-what-signal-does-ctrl-z-normally-generate">Q10. What signal does <code class="language-plaintext highlighter-rouge">Ctrl-Z</code> normally generate?</h2>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTSTP
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q11-what-is-the-default-signal-sent-by-kill-pid">Q11. What is the default signal sent by <code class="language-plaintext highlighter-rouge">kill PID</code>?</h2>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SIGTERM
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q12-display-all-processes">Q12. Display all processes.</h2>
+
+<h3 id="solution-11">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q13-start-another-bash-shell">Q13. Start another Bash shell.</h2>
+
+<h3 id="solution-12">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q14-exit-the-current-shell">Q14. Exit the current shell.</h2>
+
+<h3 id="solution-13">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>or, at an empty interactive prompt:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q15-display-the-current-shells-pid">Q15. Display the current shell’s PID.</h2>
+
+<h3 id="solution-14">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q16-display-the-pid-of-the-most-recently-started-background-process">Q16. Display the PID of the most recently started background process.</h2>
+
+<h3 id="solution-15">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$!</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q17-display-the-exit-status-of-the-previous-command">Q17. Display the exit status of the previous command.</h2>
+
+<h3 id="solution-16">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q18-execute-history-entry-number-50">Q18. Execute history entry number 50.</h2>
+
+<h3 id="solution-17">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span>50
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q19-execute-the-previous-command-again">Q19. Execute the previous command again.</h2>
+
+<h3 id="solution-18">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!!</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q20-create-five-files-named-file1txt-through-file5txt">Q20. Create five files named <code class="language-plaintext highlighter-rouge">file1.txt</code> through <code class="language-plaintext highlighter-rouge">file5.txt</code>.</h2>
+
+<h3 id="solution-19">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file<span class="o">{</span>1..5<span class="o">}</span>.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q21-create-src-tests-and-docs-under-project">Q21. Create <code class="language-plaintext highlighter-rouge">src</code>, <code class="language-plaintext highlighter-rouge">tests</code>, and <code class="language-plaintext highlighter-rouge">docs</code> under <code class="language-plaintext highlighter-rouge">project</code>.</h2>
+
+<h3 id="solution-20">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> project/<span class="o">{</span>src,tests,docs<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q22-print-numbers-from-1-to-10-with-a-step-of-2">Q22. Print numbers from 1 to 10 with a step of 2.</h2>
+
+<h3 id="solution-21">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..10..2<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 3 5 7 9
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q23-run-echo-success-only-if-mkdir-test-succeeds">Q23. Run <code class="language-plaintext highlighter-rouge">echo "Success"</code> only if <code class="language-plaintext highlighter-rouge">mkdir test</code> succeeds.</h2>
+
+<h3 id="solution-22">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"Success"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q24-print-an-error-message-if-mkdir-test-fails">Q24. Print an error message if <code class="language-plaintext highlighter-rouge">mkdir test</code> fails.</h2>
+
+<h3 id="solution-23">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"Failed"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q25-run-three-commands-sequentially-regardless-of-previous-exit-status">Q25. Run three commands sequentially regardless of previous exit status.</h2>
+
+<h3 id="solution-24">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1<span class="p">;</span> command2<span class="p">;</span> command3
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q26-what-does-this-print">Q26. What does this print?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h3 id="solution-25">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q27-what-does-this-print">Q27. What does this print?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h3 id="solution-26">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q28-what-is-wrong-with-this-approach">Q28. What is wrong with this approach?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="s2">"Hello"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h3 id="solution-27">Solution</h3>
+
+<p>The final <code class="language-plaintext highlighter-rouge">$?</code> is the status of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>not:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false</span>
+</code></pre></div></div>
+
+<p>To preserve the status:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+</span><span class="nv">status</span><span class="o">=</span><span class="nv">$?</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$status</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q29-what-does-this-produce">Q29. What does this produce?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s1">'exit 7'</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h3 id="solution-28">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q30-capture-the-pid-of-a-background-process">Q30. Capture the PID of a background process.</h2>
+
+<h3 id="solution-29">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100 &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q31-wait-for-a-background-process-and-obtain-its-exit-status">Q31. Wait for a background process and obtain its exit status.</h2>
+
+<h3 id="solution-30">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="nb">exit </span>7<span class="o">)</span> &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">wait</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q32-calculate-10--3-using-bc-with-decimals">Q32. Calculate <code class="language-plaintext highlighter-rouge">10 / 3</code> using <code class="language-plaintext highlighter-rouge">bc</code> with decimals.</h2>
+
+<h3 id="solution-31">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"scale=2; 10/3"</span> | bc
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.33
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q33-what-does-ctrl-d-represent">Q33. What does <code class="language-plaintext highlighter-rouge">Ctrl-D</code> represent?</h2>
+
+<h3 id="solution-32">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EOF — End Of File
+</code></pre></div></div>
+
+<p>It is not a kill signal.</p>
+
+<hr />
+
+<h1 id="75-advanced-practice">75. Advanced Practice</h1>
+
+<h2 id="q34-start-sleep-in-the-background-save-its-pid-wait-for-it-and-print-its-exit-code">Q34. Start <code class="language-plaintext highlighter-rouge">sleep</code> in the background, save its PID, wait for it, and print its exit code.</h2>
+
+<h3 id="solution-33">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>2 &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">wait</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Expected output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q35-start-a-child-process-that-exits-with-status-42-wait-for-it-and-print-its-status">Q35. Start a child process that exits with status <code class="language-plaintext highlighter-rouge">42</code>, wait for it, and print its status.</h2>
+
+<h3 id="solution-34">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s1">'exit 42'</span> &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">wait</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Expected output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>42
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q36-create-this-directory-structure-using-one-command">Q36. Create this directory structure using one command:</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/
+├── src/
+├── tests/
+├── docs/
+└── config/
+</code></pre></div></div>
+
+<h3 id="solution-35">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> app/<span class="o">{</span>src,tests,docs,config<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q37-run-command2-only-if-command1-succeeds-otherwise-print-an-error">Q37. Run <code class="language-plaintext highlighter-rouge">command2</code> only if <code class="language-plaintext highlighter-rouge">command1</code> succeeds, otherwise print an error.</h2>
+
+<h3 id="solution-36">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&amp;&amp;</span> command2 <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"command1 failed"</span>
+</code></pre></div></div>
+
+<p>For more complex logic, prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>command1<span class="p">;</span> <span class="k">then
+    </span>command2
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"command1 failed"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q38-start-a-process-in-one-terminal-and-terminate-it-from-another">Q38. Start a process in one terminal and terminate it from another.</h2>
+
+<h3 id="solution-37">Solution</h3>
+
+<h3 id="terminal-1-2">Terminal 1</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>1000
+</code></pre></div></div>
+
+<h3 id="terminal-2-2">Terminal 2</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Find the PID of <code class="language-plaintext highlighter-rouge">sleep</code>, then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="76-final-cheat-sheet">76. Final Cheat Sheet</h1>
+
+<h2 id="process-creation">Process Creation</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>100
+<span class="nb">command</span> &amp;
+coproc <span class="nb">command</span>
+</code></pre></div></div>
+
+<h2 id="job-control">Job Control</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">jobs
+jobs</span> <span class="nt">-l</span>
+<span class="nb">fg
+fg</span> %1
+<span class="nb">bg
+bg</span> %1
+</code></pre></div></div>
+
+<p>Keyboard:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-C → SIGINT → interrupt foreground process
+Ctrl-Z → SIGTSTP → suspend foreground process
+</code></pre></div></div>
+
+<h2 id="signals">Signals</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill </span>PID
+<span class="nb">kill</span> <span class="nt">-TERM</span> PID
+<span class="nb">kill</span> <span class="nt">-KILL</span> PID
+<span class="nb">kill</span> <span class="nt">-9</span> PID
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kill PID
+   ↓
+SIGTERM
+
+kill -9 PID
+   ↓
+SIGKILL
+</code></pre></div></div>
+
+<h2 id="process-inspection">Process Inspection</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+ps <span class="nt">-e</span>
+ps <span class="nt">-ef</span>
+ps <span class="nt">-e</span> <span class="nt">-o</span> pid,ppid,stat,cmd
+top
+</code></pre></div></div>
+
+<h2 id="shell-information">Shell Information</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$-</span>
+<span class="nb">echo</span> <span class="nv">$$</span>
+<span class="nb">echo</span> <span class="nv">$!</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$- → shell flags
+$$  → current shell PID
+$!  → latest background PID
+$?  → previous command's exit status
+</code></pre></div></div>
+
+<h2 id="child-shell">Child Shell</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+<span class="nb">echo</span> <span class="nv">$$</span>
+<span class="nb">exit</span>
+</code></pre></div></div>
+
+<h2 id="history">History</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">history</span>
+<span class="o">!</span>n
+<span class="o">!!</span>
+</code></pre></div></div>
+
+<h2 id="brace-expansion">Brace Expansion</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">{</span>1..5<span class="o">}</span>
+<span class="nb">echo</span> <span class="o">{</span>1..10..2<span class="o">}</span>
+<span class="nb">echo</span> <span class="o">{</span>a..e<span class="o">}</span>
+<span class="nb">echo</span> <span class="o">{</span>red,green,blue<span class="o">}</span>
+
+<span class="nb">touch </span>file<span class="o">{</span>1..5<span class="o">}</span>.txt
+
+<span class="nb">mkdir</span> <span class="nt">-p</span> project/<span class="o">{</span>src,tests,docs<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="multiple-commands">Multiple Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1<span class="p">;</span> command2
+command1 <span class="o">&amp;&amp;</span> command2
+command1 <span class="o">||</span> command2
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;  → always continue
+&amp;&amp; → continue on success
+|| → continue on failure
+</code></pre></div></div>
+
+<h2 id="exit-codes">Exit Codes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="nv">$?</span>
+
+<span class="nb">false
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0     → success
+nonzero → failure/exceptional condition
+</code></pre></div></div>
+
+<h2 id="background-exit-status">Background Exit Status</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> &amp;
+<span class="nv">pid</span><span class="o">=</span><span class="nv">$!</span>
+
+<span class="nb">wait</span> <span class="s2">"</span><span class="nv">$pid</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h2 id="calculator">Calculator</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bc
+bc <span class="nt">-l</span>
+
+<span class="nb">echo</span> <span class="s2">"10 + 20"</span> | bc
+<span class="nb">echo</span> <span class="s2">"scale=2; 10/3"</span> | bc
+</code></pre></div></div>
+
+<h2 id="eof">EOF</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D → EOF
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="77-one-page-mental-model">77. One-Page Mental Model</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                         BASH / LINUX
+                              │
+         ┌────────────────────┼─────────────────────┐
+         │                    │                     │
+         ▼                    ▼                     ▼
+      PROCESS              JOB CONTROL           SHELL
+         │                    │                     │
+         │                    │                     ├── history
+         │                    │                     ├── !n
+         │                    │                     ├── !!
+         │                    │                     ├── brace expansion
+         │                    │                     └── child shell
+         │                    │
+         ├── PID              ├── jobs
+         ├── PPID             ├── fg
+         ├── state            ├── bg
+         └── exit status      ├── &amp;
+                              ├── Ctrl-Z
+                              └── Ctrl-C
+         │
+         ▼
+      SIGNALS
+         │
+   ┌─────┼────────────┐
+   │     │            │
+ SIGINT SIGTERM     SIGKILL
+   │     │            │
+Ctrl-C kill PID    kill -9 PID
+</code></pre></div></div>
+
+<p>And the most important relationship:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     COMMAND
+                        │
+                        ▼
+                   Process runs
+                        │
+             ┌──────────┴──────────┐
+             │                     │
+          Foreground            Background
+             │                     │
+          Ctrl-C                jobs / fg / bg
+          Ctrl-Z
+             │
+             ▼
+          Signal
+             │
+             ▼
+       Process terminates
+             │
+             ▼
+         Exit status
+             │
+             ▼
+            $?
+             │
+       ┌─────┼─────┐
+       │     │     │
+       0    nonzero
+       │      │
+    success  failure/
+             condition
+       │
+       ▼
+    &amp;&amp; / || / if
+       │
+       ▼
+    Automation
+</code></pre></div></div>
+
+<p>The core ideas to remember are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID          → identifies a process
+PPID         → identifies its parent
+&amp;            → background job
+jobs         → show shell jobs
+fg           → foreground job
+bg           → resume job in background
+Ctrl-C       → SIGINT
+Ctrl-Z       → SIGTSTP
+kill PID     → SIGTERM by default
+kill -9 PID  → SIGKILL
+ps -e        → inspect all processes
+top          → monitor processes
+$$           → current shell PID
+$!           → latest background PID
+$?           → previous command's exit status
+!n           → execute history entry n
+!!           → execute previous command
+{...}        → brace expansion
+;            → unconditional sequencing
+&amp;&amp;           → success-dependent execution
+||           → failure-dependent execution
+bc           → command-line calculator
+Ctrl-D       → EOF
+0            → conventional success status
+nonzero      → failure/exceptional status
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L3.4: Software Management - Part 02</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L4.1: Pattern Matching - Part 01</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L10.1 - Version Control - Part 01 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link active">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 10</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L10.1 - Version Control - Part 01</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l101---version-control---part-01">L10.1 - Version Control - Part 01</h1>
+
+<h1 id="git-version-control-raid-and-github-authentication">Git, Version Control, RAID, and GitHub Authentication</h1>
+
+<h2 id="1-introduction-to-version-control">1. Introduction to Version Control</h2>
+
+<p>When developing software, code changes continuously.</p>
+
+<p>A developer may:</p>
+
+<ul>
+  <li>Add new features</li>
+  <li>Fix bugs</li>
+  <li>Modify existing code</li>
+  <li>Remove files</li>
+  <li>Experiment with new ideas</li>
+  <li>Work with other developers</li>
+</ul>
+
+<p>Without a proper system for tracking these changes, managing a project becomes difficult.</p>
+
+<p><strong>Version Control Systems (VCS)</strong> solve this problem by keeping track of changes made to files over time.</p>
+
+<p>Version control allows developers to:</p>
+
+<ul>
+  <li>Track changes</li>
+  <li>Restore previous versions</li>
+  <li>Compare changes</li>
+  <li>Collaborate with other developers</li>
+  <li>Maintain different versions of a project</li>
+  <li>Synchronize code between different machines</li>
+</ul>
+
+<hr />
+
+<h1 id="2-why-version-control-is-important">2. Why Version Control Is Important</h1>
+
+<p>Consider a project without version control.</p>
+
+<p>A developer might create:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project-final
+project-final-new
+project-final-new-2
+project-final-latest
+project-final-latest-fixed
+project-final-latest-fixed-really-final
+</code></pre></div></div>
+
+<p>This quickly becomes difficult to manage.</p>
+
+<p>With Git, the history is stored systematically:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Commit 1
+   ↓
+Commit 2
+   ↓
+Commit 3
+   ↓
+Commit 4
+   ↓
+Current Version
+</code></pre></div></div>
+
+<p>Each commit represents a point in the project’s history.</p>
+
+<hr />
+
+<h1 id="3-version-control-systems">3. Version Control Systems</h1>
+
+<p>A <strong>Version Control System (VCS)</strong> is software that manages different versions of files.</p>
+
+<p>There are several approaches to version control.</p>
+
+<h3 id="local-version-control">Local Version Control</h3>
+
+<p>The history is stored locally on one machine.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Computer
+   │
+   └── Version History
+</code></pre></div></div>
+
+<h3 id="centralized-version-control">Centralized Version Control</h3>
+
+<p>A central server stores the project history.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Developer 1 ──┐
+Developer 2 ──┼── Central Server
+Developer 3 ──┘
+</code></pre></div></div>
+
+<h3 id="distributed-version-control">Distributed Version Control</h3>
+
+<p>Each developer can have a complete repository and its history.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Developer 1
+     │
+Developer 2 ─── Remote Repository
+     │
+Developer 3
+</code></pre></div></div>
+
+<p><strong>Git</strong> is a distributed version control system.</p>
+
+<hr />
+
+<h1 id="4-hardware-failures-and-data-storage">4. Hardware Failures and Data Storage</h1>
+
+<p>Software is not the only source of risk.</p>
+
+<p>Hardware can fail.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hard Disk
+    ↓
+Mechanical failure
+    ↓
+Data unavailable
+</code></pre></div></div>
+
+<p>A storage device may fail because of:</p>
+
+<ul>
+  <li>Mechanical problems</li>
+  <li>Electrical failure</li>
+  <li>Physical damage</li>
+  <li>Manufacturing defects</li>
+  <li>Wear and tear</li>
+</ul>
+
+<p>If important data exists on only one disk, disk failure can result in data loss.</p>
+
+<p>Therefore, reliable systems need mechanisms for <strong>redundancy and fault tolerance</strong>.</p>
+
+<hr />
+
+<h1 id="5-raid">5. RAID</h1>
+
+<p><strong>RAID</strong> stands for:</p>
+
+<blockquote>
+  <p><strong>Redundant Array of Independent Disks</strong></p>
+</blockquote>
+
+<p>RAID combines multiple physical disks into a storage system.</p>
+
+<p>Depending on the RAID level, it can provide:</p>
+
+<ul>
+  <li>Improved performance</li>
+  <li>Redundancy</li>
+  <li>Fault tolerance</li>
+  <li>Increased availability</li>
+</ul>
+
+<p>The basic idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             RAID System
+                 │
+       ┌─────────┼─────────┐
+       ↓         ↓         ↓
+     Disk 1    Disk 2    Disk 3
+</code></pre></div></div>
+
+<p>Instead of relying on a single physical disk, data can be distributed or replicated across multiple disks.</p>
+
+<hr />
+
+<h1 id="6-disk-mirroring">6. Disk Mirroring</h1>
+
+<p>One approach to redundancy is <strong>disk mirroring</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Original Data
+     │
+     ├──────────────┐
+     ↓              ↓
+  Disk 1          Disk 2
+</code></pre></div></div>
+
+<p>The same data is maintained on multiple disks.</p>
+
+<p>If one disk fails:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1 → FAILED
+
+Disk 2 → Still contains data
+</code></pre></div></div>
+
+<p>This improves availability.</p>
+
+<p>A common RAID configuration that uses mirroring is <strong>RAID 1</strong>.</p>
+
+<hr />
+
+<h1 id="7-data-distribution-across-multiple-disks">7. Data Distribution Across Multiple Disks</h1>
+
+<p>RAID configurations can also distribute data across multiple disks.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data
+ │
+ ├── Block A ──→ Disk 1
+ ├── Block B ──→ Disk 2
+ ├── Block C ──→ Disk 3
+ └── Block D ──→ Disk 4
+</code></pre></div></div>
+
+<p>Some RAID levels combine data distribution with redundancy.</p>
+
+<p>The exact behavior depends on the RAID level being used.</p>
+
+<hr />
+
+<h1 id="8-raid-and-version-control-solve-different-problems">8. RAID and Version Control Solve Different Problems</h1>
+
+<p>RAID and Git are sometimes discussed together because both help protect data, but they solve different problems.</p>
+
+<h3 id="raid">RAID</h3>
+
+<p>Primarily addresses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hardware / storage failures
+</code></pre></div></div>
+
+<h3 id="git">Git</h3>
+
+<p>Primarily addresses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Code changes
+Version history
+Collaboration
+Synchronization
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID
+ ↓
+Protects against certain disk failures
+
+Git
+ ↓
+Protects and manages code history
+</code></pre></div></div>
+
+<p>Git should not be considered a replacement for a proper backup strategy.</p>
+
+<hr />
+
+<h1 id="9-introduction-to-git">9. Introduction to Git</h1>
+
+<p><strong>Git</strong> is a distributed version control system.</p>
+
+<p>It tracks changes in files and allows developers to maintain a history of their work.</p>
+
+<p>A Git repository contains information about the project’s history.</p>
+
+<p>The basic workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Working Directory
+       ↓
+      git add
+       ↓
+Staging Area
+       ↓
+    git commit
+       ↓
+Local Repository
+       ↓
+     git push
+       ↓
+Remote Repository
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-git-repository">10. Git Repository</h1>
+
+<p>A Git repository is a directory containing a project and Git’s metadata.</p>
+
+<p>Initialize a repository with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p>This creates a hidden:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.git/
+</code></pre></div></div>
+
+<p>directory.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── file1
+├── file2
+└── .git/
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">.git</code> directory stores information required for Git to manage the repository.</p>
+
+<hr />
+
+<h1 id="11-git-protocol-and-remote-synchronization">11. Git Protocol and Remote Synchronization</h1>
+
+<p>Git can synchronize repositories between different locations.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Local Repository
+       │
+       │ git push
+       ↓
+Remote Repository
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remote Repository
+       │
+       │ git pull
+       ↓
+Local Repository
+</code></pre></div></div>
+
+<p>Common operations include:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone
+git fetch
+git pull
+git push
+</code></pre></div></div>
+
+<p>These operations allow developers to work with remote repositories.</p>
+
+<hr />
+
+<h1 id="12-local-and-remote-repositories">12. Local and Remote Repositories</h1>
+
+<p>A typical development setup may look like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Developer's Computer
+        │
+        │
+   Local Git Repo
+        │
+        │ git push
+        ↓
+   Remote Git Repo
+        │
+        │
+   GitHub Server
+</code></pre></div></div>
+
+<p>The local repository contains the developer’s local history.</p>
+
+<p>The remote repository provides a shared location for collaboration and backup.</p>
+
+<hr />
+
+<h1 id="13-github">13. GitHub</h1>
+
+<p><strong>GitHub</strong> is a platform for hosting and collaborating on Git repositories.</p>
+
+<p>A typical workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Write Code
+    ↓
+git add
+    ↓
+git commit
+    ↓
+git push
+    ↓
+GitHub Repository
+</code></pre></div></div>
+
+<p>Other developers can then access the remote repository according to its permissions.</p>
+
+<hr />
+
+<h1 id="14-creating-a-repository">14. Creating a Repository</h1>
+
+<p>A repository can be created on GitHub and then connected to a local project.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p>Add files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>Create the first commit:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> <span class="s2">"Initial commit"</span>
+</code></pre></div></div>
+
+<p>Connect the local repository to a remote repository:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin &lt;repository-url&gt;
+</code></pre></div></div>
+
+<p>Then push:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin main
+</code></pre></div></div>
+
+<p>The exact default branch name may vary depending on the repository configuration.</p>
+
+<hr />
+
+<h1 id="15-remote-repository">15. Remote Repository</h1>
+
+<p>A remote is a reference to another Git repository.</p>
+
+<p>View configured remotes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>origin  &lt;repository-url&gt; (fetch)
+origin  &lt;repository-url&gt; (push)
+</code></pre></div></div>
+
+<p>The conventional name:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>origin
+</code></pre></div></div>
+
+<p>usually refers to the main remote repository.</p>
+
+<hr />
+
+<h1 id="16-authentication">16. Authentication</h1>
+
+<p>When Git communicates with a remote repository, the server needs to verify the user’s identity.</p>
+
+<p>This is called <strong>authentication</strong>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Developer
+    │
+    │ "I want to access this repository"
+    ↓
+GitHub
+    │
+    │ "Prove your identity"
+    ↓
+Authentication
+    │
+    ↓
+Access Granted / Denied
+</code></pre></div></div>
+
+<p>Authentication and authorization are related but different concepts.</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<blockquote>
+  <p>Who are you?</p>
+</blockquote>
+
+<h3 id="authorization">Authorization</h3>
+
+<blockquote>
+  <p>What are you allowed to access or modify?</p>
+</blockquote>
+
+<hr />
+
+<h1 id="17-account-verification">17. Account Verification</h1>
+
+<p>Online platforms may use additional verification mechanisms to protect accounts.</p>
+
+<p>For example, phone-number verification can help establish account ownership and provide an additional security mechanism.</p>
+
+<p>Security measures may help protect against:</p>
+
+<ul>
+  <li>Unauthorized account access</li>
+  <li>Automated abuse</li>
+  <li>Account takeover</li>
+  <li>Identity-related attacks</li>
+</ul>
+
+<p>Account security should be treated separately from Git’s actual version-control functionality.</p>
+
+<hr />
+
+<h1 id="18-personal-access-tokens">18. Personal Access Tokens</h1>
+
+<p>A <strong>Personal Access Token (PAT)</strong> is a credential that can be used to authenticate certain GitHub operations.</p>
+
+<p>Instead of using a traditional account password for Git operations over HTTPS, GitHub supports token-based authentication.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Git
+ │
+ │ HTTPS request
+ ↓
+GitHub
+ │
+ │ Authentication
+ ↓
+Personal Access Token
+ │
+ ↓
+Access granted according to permissions
+</code></pre></div></div>
+
+<p>A PAT should be treated like a password.</p>
+
+<p><strong>Never share it publicly.</strong></p>
+
+<hr />
+
+<h1 id="19-why-personal-access-tokens-are-important">19. Why Personal Access Tokens Are Important</h1>
+
+<p>When interacting with a remote repository through HTTPS, GitHub needs a secure way to authenticate the operation.</p>
+
+<p>A PAT can provide this authentication.</p>
+
+<p>The token can be associated with specific permissions depending on the token type and configuration.</p>
+
+<p>The principle is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Token
+  ↓
+Identity / Authentication
+  ↓
+Permissions
+  ↓
+Repository Operation
+</code></pre></div></div>
+
+<p>Always follow GitHub’s current authentication and token-scope recommendations.</p>
+
+<hr />
+
+<h1 id="20-creating-and-managing-access-tokens">20. Creating and Managing Access Tokens</h1>
+
+<p>A typical process is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GitHub Account
+      ↓
+Settings
+      ↓
+Developer Settings
+      ↓
+Personal Access Tokens
+      ↓
+Create Token
+      ↓
+Configure Permissions
+      ↓
+Generate Token
+</code></pre></div></div>
+
+<p>The exact GitHub interface and available token options can change over time.</p>
+
+<hr />
+
+<h1 id="21-token-security">21. Token Security</h1>
+
+<p>A Personal Access Token is sensitive.</p>
+
+<p>Do not put it directly into source code:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BAD:
+
+token = "my-secret-token"
+</code></pre></div></div>
+
+<p>Do not commit tokens to Git:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"Add token"</span>
+</code></pre></div></div>
+
+<p>Do not publish tokens in:</p>
+
+<ul>
+  <li>GitHub repositories</li>
+  <li>Screenshots</li>
+  <li>Documentation</li>
+  <li>Public chat messages</li>
+  <li>Shell scripts committed to repositories</li>
+</ul>
+
+<p>Instead, use secure credential-management approaches such as environment variables or Git credential helpers where appropriate.</p>
+
+<hr />
+
+<h1 id="22-if-a-token-is-exposed">22. If a Token Is Exposed</h1>
+
+<p>If a token is accidentally exposed:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exposed Token
+     ↓
+Revoke / rotate token
+     ↓
+Create replacement credential
+     ↓
+Update affected systems
+</code></pre></div></div>
+
+<p>Do not assume that deleting the token from the latest version of a file makes it safe.</p>
+
+<p>If the secret was committed previously, it may still exist in Git history.</p>
+
+<hr />
+
+<h1 id="23-git-and-remote-servers">23. Git and Remote Servers</h1>
+
+<p>A remote Git repository can be hosted on a server.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Local Computer
+      │
+      │ Git
+      │
+      ↓
+Remote Server
+      │
+      └── Git Repository
+</code></pre></div></div>
+
+<p>A hosted platform such as GitHub provides infrastructure around Git repositories, including collaboration, permissions, and repository management.</p>
+
+<hr />
+
+<h1 id="24-typical-git-collaboration-workflow">24. Typical Git Collaboration Workflow</h1>
+
+<p>A developer may follow this workflow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Clone repository
+        ↓
+2. Create or switch to branch
+        ↓
+3. Modify code
+        ↓
+4. Check changes
+        ↓
+5. Stage changes
+        ↓
+6. Commit changes
+        ↓
+7. Push to remote
+        ↓
+8. Collaborate / review
+        ↓
+9. Merge changes
+</code></pre></div></div>
+
+<p>Common commands include:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone &lt;repository-url&gt;
+git status
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"Add feature"</span>
+git push
+git pull
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-git-mental-model">25. Git Mental Model</h1>
+
+<p>The most important Git concept is understanding the different stages of code.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              Git Workflow
+
+        Working Directory
+                │
+                │ git add
+                ↓
+          Staging Area
+                │
+                │ git commit
+                ↓
+         Local Repository
+                │
+                │ git push
+                ↓
+        Remote Repository
+</code></pre></div></div>
+
+<p>And changes can come in the opposite direction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remote Repository
+       │
+       │ git fetch / git pull
+       ↓
+Local Repository
+       ↓
+Working Directory
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-version-control-vs-storage-redundancy">26. Version Control vs Storage Redundancy</h1>
+
+<p>It is important to distinguish these concepts:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Technology</th>
+      <th>Primary Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RAID</td>
+      <td>Storage redundancy and fault tolerance</td>
+    </tr>
+    <tr>
+      <td>Git</td>
+      <td>Version control</td>
+    </tr>
+    <tr>
+      <td>GitHub</td>
+      <td>Git repository hosting and collaboration</td>
+    </tr>
+    <tr>
+      <td>Personal Access Token</td>
+      <td>Authentication credential</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A robust development environment can use several of these technologies together:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Developer
+   │
+   ├── Git → Version history
+   │
+   ├── GitHub → Remote collaboration
+   │
+   └── RAID / Backups → Storage protection
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-key-takeaways">27. Key Takeaways</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Version Control
+    ↓
+Tracks changes to files
+
+Git
+    ↓
+Distributed version control system
+
+Repository
+    ↓
+Contains project + Git history
+
+GitHub
+    ↓
+Hosts Git repositories and enables collaboration
+
+RAID
+    ↓
+Provides storage redundancy / fault tolerance
+
+Authentication
+    ↓
+Verifies identity
+
+Authorization
+    ↓
+Determines permitted actions
+
+Personal Access Token
+    ↓
+Credential used for supported GitHub authentication
+
+git push
+    ↓
+Local → Remote
+
+git pull
+    ↓
+Remote → Local
+</code></pre></div></div>
+
+<p>The central development workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Write Code
+    ↓
+Track Changes with Git
+    ↓
+Commit Changes
+    ↓
+Authenticate
+    ↓
+Push to Remote Repository
+    ↓
+Collaborate Through GitHub
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">9.2 - AWK Programming Part 2</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L10.2 - Version Control - Part 02</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

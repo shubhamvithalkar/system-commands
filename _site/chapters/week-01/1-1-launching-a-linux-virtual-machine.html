@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 - Launching a Linux Virtual Machine | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link active">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 1</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>1.1 - Launching a Linux Virtual Machine</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="11---launching-a-linux-virtual-machine">1.1 - Launching a Linux Virtual Machine</h1>
+
+<h1 id="virtualbox-wsl-replit-cocalc--termux">VirtualBox, WSL, Replit, CoCalc &amp; Termux</h1>
+
+<p>These are different ways to get a <strong>Linux/Unix-like environment</strong> for learning programming, Linux commands, data science, development, and experimentation.</p>
+
+<h2 id="1-virtualbox">1. VirtualBox</h2>
+
+<p><strong>VirtualBox</strong> is virtualization software that allows you to run another operating system inside your existing operating system.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Computer
+│
+├── Host OS
+│
+└── VirtualBox
+    │
+    └── Guest OS
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Host OS</strong> — the operating system running directly on your computer.</li>
+  <li><strong>Guest OS</strong> — the operating system running inside VirtualBox.</li>
+</ul>
+
+<h3 id="why-use-virtualbox">Why use VirtualBox?</h3>
+
+<p>VirtualBox is useful when you want a <strong>complete isolated operating system</strong>.</p>
+
+<p>You can run:</p>
+
+<ul>
+  <li>Ubuntu</li>
+  <li>Debian</li>
+  <li>Fedora</li>
+  <li>Kali Linux</li>
+  <li>Windows</li>
+  <li>Other supported operating systems</li>
+</ul>
+
+<p>Inside the VM, you can experiment with commands such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>nginx
+</code></pre></div></div>
+
+<p>The changes are generally isolated from your main operating system.</p>
+
+<h3 id="advantages">Advantages</h3>
+
+<ul>
+  <li>Strong isolation</li>
+  <li>Complete operating system</li>
+  <li>Useful for Linux experimentation</li>
+  <li>Can run different operating systems</li>
+  <li>Useful for networking and system-administration labs</li>
+  <li>Supports snapshots</li>
+</ul>
+
+<h3 id="disadvantages">Disadvantages</h3>
+
+<p>Virtual machines consume significant:</p>
+
+<ul>
+  <li>RAM</li>
+  <li>CPU</li>
+  <li>Disk space</li>
+</ul>
+
+<p>Therefore, a VM can make a low-resource computer slower.</p>
+
+<hr />
+
+<h1 id="2-wsl">2. WSL</h1>
+
+<p><strong>WSL</strong> stands for <strong>Windows Subsystem for Linux</strong>.</p>
+
+<p>It allows you to run Linux environments inside Windows.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Windows
+│
+└── WSL
+    │
+    └── Linux
+        ├── Bash
+        ├── Ubuntu
+        ├── apt
+        ├── grep
+        ├── sed
+        ├── awk
+        └── etc.
+</code></pre></div></div>
+
+<h3 id="why-use-wsl">Why use WSL?</h3>
+
+<p>WSL is useful when you want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Windows desktop
++
+Linux development environment
+</code></pre></div></div>
+
+<p>You can use Linux commands such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls
+pwd
+cd
+grep
+sed
+awk
+</span>find
+ssh
+python
+git
+</code></pre></div></div>
+
+<p>You can also install packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>nginx
+</code></pre></div></div>
+
+<h2 id="wsl-1-vs-wsl-2">WSL 1 vs WSL 2</h2>
+
+<h3 id="wsl-1">WSL 1</h3>
+
+<p>WSL 1 translates Linux system calls so Linux programs can interact with Windows.</p>
+
+<h3 id="wsl-2">WSL 2</h3>
+
+<p>WSL 2 uses a lightweight virtualized Linux kernel.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Windows
+   ↓
+WSL 2
+   ↓
+Linux kernel
+   ↓
+Linux environment
+</code></pre></div></div>
+
+<p>WSL 2 generally provides better Linux compatibility.</p>
+
+<h3 id="when-to-use-wsl">When to use WSL?</h3>
+
+<p>Use WSL when:</p>
+
+<blockquote>
+  <p>You use Windows and want Linux development tools without maintaining a traditional virtual machine.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="3-replit">3. Replit</h1>
+
+<p><strong>Replit</strong> is a cloud-based development environment.</p>
+
+<p>Instead of configuring everything locally, you can write and run code through a browser.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Browser
+   ↓
+Replit
+   ↓
+Cloud Environment
+   ↓
+Your Program
+</code></pre></div></div>
+
+<h3 id="why-use-replit">Why use Replit?</h3>
+
+<p>Replit is useful for:</p>
+
+<ul>
+  <li>Quick experimentation</li>
+  <li>Learning programming</li>
+  <li>Sharing projects</li>
+  <li>Collaboration</li>
+  <li>Prototyping</li>
+  <li>Small web applications</li>
+  <li>Running code without complicated local setup</li>
+</ul>
+
+<p>For example, you can create a Python project and run:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Hello World"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The code executes in the cloud environment.</p>
+
+<h3 id="basic-workflow">Basic workflow</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Open browser
+      ↓
+Create project
+      ↓
+Write code
+      ↓
+Run
+      ↓
+See output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-cocalc">4. CoCalc</h1>
+
+<p><strong>CoCalc</strong> is a cloud-based computational environment designed especially for:</p>
+
+<ul>
+  <li>Mathematics</li>
+  <li>Scientific computing</li>
+  <li>Programming</li>
+  <li>Education</li>
+  <li>Jupyter notebooks</li>
+  <li>SageMath</li>
+  <li>LaTeX</li>
+  <li>R</li>
+  <li>Python</li>
+</ul>
+
+<p>Think of it as:</p>
+
+<blockquote>
+  <p><strong>An online computational workspace.</strong></p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h3 id="cocalc-is-particularly-useful-for">CoCalc is particularly useful for</h3>
+
+<p><strong>Mathematics</strong></p>
+
+<ul>
+  <li>Algebra</li>
+  <li>Calculus</li>
+  <li>Statistics</li>
+  <li>Numerical computation</li>
+  <li>Symbolic mathematics</li>
+</ul>
+
+<p><strong>Data Science</strong></p>
+
+<ul>
+  <li>Python</li>
+  <li>NumPy</li>
+  <li>Pandas</li>
+  <li>Jupyter</li>
+</ul>
+
+<p><strong>Education</strong></p>
+
+<ul>
+  <li>Student projects</li>
+  <li>Collaborative computational work</li>
+  <li>Teaching and learning</li>
+</ul>
+
+<hr />
+
+<h1 id="5-termux">5. Termux</h1>
+
+<p><strong>Termux</strong> is an Android application that provides a Linux-like terminal environment.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Android Phone
+      ↓
+    Termux
+      ↓
+  Terminal
+      ↓
+Linux utilities
+</code></pre></div></div>
+
+<p>You can use commands such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls
+cd
+pwd
+mkdir
+cp
+mv
+grep
+sed
+awk
+</span>find
+</code></pre></div></div>
+
+<h3 id="installing-packages">Installing packages</h3>
+
+<p>Update the package repository:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkg update
+</code></pre></div></div>
+
+<p>Install Python:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkg <span class="nb">install </span>python
+</code></pre></div></div>
+
+<p>Run Python:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python
+</code></pre></div></div>
+
+<p>Install Git:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pkg <span class="nb">install </span>git
+</code></pre></div></div>
+
+<p>Then Git can be used normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h3 id="why-use-termux">Why use Termux?</h3>
+
+<p>Termux is useful for:</p>
+
+<ul>
+  <li>Linux command practice</li>
+  <li>Bash scripting</li>
+  <li>Python</li>
+  <li>Git</li>
+  <li>SSH</li>
+  <li>Lightweight development</li>
+  <li>Learning command-line tools</li>
+  <li>Remote server administration</li>
+</ul>
+
+<p>It essentially gives you a Linux-like command-line environment on an Android device.</p>
+
+<hr />
+
+<h1 id="6-comparison">6. Comparison</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Runs where?</th>
+      <th>Main idea</th>
+      <th>Best for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VirtualBox</strong></td>
+      <td>Your computer</td>
+      <td>Full virtual machine</td>
+      <td>OS experimentation</td>
+    </tr>
+    <tr>
+      <td><strong>WSL</strong></td>
+      <td>Windows</td>
+      <td>Linux environment integrated with Windows</td>
+      <td>Linux development on Windows</td>
+    </tr>
+    <tr>
+      <td><strong>Replit</strong></td>
+      <td>Cloud</td>
+      <td>Browser-based coding</td>
+      <td>Quick coding and projects</td>
+    </tr>
+    <tr>
+      <td><strong>CoCalc</strong></td>
+      <td>Cloud</td>
+      <td>Computational workspace</td>
+      <td>Math, science, notebooks</td>
+    </tr>
+    <tr>
+      <td><strong>Termux</strong></td>
+      <td>Android</td>
+      <td>Linux-like terminal</td>
+      <td>Coding/Linux on phone</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="7-local-vs-cloud">7. Local vs Cloud</h1>
+
+<h2 id="local-environments">Local Environments</h2>
+
+<p>The environment runs on your own device.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VirtualBox
+WSL
+Termux
+</code></pre></div></div>
+
+<p>Your device’s hardware performs the computation.</p>
+
+<h2 id="cloud-environments">Cloud Environments</h2>
+
+<p>The environment runs on remote infrastructure.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Replit
+CoCalc
+</code></pre></div></div>
+
+<p>Your browser connects to the remote environment.</p>
+
+<hr />
+
+<h1 id="8-virtualbox-vs-wsl">8. VirtualBox vs WSL</h1>
+
+<h2 id="virtualbox">VirtualBox</h2>
+
+<p>You create a complete virtual machine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Computer
+│
+├── Host OS
+│
+└── VirtualBox
+     │
+     └── Guest OS
+          ├── Kernel
+          ├── Packages
+          ├── Users
+          └── Applications
+</code></pre></div></div>
+
+<h2 id="wsl-2-1">WSL 2</h2>
+
+<p>Linux is integrated more closely with Windows:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Computer
+│
+└── Windows
+     │
+     └── WSL 2
+          │
+          └── Linux environment
+</code></pre></div></div>
+
+<h3 id="simple-rule">Simple rule</h3>
+
+<p>If you want:</p>
+
+<blockquote>
+  <p><strong>A complete separate operating system</strong></p>
+</blockquote>
+
+<p>use <strong>VirtualBox</strong>.</p>
+
+<p>If you want:</p>
+
+<blockquote>
+  <p><strong>Linux tools while primarily using Windows</strong></p>
+</blockquote>
+
+<p>use <strong>WSL</strong>.</p>
+
+<hr />
+
+<h1 id="9-what-happens-when-you-run-a-command">9. What Happens When You Run a Command?</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<h3 id="virtualbox-1">VirtualBox</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+Guest Linux
+ ↓
+Virtual Machine
+ ↓
+Your Computer
+</code></pre></div></div>
+
+<h3 id="wsl">WSL</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+Linux environment
+ ↓
+WSL
+ ↓
+Your Computer
+</code></pre></div></div>
+
+<h3 id="termux">Termux</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+Termux environment
+ ↓
+Android
+ ↓
+Phone hardware
+</code></pre></div></div>
+
+<h3 id="replit">Replit</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+Replit environment
+ ↓
+Cloud server
+</code></pre></div></div>
+
+<h3 id="cocalc">CoCalc</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Code
+ ↓
+CoCalc project
+ ↓
+Cloud infrastructure
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-quick-decision-guide">10. Quick Decision Guide</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I need a development environment
+│
+├── I want a complete separate OS
+│       ↓
+│    VirtualBox
+│
+├── I use Windows and want Linux tools
+│       ↓
+│    WSL
+│
+├── I want coding without local setup
+│       ↓
+│    Replit
+│
+├── I want math/scientific computation online
+│       ↓
+│    CoCalc
+│
+└── I want a terminal on Android
+        ↓
+     Termux
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-key-takeaways">11. Key Takeaways</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Remember it as</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VirtualBox</strong></td>
+      <td>A computer inside your computer</td>
+    </tr>
+    <tr>
+      <td><strong>WSL</strong></td>
+      <td>Linux integrated into Windows</td>
+    </tr>
+    <tr>
+      <td><strong>Replit</strong></td>
+      <td>A coding environment in the cloud</td>
+    </tr>
+    <tr>
+      <td><strong>CoCalc</strong></td>
+      <td>A cloud computational workspace</td>
+    </tr>
+    <tr>
+      <td><strong>Termux</strong></td>
+      <td>A Linux-like terminal on Android</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The important distinction is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VirtualBox → Virtual machine
+WSL        → Windows + Linux environment
+Replit     → Cloud coding environment
+CoCalc     → Cloud computational environment
+Termux     → Android terminal/Linux-like environment
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <div></div>
+            
+
+            
+              <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">1.2 - Command line environment</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

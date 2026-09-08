@@ -1,0 +1,3506 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L6.2 - Overview of Shell Scripts | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link active">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 6</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L6.2 - Overview of Shell Scripts</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l62---overview-of-shell-scripts">L6.2 - Overview of Shell Scripts</h1>
+
+<h1 id="bash-shell-scripting">Bash Shell Scripting</h1>
+
+<p>Shell scripting is the process of writing a sequence of shell commands into a file so that the commands can be executed automatically.</p>
+
+<p>Instead of typing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>backup
+<span class="nb">cp </span>file.txt backup/
+<span class="nb">echo</span> <span class="s2">"Backup completed"</span>
+</code></pre></div></div>
+
+<p>every time, we can put these commands into a script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">mkdir </span>backup
+<span class="nb">cp </span>file.txt backup/
+<span class="nb">echo</span> <span class="s2">"Backup completed"</span>
+</code></pre></div></div>
+
+<p>and execute the script.</p>
+
+<p>The main idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Commands
+   ↓
+Script file
+   ↓
+Shell interprets the commands
+   ↓
+Task is automated
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="1-what-is-a-script">1. What Is a Script?</h1>
+
+<p>A script is a text file containing commands that a shell can execute.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello"</span>
+<span class="nb">date
+pwd
+ls</span>
+</code></pre></div></div>
+
+<p>Save it as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello.sh
+</code></pre></div></div>
+
+<p>Then execute it.</p>
+
+<p>A shell script can contain:</p>
+
+<ul>
+  <li>commands</li>
+  <li>variables</li>
+  <li>input</li>
+  <li>arguments</li>
+  <li>conditions</li>
+  <li>loops</li>
+  <li>functions</li>
+  <li>command substitution</li>
+  <li>file operations</li>
+</ul>
+
+<p>This allows us to build useful automation programs using the shell.</p>
+
+<hr />
+
+<h1 id="2-types-of-scripts">2. Types of Scripts</h1>
+
+<p>There are several ways to classify scripts.</p>
+
+<h2 id="21-shell-scripts">2.1 Shell Scripts</h2>
+
+<p>A shell script is interpreted by a shell such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+sh
+zsh
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello from Bash"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="22-executed-scripts">2.2 Executed Scripts</h2>
+
+<p>A script can be executed as a separate process.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>The shell starts a process to interpret the script.</p>
+
+<hr />
+
+<h2 id="23-sourced-scripts">2.3 Sourced Scripts</h2>
+
+<p>A script can also be sourced into the current shell:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>script.sh
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span> script.sh
+</code></pre></div></div>
+
+<p>The commands execute inside the <strong>current shell environment</strong>.</p>
+
+<p>This distinction is extremely important.</p>
+
+<hr />
+
+<h1 id="3-shebang">3. Shebang</h1>
+
+<p>A shebang is the first line of an executable script that specifies which interpreter should run it.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+</code></pre></div></div>
+
+<p>The first two characters are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!
+</code></pre></div></div>
+
+<p>followed by the interpreter path.</p>
+
+<p>For Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+</code></pre></div></div>
+
+<p>Another common form is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+</code></pre></div></div>
+
+<p>This asks <code class="language-plaintext highlighter-rouge">env</code> to locate <code class="language-plaintext highlighter-rouge">bash</code> using the environment’s <code class="language-plaintext highlighter-rouge">PATH</code>.</p>
+
+<hr />
+
+<h1 id="4-why-do-we-need-a-shebang">4. Why Do We Need a Shebang?</h1>
+
+<p>Suppose a script contains:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>When you execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>the operating system uses the interpreter specified by the shebang.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+     ↓
+#!/bin/bash
+     ↓
+/bin/bash
+     ↓
+execute script
+</code></pre></div></div>
+
+<p>Without a shebang, the behavior depends on how the script is invoked.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash script.sh
+</code></pre></div></div>
+
+<p>explicitly tells Bash to interpret it, so the shebang is not required for that invocation.</p>
+
+<hr />
+
+<h1 id="5-making-a-script-executable">5. Making a Script Executable</h1>
+
+<p>Create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano hello.sh
+</code></pre></div></div>
+
+<p>Put:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<p>Save it.</p>
+
+<p>Initially, the file may not have execute permission.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> hello.sh
+</code></pre></div></div>
+
+<p>Give it execute permission:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x hello.sh
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./hello.sh
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-sourcing-vs-executing">6. Sourcing vs Executing</h1>
+
+<p>This is one of the most important shell scripting concepts.</p>
+
+<p>There are two different ways to run a script.</p>
+
+<h2 id="execute">Execute</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash script.sh
+</code></pre></div></div>
+
+<h2 id="source">Source</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>script.sh
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">.</span> script.sh
+</code></pre></div></div>
+
+<p>The major difference is the shell environment in which the commands execute.</p>
+
+<hr />
+
+<h1 id="7-executing-a-script">7. Executing a Script</h1>
+
+<p>Suppose <code class="language-plaintext highlighter-rouge">script.sh</code> contains:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>The script runs in a separate shell process.</p>
+
+<p>After it finishes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>in your original shell will generally produce nothing because the variable was created in the script’s shell.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent shell
+     │
+     └── starts script shell
+              │
+              ├── name="Shubham"
+              └── exits
+</code></pre></div></div>
+
+<p>The variable disappears with that child shell.</p>
+
+<hr />
+
+<h1 id="8-sourcing-a-script">8. Sourcing a Script</h1>
+
+<p>Suppose the same script contains:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>script.sh
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>will output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Because the script was executed inside the current shell.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Current shell
+     │
+     ├── name="Shubham"
+     ├── echo
+     └── continues
+</code></pre></div></div>
+
+<p>No separate shell is created just to interpret the sourced script.</p>
+
+<hr />
+
+<h1 id="9-practical-difference">9. Practical Difference</h1>
+
+<p>Create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano variables.sh
+</code></pre></div></div>
+
+<p>Contents:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">course</span><span class="o">=</span><span class="s2">"Linux"</span>
+</code></pre></div></div>
+
+<p>Execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./variables.sh
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$course</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>The variable is not normally available in the parent shell.</p>
+
+<p>Now source:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>variables.sh
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$course</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<h3 id="remember">Remember</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+    ↓
+separate execution environment
+
+source script.sh
+    ↓
+current shell environment
+</code></pre></div></div>
+
+<p>Sourcing is commonly used for:</p>
+
+<ul>
+  <li>shell configuration</li>
+  <li>environment variables</li>
+  <li>functions</li>
+  <li>aliases</li>
+  <li>activation scripts</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> ~/.bashrc
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-script-location">10. Script Location</h1>
+
+<p>When you execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>the <code class="language-plaintext highlighter-rouge">./</code> means:</p>
+
+<blockquote>
+  <p>Look for <code class="language-plaintext highlighter-rouge">script.sh</code> in the current directory.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>might show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/scripts
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./backup.sh
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/scripts/backup.sh
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-running-a-script-from-another-directory">11. Running a Script from Another Directory</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/scripts/backup.sh
+</code></pre></div></div>
+
+<p>You are currently in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user
+</code></pre></div></div>
+
+<p>You can execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./scripts/backup.sh
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/scripts/backup.sh
+</code></pre></div></div>
+
+<p>if it is executable.</p>
+
+<p>You can also invoke it through Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash /home/user/scripts/backup.sh
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-bash-environment">12. Bash Environment</h1>
+
+<p>Every running shell has an environment containing variables and other shell state.</p>
+
+<p>Common variables include:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$USER</span>
+<span class="nv">$HOME</span>
+<span class="nv">$PATH</span>
+<span class="nv">$PWD</span>
+<span class="nv">$HOSTNAME</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$PATH</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-environment-variables-vs-shell-variables">13. Environment Variables vs Shell Variables</h1>
+
+<p>A shell variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<p>exists in the current shell.</p>
+
+<p>To export it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span>name
+</code></pre></div></div>
+
+<p>Now child processes can inherit it.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">course</span><span class="o">=</span><span class="s2">"Linux"</span>
+bash <span class="nt">-c</span> <span class="s1">'echo "$course"'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<p>The child shell receives a copy of the exported variable.</p>
+
+<hr />
+
+<h1 id="14-echo">14. <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">echo</code> prints text or variable values.</p>
+
+<p>Basic example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"hello world"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world
+</code></pre></div></div>
+
+<p>Multiple arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>Hello World
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Linux"</span> <span class="s2">"Bash"</span> <span class="s2">"Scripting"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux Bash Scripting
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-quotes-with-echo">15. Quotes with <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<h2 id="single-quotes">Single Quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+
+<span class="nb">echo</span> <span class="s1">'$name'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$name
+</code></pre></div></div>
+
+<p>Single quotes prevent variable expansion.</p>
+
+<hr />
+
+<h2 id="double-quotes">Double Quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+</code></pre></div></div>
+
+<p>Double quotes allow variable expansion.</p>
+
+<hr />
+
+<h2 id="no-quotes">No Quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$name</span>
+</code></pre></div></div>
+
+<p>This may work for simple values, but quoting variables is generally safer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-printf">16. <code class="language-plaintext highlighter-rouge">printf</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">printf</code> is a more predictable and flexible way to produce formatted output.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s2">"Hello World</span><span class="se">\n</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">\n</code> means newline.</p>
+
+<p>Variables:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+
+<span class="nb">printf</span> <span class="s2">"Hello, %s</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello, Shubham
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>format the argument as a string.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="17-printf-vs-echo">17. <code class="language-plaintext highlighter-rouge">printf</code> vs <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<p>For simple output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>is convenient.</p>
+
+<p>For reliable formatting:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s2">"Hello, %s</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>is generally preferred in scripts.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s2">"Name: %s</span><span class="se">\n</span><span class="s2">Age: %d</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"Shubham"</span> 27
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: Shubham
+Age: 27
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18-reading-input-with-read">18. Reading Input with <code class="language-plaintext highlighter-rouge">read</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">read</code> command reads input from the user.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Enter your name:"</span>
+<span class="nb">read </span>name
+
+<span class="nb">echo</span> <span class="s2">"Hello </span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>Interaction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter your name:
+Shubham
+Hello Shubham
+</code></pre></div></div>
+
+<p>The basic model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User types input
+       ↓
+      read
+       ↓
+variable receives value
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-read--p">19. <code class="language-plaintext highlighter-rouge">read -p</code></h1>
+
+<p>Instead of using a separate <code class="language-plaintext highlighter-rouge">echo</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your name: "</span> name
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your name: "</span> name
+<span class="nb">printf</span> <span class="s2">"Hello, %s</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-reading-multiple-values">20. Reading Multiple Values</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your first and last name: "</span> first last
+</code></pre></div></div>
+
+<p>If the user enters:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham Vithalkar
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>first = Shubham
+last  = Vithalkar
+</code></pre></div></div>
+
+<p>The splitting behavior is affected by <code class="language-plaintext highlighter-rouge">IFS</code>.</p>
+
+<hr />
+
+<h1 id="21-script-arguments">21. Script Arguments</h1>
+
+<p>A script can receive values from the command line.</p>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$2</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh hello world
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+hello
+world
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$0 → script name
+$1 → first argument
+$2 → second argument
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-positional-parameters">22. Positional Parameters</h1>
+
+<p>Important positional parameters:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$0
+$1
+$2
+$3
+...
+$9
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Script: </span><span class="nv">$0</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"First: </span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Second: </span><span class="nv">$2</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh Linux Bash
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Script: ./script.sh
+First: Linux
+Second: Bash
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-">23. <code class="language-plaintext highlighter-rouge">$#</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">$#</code> contains the number of positional arguments.</p>
+
+<p>Script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Number of arguments: $#"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh one two three
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Number of arguments: 3
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-">24. <code class="language-plaintext highlighter-rouge">$@</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">$@</code> represents all positional arguments.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh one two three
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one two three
+</code></pre></div></div>
+
+<p>In scripts, prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>when you want to preserve each argument as a separate word.</p>
+
+<hr />
+
+<h1 id="25-">25. <code class="language-plaintext highlighter-rouge">$*</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">$*</code> also represents positional arguments, but its behavior differs from <code class="language-plaintext highlighter-rouge">"$@"</code> when quoted.</p>
+
+<p>The important distinction is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>expands positional parameters as separate words.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"</span><span class="nv">$*</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>typically joins them into a single word using the first character of <code class="language-plaintext highlighter-rouge">IFS</code>.</p>
+
+<p>For example, with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two words
+three
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">"$@"</code> preserves these as three separate arguments.</p>
+
+<p>This makes <code class="language-plaintext highlighter-rouge">"$@"</code> the usual choice when forwarding arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>some_command <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26--vs-">26. <code class="language-plaintext highlighter-rouge">$@</code> vs <code class="language-plaintext highlighter-rouge">$*</code></h1>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"$@"
+ ↓
+each argument remains separate
+
+"$*"
+ ↓
+arguments are combined into one word
+</code></pre></div></div>
+
+<p>This distinction becomes important when arguments contain spaces.</p>
+
+<hr />
+
+<h1 id="27-command-substitution">27. Command Substitution</h1>
+
+<p>Command substitution allows us to capture the output of a command and use it as a value.</p>
+
+<p>Modern syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="si">$(</span><span class="nb">command</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">today</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$today</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">date</code> command executes first.</p>
+
+<p>Its output is stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>today
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$today</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>prints it.</p>
+
+<hr />
+
+<h1 id="28-another-command-substitution-example">28. Another Command Substitution Example</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">current_dir</span><span class="o">=</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"You are in: </span><span class="nv">$current_dir</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You are in: /home/user/project
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">files</span><span class="o">=</span><span class="si">$(</span><span class="nb">ls</span><span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$files</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<h3 id="mental-model">Mental model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command
+   ↓
+output
+   ↓
+$(...)
+   ↓
+variable
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-command-substitution-vs-quotes">29. Command Substitution vs Quotes</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">today</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>not the old-style:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">today</span><span class="o">=</span><span class="sb">`</span><span class="nb">date</span><span class="sb">`</span>
+</code></pre></div></div>
+
+<p>Backticks work, but <code class="language-plaintext highlighter-rouge">$(...)</code> is preferred because it is easier to read and nest.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">dirname</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">pwd</span><span class="si">)</span><span class="s2">"</span><span class="si">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-for-loop">30. <code class="language-plaintext highlighter-rouge">for</code> Loop</h1>
+
+<p>A <code class="language-plaintext highlighter-rouge">for</code> loop repeats commands for multiple values.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>item <span class="k">in </span>one two three
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$item</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+</code></pre></div></div>
+
+<p>The loop works like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>item = one
+  ↓
+execute body
+
+item = two
+  ↓
+execute body
+
+item = three
+  ↓
+execute body
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-for-loop-with-files">31. <code class="language-plaintext highlighter-rouge">for</code> Loop with Files</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>file <span class="k">in</span> <span class="k">*</span>.txt
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>This processes each matching <code class="language-plaintext highlighter-rouge">.txt</code> pathname.</p>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a.txt
+b.txt
+notes.txt
+</code></pre></div></div>
+
+<p>Be careful when filenames contain spaces; quote the variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-c-style-for-loop">32. C-Style <code class="language-plaintext highlighter-rouge">for</code> Loop</h1>
+
+<p>Bash also supports:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span>5<span class="p">;</span> i++<span class="o">))</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<p>This is useful when you need numeric iteration.</p>
+
+<hr />
+
+<h1 id="33-ifs--internal-field-separator">33. IFS — Internal Field Separator</h1>
+
+<p><code class="language-plaintext highlighter-rouge">IFS</code> stands for:</p>
+
+<blockquote>
+  <p>Internal Field Separator</p>
+</blockquote>
+
+<p>It controls how Bash performs word splitting in contexts where word splitting occurs.</p>
+
+<p>The default value generally contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>space
+tab
+newline
+</code></pre></div></div>
+
+<p>You can inspect it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s1">'%q\n'</span> <span class="s2">"</span><span class="nv">$IFS</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-why-is-ifs-important">34. Why Is IFS Important?</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">text</span><span class="o">=</span><span class="s2">"Linux Bash Shell"</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>word <span class="k">in</span> <span class="nv">$text</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$word</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Because the default <code class="language-plaintext highlighter-rouge">IFS</code> contains spaces, Bash splits the value into words:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+Bash
+Shell
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"Linux Bash Shell"
+       ↓
+     IFS
+       ↓
+Linux | Bash | Shell
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-changing-ifs">35. Changing IFS</h1>
+
+<p>You can temporarily set <code class="language-plaintext highlighter-rouge">IFS</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">IFS</span><span class="o">=</span>:
+</code></pre></div></div>
+
+<p>Now colon can be used as a field separator.</p>
+
+<p>This is useful when processing colon-separated data such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name:age:city
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">IFS</span><span class="o">=</span>: <span class="nb">read </span>name age city <span class="o">&lt;&lt;&lt;</span> <span class="s2">"Shubham:27:Bilaspur"</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$age</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$city</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+27
+Bilaspur
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-case-statement">36. <code class="language-plaintext highlighter-rouge">case</code> Statement</h1>
+
+<p>Bash’s <code class="language-plaintext highlighter-rouge">case</code> statement is similar to a switch statement in many programming languages.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="s2">"</span><span class="nv">$value</span><span class="s2">"</span> <span class="k">in
+    </span>pattern1<span class="p">)</span>
+        commands
+        <span class="p">;;</span>
+    pattern2<span class="p">)</span>
+        commands
+        <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        default commands
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<p>The statement ends with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">esac</span>
+</code></pre></div></div>
+
+<p>which is <code class="language-plaintext highlighter-rouge">case</code> spelled backwards.</p>
+
+<hr />
+
+<h1 id="37-case-example">37. <code class="language-plaintext highlighter-rouge">case</code> Example</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter a number: "</span> number
+
+<span class="k">case</span> <span class="s2">"</span><span class="nv">$number</span><span class="s2">"</span> <span class="k">in
+    </span>1<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"One"</span>
+        <span class="p">;;</span>
+    2<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Two"</span>
+        <span class="p">;;</span>
+    3<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Three"</span>
+        <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Something else"</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<p>If the user enters:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+<p>output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Two
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-case-with-patterns">38. <code class="language-plaintext highlighter-rouge">case</code> with Patterns</h1>
+
+<p><code class="language-plaintext highlighter-rouge">case</code> patterns use shell pattern matching.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="k">in</span>
+    <span class="k">*</span>.txt<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Text file"</span>
+        <span class="p">;;</span>
+    <span class="k">*</span>.jpg|<span class="k">*</span>.png<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Image file"</span>
+        <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Unknown file type"</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./check.sh photo.jpg
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Image file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-if-statement">39. <code class="language-plaintext highlighter-rouge">if</code> Statement</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">if</code> statement performs conditional execution.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>condition
+<span class="k">then
+    </span>commands
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>The statement ends with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fi</span>
+</code></pre></div></div>
+
+<p>which is <code class="language-plaintext highlighter-rouge">if</code> backwards.</p>
+
+<hr />
+
+<h1 id="40-basic-if-example">40. Basic <code class="language-plaintext highlighter-rouge">if</code> Example</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"hello"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"You said hello"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh hello
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You said hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-if-elif-else">41. <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">elif</code>, <code class="language-plaintext highlighter-rouge">else</code></h1>
+
+<p>Full structure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>condition
+<span class="k">then
+    </span>commands
+<span class="k">elif </span>another_condition
+<span class="k">then
+    </span>commands
+<span class="k">else
+    </span>commands
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your age: "</span> age
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$age</span><span class="s2">"</span> <span class="nt">-ge</span> 18 <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Adult"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Minor"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="42-conditions">42. Conditions</h1>
+
+<p>Bash conditions can test:</p>
+
+<ul>
+  <li>strings</li>
+  <li>numbers</li>
+  <li>files</li>
+  <li>command exit status</li>
+  <li>logical combinations</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"Shubham"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Name matched"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="43-string-comparisons">43. String Comparisons</h1>
+
+<p>Common string operators:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=       equal
+!=      not equal
+-z      string is empty
+-n      string is not empty
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"Shubham"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Matched"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Not equal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">!=</span> <span class="s2">"Rahul"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Different"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Empty:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Empty"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Non-empty:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Not empty"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-numeric-comparisons">44. Numeric Comparisons</h1>
+
+<p>For integer comparisons, use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-eq    equal
+-ne    not equal
+-lt    less than
+-le    less than or equal
+-gt    greater than
+-ge    greater than or equal
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">age</span><span class="o">=</span>27
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$age</span><span class="s2">"</span> <span class="nt">-ge</span> 18 <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Adult"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p>Do not confuse:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"</span><span class="nv">$b</span><span class="s2">"</span> <span class="o">]</span>
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span> <span class="nt">-eq</span> <span class="s2">"</span><span class="nv">$b</span><span class="s2">"</span> <span class="o">]</span>
+</code></pre></div></div>
+
+<p>The first is string comparison.</p>
+
+<p>The second is integer comparison.</p>
+
+<hr />
+
+<h1 id="45-modern---">45. Modern <code class="language-plaintext highlighter-rouge">[[ ... ]]</code></h1>
+
+<p>Bash also provides:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[[</span> ... <span class="o">]]</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"Shubham"</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Matched"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>For Bash scripts, <code class="language-plaintext highlighter-rouge">[[ ... ]]</code> is often safer and more expressive than the traditional <code class="language-plaintext highlighter-rouge">[ ... ]</code>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">==</span> S<span class="k">*</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Starts with S"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Here <code class="language-plaintext highlighter-rouge">S*</code> is a shell pattern.</p>
+
+<hr />
+
+<h1 id="46-file-comparisons">46. File Comparisons</h1>
+
+<p>Bash provides file-test operators.</p>
+
+<p>Common ones:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-e file    exists
+-f file    regular file
+-d file    directory
+-r file    readable
+-w file    writable
+-x file    executable
+-s file    exists and has non-zero size
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"data.txt"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Regular file exists"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="47-directory-test">47. Directory Test</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-d</span> <span class="s2">"backup"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Backup directory exists"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-executable-test">48. Executable Test</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-x</span> <span class="s2">"script.sh"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Script is executable"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-file-size-test">49. File Size Test</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nt">-s</span> <span class="s2">"data.txt"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"File is not empty"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="50-file-comparison-by-modification-time">50. File Comparison by Modification Time</h1>
+
+<p>Bash also provides operators such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-nt    newer than
+-ot    older than
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"new.txt"</span> <span class="nt">-nt</span> <span class="s2">"old.txt"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"new.txt is newer"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Another:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"old.txt"</span> <span class="nt">-ot</span> <span class="s2">"new.txt"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"old.txt is older"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="51-combining-conditions">51. Combining Conditions</h1>
+
+<p>Logical AND:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$age</span><span class="s2">"</span> <span class="nt">-ge</span> 18 <span class="o">&amp;&amp;</span> <span class="s2">"</span><span class="nv">$age</span><span class="s2">"</span> <span class="nt">-le</span> 60 <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Working-age range"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Logical OR:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"Shubham"</span> <span class="o">||</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"Rahul"</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Known name"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Negation:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="o">!</span> <span class="nt">-f</span> <span class="s2">"data.txt"</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"File does not exist"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="52-command-exit-status-in-conditions">52. Command Exit Status in Conditions</h1>
+
+<p>Linux commands return an exit status.</p>
+
+<p>Generally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0       success
+nonzero failure/other condition
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="nb">grep</span> <span class="nt">-q</span> <span class="s2">"ERROR"</span> server.log
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"ERROR found"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"No ERROR found"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">if</code> statement checks the exit status of <code class="language-plaintext highlighter-rouge">grep</code>.</p>
+
+<p>This is one of the most important Bash concepts:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command
+   ↓
+exit status
+   ↓
+if
+   ↓
+decision
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="53-while-loop">53. <code class="language-plaintext highlighter-rouge">while</code> Loop</h1>
+
+<p>A <code class="language-plaintext highlighter-rouge">while</code> loop repeatedly executes commands while its condition succeeds.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while </span>condition
+<span class="k">do
+    </span>commands
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">count</span><span class="o">=</span>1
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span> <span class="nt">-le</span> 5 <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span>
+    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="54-how-the-while-loop-works">54. How the <code class="language-plaintext highlighter-rouge">while</code> Loop Works</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Check condition
+      ↓
+  condition true?
+    /       \
+  yes        no
+   ↓          ↓
+execute      stop
+body
+   ↓
+check again
+</code></pre></div></div>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span> <span class="nt">-le</span> 5 <span class="o">]</span>
+</code></pre></div></div>
+
+<p>the loop continues while <code class="language-plaintext highlighter-rouge">count</code> is less than or equal to 5.</p>
+
+<hr />
+
+<h1 id="55-reading-a-file-with-while">55. Reading a File with <code class="language-plaintext highlighter-rouge">while</code></h1>
+
+<p>A common Bash pattern is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while </span><span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> <span class="nt">-r</span> line
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span>
+<span class="k">done</span> &lt; input.txt
+</code></pre></div></div>
+
+<p>This reads the file line by line.</p>
+
+<p>Important:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">IFS</span><span class="o">=</span>
+</code></pre></div></div>
+
+<p>prevents leading/trailing whitespace from being stripped by <code class="language-plaintext highlighter-rouge">read</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>prevents backslashes from being interpreted as escape characters.</p>
+
+<p>This is a robust pattern for reading text files line by line.</p>
+
+<hr />
+
+<h1 id="56-functions">56. Functions</h1>
+
+<p>A function is a reusable group of commands.</p>
+
+<p>Instead of writing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Starting"</span>
+<span class="nb">date
+echo</span> <span class="s2">"Finished"</span>
+</code></pre></div></div>
+
+<p>multiple times, put the logic into a function.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function_name<span class="o">()</span> <span class="o">{</span>
+    commands
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"Hello World"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Call it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="57-function-arguments">57. Function Arguments</h1>
+
+<p>Functions can receive arguments using positional parameters.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>greet<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"Hello, </span><span class="nv">$1</span><span class="s2">"</span>
+<span class="o">}</span>
+
+greet <span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello, Shubham
+</code></pre></div></div>
+
+<p>Inside the function:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$1
+</code></pre></div></div>
+
+<p>means the first argument passed to the function.</p>
+
+<hr />
+
+<h1 id="58-multiple-function-arguments">58. Multiple Function Arguments</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="k">$((</span> <span class="nv">$1</span> <span class="o">+</span> <span class="nv">$2</span> <span class="k">))</span>
+<span class="o">}</span>
+
+add 10 20
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>The function receives:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$1 = 10
+$2 = 20
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="59-function-return-status">59. Function Return Status</h1>
+
+<p>A Bash function can return an exit status.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>check_file<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+    <span class="k">then
+        return </span>0
+    <span class="k">else
+        return </span>1
+    <span class="k">fi</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Use it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>check_file <span class="s2">"data.txt"</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"File exists"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"File does not exist"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return 0
+    ↓
+success
+
+return non-zero
+    ↓
+failure/false condition
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="60-function-output">60. Function Output</h1>
+
+<p>Functions can also produce output with <code class="language-plaintext highlighter-rouge">echo</code> or <code class="language-plaintext highlighter-rouge">printf</code>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get_date<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">date</span>
+<span class="o">}</span>
+
+<span class="nv">result</span><span class="o">=</span><span class="si">$(</span>get_date<span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$result</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>This combines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function
+   ↓
+command output
+   ↓
+command substitution
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="61-complete-example">61. Complete Example</h1>
+
+<p>Here is a small Bash script combining several concepts:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your name: "</span> name
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Name cannot be empty"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+</span>greet<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">printf</span> <span class="s2">"Hello, %s!</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="o">}</span>
+
+<span class="nv">today</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> <span class="s2">"+%Y-%m-%d"</span><span class="si">)</span>
+
+greet <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="s2">"Today is: </span><span class="nv">$today</span><span class="s2">"</span>
+
+<span class="k">for </span>item <span class="k">in </span>Linux Bash Scripting
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"Learning: </span><span class="nv">$item</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Possible execution:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter your name: Shubham
+Hello, Shubham!
+Today is: 2026-09-08
+Learning: Linux
+Learning: Bash
+Learning: Scripting
+</code></pre></div></div>
+
+<p>This one script demonstrates:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shebang
+read
+if
+[[ ]]
+function
+printf
+command substitution
+for loop
+variables
+arguments
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="62-script-arguments--conditions">62. Script Arguments + Conditions</h1>
+
+<p>A practical script can use command-line arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$#"</span> <span class="nt">-lt</span> 1 <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> filename"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2"> is a regular file"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2"> is not a regular file"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./check.sh data.txt
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data.txt is a regular file
+</code></pre></div></div>
+
+<p>Run without arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./check.sh
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usage: ./check.sh filename
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="63-practical-script-file-backup">63. Practical Script: File Backup</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$#"</span> <span class="nt">-ne</span> 1 <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> directory"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory does not exist"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+</span><span class="nv">backup</span><span class="o">=</span><span class="s2">"backup-</span><span class="si">$(</span><span class="nb">date</span> +%Y%m%d-%H%M%S<span class="si">)</span><span class="s2">.tar.gz"</span>
+
+<span class="nb">tar</span> <span class="nt">-czf</span> <span class="s2">"</span><span class="nv">$backup</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="s2">"Backup created: </span><span class="nv">$backup</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./backup.sh logfiles
+</code></pre></div></div>
+
+<p>The script:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$#
+ ↓
+checks number of arguments
+
+$1
+ ↓
+gets directory
+
+-d
+ ↓
+checks directory
+
+$(date ...)
+ ↓
+generates timestamp
+
+tar
+ ↓
+creates backup
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="64-important-bash-syntax-to-remember">64. Important Bash Syntax to Remember</h1>
+
+<h2 id="variable">Variable</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<h2 id="use-variable">Use variable</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<h2 id="command-substitution">Command substitution</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">result</span><span class="o">=</span><span class="si">$(</span><span class="nb">command</span><span class="si">)</span>
+</code></pre></div></div>
+
+<h2 id="read-input">Read input</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">read </span>name
+</code></pre></div></div>
+
+<h2 id="script-argument">Script argument</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$1</span>
+</code></pre></div></div>
+
+<h2 id="number-of-arguments">Number of arguments</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$#</span>
+</code></pre></div></div>
+
+<h2 id="all-arguments">All arguments</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<h2 id="if">If</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span>condition
+<span class="k">then
+    </span>commands
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<h2 id="case">Case</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="s2">"</span><span class="nv">$x</span><span class="s2">"</span> <span class="k">in
+    </span>pattern<span class="p">)</span>
+        commands
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<h2 id="for">For</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>x <span class="k">in </span>a b c
+<span class="k">do
+    </span>commands
+<span class="k">done</span>
+</code></pre></div></div>
+
+<h2 id="while">While</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while </span>condition
+<span class="k">do
+    </span>commands
+<span class="k">done</span>
+</code></pre></div></div>
+
+<h2 id="function">Function</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name<span class="o">()</span> <span class="o">{</span>
+    commands
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="65-common-mistakes">65. Common Mistakes</h1>
+
+<h2 id="mistake-1-spaces-around-variable-assignment">Mistake 1: Spaces around variable assignment</h2>
+
+<p>Wrong:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name <span class="o">=</span> <span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">name</span><span class="o">=</span><span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2-forgetting-">Mistake 2: Forgetting <code class="language-plaintext highlighter-rouge">$</code></h2>
+
+<p>Wrong:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"name"</span>
+</code></pre></div></div>
+
+<p>This prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3-not-quoting-variables">Mistake 3: Not quoting variables</h2>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$name</span>
+</code></pre></div></div>
+
+<p>Especially important for filenames and values containing spaces.</p>
+
+<hr />
+
+<h2 id="mistake-4-confusing--and-">Mistake 4: Confusing <code class="language-plaintext highlighter-rouge">$#</code> and <code class="language-plaintext highlighter-rouge">$@</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$#
+ ↓
+number of arguments
+
+$@
+ ↓
+arguments themselves
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-5-using--when-you-need-separate-arguments">Mistake 5: Using <code class="language-plaintext highlighter-rouge">$*</code> when you need separate arguments</h2>
+
+<p>When forwarding arguments, prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>rather than:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="s2">"</span><span class="nv">$*</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-6-forgetting-fi">Mistake 6: Forgetting <code class="language-plaintext highlighter-rouge">fi</code></h2>
+
+<p>Wrong:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$x</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"yes"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Yes"</span>
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$x</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"yes"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Yes"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-7-forgetting-esac">Mistake 7: Forgetting <code class="language-plaintext highlighter-rouge">esac</code></h2>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="s2">"</span><span class="nv">$x</span><span class="s2">"</span> <span class="k">in
+    </span><span class="nb">yes</span><span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Yes"</span>
+        <span class="p">;;</span>
+    no<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"No"</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-8-infinite-while-loop">Mistake 8: Infinite <code class="language-plaintext highlighter-rouge">while</code> loop</h2>
+
+<p>This can run forever:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">count</span><span class="o">=</span>1
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span> <span class="nt">-le</span> 5 <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">count</code> never changes.</p>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">count</span><span class="o">=</span>1
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span> <span class="nt">-le</span> 5 <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span>
+    <span class="nv">count</span><span class="o">=</span><span class="k">$((</span>count <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="66-exam-perspective">66. Exam Perspective</h1>
+
+<p>You should be able to explain the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source </span>script.sh
+</code></pre></div></div>
+
+<p>You should know:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$0   script name
+$1   first argument
+$2   second argument
+$#   argument count
+$@   all arguments
+$*   all arguments, different quoting behavior
+</code></pre></div></div>
+
+<p>You should know:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if    → fi
+case  → esac
+for   → done
+while → done
+</code></pre></div></div>
+
+<p>You should know:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="si">$(</span><span class="nb">command</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>means command substitution.</p>
+
+<p>You should know:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IFS
+</code></pre></div></div>
+
+<p>controls word splitting in relevant shell operations.</p>
+
+<p>You should know the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=      string comparison
+-eq    integer comparison
+-f     regular file
+-d     directory
+-e     exists
+-r     readable
+-w     writable
+-x     executable
+</code></pre></div></div>
+
+<p>You should know:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return </span>0
+</code></pre></div></div>
+
+<p>means successful function status, while a non-zero status generally indicates failure or another condition.</p>
+
+<hr />
+
+<h1 id="67-practice-questions">67. Practice Questions</h1>
+
+<h2 id="q1">Q1</h2>
+
+<p>Create a Bash script that prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2">Q2</h2>
+
+<p>Write a script that accepts a name as its first argument and prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello, &lt;name&gt;
+</code></pre></div></div>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Hello, </span><span class="nv">$1</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./hello.sh Shubham
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3">Q3</h2>
+
+<p>Write a script that prints the number of arguments.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Arguments: $#"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4">Q4</h2>
+
+<p>Write a script that prints every argument separately.</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">for </span>arg <span class="k">in</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5">Q5</h2>
+
+<p>Write a script that asks the user for their name using <code class="language-plaintext highlighter-rouge">read</code>.</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter your name: "</span> name
+<span class="nb">echo</span> <span class="s2">"Hello, </span><span class="nv">$name</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6">Q6</h2>
+
+<p>Write a script that stores the output of <code class="language-plaintext highlighter-rouge">date</code> in a variable.</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">today</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$today</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7">Q7</h2>
+
+<p>Write a script that checks whether the first argument is a regular file.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Regular file"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Not a regular file"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8">Q8</h2>
+
+<p>Write a script that checks whether the first argument is a directory.</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Not a directory"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9">Q9</h2>
+
+<p>Write a <code class="language-plaintext highlighter-rouge">for</code> loop that prints numbers from 1 to 5.</p>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span>5<span class="p">;</span> i++<span class="o">))</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10">Q10</h2>
+
+<p>Write a <code class="language-plaintext highlighter-rouge">while</code> loop that prints numbers from 1 to 5.</p>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nv">i</span><span class="o">=</span>1
+
+<span class="k">while</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span> <span class="nt">-le</span> 5 <span class="o">]</span>
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">"</span>
+    <span class="nv">i</span><span class="o">=</span><span class="k">$((</span>i <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q11">Q11</h2>
+
+<p>Write a <code class="language-plaintext highlighter-rouge">case</code> statement that prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start → Starting
+stop  → Stopping
+*     → Unknown command
+</code></pre></div></div>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">case</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="k">in
+    </span>start<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Starting"</span>
+        <span class="p">;;</span>
+    stop<span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Stopping"</span>
+        <span class="p">;;</span>
+    <span class="k">*</span><span class="p">)</span>
+        <span class="nb">echo</span> <span class="s2">"Unknown command"</span>
+        <span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q12">Q12</h2>
+
+<p>Write a function called <code class="language-plaintext highlighter-rouge">greet</code> that accepts a name.</p>
+
+<h3 id="solution-11">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+greet<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"Hello, </span><span class="nv">$1</span><span class="s2">"</span>
+<span class="o">}</span>
+
+greet <span class="s2">"Shubham"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q13--exam-level">Q13 — Exam Level</h2>
+
+<p>Write a script that:</p>
+
+<ol>
+  <li>Requires exactly one argument.</li>
+  <li>Checks whether it is a regular file.</li>
+  <li>Prints its size using <code class="language-plaintext highlighter-rouge">du -h</code>.</li>
+  <li>Prints an error if the argument is not a file.</li>
+</ol>
+
+<h3 id="solution-12">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$#"</span> <span class="nt">-ne</span> 1 <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> filename"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">du</span> <span class="nt">-h</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Not a regular file"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q14--exam-level">Q14 — Exam Level</h2>
+
+<p>Write a script that accepts any number of filenames and prints only the files that exist.</p>
+
+<h3 id="solution-13">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="k">for </span>file <span class="k">in</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="k">do
+    if</span> <span class="o">[</span> <span class="nt">-e</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="o">]</span>
+    <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>
+    <span class="k">fi
+done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q15--exam-level">Q15 — Exam Level</h2>
+
+<p>Write a script that asks for a directory and then prints all <code class="language-plaintext highlighter-rouge">.log</code> files inside it.</p>
+
+<h3 id="solution-14">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter directory: "</span> <span class="nb">dir
+
+</span><span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$dir</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory does not exist"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+for </span>file <span class="k">in</span> <span class="s2">"</span><span class="nv">$dir</span><span class="s2">"</span>/<span class="k">*</span>.log
+<span class="k">do
+    if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="o">]</span>
+    <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span>
+    <span class="k">fi
+done</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="68-final-mental-model">68. Final Mental Model</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BASH SCRIPT
+│
+├── Shebang
+│     └── #!/bin/bash
+│
+├── Input
+│     ├── read
+│     └── arguments: $1, $2, ...
+│
+├── Variables
+│     ├── $USER
+│     ├── $HOME
+│     └── custom variables
+│
+├── Output
+│     ├── echo
+│     └── printf
+│
+├── Command substitution
+│     └── $(command)
+│
+├── Decisions
+│     ├── if
+│     └── case
+│
+├── Loops
+│     ├── for
+│     └── while
+│
+├── Data splitting
+│     └── IFS
+│
+└── Reusable logic
+      └── functions
+</code></pre></div></div>
+
+<h2 id="core-bash-script-pattern">Core Bash Script Pattern</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Input</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter something: "</span> value
+
+<span class="c"># Decision</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$value</span><span class="s2">"</span> <span class="o">]]</span>
+<span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"You entered: </span><span class="nv">$value</span><span class="s2">"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Nothing entered"</span>
+<span class="k">fi</span>
+
+<span class="c"># Loop</span>
+<span class="k">for </span>item <span class="k">in </span>one two three
+<span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$item</span><span class="s2">"</span>
+<span class="k">done</span>
+
+<span class="c"># Function</span>
+greet<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"Hello, </span><span class="nv">$1</span><span class="s2">"</span>
+<span class="o">}</span>
+
+greet <span class="s2">"</span><span class="nv">$value</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>The key progression to remember is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Commands
+   ↓
+Variables
+   ↓
+Input / Arguments
+   ↓
+Command Substitution
+   ↓
+Conditions
+   ↓
+Loops
+   ↓
+Functions
+   ↓
+Complete Automation Scripts
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L6.1: Some Command line Utilities</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L6.3 - Bash Scripts - Part 01</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

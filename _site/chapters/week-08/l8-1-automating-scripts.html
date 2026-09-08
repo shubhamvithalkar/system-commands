@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L8.1: Automating Scripts | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link active">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 8</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L8.1: Automating Scripts</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l81-automating-scripts">L8.1: Automating Scripts</h1>
+
+<h1 id="cron-at-and-scheduled-jobs">Cron, <code class="language-plaintext highlighter-rouge">at</code> and Scheduled Jobs</h1>
+
+<h2 id="1-introduction-to-scheduled-jobs">1. Introduction to Scheduled Jobs</h2>
+
+<p>Linux allows us to execute commands automatically at a specified time.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li>Run a backup every night at 2 AM.</li>
+  <li>Run a script every 10 minutes.</li>
+  <li>Run a report every Monday.</li>
+  <li>Execute a command once at 6 PM.</li>
+  <li>Run initialization commands when the system starts.</li>
+</ul>
+
+<p>Two important scheduling mechanisms are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cron</code></td>
+      <td>Repeated/recurring jobs</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">at</code></td>
+      <td>One-time jobs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The easiest mental model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cron → "Run this repeatedly according to a schedule."
+
+at → "Run this once at a specified time."
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-cron">2. <code class="language-plaintext highlighter-rouge">cron</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">cron</code> is a Linux scheduling system that automatically executes commands or scripts at specified times.</p>
+
+<p>A background service called the <strong>cron daemon</strong> continuously checks for scheduled jobs.</p>
+
+<p>On Ubuntu, the service is generally called:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cron
+</code></pre></div></div>
+
+<p>On some Unix/Linux systems, it may be called:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crond
+</code></pre></div></div>
+
+<p>Check the cron service:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status cron
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>● cron.service - Regular background program processing daemon
+     Loaded: loaded
+     Active: active (running)
+</code></pre></div></div>
+
+<p>Start the service if necessary:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl start cron
+</code></pre></div></div>
+
+<p>Enable it to start automatically at boot:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>cron
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-what-is-a-cron-job">3. What Is a Cron Job?</h1>
+
+<p>A <strong>cron job</strong> is a command or script that cron executes automatically according to a schedule.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh
+</code></pre>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>At 02:00 every day
+        ↓
+execute
+        ↓
+/home/user/backup.sh
+</code></pre></div></div>
+
+<p>The first five fields define <strong>when</strong> the command should run.</p>
+
+<hr />
+
+<h1 id="4-cron-job-definition">4. Cron Job Definition</h1>
+
+<p>A normal user crontab entry has five time fields followed by the command:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* * * * * command
+│ │ │ │ │
+│ │ │ │ └── Day of week
+│ │ │ └──── Month
+│ │ └────── Day of month
+│ └──────── Hour
+└────────── Minute
+</code></pre></div></div>
+
+<p>The five fields are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MINUTE HOUR DAY-OF-MONTH MONTH DAY-OF-WEEK
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M H DOM MON DOW
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-the-five-cron-fields">5. The Five Cron Fields</h1>
+
+<h2 id="51-minute">5.1 Minute</h2>
+
+<p>Range:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0-59
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30
+</code></pre></div></div>
+
+<p>means minute 30.</p>
+
+<hr />
+
+<h2 id="52-hour">5.2 Hour</h2>
+
+<p>Range:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0-23
+</code></pre></div></div>
+
+<p>Cron normally uses the 24-hour clock.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0  = 12 AM
+1  = 1 AM
+12 = 12 PM
+13 = 1 PM
+14 = 2 PM
+18 = 6 PM
+23 = 11 PM
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="53-day-of-month">5.3 Day of Month</h2>
+
+<p>Range:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1-31
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>15
+</code></pre></div></div>
+
+<p>means the 15th day of the month.</p>
+
+<hr />
+
+<h2 id="54-month">5.4 Month</h2>
+
+<p>Range:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1-12
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  = January
+6  = June
+12 = December
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="55-day-of-week">5.5 Day of Week</h2>
+
+<p>Common numbering:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 = Sunday
+1 = Monday
+2 = Tuesday
+3 = Wednesday
+4 = Thursday
+5 = Friday
+6 = Saturday
+</code></pre></div></div>
+
+<p>On many cron implementations, <code class="language-plaintext highlighter-rouge">7</code> can also represent Sunday.</p>
+
+<hr />
+
+<h1 id="6-the--wildcard">6. The <code class="language-plaintext highlighter-rouge">*</code> Wildcard</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">*</code> means:</p>
+
+<blockquote>
+  <p>Every possible value for this field.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<pre><code class="language-cron">* * * * * command
+</code></pre>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>every minute
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* minute       → every minute
+* hour         → every hour
+* day           → every day
+* month         → every month
+* weekday       → every weekday
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-cron-operators">7. Cron Operators</h1>
+
+<p>Cron supports several useful operators.</p>
+
+<h2 id="71---every-value">7.1 <code class="language-plaintext highlighter-rouge">*</code> — Every Value</h2>
+
+<pre><code class="language-cron">* * * * * command
+</code></pre>
+
+<p>Runs every minute.</p>
+
+<hr />
+
+<h2 id="72---multiple-values">7.2 <code class="language-plaintext highlighter-rouge">,</code> — Multiple Values</h2>
+
+<pre><code class="language-cron">0 9,18 * * * command
+</code></pre>
+
+<p>Runs at:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>09:00
+18:00
+</code></pre></div></div>
+
+<p>every day.</p>
+
+<hr />
+
+<h2 id="73----range">7.3 <code class="language-plaintext highlighter-rouge">-</code> — Range</h2>
+
+<pre><code class="language-cron">0 9 * * 1-5 command
+</code></pre>
+
+<p>Runs at 9 AM from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="74---step">7.4 <code class="language-plaintext highlighter-rouge">/</code> — Step</h2>
+
+<pre><code class="language-cron">*/5 * * * * command
+</code></pre>
+
+<p>Runs every 5 minutes.</p>
+
+<p>Approximately:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00
+05
+10
+15
+20
+25
+30
+35
+40
+45
+50
+55
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<pre><code class="language-cron">0 */2 * * * command
+</code></pre>
+
+<p>Runs every 2 hours.</p>
+
+<hr />
+
+<h1 id="8-common-cron-examples">8. Common Cron Examples</h1>
+
+<h2 id="every-minute">Every minute</h2>
+
+<pre><code class="language-cron">* * * * * /home/user/script.sh
+</code></pre>
+
+<hr />
+
+<h2 id="every-hour">Every hour</h2>
+
+<pre><code class="language-cron">0 * * * * /home/user/script.sh
+</code></pre>
+
+<p>Runs at:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:00
+02:00
+03:00
+04:00
+...
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="every-day-at-2-am">Every day at 2 AM</h2>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh
+</code></pre>
+
+<hr />
+
+<h2 id="every-day-at-630-pm">Every day at 6:30 PM</h2>
+
+<pre><code class="language-cron">30 18 * * * /home/user/report.sh
+</code></pre>
+
+<hr />
+
+<h2 id="every-monday-at-9-am">Every Monday at 9 AM</h2>
+
+<pre><code class="language-cron">0 9 * * 1 /home/user/weekly.sh
+</code></pre>
+
+<hr />
+
+<h2 id="monday-to-friday-at-9-am">Monday to Friday at 9 AM</h2>
+
+<pre><code class="language-cron">0 9 * * 1-5 /home/user/work.sh
+</code></pre>
+
+<hr />
+
+<h2 id="every-10-minutes">Every 10 minutes</h2>
+
+<pre><code class="language-cron">*/10 * * * * /home/user/check.sh
+</code></pre>
+
+<hr />
+
+<h2 id="every-sunday-at-midnight">Every Sunday at midnight</h2>
+
+<pre><code class="language-cron">0 0 * * 0 /home/user/weekly-backup.sh
+</code></pre>
+
+<hr />
+
+<h1 id="9-crontab">9. <code class="language-plaintext highlighter-rouge">crontab</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">crontab</code> stands for <strong>cron table</strong>.</p>
+
+<p>It is the interface used to manage a user’s cron jobs.</p>
+
+<p>The most important command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-e</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edit
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-crontab--e">10. <code class="language-plaintext highlighter-rouge">crontab -e</code></h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>to edit the current user’s cron jobs.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>The system opens the crontab in an editor.</p>
+
+<p>Add:</p>
+
+<pre><code class="language-cron">*/5 * * * * echo "Hello" &gt;&gt; /tmp/cron-test.txt
+</code></pre>
+
+<p>Save and exit.</p>
+
+<p>The cron daemon will then execute this command every five minutes.</p>
+
+<hr />
+
+<h1 id="11-viewing-cron-jobs">11. Viewing Cron Jobs</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-l</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>list
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*/5 * * * * echo "Hello" &gt;&gt; /tmp/cron-test.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-removing-cron-jobs">12. Removing Cron Jobs</h1>
+
+<p>The following command removes the current user’s entire crontab:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>Be careful with this command.</p>
+
+<p>It can remove all cron jobs belonging to that user.</p>
+
+<p>Some systems support:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-i</span>
+</code></pre></div></div>
+
+<p>which asks for confirmation before removal.</p>
+
+<hr />
+
+<h1 id="13-practical-cron-test">13. Practical Cron Test</h1>
+
+<p>Create a cron job that records the current date every minute.</p>
+
+<p>Open the crontab:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Add:</p>
+
+<pre><code class="language-cron">* * * * * date &gt;&gt; /tmp/cron-test.txt
+</code></pre>
+
+<p>Wait a few minutes.</p>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /tmp/cron-test.txt
+</code></pre></div></div>
+
+<p>You should see multiple timestamps:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tue Sep  8 09:10:01 IST 2026
+Tue Sep  8 09:11:01 IST 2026
+Tue Sep  8 09:12:01 IST 2026
+</code></pre></div></div>
+
+<p>The exact output depends on the current date and time.</p>
+
+<hr />
+
+<h1 id="14-absolute-paths-in-cron-jobs">14. Absolute Paths in Cron Jobs</h1>
+
+<p>A common mistake is:</p>
+
+<pre><code class="language-cron">* * * * * backup.sh
+</code></pre>
+
+<p>Cron may not find <code class="language-plaintext highlighter-rouge">backup.sh</code> because cron’s environment is different from your interactive shell.</p>
+
+<p>Prefer an absolute path:</p>
+
+<pre><code class="language-cron">* * * * * /home/user/backup.sh
+</code></pre>
+
+<p>Similarly, if you need Python, avoid relying unnecessarily on the interactive shell’s <code class="language-plaintext highlighter-rouge">PATH</code>.</p>
+
+<p>For example:</p>
+
+<pre><code class="language-cron">0 2 * * * /usr/bin/python3 /home/user/project/main.py
+</code></pre>
+
+<hr />
+
+<h1 id="15-cron-environment">15. Cron Environment</h1>
+
+<p>Cron jobs normally run with a more limited environment than your interactive terminal.</p>
+
+<p>A command that works in your terminal may fail under cron because of differences in:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PATH</code></li>
+  <li>working directory</li>
+  <li>environment variables</li>
+  <li>shell configuration</li>
+</ul>
+
+<p>Therefore, scripts used by cron should generally use explicit paths and explicitly configure anything they depend on.</p>
+
+<p>For example:</p>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh &gt;&gt; /home/user/backup.log 2&gt;&amp;1
+</code></pre>
+
+<hr />
+
+<h1 id="16-logging-cron-output">16. Logging Cron Output</h1>
+
+<p>Cron jobs often need logging.</p>
+
+<p>Example:</p>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh &gt;&gt; /home/user/backup.log 2&gt;&amp;1
+</code></pre>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt; /home/user/backup.log
+</code></pre></div></div>
+
+<p>Append standard output to the log.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;&amp;1
+</code></pre></div></div>
+
+<p>Redirect standard error to the same location as standard output.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout → backup.log
+stderr → backup.log
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-startup-scripts">17. Startup Scripts</h1>
+
+<p>A <strong>startup script</strong> is a script or service that runs automatically when the system or a particular environment starts.</p>
+
+<p>The basic idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>System starts
+     ↓
+Startup mechanism
+     ↓
+Commands/services start
+</code></pre></div></div>
+
+<p>Startup tasks might include:</p>
+
+<ul>
+  <li>Starting a service.</li>
+  <li>Mounting a filesystem.</li>
+  <li>Setting environment variables.</li>
+  <li>Starting a background application.</li>
+  <li>Performing system initialization.</li>
+</ul>
+
+<hr />
+
+<h1 id="18-startup-vs-cron">18. Startup vs Cron</h1>
+
+<p>Do not confuse startup execution with time-based scheduling.</p>
+
+<h3 id="startup">Startup</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>System starts
+      ↓
+Run something
+</code></pre></div></div>
+
+<h3 id="cron">Cron</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Clock reaches scheduled time
+      ↓
+Run something
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Start a web server when Linux boots
+        → startup/service mechanism
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Run a backup every day at 2 AM
+        → cron
+</code></pre></div></div>
+
+<p>Modern Linux systems commonly use <strong>systemd</strong> to manage system services and boot-time startup.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status cron
+</code></pre></div></div>
+
+<p>checks the cron service.</p>
+
+<p>A systemd service can also be configured to start automatically during boot.</p>
+
+<hr />
+
+<h1 id="19-at-command">19. <code class="language-plaintext highlighter-rouge">at</code> Command</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">at</code> command schedules a command to run <strong>once in the future</strong>.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cron
+ ↓
+recurring
+
+at
+ ↓
+one-time
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at 18:00
+</code></pre></div></div>
+
+<p>allows you to schedule commands for 6 PM.</p>
+
+<hr />
+
+<h1 id="20-basic-at-syntax">20. Basic <code class="language-plaintext highlighter-rouge">at</code> Syntax</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at TIME
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at 18:00
+</code></pre></div></div>
+
+<p>The shell then waits for commands.</p>
+
+<p>Enter:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Backup started"</span> <span class="o">&gt;&gt;</span> /tmp/backup.log
+</code></pre></div></div>
+
+<p>Finish the input by pressing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>The job is now scheduled.</p>
+
+<hr />
+
+<h1 id="21-practical-at-example">21. Practical <code class="language-plaintext highlighter-rouge">at</code> Example</h1>
+
+<p>Suppose you want to run a command once at 6 PM.</p>
+
+<p>Start:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at 18:00
+</code></pre></div></div>
+
+<p>Enter:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Meeting reminder"</span> <span class="o">&gt;&gt;</span> /tmp/reminder.txt
+</code></pre></div></div>
+
+<p>Then press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>Unlike a cron job, this job is intended to execute only once.</p>
+
+<hr />
+
+<h1 id="22-sending-a-command-directly-to-at">22. Sending a Command Directly to <code class="language-plaintext highlighter-rouge">at</code></h1>
+
+<p>You can also pipe a command into <code class="language-plaintext highlighter-rouge">at</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'date &gt;&gt; /tmp/test.txt'</span> | at 18:00
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo command
+     ↓
+    at
+     ↓
+scheduled one-time execution
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-viewing-at-jobs">23. Viewing <code class="language-plaintext highlighter-rouge">at</code> Jobs</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">atq</code> displays pending jobs in the <code class="language-plaintext highlighter-rouge">at</code> queue.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3       Tue Sep  8 18:00:00 2026 a user
+</code></pre></div></div>
+
+<p>The first value:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<p>is the job ID.</p>
+
+<hr />
+
+<h1 id="24-removing-an-at-job">24. Removing an <code class="language-plaintext highlighter-rouge">at</code> Job</h1>
+
+<p>First list the jobs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+</code></pre></div></div>
+
+<p>Suppose you see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3       Tue Sep  8 18:00:00 2026 a user
+</code></pre></div></div>
+
+<p>Remove job <code class="language-plaintext highlighter-rouge">3</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atrm 3
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+ ↓
+find job ID
+ ↓
+atrm JOB_ID
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-cron-vs-at">25. <code class="language-plaintext highlighter-rouge">cron</code> vs <code class="language-plaintext highlighter-rouge">at</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th><code class="language-plaintext highlighter-rouge">cron</code></th>
+      <th><code class="language-plaintext highlighter-rouge">at</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Purpose</td>
+      <td>Recurring jobs</td>
+      <td>One-time jobs</td>
+    </tr>
+    <tr>
+      <td>Configuration</td>
+      <td>Crontab</td>
+      <td><code class="language-plaintext highlighter-rouge">at</code> queue</td>
+    </tr>
+    <tr>
+      <td>Create</td>
+      <td><code class="language-plaintext highlighter-rouge">crontab -e</code></td>
+      <td><code class="language-plaintext highlighter-rouge">at TIME</code></td>
+    </tr>
+    <tr>
+      <td>List</td>
+      <td><code class="language-plaintext highlighter-rouge">crontab -l</code></td>
+      <td><code class="language-plaintext highlighter-rouge">atq</code></td>
+    </tr>
+    <tr>
+      <td>Remove</td>
+      <td><code class="language-plaintext highlighter-rouge">crontab -r</code></td>
+      <td><code class="language-plaintext highlighter-rouge">atrm JOB_ID</code></td>
+    </tr>
+    <tr>
+      <td>Example</td>
+      <td>Every day at 2 AM</td>
+      <td>Today at 6 PM</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="26-important-commands">26. Important Commands</h1>
+
+<h2 id="cron-1">Cron</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Edit cron jobs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>List cron jobs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>Remove the user’s crontab.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status cron
+</code></pre></div></div>
+
+<p>Check the cron service.</p>
+
+<hr />
+
+<h2 id="at"><code class="language-plaintext highlighter-rouge">at</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at TIME
+</code></pre></div></div>
+
+<p>Create a one-time scheduled job.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+</code></pre></div></div>
+
+<p>List pending jobs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atrm JOB_ID
+</code></pre></div></div>
+
+<p>Remove a pending job.</p>
+
+<hr />
+
+<h1 id="27-exam-oriented-questions">27. Exam-Oriented Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>Run <code class="language-plaintext highlighter-rouge">/home/user/backup.sh</code> every day at 2 AM.</p>
+
+<h3 id="solution">Solution</h3>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh
+</code></pre>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>Run a script every 5 minutes.</p>
+
+<h3 id="solution-1">Solution</h3>
+
+<pre><code class="language-cron">*/5 * * * * /home/user/script.sh
+</code></pre>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>Run a script every Monday at 8 AM.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<pre><code class="language-cron">0 8 * * 1 /home/user/script.sh
+</code></pre>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>Which command edits the current user’s cron jobs?</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>Which command lists the current user’s cron jobs?</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>Which command is used for a one-time scheduled job?</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>Which command lists pending <code class="language-plaintext highlighter-rouge">at</code> jobs?</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>How do you remove <code class="language-plaintext highlighter-rouge">at</code> job number 5?</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atrm 5
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-9">Question 9</h2>
+
+<p>What does this mean?</p>
+
+<pre><code class="language-cron">30 18 * * 1-5 /home/user/report.sh
+</code></pre>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30   → minute 30
+18   → 6 PM
+*    → every day of month
+*    → every month
+1-5  → Monday-Friday
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Run report.sh at 6:30 PM,
+Monday through Friday.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-10">Question 10</h2>
+
+<p>What does this mean?</p>
+
+<pre><code class="language-cron">*/10 * * * * /home/user/check.sh
+</code></pre>
+
+<h3 id="solution-9">Solution</h3>
+
+<p>It runs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Every 10 minutes
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-common-mistakes">28. Common Mistakes</h1>
+
+<h2 id="mistake-1--wrong-cron-field-order">Mistake 1 — Wrong Cron Field Order</h2>
+
+<p>Incorrect mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hour minute day month weekday
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minute hour day-of-month month day-of-week
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M H DOM MON DOW
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2--forgetting-24-hour-time">Mistake 2 — Forgetting 24-Hour Time</h2>
+
+<p>6 PM is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>18
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<pre><code class="language-cron">0 18 * * * command
+</code></pre>
+
+<p>means 6 PM every day.</p>
+
+<hr />
+
+<h2 id="mistake-3--thinking-cron-runs-once">Mistake 3 — Thinking Cron Runs Once</h2>
+
+<p>This:</p>
+
+<pre><code class="language-cron">0 2 * * * command
+</code></pre>
+
+<p>does not mean:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Run once tomorrow at 2 AM.
+</code></pre></div></div>
+
+<p>It means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Run every day at 2 AM.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4--confusing-at-and-cron">Mistake 4 — Confusing <code class="language-plaintext highlighter-rouge">at</code> and <code class="language-plaintext highlighter-rouge">cron</code></h2>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cron = recurring
+at   = one-time
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-5--using-relative-paths">Mistake 5 — Using Relative Paths</h2>
+
+<p>Avoid:</p>
+
+<pre><code class="language-cron">0 2 * * * ./backup.sh
+</code></pre>
+
+<p>Prefer:</p>
+
+<pre><code class="language-cron">0 2 * * * /home/user/backup.sh
+</code></pre>
+
+<hr />
+
+<h1 id="29-complete-mental-model">29. Complete Mental Model</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    JOB SCHEDULING
+                          │
+              ┌───────────┴───────────┐
+              │                       │
+            cron                     at
+              │                       │
+         recurring                 one-time
+              │                       │
+         crontab -e               at TIME
+              │                       │
+         crontab -l                  atq
+         crontab -r                 atrm
+</code></pre></div></div>
+
+<p>Startup execution is a related but different concept:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    SYSTEM STARTUP
+                          │
+                          ↓
+                    systemd/services
+                          │
+                          ↓
+                    Run at boot
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-final-cheat-sheet">30. Final Cheat Sheet</h1>
+
+<h2 id="cron-format">Cron Format</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* * * * * command
+│ │ │ │ │
+│ │ │ │ └── Day of week
+│ │ │ └──── Month
+│ │ └────── Day of month
+│ └──────── Hour
+└────────── Minute
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MINUTE HOUR DAY-OF-MONTH MONTH DAY-OF-WEEK
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="common-cron-schedules">Common Cron Schedules</h2>
+
+<pre><code class="language-cron">* * * * * command
+</code></pre>
+
+<p>Every minute.</p>
+
+<pre><code class="language-cron">*/5 * * * * command
+</code></pre>
+
+<p>Every 5 minutes.</p>
+
+<pre><code class="language-cron">0 * * * * command
+</code></pre>
+
+<p>Every hour.</p>
+
+<pre><code class="language-cron">0 2 * * * command
+</code></pre>
+
+<p>Every day at 2 AM.</p>
+
+<pre><code class="language-cron">30 18 * * * command
+</code></pre>
+
+<p>Every day at 6:30 PM.</p>
+
+<pre><code class="language-cron">0 9 * * 1 command
+</code></pre>
+
+<p>Every Monday at 9 AM.</p>
+
+<pre><code class="language-cron">0 9 * * 1-5 command
+</code></pre>
+
+<p>Monday through Friday at 9 AM.</p>
+
+<hr />
+
+<h2 id="cron-commands">Cron Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Edit.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>List.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>Remove.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status cron
+</code></pre></div></div>
+
+<p>Check cron service.</p>
+
+<hr />
+
+<h2 id="at-commands"><code class="language-plaintext highlighter-rouge">at</code> Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>at TIME
+</code></pre></div></div>
+
+<p>Schedule a one-time job.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atq
+</code></pre></div></div>
+
+<p>List pending jobs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atrm JOB_ID
+</code></pre></div></div>
+
+<p>Remove a pending job.</p>
+
+<hr />
+
+<h1 id="31-key-takeaways">31. Key Takeaways</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cron
+→ recurring scheduled jobs
+
+at
+→ one-time scheduled jobs
+
+crontab -e
+→ edit cron jobs
+
+crontab -l
+→ list cron jobs
+
+crontab -r
+→ remove user's crontab
+
+atq
+→ list at jobs
+
+atrm
+→ remove at job
+
+cron format
+→ minute hour day-of-month month day-of-week
+</code></pre></div></div>
+
+<p>The most important distinction to remember for the exam is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"Every day at 2 AM"
+        ↓
+      cron
+
+"Run once at 6 PM"
+        ↓
+       at
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L7..3 - Bash scripts - Part 2C</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L 8.2 - Stream editor sed</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

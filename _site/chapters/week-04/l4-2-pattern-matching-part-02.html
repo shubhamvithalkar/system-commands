@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L4.2: Pattern Matching - Part 02 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link active">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 4</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L4.2: Pattern Matching - Part 02</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l42-pattern-matching---part-02">L4.2: Pattern Matching - Part 02</h1>
+
+<h1 id="regex-posix-character-classes-grep-egrep-cut-and-pipelines">Regex POSIX Character Classes, <code class="language-plaintext highlighter-rouge">grep</code>, <code class="language-plaintext highlighter-rouge">egrep</code>, <code class="language-plaintext highlighter-rouge">cut</code> and Pipelines</h1>
+
+<h2 id="1-dpkg-query--grep">1. <code class="language-plaintext highlighter-rouge">dpkg-query | grep</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">dpkg-query</code> can display information about installed Debian packages. We can pipe its output to <code class="language-plaintext highlighter-rouge">grep</code> to search for packages matching a pattern.</p>
+
+<h3 id="basic-idea">Basic idea</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> | <span class="nb">grep </span>python
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query -W
+      ↓
+list installed packages
+      ↓
+grep python
+      ↓
+keep only lines containing "python"
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> | <span class="nb">grep </span>openssh
+</code></pre></div></div>
+
+<p>This searches the package list for package names containing <code class="language-plaintext highlighter-rouge">openssh</code>.</p>
+
+<h3 id="important">Important</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">|</code> operator sends the <strong>stdout of the left command</strong> to the <strong>stdin of the right command</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-posix-character-classes">2. POSIX Character Classes</h1>
+
+<p>Regular expressions provide predefined character classes called <strong>POSIX character classes</strong>.</p>
+
+<p>General syntax:</p>
+
+<pre><code class="language-regex">[[:class:]]
+</code></pre>
+
+<p>Examples:</p>
+
+<pre><code class="language-regex">[[:alpha:]]
+[[:digit:]]
+[[:alnum:]]
+</code></pre>
+
+<p>These are useful because they provide readable and standardized ways to match categories of characters.</p>
+
+<hr />
+
+<h1 id="3-alpha--alphabetic-characters">3. <code class="language-plaintext highlighter-rouge">[[:alpha:]]</code> — Alphabetic Characters</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'[[:alpha:]]'</span>
+</code></pre></div></div>
+
+<p>Preferably:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:alpha:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:alpha:]]</code> matches an alphabetic character.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A B C ... Z
+a b c ... z
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+12345
+abc123
+456
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:alpha:]]'</span> file
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+abc123
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Because those lines contain at least one alphabetic character.</p>
+
+<h3 id="important-1">Important</h3>
+
+<p>This does <strong>not</strong> mean that the entire line contains only letters.</p>
+
+<pre><code class="language-regex">[[:alpha:]]
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Find at least one alphabetic character somewhere in the line.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="4-alnum--alphabetic-or-numeric">4. <code class="language-plaintext highlighter-rouge">[[:alnum:]]</code> — Alphabetic or Numeric</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:alnum:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:alnum:]]</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alphabetic OR numeric
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A-Z
+a-z
+0-9
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+12345
+abc123
+!!!
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+12345
+abc123
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">!!!</code> does not match because it contains neither letters nor digits.</p>
+
+<hr />
+
+<h1 id="5-digit--digits">5. <code class="language-plaintext highlighter-rouge">[[:digit:]]</code> — Digits</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:digit:]]'</span> file
+</code></pre></div></div>
+
+<p>Matches a digit:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 1 2 3 4 5 6 7 8 9
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+abc123
+hello42
+test
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc123
+hello42
+</code></pre></div></div>
+
+<p>The line only needs to contain <strong>at least one digit</strong>.</p>
+
+<hr />
+
+<h1 id="6-cntrl--control-characters">6. <code class="language-plaintext highlighter-rouge">[[:cntrl:]]</code> — Control Characters</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:cntrl:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:cntrl:]]</code> matches control characters.</p>
+
+<p>Control characters are non-printing characters used to control text streams or terminals.</p>
+
+<p>Examples include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NUL
+TAB
+NEWLINE
+CARRIAGE RETURN
+ESC
+</code></pre></div></div>
+
+<p>This can be useful when diagnosing files containing strange or invisible characters.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="nt">-v</span> file
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-n</span> <span class="s1">'[[:cntrl:]]'</span> file
+</code></pre></div></div>
+
+<p>can help investigate hidden characters.</p>
+
+<hr />
+
+<h1 id="7-grep--v-cntrl">7. <code class="language-plaintext highlighter-rouge">grep -v '[[:cntrl:]]'</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'[[:cntrl:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-v</code> means:</p>
+
+<blockquote>
+  <p>invert the match</p>
+</blockquote>
+
+<p>Normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep </span>pattern file
+</code></pre></div></div>
+
+<p>keeps matching lines.</p>
+
+<p>With:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> pattern file
+</code></pre></div></div>
+
+<p>it keeps <strong>non-matching lines</strong>.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'[[:cntrl:]]'</span> file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Print lines that do NOT contain control characters.</p>
+</blockquote>
+
+<h3 id="mental-model">Mental model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep pattern
+    ↓
+MATCH → keep
+
+grep -v pattern
+    ↓
+MATCH → reject
+NOT MATCH → keep
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-punct--punctuation">8. <code class="language-plaintext highlighter-rouge">[[:punct:]]</code> — Punctuation</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:punct:]]'</span> file
+</code></pre></div></div>
+
+<p>Matches punctuation characters.</p>
+
+<p>Examples include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>! " # $ % &amp; ' ( ) * + , - . / : ; &lt; = &gt; ? @ [ ] ^ _ ` { | } ~
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+hello!
+hello-world
+12345
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello!
+hello-world
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">!</code> and <code class="language-plaintext highlighter-rouge">-</code> are punctuation characters.</p>
+
+<hr />
+
+<h1 id="9-lower--lowercase">9. <code class="language-plaintext highlighter-rouge">[[:lower:]]</code> — Lowercase</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:lower:]]'</span> file
+</code></pre></div></div>
+
+<p>Matches lowercase alphabetic characters.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HELLO
+hello
+Hello
+123
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+Hello
+</code></pre></div></div>
+
+<p>because both lines contain lowercase letters.</p>
+
+<hr />
+
+<h1 id="10-upper--uppercase">10. <code class="language-plaintext highlighter-rouge">[[:upper:]]</code> — Uppercase</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:upper:]]'</span> file
+</code></pre></div></div>
+
+<p>Matches uppercase alphabetic characters.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+HELLO
+Hello
+123
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HELLO
+Hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-print--printable-characters">11. <code class="language-plaintext highlighter-rouge">[[:print:]]</code> — Printable Characters</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:print:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:print:]]</code> matches printable characters.</p>
+
+<p>These include characters that can normally be displayed, such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>letters
+digits
+punctuation
+spaces
+</code></pre></div></div>
+
+<p>It excludes control characters.</p>
+
+<p>This is useful when investigating whether text contains non-printing characters.</p>
+
+<hr />
+
+<h1 id="12-blank--space-and-tab">12. <code class="language-plaintext highlighter-rouge">[[:blank:]]</code> — Space and TAB</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:blank:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:blank:]]</code> matches horizontal whitespace:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>space
+TAB
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world
+helloworld
+hello&lt;TAB&gt;world
+</code></pre></div></div>
+
+<p>The first and third lines contain blank characters.</p>
+
+<h3 id="important-distinction">Important distinction</h3>
+
+<p><code class="language-plaintext highlighter-rouge">blank</code> is mainly horizontal whitespace.</p>
+
+<hr />
+
+<h1 id="13-space--whitespace">13. <code class="language-plaintext highlighter-rouge">[[:space:]]</code> — Whitespace</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:space:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:space:]]</code> is broader than <code class="language-plaintext highlighter-rouge">[[:blank:]]</code>.</p>
+
+<p>It can match whitespace characters such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>space
+TAB
+newline
+carriage return
+vertical tab
+form feed
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blank ⊂ space
+</code></pre></div></div>
+
+<p>So:</p>
+
+<pre><code class="language-regex">[[:blank:]]
+</code></pre>
+
+<p>is narrower than:</p>
+
+<pre><code class="language-regex">[[:space:]]
+</code></pre>
+
+<hr />
+
+<h1 id="14-graph--visible-non-space-characters">14. <code class="language-plaintext highlighter-rouge">[[:graph:]]</code> — Visible Non-Space Characters</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:graph:]]'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">[[:graph:]]</code> matches printable characters <strong>except whitespace</strong>.</p>
+
+<p>Think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>graph = print - whitespace
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+123
+hello!
+</code></pre></div></div>
+
+<p>contain graph characters.</p>
+
+<p>A line containing only spaces does not contain a graph character.</p>
+
+<hr />
+
+<h1 id="15-posix-character-class-cheat-sheet">15. POSIX Character Class Cheat Sheet</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:alpha:]]</code></td>
+      <td>Alphabetic characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:alnum:]]</code></td>
+      <td>Alphabetic + numeric</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:digit:]]</code></td>
+      <td>Digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:lower:]]</code></td>
+      <td>Lowercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:upper:]]</code></td>
+      <td>Uppercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:cntrl:]]</code></td>
+      <td>Control characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:punct:]]</code></td>
+      <td>Punctuation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:print:]]</code></td>
+      <td>Printable characters including spaces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:blank:]]</code></td>
+      <td>Space and TAB</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:space:]]</code></td>
+      <td>Whitespace</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[:graph:]]</code></td>
+      <td>Printable characters excluding whitespace</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="easy-memory-trick">Easy Memory Trick</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alpha  → letters
+alnum  → letters + numbers
+digit  → numbers
+lower  → lowercase
+upper  → uppercase
+punct  → punctuation
+blank  → space/TAB
+space  → whitespace
+print  → printable
+graph  → printable but not whitespace
+cntrl  → control characters
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-skipping-all-empty-lines">16. Skipping All Empty Lines</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+
+banana
+
+
+orange
+</code></pre></div></div>
+
+<p>We want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+orange
+</code></pre></div></div>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^$'</span> file
+</code></pre></div></div>
+
+<h3 id="understanding-">Understanding <code class="language-plaintext highlighter-rouge">^$</code></h3>
+
+<pre><code class="language-regex">^
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>beginning of line</p>
+</blockquote>
+
+<p>and:</p>
+
+<pre><code class="language-regex">$
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>end of line</p>
+</blockquote>
+
+<p>Together:</p>
+
+<pre><code class="language-regex">^$
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>beginning immediately followed by end</p>
+</blockquote>
+
+<p>Therefore, the line contains nothing.</p>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^$'</span> file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Print everything except empty lines.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="17-skipping-empty-and-whitespace-only-lines">17. Skipping Empty and Whitespace-Only Lines</h1>
+
+<p>Sometimes a line isn’t technically empty:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
+</code></pre></div></div>
+
+<p>It contains spaces.</p>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^[[:space:]]*$'</span> file
+</code></pre></div></div>
+
+<p>This removes:</p>
+
+<ul>
+  <li>completely empty lines</li>
+  <li>lines containing only spaces</li>
+  <li>lines containing only TABs</li>
+  <li>lines containing other whitespace</li>
+</ul>
+
+<p>Breakdown:</p>
+
+<pre><code class="language-regex">^
+</code></pre>
+
+<p>start of line</p>
+
+<pre><code class="language-regex">[[:space:]]*
+</code></pre>
+
+<p>zero or more whitespace characters</p>
+
+<pre><code class="language-regex">$
+</code></pre>
+
+<p>end of line</p>
+
+<p>Therefore:</p>
+
+<pre><code class="language-regex">^[[:space:]]*$
+</code></pre>
+
+<p>matches a line containing only whitespace.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">-v</code> removes those lines.</p>
+
+<hr />
+
+<h1 id="18-matching-12-digits">18. Matching 12 Digits</h1>
+
+<p>Lecture command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'[[:digit:]]{12}'</span> file
+</code></pre></div></div>
+
+<p>Modern equivalent:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'[[:digit:]]{12}'</span> file
+</code></pre></div></div>
+
+<p>The pattern:</p>
+
+<pre><code class="language-regex">[[:digit:]]{12}
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>12 consecutive digits</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>987654321012
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12345
+</code></pre></div></div>
+
+<p>doesn’t contain 12 consecutive digits.</p>
+
+<h3 id="important-2">Important</h3>
+
+<p>This does <strong>not necessarily mean the entire line contains exactly 12 digits</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc987654321012xyz
+</code></pre></div></div>
+
+<p>contains 12 consecutive digits, so it can match.</p>
+
+<p>If you want the entire line to contain exactly 12 digits:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^[[:digit:]]{12}$'</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-exactly-6-digits-as-a-word">19. Exactly 6 Digits as a Word</h1>
+
+<p>Lecture command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'\b[[:digit:]]{6}\b'</span> file
+</code></pre></div></div>
+
+<p>Modern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:digit:]]{6}\b'</span> file
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<pre><code class="language-regex">\b
+</code></pre>
+
+<p>word boundary</p>
+
+<pre><code class="language-regex">[[:digit:]]{6}
+</code></pre>
+
+<p>exactly six digits</p>
+
+<pre><code class="language-regex">\b
+</code></pre>
+
+<p>another word boundary</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>123456
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1234567
+</code></pre></div></div>
+
+<p>does not match as a standalone six-digit word.</p>
+
+<h3 id="example">Example</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Roll 123456
+Roll 1234567
+ID: 123456
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:digit:]]{6}\b'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Roll 123456
+ID: 123456
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-matching-a-roll-number-pattern">20. Matching a Roll Number Pattern</h1>
+
+<p>Lecture pattern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'\b[[:alpha:]]{2}[[:digit:]]{2}[[:alpha:]][[:digit:]]{2}\b'</span> file
+</code></pre></div></div>
+
+<p>Modern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:alpha:]]{2}[[:digit:]]{2}[[:alpha:]][[:digit:]]{2}\b'</span> file
+</code></pre></div></div>
+
+<p>Pattern structure:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\b
+│
+├── [[:alpha:]]{2}   → 2 letters
+├── [[:digit:]]{2}   → 2 digits
+├── [[:alpha:]]      → 1 letter
+├── [[:digit:]]{2}   → 2 digits
+│
+\b
+</code></pre></div></div>
+
+<p>Therefore the format is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LLDDLD
+</code></pre></div></div>
+
+<p>where:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>L = letter
+D = digit
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AB12C34
+CS01A25
+ME23X91
+</code></pre></div></div>
+
+<p>can match.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A12B34
+</code></pre></div></div>
+
+<p>doesn’t match because two letters are required at the beginning.</p>
+
+<hr />
+
+<h1 id="21-why-b-is-useful">21. Why <code class="language-plaintext highlighter-rouge">\b</code> Is Useful</h1>
+
+<p>Without:</p>
+
+<pre><code class="language-regex">\b
+</code></pre>
+
+<p>this pattern:</p>
+
+<pre><code class="language-regex">[[:alpha:]]{2}[[:digit:]]{2}[[:alpha:]][[:digit:]]{2}
+</code></pre>
+
+<p>could match the required pattern inside a larger word.</p>
+
+<p>Adding:</p>
+
+<pre><code class="language-regex">\b ... \b
+</code></pre>
+
+<p>helps require a word boundary around the complete pattern.</p>
+
+<hr />
+
+<h1 id="22-urls">22. URLs</h1>
+
+<p>Regex can be used to identify URL-like strings.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://google.com
+https://github.com/user
+http://example.com
+hello world
+</code></pre></div></div>
+
+<p>A simple URL pattern is:</p>
+
+<pre><code class="language-regex">https?://[^[:space:]]+
+</code></pre>
+
+<p>Using grep:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'https?://[^[:space:]]+'</span> file
+</code></pre></div></div>
+
+<h3 id="breakdown">Breakdown</h3>
+
+<pre><code class="language-regex">http
+</code></pre>
+
+<p>matches the literal text <code class="language-plaintext highlighter-rouge">http</code>.</p>
+
+<pre><code class="language-regex">s?
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>zero or one <code class="language-plaintext highlighter-rouge">s</code></p>
+</blockquote>
+
+<p>Therefore both work:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http
+https
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<pre><code class="language-regex">://
+</code></pre>
+
+<p>matches the literal characters.</p>
+
+<p>Then:</p>
+
+<pre><code class="language-regex">[^[:space:]]+
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>one or more characters that are not whitespace.</p>
+</blockquote>
+
+<p>So it can consume:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google.com
+github.com/user
+example.com/page?id=10
+</code></pre></div></div>
+
+<h3 id="important-3">Important</h3>
+
+<p>This is a <strong>simple URL detector</strong>, not a complete URL validator.</p>
+
+<p>Fully validating URLs with regex can become extremely complicated.</p>
+
+<hr />
+
+<h1 id="23-cut">23. <code class="language-plaintext highlighter-rouge">cut</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">cut</code> is used to extract portions of text.</p>
+
+<p>Two major modes are:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span>
+</code></pre></div></div>
+
+<p>for characters, and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> ... <span class="nt">-f</span> ...
+</code></pre></div></div>
+
+<p>for delimiter-separated fields.</p>
+
+<hr />
+
+<h1 id="24-cut--c-1-4-file">24. <code class="language-plaintext highlighter-rouge">cut -c 1-4 file</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-c</code> means:</p>
+
+<blockquote>
+  <p>characters</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">1-4</code> means:</p>
+
+<blockquote>
+  <p>characters 1 through 4</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABCDEFGHIJ
+1234567890
+LinuxShell
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 file
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABCD
+1234
+Linu
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-cut--c--4-file">25. <code class="language-plaintext highlighter-rouge">cut -c -4 file</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> <span class="nt">-4</span> file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>characters from the beginning through character 4</p>
+</blockquote>
+
+<p>Equivalent conceptually to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1-4
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABCDEFGHIJ
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABCD
+</code></pre></div></div>
+
+<h3 id="useful-forms">Useful Forms</h3>
+
+<p>Characters 1 through 4:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 file
+</code></pre></div></div>
+
+<p>Characters 5 through 10:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 5-10 file
+</code></pre></div></div>
+
+<p>Character 5 through the end:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 5- file
+</code></pre></div></div>
+
+<p>Beginning through character 4:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> <span class="nt">-4</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-extracting-fields-with-cut--d">26. Extracting Fields with <code class="language-plaintext highlighter-rouge">cut -d</code></h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham 27 DataScience
+Rahul 25 Engineering
+Aman 22 Physics
+</code></pre></div></div>
+
+<p>We can use space as the delimiter:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 file
+</code></pre></div></div>
+
+<h3 id="breakdown-1">Breakdown</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-d " "
+</code></pre></div></div>
+
+<p>sets the delimiter to a space.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-f 1
+</code></pre></div></div>
+
+<p>selects field 1.</p>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+Rahul
+Aman
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-cat-file--cut--d----f-1">27. <code class="language-plaintext highlighter-rouge">cat file | cut -d " " -f 1</code></h1>
+
+<p>Lecture form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>This works, but is unnecessarily long.</p>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 file
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">cut</code> can directly read the file.</p>
+
+<h3 id="when-is-a-pipe-useful">When is a pipe useful?</h3>
+
+<p>When the input comes from another command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>some_command | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>Here <code class="language-plaintext highlighter-rouge">cut</code> is processing output generated by another command.</p>
+
+<hr />
+
+<h1 id="28-multiple-cut-commands">28. Multiple <code class="language-plaintext highlighter-rouge">cut</code> Commands</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>101;Shubham,DataScience
+102;Rahul,Engineering
+103;Aman,Physics
+</code></pre></div></div>
+
+<p>We want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+Rahul
+Aman
+</code></pre></div></div>
+
+<p>First:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">";"</span> <span class="nt">-f</span> 2 file
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham,DataScience
+Rahul,Engineering
+Aman,Physics
+</code></pre></div></div>
+
+<p>Then extract the first comma-separated field:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">";"</span> <span class="nt">-f</span> 2 file | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">","</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+Rahul
+Aman
+</code></pre></div></div>
+
+<h3 id="pipeline-mental-model">Pipeline Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>original file
+     ↓
+cut by ;
+     ↓
+field 2
+     ↓
+Shubham,DataScience
+     ↓
+cut by ,
+     ↓
+field 1
+     ↓
+Shubham
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-grep-version-of-the-above-command">29. Grep Version of the Above Command</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>101;Shubham,DataScience
+102;Rahul,Engineering
+103;Aman,Physics
+</code></pre></div></div>
+
+<p>We want to extract the names.</p>
+
+<p>One GNU grep solution is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-oP</span> <span class="s1">'(?&lt;=;)[^,]+'</span> file
+</code></pre></div></div>
+
+<h3 id="breakdown-2">Breakdown</h3>
+
+<pre><code class="language-regex">(?&lt;=;)
+</code></pre>
+
+<p>is a positive lookbehind.</p>
+
+<p>It means:</p>
+
+<blockquote>
+  <p>The match must immediately follow <code class="language-plaintext highlighter-rouge">;</code>.</p>
+</blockquote>
+
+<p>Then:</p>
+
+<pre><code class="language-regex">[^,]+
+</code></pre>
+
+<p>means:</p>
+
+<blockquote>
+  <p>one or more characters that are not comma.</p>
+</blockquote>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>101;Shubham,DataScience
+</code></pre></div></div>
+
+<p>it extracts:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shubham
+</code></pre></div></div>
+
+<h3 id="why--o">Why <code class="language-plaintext highlighter-rouge">-o</code>?</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-o</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>print only the matched portion.</p>
+</blockquote>
+
+<h3 id="why--p">Why <code class="language-plaintext highlighter-rouge">-P</code>?</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-P</span>
+</code></pre></div></div>
+
+<p>enables PCRE-style regular expressions in GNU grep.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-oP</span> <span class="s1">'(?&lt;=;)[^,]+'</span> file
+</code></pre></div></div>
+
+<p>prints only the names.</p>
+
+<hr />
+
+<h1 id="30-cut-vs-grep">30. <code class="language-plaintext highlighter-rouge">cut</code> vs <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<p>These tools solve different problems.</p>
+
+<h3 id="grep"><code class="language-plaintext highlighter-rouge">grep</code></h3>
+
+<p>Used primarily for:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>searching
+filtering
+regex matching
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'ERROR'</span> log.txt
+</code></pre></div></div>
+
+<p>Question answered:</p>
+
+<blockquote>
+  <p>Which lines contain this pattern?</p>
+</blockquote>
+
+<h3 id="cut"><code class="language-plaintext highlighter-rouge">cut</code></h3>
+
+<p>Used primarily for:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extracting characters
+extracting fields
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">","</span> <span class="nt">-f</span> 2 data.csv
+</code></pre></div></div>
+
+<p>Question answered:</p>
+
+<blockquote>
+  <p>Which part of each line do I want?</p>
+</blockquote>
+
+<h3 id="easy-mental-model">Easy Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep → FIND/FILTER
+cut  → EXTRACT
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-complex-pipeline">31. Complex Pipeline</h1>
+
+<p>Lecture command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 | <span class="nb">head</span> <span class="nt">-n</span> 19 | <span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>Let’s understand it step by step.</p>
+
+<p>Suppose the input contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://google.com Google
+https://github.com GitHub
+https://example.com Example
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="step-1--split-using-">Step 1 — Split Using <code class="language-plaintext highlighter-rouge">/</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3
+</code></pre></div></div>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://google.com Google
+</code></pre></div></div>
+
+<p>splitting by <code class="language-plaintext highlighter-rouge">/</code> gives approximately:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>field 1 → https:
+field 2 → 
+field 3 → google.com Google
+</code></pre></div></div>
+
+<p>Therefore field 3 is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google.com Google
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="step-2--extract-first-space-separated-field">Step 2 — Extract First Space-Separated Field</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google.com Google
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>google.com
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>extracts the hostname/domain portion from this particular URL format.</p>
+
+<hr />
+
+<h1 id="32-head--n-19">32. <code class="language-plaintext highlighter-rouge">head -n 19</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 19
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Keep the first 19 lines.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+...
+19
+20
+21
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+...
+19
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-tail--n-1">33. <code class="language-plaintext highlighter-rouge">tail -n 1</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Keep only the last line of the input.</p>
+</blockquote>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 19 | <span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Take the first 19 lines, then select the last one.</p>
+</blockquote>
+
+<p>The result is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 19
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-understanding-the-complete-pipeline">34. Understanding the Complete Pipeline</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file |
+<span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 |
+<span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 |
+<span class="nb">head</span> <span class="nt">-n</span> 19 |
+<span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>Pipeline:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file
+ ↓
+extract field 3 using /
+ ↓
+extract field 1 using space
+ ↓
+keep first 19 lines
+ ↓
+keep last of those 19 lines
+ ↓
+RESULT = line 19 after transformations
+</code></pre></div></div>
+
+<p>The key concept is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 19 | <span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>selects the <strong>19th line</strong>.</p>
+
+<hr />
+
+<h1 id="35-a-better-way-to-select-line-19">35. A Better Way to Select Line 19</h1>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 19 | <span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>you can often use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'19p'</span> file
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'NR==19'</span> file
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 file |
+<span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 |
+<span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'19p'</span>
+</code></pre></div></div>
+
+<p>Or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 file |
+<span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 |
+<span class="nb">awk</span> <span class="s1">'NR==19'</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-important-cut-limitation">36. Important <code class="language-plaintext highlighter-rouge">cut</code> Limitation</h1>
+
+<p><code class="language-plaintext highlighter-rouge">cut -d " " -f 1</code> treats <strong>each individual space</strong> as the delimiter.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello    world
+</code></pre></div></div>
+
+<p>contains multiple spaces.</p>
+
+<p>Using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<p>may produce unexpected empty fields because every space is treated as a delimiter.</p>
+
+<p>For arbitrary whitespace-separated data, <code class="language-plaintext highlighter-rouge">awk</code> is often better:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> file
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">awk</code> treats runs of whitespace as a separator by default.</p>
+
+<hr />
+
+<h1 id="37-cat-file--command--useless-use-of-cat">37. <code class="language-plaintext highlighter-rouge">cat file | command</code> — Useless Use of Cat</h1>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep </span>pattern
+</code></pre></div></div>
+
+<p>works.</p>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep </span>pattern file
+</code></pre></div></div>
+
+<p>is normally better.</p>
+
+<p>Likewise:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">cut</span> <span class="nt">-c</span> 1-4
+</code></pre></div></div>
+
+<p>can usually be:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 file
+</code></pre></div></div>
+
+<p>The pipe becomes useful when the previous command generates the data:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> | <span class="nb">grep </span>python
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query
+    ↓
+generates package list
+    ↓
+grep
+    ↓
+filters package list
+</code></pre></div></div>
+
+<p>So the pipe is meaningful.</p>
+
+<hr />
+
+<h1 id="38-important-exam-patterns">38. Important Exam Patterns</h1>
+
+<h2 id="find-lines-containing-letters">Find lines containing letters</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:alpha:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-numbers">Find lines containing numbers</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:digit:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-letters-or-numbers">Find lines containing letters or numbers</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:alnum:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-punctuation">Find lines containing punctuation</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:punct:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-lowercase-letters">Find lines containing lowercase letters</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:lower:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-uppercase-letters">Find lines containing uppercase letters</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:upper:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-whitespace">Find lines containing whitespace</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:space:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="find-lines-containing-spacestabs">Find lines containing spaces/TABs</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:blank:]]'</span> file
+</code></pre></div></div>
+
+<h2 id="remove-empty-lines">Remove empty lines</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^$'</span> file
+</code></pre></div></div>
+
+<h2 id="remove-empty-and-whitespace-only-lines">Remove empty and whitespace-only lines</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^[[:space:]]*$'</span> file
+</code></pre></div></div>
+
+<h2 id="find-12-consecutive-digits">Find 12 consecutive digits</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'[[:digit:]]{12}'</span> file
+</code></pre></div></div>
+
+<h2 id="find-exactly-12-digits-as-the-complete-line">Find exactly 12 digits as the complete line</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^[[:digit:]]{12}$'</span> file
+</code></pre></div></div>
+
+<h2 id="find-exactly-six-digits-as-a-word">Find exactly six digits as a word</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:digit:]]{6}\b'</span> file
+</code></pre></div></div>
+
+<h2 id="match-roll-number-format">Match roll number format</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:alpha:]]{2}[[:digit:]]{2}[[:alpha:]][[:digit:]]{2}\b'</span> file
+</code></pre></div></div>
+
+<h2 id="find-urls">Find URLs</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'https?://[^[:space:]]+'</span> file
+</code></pre></div></div>
+
+<h2 id="first-four-characters">First four characters</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 file
+</code></pre></div></div>
+
+<h2 id="first-four-characters-using-shorthand">First four characters using shorthand</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> <span class="nt">-4</span> file
+</code></pre></div></div>
+
+<h2 id="first-field-separated-by-space">First field separated by space</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1 file
+</code></pre></div></div>
+
+<h2 id="second-field-separated-by-">Second field separated by <code class="language-plaintext highlighter-rouge">;</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">";"</span> <span class="nt">-f</span> 2 file
+</code></pre></div></div>
+
+<h2 id="first-field-after-splitting-the-second--field-by-comma">First field after splitting the second <code class="language-plaintext highlighter-rouge">;</code> field by comma</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">";"</span> <span class="nt">-f</span> 2 file | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">","</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<h2 id="19th-line">19th line</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 19 file | <span class="nb">tail</span> <span class="nt">-n</span> 1
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'19p'</span> file
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'NR==19'</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-practice-dataset">39. Practice Dataset</h1>
+
+<p>Create a file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span> data.txt
+</code></pre></div></div>
+
+<p>Enter:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+123456
+ABC123
+hello123!
+HELLO
+abc
+Hello123World
+AB12C34
+XY99Z88
+1234567
+https://google.com Google
+https://github.com GitHub
+
+hello    world
+!!!
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>to finish.</p>
+
+<hr />
+
+<h1 id="40-practice-questions">40. Practice Questions</h1>
+
+<h2 id="q1-find-lines-containing-at-least-one-digit">Q1. Find lines containing at least one digit.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:digit:]]'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2-find-lines-containing-at-least-one-uppercase-letter">Q2. Find lines containing at least one uppercase letter.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:upper:]]'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3-find-lines-containing-punctuation">Q3. Find lines containing punctuation.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'[[:punct:]]'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4-print-lines-that-do-not-contain-control-characters">Q4. Print lines that do not contain control characters.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'[[:cntrl:]]'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5-remove-all-empty-lines">Q5. Remove all empty lines.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-v</span> <span class="s1">'^$'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6-find-a-standalone-six-digit-number">Q6. Find a standalone six-digit number.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:digit:]]{6}\b'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7-find-valid-roll-number-shaped-strings">Q7. Find valid roll-number-shaped strings.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'\b[[:alpha:]]{2}[[:digit:]]{2}[[:alpha:]][[:digit:]]{2}\b'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8-print-the-first-four-characters-of-every-line">Q8. Print the first four characters of every line.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-c</span> 1-4 data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9-extract-the-domain-from-urls-of-the-form">Q9. Extract the domain from URLs of the form:</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://domain.com Name
+</code></pre></div></div>
+
+<p>Solution:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"/"</span> <span class="nt">-f</span> 3 data.txt | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">" "</span> <span class="nt">-f</span> 1
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10-extract-only-urls">Q10. Extract only URLs.</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'https?://[^[:space:]]+'</span> data.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-key-mental-model">41. Key Mental Model</h1>
+
+<p>Think of these commands as different tools:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep
+ │
+ ├── search/filter lines
+ └── regex matching
+
+cut
+ │
+ ├── extract characters
+ └── extract delimiter-separated fields
+
+head
+ │
+ └── take beginning of input
+
+tail
+ │
+ └── take end of input
+
+|
+ │
+ └── connect commands
+</code></pre></div></div>
+
+<p>The most important pipeline idea is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2 | command3
+</code></pre></div></div>
+
+<p>The output of one command becomes the input of the next.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">";"</span> <span class="nt">-f</span> 2 file |
+<span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">","</span> <span class="nt">-f</span> 1 |
+<span class="nb">head</span> <span class="nt">-n</span> 10
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file
+ ↓
+extract field 2 using ;
+ ↓
+extract field 1 using ,
+ ↓
+take first 10 lines
+</code></pre></div></div>
+
+<p>Once you can mentally trace data through each stage, complex Linux command pipelines become much easier to solve in exams and real-world shell scripting.</p>
+
+<hr />
+
+<h1 id="42-final-cheat-sheet">42. Final Cheat Sheet</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg-query -W \| grep pattern</code></td>
+      <td>Search installed packages</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:alpha:]]' file</code></td>
+      <td>Lines containing letters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:alnum:]]' file</code></td>
+      <td>Lines containing letters/digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:digit:]]' file</code></td>
+      <td>Lines containing digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:cntrl:]]' file</code></td>
+      <td>Lines containing control characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -v '[[:cntrl:]]' file</code></td>
+      <td>Lines without control characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:punct:]]' file</code></td>
+      <td>Lines containing punctuation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:lower:]]' file</code></td>
+      <td>Lines containing lowercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:upper:]]' file</code></td>
+      <td>Lines containing uppercase</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:print:]]' file</code></td>
+      <td>Lines containing printable characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:blank:]]' file</code></td>
+      <td>Lines containing space/TAB</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:space:]]' file</code></td>
+      <td>Lines containing whitespace</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep '[[:graph:]]' file</code></td>
+      <td>Lines containing non-space printable chars</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -v '^$' file</code></td>
+      <td>Remove empty lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -v '^[[:space:]]*$' file</code></td>
+      <td>Remove empty/whitespace-only lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -E '[[:digit:]]{12}' file</code></td>
+      <td>Find 12 consecutive digits</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -E '\b[[:digit:]]{6}\b' file</code></td>
+      <td>Find standalone six-digit numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">grep -E 'https?://[^[:space:]]+' file</code></td>
+      <td>Find URL-like strings</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cut -c 1-4 file</code></td>
+      <td>First 4 characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cut -c -4 file</code></td>
+      <td>First 4 characters</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cut -d " " -f 1 file</code></td>
+      <td>First space-separated field</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cut -d ";" -f 2 file</code></td>
+      <td>Second <code class="language-plaintext highlighter-rouge">;</code>-separated field</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">head -n 19 file</code></td>
+      <td>First 19 lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tail -n 1</code></td>
+      <td>Last line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">head -n 19 \| tail -n 1</code></td>
+      <td>Select line 19</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sed -n '19p' file</code></td>
+      <td>Select line 19</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">awk 'NR==19' file</code></td>
+      <td>Select line 19</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="most-important-exam-distinctions">Most Important Exam Distinctions</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep
+→ FIND/FILTER
+
+cut
+→ EXTRACT
+
+head
+→ TAKE FROM BEGINNING
+
+tail
+→ TAKE FROM END
+
+|
+→ SEND OUTPUT TO NEXT COMMAND
+
+-v
+→ INVERT MATCH
+
+-c
+→ CHARACTER MODE
+
+-d
+→ DELIMITER
+
+-f
+→ FIELD
+
+-E
+→ Extended Regular Expressions
+
+-P
+→ PCRE in GNU grep
+
+\b
+→ WORD BOUNDARY
+
+^
+→ BEGINNING OF LINE
+
+$
+→ END OF LINE
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L4.1: Pattern Matching - Part 01</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">T4.1 What is find?</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

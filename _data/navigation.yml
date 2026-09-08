@@ -82,9 +82,7 @@
       url: "/chapters/week-09/9-1-awk-programming-part-1.html"
     - title: "9.2 - AWK Programming Part 2"
       url: "/chapters/week-09/9-2-awk-programming-part-2.html"
-    - title: "Download scripts used in lectures"
-      url: "/chapters/week-09/download-scripts-used-in-lectures.html"
-
+    
 - week: "Week 10"
   topics:
     - title: "L10.1 - Version Control - Part 01"

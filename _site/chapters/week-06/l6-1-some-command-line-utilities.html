@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L6.1: Some Command line Utilities | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link active">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 6</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L6.1: Some Command line Utilities</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l61-some-command-line-utilities">L6.1: Some Command line Utilities</h1>
+
+<h1 id="find-file-packaging-compression-and-make">find, File Packaging, Compression, and make</h1>
+
+<h2 id="1-find">1. <code class="language-plaintext highlighter-rouge">find</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> is a Linux command used to <strong>search for files and directories recursively</strong> inside a directory hierarchy.</p>
+
+<p>Think of <code class="language-plaintext highlighter-rouge">find</code> as:</p>
+
+<blockquote>
+  <p>“Start from this directory and inspect everything below it. Show me the things that match my conditions.”</p>
+</blockquote>
+
+<h3 id="basic-syntax">Basic syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find &lt;starting-path&gt; &lt;conditions&gt; &lt;actions&gt;
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>This searches the current directory and all its subdirectories.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nv">$HOME</span>
+</code></pre></div></div>
+
+<p>This searches your home directory.</p>
+
+<hr />
+
+<h1 id="2-important-find-options">2. Important <code class="language-plaintext highlighter-rouge">find</code> Options</h1>
+
+<p>Some commonly used <code class="language-plaintext highlighter-rouge">find</code> tests and actions are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-name</code></td>
+      <td>Match filename</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-type</code></td>
+      <td>Match file type</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-atime</code></td>
+      <td>Match based on access time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-ctime</code></td>
+      <td>Match based on inode/status-change time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-mtime</code></td>
+      <td>Match based on modification time</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-regex</code></td>
+      <td>Match pathname using a regular expression</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-exec</code></td>
+      <td>Execute a command for every match</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-print</code></td>
+      <td>Print matching paths</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-size</code></td>
+      <td>Match based on file size</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="3--name">3. <code class="language-plaintext highlighter-rouge">-name</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-name</code> searches for files/directories based on their names.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Find all <code class="language-plaintext highlighter-rouge">.txt</code> files below the current directory.</p>
+
+<h3 id="important">Important</h3>
+
+<p>Quote wildcards:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<p>not:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="k">*</span>.jpg
+</code></pre></div></div>
+
+<p>The quotes prevent the shell from expanding <code class="language-plaintext highlighter-rouge">*.jpg</code> before <code class="language-plaintext highlighter-rouge">find</code> receives it.</p>
+
+<h3 id="case-sensitive">Case-sensitive</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.JPG"</span>
+</code></pre></div></div>
+
+<p>only matches names with uppercase <code class="language-plaintext highlighter-rouge">.JPG</code>.</p>
+
+<p>For case-insensitive matching:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-iname</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4--type">4. <code class="language-plaintext highlighter-rouge">-type</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-type</code> lets us specify what kind of filesystem object we want.</p>
+
+<p>Common types:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f   regular file
+d   directory
+l   symbolic link
+</code></pre></div></div>
+
+<h3 id="find-regular-files">Find regular files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<h3 id="find-directories">Find directories</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> d
+</code></pre></div></div>
+
+<h3 id="find-symbolic-links">Find symbolic links</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> l
+</code></pre></div></div>
+
+<h3 id="combine--type-and--name">Combine <code class="language-plaintext highlighter-rouge">-type</code> and <code class="language-plaintext highlighter-rouge">-name</code></h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<blockquote>
+  <p>Find regular files whose names end in <code class="language-plaintext highlighter-rouge">.jpg</code>.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="5--print">5. <code class="language-plaintext highlighter-rouge">-print</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-print</code> prints the pathname of every matching object.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./file1.txt
+./data/file2.txt
+./logs/server.log
+</code></pre></div></div>
+
+<p>In many common <code class="language-plaintext highlighter-rouge">find</code> commands, <code class="language-plaintext highlighter-rouge">-print</code> is the default action when no other explicit action is given.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>normally produce the same paths.</p>
+
+<p>Explicitly writing <code class="language-plaintext highlighter-rouge">-print</code> can make the intention clearer.</p>
+
+<hr />
+
+<h1 id="6-counting-files-with-find">6. Counting Files with <code class="language-plaintext highlighter-rouge">find</code></h1>
+
+<p>You can pipe the output of <code class="language-plaintext highlighter-rouge">find</code> to another command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nv">$HOME</span> <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>This counts the number of pathnames printed by <code class="language-plaintext highlighter-rouge">find</code> under your home directory.</p>
+
+<h3 id="mental-model">Mental model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+  ↓
+list paths
+  ↓
+wc -l
+  ↓
+count lines
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nv">$HOME</span> <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Search <code class="language-plaintext highlighter-rouge">$HOME</code>, print every matching pathname, and count the output lines.</p>
+</blockquote>
+
+<h3 id="important-limitation">Important limitation</h3>
+
+<p>This counts <strong>pathnames</strong>, not necessarily only regular files.</p>
+
+<p>If you specifically want regular files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span> <span class="nt">-type</span> f <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-time-based-searching">7. Time-Based Searching</h1>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> can search according to timestamps.</p>
+
+<p>Important options include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-atime   last access time
+-mtime   last modification time
+-ctime   last status/inode change time
+</code></pre></div></div>
+
+<h2 id="mtime"><code class="language-plaintext highlighter-rouge">mtime</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">mtime</code> means:</p>
+
+<blockquote>
+  <p>modification time of the file’s contents.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mtime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<p>means approximately:</p>
+
+<blockquote>
+  <p>Find objects modified within the last 2 × 24-hour periods.</p>
+</blockquote>
+
+<p>The exact boundary behavior is based on <code class="language-plaintext highlighter-rouge">find</code>’s age calculation in complete 24-hour units.</p>
+
+<h3 id="useful-pattern">Useful pattern</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-mtime -N    less than N complete 24-hour periods old
+-mtime N     approximately N complete 24-hour periods old
+-mtime +N    more than N complete 24-hour periods old
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mtime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<p>Recently modified.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mtime</span> +30
+</code></pre></div></div>
+
+<p>Modified more than 30 complete 24-hour periods ago.</p>
+
+<h3 id="important-correction">Important correction</h3>
+
+<p>If you see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-m</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-m</span> +30
+</code></pre></div></div>
+
+<p>in lecture shorthand, the standard GNU/Linux <code class="language-plaintext highlighter-rouge">find</code> option is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-mtime</span>
+</code></pre></div></div>
+
+<p>So use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mtime</span> <span class="nt">-2</span>
+find <span class="nb">.</span> <span class="nt">-mtime</span> +30
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8--atime">8. <code class="language-plaintext highlighter-rouge">-atime</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-atime</code> searches based on the <strong>last access time</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-atime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<p>Find objects accessed within the relevant recent time range.</p>
+
+<p>Access can occur when a file is read, although exact timestamp behavior depends on filesystem and mount options.</p>
+
+<hr />
+
+<h1 id="9--ctime">9. <code class="language-plaintext highlighter-rouge">-ctime</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-ctime</code> searches based on the file’s <strong>status change time</strong>.</p>
+
+<p>This is often misunderstood.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ctime</code> does <strong>not</strong> mean “creation time”.</p>
+
+<p>It means the last time filesystem metadata/status changed.</p>
+
+<p>For example, changes to:</p>
+
+<ul>
+  <li>permissions</li>
+  <li>ownership</li>
+  <li>link count</li>
+  <li>some metadata</li>
+  <li>file contents in ways that update metadata</li>
+</ul>
+
+<p>can update <code class="language-plaintext highlighter-rouge">ctime</code>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-ctime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-find-man-page-directory-example">10. <code class="language-plaintext highlighter-rouge">find</code> Man-Page Directory Example</h1>
+
+<p>Suppose we want directories under <code class="language-plaintext highlighter-rouge">/usr</code> whose names look like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man1
+man2
+man3
+...
+</code></pre></div></div>
+
+<p>We can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /usr <span class="nt">-type</span> d <span class="nt">-name</span> <span class="s2">"man?"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-type d
+</code></pre></div></div>
+
+<p>means directory.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-name "man?"
+</code></pre></div></div>
+
+<p>means the name must consist of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man + exactly one character
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man1
+man2
+man3
+mana
+</code></pre></div></div>
+
+<p>could match.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man
+manual
+man12
+</code></pre></div></div>
+
+<p>would not match.</p>
+
+<h3 id="important-1">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">?</code> here is a <strong>filename wildcard</strong>, not necessarily a regular-expression <code class="language-plaintext highlighter-rouge">?</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">-name</code> uses shell-style pattern matching.</p>
+
+<hr />
+
+<h1 id="11--size">11. <code class="language-plaintext highlighter-rouge">-size</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-size</code> searches according to file size.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-size</span> +10M
+</code></pre></div></div>
+
+<p>Find files whose size is greater than the specified size threshold.</p>
+
+<p>For regular files specifically:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M
+</code></pre></div></div>
+
+<h3 id="common-size-suffixes">Common size suffixes</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c   bytes
+k   KiB
+M   MiB
+G   GiB
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +100M
+</code></pre></div></div>
+
+<p>Find regular files larger than 100 MiB.</p>
+
+<hr />
+
+<h1 id="12--exec">12. <code class="language-plaintext highlighter-rouge">-exec</code></h1>
+
+<p>One of the most powerful <code class="language-plaintext highlighter-rouge">find</code> features is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span>
+</code></pre></div></div>
+
+<p>It allows us to execute another command on the matching files.</p>
+
+<p>Basic form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">command</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}     → replaced by the current matched pathname
+\;     → terminates the -exec command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<ol>
+  <li>Search for regular files.</li>
+  <li>Their names must end in <code class="language-plaintext highlighter-rouge">.jpg</code>.</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">ls -sh</code> on each matching file.</li>
+</ol>
+
+<p>For example, if <code class="language-plaintext highlighter-rouge">find</code> finds:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./a.jpg
+./photos/b.jpg
+</code></pre></div></div>
+
+<p>it effectively executes commands similar to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-sh</span> ./a.jpg
+<span class="nb">ls</span> <span class="nt">-sh</span> ./photos/b.jpg
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-why--is-important">13. Why <code class="language-plaintext highlighter-rouge">{}</code> Is Important</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">{}</code> is a placeholder.</p>
+
+<p>If the match is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./photo.jpg
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./photo.jpg
+</code></pre></div></div>
+
+<p>Therefore the executed command becomes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-sh</span> ./photo.jpg
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-why--is-important">14. Why <code class="language-plaintext highlighter-rouge">\;</code> Is Important</h1>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\;</span>
+</code></pre></div></div>
+
+<p>tells <code class="language-plaintext highlighter-rouge">find</code>:</p>
+
+<blockquote>
+  <p>This <code class="language-plaintext highlighter-rouge">-exec</code> command is finished.</p>
+</blockquote>
+
+<p>The backslash prevents the shell from treating <code class="language-plaintext highlighter-rouge">;</code> as the end of the shell command before <code class="language-plaintext highlighter-rouge">find</code> receives it.</p>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>is correct.</p>
+
+<hr />
+
+<h1 id="15--exec---vs--exec--">15. <code class="language-plaintext highlighter-rouge">-exec ... \;</code> vs <code class="language-plaintext highlighter-rouge">-exec ... +</code></h1>
+
+<p>There are two important forms.</p>
+
+<h3 id="one-command-per-match">One command per match</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> file1
+<span class="nb">ls</span> <span class="nt">-l</span> file2
+<span class="nb">ls</span> <span class="nt">-l</span> file3
+</code></pre></div></div>
+
+<h3 id="batch-multiple-matches">Batch multiple matches</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> file1 file2 file3
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">+</code> form is generally more efficient because fewer processes need to be started.</p>
+
+<hr />
+
+<h1 id="16-finding-large-files">16. Finding Large Files</h1>
+
+<p>Lecture example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-size</span> +10M <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lsh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<blockquote>
+  <p>Search below the current directory for files larger than 10M and run <code class="language-plaintext highlighter-rouge">ls -lsh</code> on every match.</p>
+</blockquote>
+
+<p>A more precise version that explicitly restricts the result to regular files is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lsh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>12K -rw-r--r-- 1 user user 11M ./large.dat
+25M -rw-r--r-- 1 user user 24M ./video.mp4
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-finding-all-jpg-files">17. Finding All JPG Files</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s1">'*.jpg'</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>This searches recursively for JPG files and displays their sizes.</p>
+
+<p>A more explicit version:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s1">'*.jpg'</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18--regex">18. <code class="language-plaintext highlighter-rouge">-regex</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> can also match pathnames using regular expressions.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-regex</span> <span class="s1">'.*\.jpg'</span>
+</code></pre></div></div>
+
+<p>This searches for regular files whose path matches the regular expression.</p>
+
+<h3 id="understand-the-difference">Understand the difference</h3>
+
+<p><code class="language-plaintext highlighter-rouge">-name</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<p>uses shell-style wildcard matching.</p>
+
+<p><code class="language-plaintext highlighter-rouge">-regex</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-regex</span> <span class="s1">'.*\.jpg'</span>
+</code></pre></div></div>
+
+<p>uses a regular expression according to the <code class="language-plaintext highlighter-rouge">find</code> implementation’s regex type.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-name
+  ↓
+shell-style pattern
+
+-regex
+  ↓
+regular expression
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-find-conditions-can-be-combined">19. <code class="language-plaintext highlighter-rouge">find</code> Conditions Can Be Combined</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<blockquote>
+  <p>Find regular files ending in <code class="language-plaintext highlighter-rouge">.log</code> that were modified recently.</p>
+</blockquote>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-size</span> +10M
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<blockquote>
+  <p>Find JPG regular files larger than 10M.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="20-du--sh">20. <code class="language-plaintext highlighter-rouge">du -sh</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">du</code> means:</p>
+
+<blockquote>
+  <p>disk usage</p>
+</blockquote>
+
+<p>It is useful for finding how much disk space a file or directory consumes.</p>
+
+<p>Basic command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> directory/
+</code></pre></div></div>
+
+<p>Options:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-s   summary
+-h   human-readable
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> ~/Downloads
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4.2G    /home/user/Downloads
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<blockquote>
+  <p>The directory consumes approximately 4.2 GiB of disk space.</p>
+</blockquote>
+
+<h3 id="compare-du-and-df">Compare <code class="language-plaintext highlighter-rouge">du</code> and <code class="language-plaintext highlighter-rouge">df</code></h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du
+↓
+How much space are these files/directories using?
+
+df
+↓
+How much free/used space is on the filesystem?
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-file-packaging-and-compression">21. File Packaging and Compression</h1>
+
+<p>There are two different concepts:</p>
+
+<h2 id="packaging">Packaging</h2>
+
+<p>Combining multiple files/directories into one archive.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file1
+file2
+file3
+folder
+  ↓
+archive
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> backup.tar folder/
+</code></pre></div></div>
+
+<h2 id="compression">Compression</h2>
+
+<p>Reducing the amount of storage required by data.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>large data
+   ↓
+compression
+   ↓
+smaller data
+</code></pre></div></div>
+
+<p>These are related but <strong>not the same thing</strong>.</p>
+
+<hr />
+
+<h1 id="22-tar">22. <code class="language-plaintext highlighter-rouge">tar</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">tar</code> stands for <strong>Tape Archive</strong>.</p>
+
+<p>Its primary purpose is <strong>packaging multiple files/directories into one archive</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> logfiles.tar logfiles/
+</code></pre></div></div>
+
+<p>creates:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar
+</code></pre></div></div>
+
+<h3 id="options">Options</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-c   create archive
+-v   verbose
+-f   specify archive filename
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> logfiles.tar logfiles/
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Create a tar archive named <code class="language-plaintext highlighter-rouge">logfiles.tar</code> containing <code class="language-plaintext highlighter-rouge">logfiles/</code>.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="23-what-does-tar-actually-do">23. What Does <code class="language-plaintext highlighter-rouge">tar</code> Actually Do?</h1>
+
+<p>Suppose we have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles/
+├── app.log
+├── error.log
+└── access.log
+</code></pre></div></div>
+
+<p>Running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> logfiles.tar logfiles/
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar
+</code></pre></div></div>
+
+<p>The archive contains all those files.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app.log
+error.log
+access.log
+    ↓
+   tar
+    ↓
+logfiles.tar
+</code></pre></div></div>
+
+<h3 id="important-2">Important</h3>
+
+<p>A <code class="language-plaintext highlighter-rouge">.tar</code> file is an <strong>archive</strong>, not necessarily a compressed file.</p>
+
+<hr />
+
+<h1 id="24-extracting-a-tar-archive">24. Extracting a TAR Archive</h1>
+
+<p>To extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> logfiles.tar
+</code></pre></div></div>
+
+<p>Options:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-x   extract
+-v   verbose
+-f   archive file
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> logfiles.tar
+</code></pre></div></div>
+
+<p>extracts the contents.</p>
+
+<hr />
+
+<h1 id="25-tar-common-options">25. <code class="language-plaintext highlighter-rouge">tar</code> Common Options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-c</code></td>
+      <td>Create archive</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-x</code></td>
+      <td>Extract archive</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-t</code></td>
+      <td>List archive contents</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-v</code></td>
+      <td>Verbose</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-f</code></td>
+      <td>Archive filename</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-z</code></td>
+      <td>gzip compression</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-j</code></td>
+      <td>bzip2 compression</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-J</code></td>
+      <td>xz compression</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> backup.tar project/
+</code></pre></div></div>
+
+<p>Create.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-tvf</span> backup.tar
+</code></pre></div></div>
+
+<p>List contents.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> backup.tar
+</code></pre></div></div>
+
+<p>Extract.</p>
+
+<hr />
+
+<h1 id="26-gzip">26. <code class="language-plaintext highlighter-rouge">gzip</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">gzip</code> is a compression utility.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>logfiles.tar
+</code></pre></div></div>
+
+<p>This compresses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar
+</code></pre></div></div>
+
+<p>into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.gz
+</code></pre></div></div>
+
+<p>The original uncompressed file is normally replaced by the compressed file.</p>
+
+<h3 id="important-3">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">gzip</code> normally compresses a file.</p>
+
+<p>It does not serve as the main tool for packaging an entire directory tree.</p>
+
+<p>That’s why we commonly combine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar + gzip
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-tar--gzip">27. TAR + GZIP</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles/
+├── app.log
+├── error.log
+└── access.log
+</code></pre></div></div>
+
+<p>First:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> logfiles.tar logfiles/
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>logfiles.tar
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.gz
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>multiple files/directories
+          ↓
+         tar
+          ↓
+    logfiles.tar
+          ↓
+        gzip
+          ↓
+    logfiles.tar.gz
+</code></pre></div></div>
+
+<p>This is extremely common in Linux.</p>
+
+<hr />
+
+<h1 id="28-gunzip">28. <code class="language-plaintext highlighter-rouge">gunzip</code></h1>
+
+<p>To decompress a <code class="language-plaintext highlighter-rouge">.gz</code> file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gunzip </span>logfiles.tar.gz
+</code></pre></div></div>
+
+<p>This normally produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip</span> <span class="nt">-d</span> logfiles.tar.gz
+</code></pre></div></div>
+
+<p>Both perform gzip decompression.</p>
+
+<p>Then extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> logfiles.tar
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-one-step-tar--gzip-extraction">29. One-Step TAR + GZIP Extraction</h1>
+
+<p>Because <code class="language-plaintext highlighter-rouge">tar</code> understands gzip, you can directly extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xzf</span> logfiles.tar.gz
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-x   extract
+-z   gzip
+-f   archive filename
+</code></pre></div></div>
+
+<p>Likewise, you can create a gzip-compressed tar archive directly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> logfiles.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>This combines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar
++
+gzip
+</code></pre></div></div>
+
+<p>in one command.</p>
+
+<hr />
+
+<h1 id="30-bzip2">30. <code class="language-plaintext highlighter-rouge">bzip2</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">bzip2</code> is another compression utility.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bzip2 logfiles.tar
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.bz2
+</code></pre></div></div>
+
+<p>Lecture point:</p>
+
+<blockquote>
+  <p>bzip2 often provides better compression than older gzip/compress approaches, but can be slower.</p>
+</blockquote>
+
+<p>Actual results depend heavily on the input data.</p>
+
+<hr />
+
+<h1 id="31-decompressing-bzip2">31. Decompressing BZIP2</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bzip2 <span class="nt">-d</span> logfiles.tar.bz2
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bunzip2 logfiles.tar.bz2
+</code></pre></div></div>
+
+<p>This produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> logfiles.tar
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-compress">32. <code class="language-plaintext highlighter-rouge">compress</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">compress</code> is an older Unix compression utility.</p>
+
+<p>Typical output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compress logfiles.tar
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.Z
+</code></pre></div></div>
+
+<p>It is historically important but much less common on modern Linux systems.</p>
+
+<p>Compared with newer compression utilities, it generally has weaker compression efficiency.</p>
+
+<hr />
+
+<h1 id="33-xz">33. <code class="language-plaintext highlighter-rouge">xz</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">xz</code> is a modern compression utility known for strong compression.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xz logfiles.tar
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.xz
+</code></pre></div></div>
+
+<p>Decompress:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xz <span class="nt">-d</span> logfiles.tar.xz
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unxz logfiles.tar.xz
+</code></pre></div></div>
+
+<p>Create directly with tar:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cJvf</span> logfiles.tar.xz logfiles/
+</code></pre></div></div>
+
+<p>Extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xJvf</span> logfiles.tar.xz
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-7z">34. <code class="language-plaintext highlighter-rouge">7z</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">7z</code> is associated with the 7-Zip archive format.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7z a archive.7z logfiles/
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+↓
+add files to archive
+</code></pre></div></div>
+
+<p>Extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7z x archive.7z
+</code></pre></div></div>
+
+<p>Unlike the simple <code class="language-plaintext highlighter-rouge">tar</code> + compressor model, 7z can combine archiving and compression in one archive format.</p>
+
+<hr />
+
+<h1 id="35-compression-utilities-comparison">35. Compression Utilities Comparison</h1>
+
+<p>Common tools include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compress
+gzip
+bzip2
+xz
+7z
+</code></pre></div></div>
+
+<p>A rough conceptual comparison:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Utility</th>
+      <th>Typical compression</th>
+      <th>Typical speed</th>
+      <th>Common extension</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">compress</code></td>
+      <td>Lower</td>
+      <td>Fast/older</td>
+      <td><code class="language-plaintext highlighter-rouge">.Z</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gzip</code></td>
+      <td>Good</td>
+      <td>Fast</td>
+      <td><code class="language-plaintext highlighter-rouge">.gz</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bzip2</code></td>
+      <td>Better than gzip in many cases</td>
+      <td>Slower</td>
+      <td><code class="language-plaintext highlighter-rouge">.bz2</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">xz</code></td>
+      <td>Very good</td>
+      <td>Often slower</td>
+      <td><code class="language-plaintext highlighter-rouge">.xz</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">7z</code></td>
+      <td>Very good/high</td>
+      <td>Depends on settings</td>
+      <td><code class="language-plaintext highlighter-rouge">.7z</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Do not treat this table as an absolute benchmark.</p>
+
+<p>Compression speed and ratio depend on:</p>
+
+<ul>
+  <li>data type</li>
+  <li>compression level</li>
+  <li>CPU</li>
+  <li>implementation</li>
+  <li>memory</li>
+  <li>file size</li>
+</ul>
+
+<hr />
+
+<h1 id="36-compression-ratio-vs-compression-time">36. Compression Ratio vs Compression Time</h1>
+
+<p>Compression involves a trade-off.</p>
+
+<p>Imagine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input = 100 MB
+</code></pre></div></div>
+
+<p>One compressor might produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>70 MB
+</code></pre></div></div>
+
+<p>quickly.</p>
+
+<p>Another might produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>55 MB
+</code></pre></div></div>
+
+<p>but take much longer.</p>
+
+<p>So there are two important measurements:</p>
+
+<h3 id="compression-ratio">Compression ratio</h3>
+
+<p>How much smaller the data becomes.</p>
+
+<p>A simple ratio can be represented as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>compressed size / original size
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50 MB / 100 MB = 0.5
+</code></pre></div></div>
+
+<p>The compressed file is 50% of the original size.</p>
+
+<h3 id="compression-time">Compression time</h3>
+
+<p>How long the compressor takes to produce the compressed data.</p>
+
+<hr />
+
+<h1 id="37-why-compression-ratio-matters">37. Why Compression Ratio Matters</h1>
+
+<p>For storage:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smaller file
+    ↓
+less disk space
+</code></pre></div></div>
+
+<p>For network transfer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>smaller file
+    ↓
+less data transmitted
+    ↓
+potentially faster transfer
+</code></pre></div></div>
+
+<p>But higher compression often requires more CPU time.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast compression
+      ↕
+better compression ratio
+</code></pre></div></div>
+
+<p>is often a trade-off.</p>
+
+<hr />
+
+<h1 id="38-compression-is-data-dependent">38. Compression Is Data-Dependent</h1>
+
+<p>A very important concept:</p>
+
+<blockquote>
+  <p>Compression does not always reduce every file by the same amount.</p>
+</blockquote>
+
+<p>Text often compresses well:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.log
+.txt
+.csv
+.json
+</code></pre></div></div>
+
+<p>Already-compressed formats may compress very little:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.jpg
+.mp3
+.mp4
+.zip
+.gz
+</code></pre></div></div>
+
+<p>For example, running gzip on an already-compressed JPEG may provide little benefit.</p>
+
+<hr />
+
+<h1 id="39-make-utility">39. <code class="language-plaintext highlighter-rouge">make</code> Utility</h1>
+
+<p><code class="language-plaintext highlighter-rouge">make</code> is a build automation utility.</p>
+
+<p>It is commonly used to:</p>
+
+<ul>
+  <li>compile programs</li>
+  <li>rebuild changed files</li>
+  <li>automate repetitive commands</li>
+  <li>manage dependencies</li>
+  <li>perform backups or other workflows</li>
+</ul>
+
+<p>The central idea is:</p>
+
+<blockquote>
+  <p>Don’t perform every step manually. Define the rules once, then let <code class="language-plaintext highlighter-rouge">make</code> determine what needs to be done.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="40-why-make-exists">40. Why <code class="language-plaintext highlighter-rouge">make</code> Exists</h1>
+
+<p>Suppose a project contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.c
+math.c
+math.h
+</code></pre></div></div>
+
+<p>You could manually run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc <span class="nt">-c</span> main.c
+gcc <span class="nt">-c</span> math.c
+gcc main.o math.o <span class="nt">-o</span> program
+</code></pre></div></div>
+
+<p>But if only <code class="language-plaintext highlighter-rouge">math.c</code> changes, recompiling everything may be unnecessary.</p>
+
+<p><code class="language-plaintext highlighter-rouge">make</code> can understand dependencies and rebuild only what is required.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Source files
+     ↓
+dependencies
+     ↓
+make
+     ↓
+only required commands
+     ↓
+final output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-basic-makefile">41. Basic Makefile</h1>
+
+<p>A <code class="language-plaintext highlighter-rouge">Makefile</code> contains rules.</p>
+
+<p>Example:</p>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>Then run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make backup
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">make</code> executes the command associated with the <code class="language-plaintext highlighter-rouge">backup</code> target.</p>
+
+<h3 id="important-4">Important</h3>
+
+<p>The command under a target traditionally begins with a <strong>TAB</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>The indentation before <code class="language-plaintext highlighter-rouge">tar</code> should be a tab.</p>
+
+<hr />
+
+<h1 id="42-makefile-structure">42. Makefile Structure</h1>
+
+<p>General form:</p>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">target</span><span class="o">:</span> <span class="nf">dependencies</span>
+	<span class="nb">command</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span> <span class="nf">logfiles/</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>target
+  ↓
+backup
+
+dependency
+  ↓
+logfiles/
+
+command
+  ↓
+tar ...
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="43-make-for-backup">43. <code class="language-plaintext highlighter-rouge">make</code> for Backup</h1>
+
+<p>Suppose we want to create a backup of a directory.</p>
+
+<p>Makefile:</p>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make backup
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup.tar.gz
+</code></pre></div></div>
+
+<p>This is why <code class="language-plaintext highlighter-rouge">make</code> is not limited to compiling C/C++ programs.</p>
+
+<p>It can automate many command-line workflows.</p>
+
+<hr />
+
+<h1 id="44-a-better-backup-example">44. A Better Backup Example</h1>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+
+<span class="nl">clean</span><span class="o">:</span>
+	<span class="nb">rm</span> <span class="nt">-f</span> backup.tar.gz
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make backup
+</code></pre></div></div>
+
+<p>creates the backup.</p>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+</code></pre></div></div>
+
+<p>removes it.</p>
+
+<hr />
+
+<h1 id="45-find--tar--gzip--make">45. <code class="language-plaintext highlighter-rouge">find</code> + <code class="language-plaintext highlighter-rouge">tar</code> + <code class="language-plaintext highlighter-rouge">gzip</code> + <code class="language-plaintext highlighter-rouge">make</code></h1>
+
+<p>These tools can work together.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+ ↓
+locate files
+ ↓
+tar
+ ↓
+package files
+ ↓
+gzip
+ ↓
+compress archive
+ ↓
+make
+ ↓
+automate the whole process
+</code></pre></div></div>
+
+<p>This is a very common Linux administration pattern.</p>
+
+<hr />
+
+<h1 id="46-practical-example-backup-workflow">46. Practical Example: Backup Workflow</h1>
+
+<p>Suppose we have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── src/
+├── data/
+├── logs/
+└── README.md
+</code></pre></div></div>
+
+<p>Create an archive:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> project.tar project/
+</code></pre></div></div>
+
+<p>Compress it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>project.tar
+</code></pre></div></div>
+
+<p>Final file:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project.tar.gz
+</code></pre></div></div>
+
+<p>Or directly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> project.tar.gz project/
+</code></pre></div></div>
+
+<p>Extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xzvf</span> project.tar.gz
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="47-practical-example-find-large-files">47. Practical Example: Find Large Files</h1>
+
+<p>Find files larger than 10M:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Show their sizes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Using batched execution:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-practical-example-find-old-log-files">48. Practical Example: Find Old Log Files</h1>
+
+<p>Find log files older than 30 days:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> +30
+</code></pre></div></div>
+
+<p>Show detailed information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> +30 <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-practical-example-count-regular-files">49. Practical Example: Count Regular Files</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span> <span class="nt">-type</span> f <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$HOME
+  ↓
+find
+  ↓
+regular files
+  ↓
+print paths
+  ↓
+wc -l
+  ↓
+count
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="50-practical-example-find-jpg-images">50. Practical Example: Find JPG Images</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Display their sizes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="51-practical-example-find-recently-modified-files">51. Practical Example: Find Recently Modified Files</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-mtime</span> <span class="nt">-2</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Find recently modified log files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> <span class="nt">-2</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="52-important-difference-mtime-ctime-atime">52. Important Difference: <code class="language-plaintext highlighter-rouge">mtime</code>, <code class="language-plaintext highlighter-rouge">ctime</code>, <code class="language-plaintext highlighter-rouge">atime</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-mtime</code></td>
+      <td>Last modification of file contents</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-ctime</code></td>
+      <td>Last filesystem status/metadata change</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-atime</code></td>
+      <td>Last access</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mtime → modify
+ctime → change of metadata/status
+atime → access
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ctime ≠ creation time
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="53-important-difference-tar-vs-gzip">53. Important Difference: <code class="language-plaintext highlighter-rouge">tar</code> vs <code class="language-plaintext highlighter-rouge">gzip</code></h1>
+
+<p>This is an important exam question.</p>
+
+<h3 id="tar"><code class="language-plaintext highlighter-rouge">tar</code></h3>
+
+<p>Primarily packages files/directories:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> archive.tar folder/
+</code></pre></div></div>
+
+<h3 id="gzip"><code class="language-plaintext highlighter-rouge">gzip</code></h3>
+
+<p>Compresses data:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>archive.tar
+</code></pre></div></div>
+
+<p>Together:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> archive.tar.gz folder/
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar  → packaging
+gzip → compression
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="54-important-difference-find-vs-du">54. Important Difference: <code class="language-plaintext highlighter-rouge">find</code> vs <code class="language-plaintext highlighter-rouge">du</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> answers:</p>
+
+<blockquote>
+  <p>Which files/directories match my conditions?</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +100M
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">du</code> answers:</p>
+
+<blockquote>
+  <p>How much disk space is being used?</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="55-important-difference-gzip-vs-zip">55. Important Difference: <code class="language-plaintext highlighter-rouge">gzip</code> vs <code class="language-plaintext highlighter-rouge">zip</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">gzip</code> is primarily a compression tool.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>file
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.gz
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">zip</code> commonly creates an archive that packages multiple files and compresses them.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip backup.zip file1.txt file2.txt
+</code></pre></div></div>
+
+<p>For a directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip <span class="nt">-r</span> backup.zip project/
+</code></pre></div></div>
+
+<p>Extract:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip backup.zip
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="56-common-mistakes">56. Common Mistakes</h1>
+
+<h2 id="mistake-1-forgetting--type">Mistake 1: Forgetting <code class="language-plaintext highlighter-rouge">-type</code></h2>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.log"</span>
+</code></pre></div></div>
+
+<p>you can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span>
+</code></pre></div></div>
+
+<p>when you specifically want regular files.</p>
+
+<hr />
+
+<h2 id="mistake-2-not-quoting-wildcards">Mistake 2: Not quoting wildcards</h2>
+
+<p>Avoid:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="k">*</span>.jpg
+</code></pre></div></div>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3-confusing-ctime-with-creation-time">Mistake 3: Confusing <code class="language-plaintext highlighter-rouge">ctime</code> with creation time</h2>
+
+<p>Incorrect:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ctime = creation time
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ctime = status/metadata change time
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4-forgetting-">Mistake 4: Forgetting <code class="language-plaintext highlighter-rouge">\;</code></h2>
+
+<p>Incorrect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-5-thinking-tar-compresses">Mistake 5: Thinking TAR compresses</h2>
+
+<p>A plain command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> archive.tar folder/
+</code></pre></div></div>
+
+<p>creates an archive but does not itself imply compression.</p>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> archive.tar.gz folder/
+</code></pre></div></div>
+
+<p>for gzip compression.</p>
+
+<hr />
+
+<h2 id="mistake-6-using-gzip-directly-on-a-directory">Mistake 6: Using <code class="language-plaintext highlighter-rouge">gzip</code> directly on a directory</h2>
+
+<p>This generally does not work:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>project/
+</code></pre></div></div>
+
+<p>Instead:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> project.tar.gz project/
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="57-exam-oriented-command-sheet">57. Exam-Oriented Command Sheet</h1>
+
+<h3 id="find-everything">Find everything</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span>
+</code></pre></div></div>
+
+<h3 id="find-regular-files-1">Find regular files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<h3 id="find-directories-1">Find directories</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> d
+</code></pre></div></div>
+
+<h3 id="find-jpg-files">Find JPG files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<h3 id="case-insensitive-jpg-search">Case-insensitive JPG search</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<h3 id="find-files-modified-recently">Find files modified recently</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-mtime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<h3 id="find-files-modified-more-than-30-days-ago">Find files modified more than 30 days ago</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-mtime</span> +30
+</code></pre></div></div>
+
+<h3 id="find-large-files">Find large files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M
+</code></pre></div></div>
+
+<h3 id="execute-command-on-matches">Execute command on matches</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<h3 id="batch-execution">Batch execution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<h3 id="count-regular-files">Count regular files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span> <span class="nt">-type</span> f <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<h3 id="disk-usage">Disk usage</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<h3 id="create-tar">Create TAR</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> archive.tar folder/
+</code></pre></div></div>
+
+<h3 id="extract-tar">Extract TAR</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> archive.tar
+</code></pre></div></div>
+
+<h3 id="gzip-1">Gzip</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>archive.tar
+</code></pre></div></div>
+
+<h3 id="gunzip">Gunzip</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gunzip </span>archive.tar.gz
+</code></pre></div></div>
+
+<h3 id="create-targz-directly">Create TAR.GZ directly</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> archive.tar.gz folder/
+</code></pre></div></div>
+
+<h3 id="extract-targz">Extract TAR.GZ</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xzvf</span> archive.tar.gz
+</code></pre></div></div>
+
+<h3 id="bzip2">Bzip2</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bzip2 archive.tar
+</code></pre></div></div>
+
+<h3 id="decompress-bzip2">Decompress Bzip2</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bzip2 <span class="nt">-d</span> archive.tar.bz2
+</code></pre></div></div>
+
+<h3 id="xz">XZ</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xz archive.tar
+</code></pre></div></div>
+
+<h3 id="decompress-xz">Decompress XZ</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xz <span class="nt">-d</span> archive.tar.xz
+</code></pre></div></div>
+
+<h3 id="zip">ZIP</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip <span class="nt">-r</span> archive.zip folder/
+</code></pre></div></div>
+
+<h3 id="unzip">Unzip</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip archive.zip
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="58-mental-model">58. Mental Model</h1>
+
+<p>Keep these four tools separate in your mind:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+│
+├── SEARCH
+├── name
+├── type
+├── time
+├── size
+└── exec
+
+
+tar
+│
+└── PACKAGE
+
+
+gzip / bzip2 / xz
+│
+└── COMPRESS
+
+
+make
+│
+└── AUTOMATE
+</code></pre></div></div>
+
+<p>The complete workflow can therefore be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Find files
+    ↓
+Package them with tar
+    ↓
+Compress with gzip/bzip2/xz
+    ↓
+Automate the workflow with make
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="59-practice-questions">59. Practice Questions</h1>
+
+<h2 id="q1">Q1</h2>
+
+<p>Find all regular <code class="language-plaintext highlighter-rouge">.log</code> files under the current directory.</p>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2">Q2</h2>
+
+<p>Find all directories named <code class="language-plaintext highlighter-rouge">man?</code> under <code class="language-plaintext highlighter-rouge">/usr</code>.</p>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /usr <span class="nt">-type</span> d <span class="nt">-name</span> <span class="s2">"man?"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3">Q3</h2>
+
+<p>Find regular files larger than 10M.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4">Q4</h2>
+
+<p>Find all JPG files and display their sizes.</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-sh</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5">Q5</h2>
+
+<p>Find log files modified more than 30 days ago.</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> +30
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6">Q6</h2>
+
+<p>Count regular files in your home directory.</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span> <span class="nt">-type</span> f <span class="nt">-print</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7">Q7</h2>
+
+<p>Create a TAR archive named <code class="language-plaintext highlighter-rouge">logfiles.tar</code> containing <code class="language-plaintext highlighter-rouge">logfiles/</code>.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-cvf</span> logfiles.tar logfiles/
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8">Q8</h2>
+
+<p>Compress <code class="language-plaintext highlighter-rouge">logfiles.tar</code> using gzip.</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip </span>logfiles.tar
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logfiles.tar.gz
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9">Q9</h2>
+
+<p>Decompress the gzip archive.</p>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gunzip </span>logfiles.tar.gz
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10">Q10</h2>
+
+<p>Extract <code class="language-plaintext highlighter-rouge">logfiles.tar</code>.</p>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> logfiles.tar
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q11">Q11</h2>
+
+<p>Create a compressed tar archive in one command.</p>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-czvf</span> logfiles.tar.gz logfiles/
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q12">Q12</h2>
+
+<p>Find files modified within the last two complete 24-hour periods.</p>
+
+<h3 id="solution-11">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-mtime</span> <span class="nt">-2</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q13">Q13</h2>
+
+<p>Show the total disk usage of the <code class="language-plaintext highlighter-rouge">logfiles</code> directory in human-readable form.</p>
+
+<h3 id="solution-12">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> logfiles/
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q14">Q14</h2>
+
+<p>Find every regular file larger than 10M and display detailed information about it.</p>
+
+<h3 id="solution-13">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-size</span> +10M <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lsh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q15--exam-level">Q15 — Exam Level</h2>
+
+<p>Find all <code class="language-plaintext highlighter-rouge">.log</code> files older than 30 days and display their human-readable sizes.</p>
+
+<h3 id="solution-14">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-mtime</span> +30 <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-lh</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q16--exam-level">Q16 — Exam Level</h2>
+
+<p>Find all JPG files larger than 10M.</p>
+
+<h3 id="solution-15">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.jpg"</span> <span class="nt">-size</span> +10M <span class="nt">-print</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q17--exam-level">Q17 — Exam Level</h2>
+
+<p>Create a Makefile target called <code class="language-plaintext highlighter-rouge">backup</code> that creates <code class="language-plaintext highlighter-rouge">backup.tar.gz</code> from the <code class="language-plaintext highlighter-rouge">logfiles/</code> directory.</p>
+
+<h3 id="solution-16">Solution</h3>
+
+<div class="language-make highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">backup</span><span class="o">:</span>
+	<span class="nb">tar</span> <span class="nt">-czf</span> backup.tar.gz logfiles/
+</code></pre></div></div>
+
+<p>Then run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make backup
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="60-final-cheat-sheet">60. Final Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SEARCH
+find .
+find . -type f
+find . -type d
+find . -name "*.txt"
+find . -type f -name "*.log"
+find . -type f -mtime -2
+find . -type f -mtime +30
+find . -type f -size +10M
+find . -type f -exec ls -lh {} \;
+find . -type f -exec ls -lh {} +
+
+COUNT
+find "$HOME" -type f -print | wc -l
+
+DISK USAGE
+du -sh directory/
+
+PACKAGE
+tar -cvf archive.tar folder/
+
+LIST TAR
+tar -tvf archive.tar
+
+EXTRACT TAR
+tar -xvf archive.tar
+
+GZIP
+gzip archive.tar
+gunzip archive.tar.gz
+
+BZIP2
+bzip2 archive.tar
+bzip2 -d archive.tar.bz2
+
+XZ
+xz archive.tar
+xz -d archive.tar.xz
+
+TAR + GZIP
+tar -czvf archive.tar.gz folder/
+tar -xzvf archive.tar.gz
+
+ZIP
+zip -r archive.zip folder/
+unzip archive.zip
+
+MAKE
+make target
+
+Makefile:
+target:
+	command
+</code></pre></div></div>
+
+<h2 id="one-line-memory-trick">One-Line Memory Trick</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find = SEARCH
+tar  = PACKAGE
+gzip/bzip2/xz = COMPRESS
+du = DISK USAGE
+make = AUTOMATE
+</code></pre></div></div>
+<p>```</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L 5.3 - Shell Variables - Part 2</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L6.2 - Overview of Shell Scripts</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

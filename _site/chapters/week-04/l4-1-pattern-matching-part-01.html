@@ -1,0 +1,4346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L4.1: Pattern Matching - Part 01 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link active">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 4</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L4.1: Pattern Matching - Part 01</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l41-pattern-matching---part-01">L4.1: Pattern Matching - Part 01</h1>
+
+<h1 id="regular-expressions-and-grep">Regular Expressions and <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<h2 id="1-what-is-regex">1. What Is Regex?</h2>
+
+<p><strong>Regex</strong> stands for <strong>Regular Expression</strong>.</p>
+
+<p>A regular expression is a pattern used to search, match, validate, or manipulate text.</p>
+
+<p>Instead of searching only for an exact word:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"hello"</span> file.txt
+</code></pre></div></div>
+
+<p>you can describe a pattern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"h.llo"</span> file.txt
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>. → any single character
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+hallo
+hullo
+h9llo
+</code></pre></div></div>
+
+<p>can all match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h.llo
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-why-do-we-need-regex">2. Why Do We Need Regex?</h1>
+
+<p>Suppose a file contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+car
+can
+dog
+cart
+cap
+</code></pre></div></div>
+
+<p>If you search:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"ca"</span> file.txt
+</code></pre></div></div>
+
+<p>you get many lines containing <code class="language-plaintext highlighter-rouge">ca</code>.</p>
+
+<p>But perhaps you specifically want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ca + exactly one character
+</code></pre></div></div>
+
+<p>Regex allows you to describe this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'ca.'</span> file.txt
+</code></pre></div></div>
+
+<p>Regex is useful for:</p>
+
+<ul>
+  <li>Searching text</li>
+  <li>Extracting information</li>
+  <li>Validating input</li>
+  <li>Processing logs</li>
+  <li>Finding patterns in files</li>
+  <li>Shell scripting</li>
+  <li><code class="language-plaintext highlighter-rouge">grep</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sed</code></li>
+  <li><code class="language-plaintext highlighter-rouge">awk</code></li>
+  <li><code class="language-plaintext highlighter-rouge">vim</code></li>
+  <li>Programming languages</li>
+  <li>Data cleaning</li>
+</ul>
+
+<hr />
+
+<h1 id="3-basic-regex-mental-model">3. Basic Regex Mental Model</h1>
+
+<p>Think of regex as a <strong>pattern language</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c followed by a followed by t
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.t
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c
++
+any one character
++
+t
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+cot
+cut
+c9t
+</code></pre></div></div>
+
+<p>can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.t
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-regex-special-characters">4. Regex Special Characters</h1>
+
+<p>Some characters have special meanings in regex.</p>
+
+<p>Important metacharacters include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.  ^  $  *  [ ]  \  { }  ( )  |
+</code></pre></div></div>
+
+<p>Their meanings depend partly on whether you are using:</p>
+
+<ul>
+  <li>Basic Regular Expressions (BRE)</li>
+  <li>Extended Regular Expressions (ERE)</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep
+</code></pre></div></div>
+
+<p>normally uses BRE.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep
+</code></pre></div></div>
+
+<p>is equivalent to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span>
+</code></pre></div></div>
+
+<p>and uses ERE.</p>
+
+<hr />
+
+<h1 id="5-literal-characters-vs-special-characters">5. Literal Characters vs Special Characters</h1>
+
+<p>Normal characters usually match themselves.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'cat'</span> file.txt
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+</code></pre></div></div>
+
+<p>Regex metacharacters have special meanings.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Any single character
+</code></pre></div></div>
+
+<p>If you want to search for a literal dot:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>you need to escape it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-important-regex-operators">6. Important Regex Operators</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Regex</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Any single character</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Beginning of line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>End of line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Zero or more repetitions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td>One character from <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">c</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^abc]</code></td>
+      <td>One character not in <code class="language-plaintext highlighter-rouge">a</code>, <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">c</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[a-z]</code></td>
+      <td>One character from <code class="language-plaintext highlighter-rouge">a</code> through <code class="language-plaintext highlighter-rouge">z</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\{m,n\}</code></td>
+      <td>Between <code class="language-plaintext highlighter-rouge">m</code> and <code class="language-plaintext highlighter-rouge">n</code> repetitions in BRE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\(</code> <code class="language-plaintext highlighter-rouge">\)</code></td>
+      <td>Capture group in BRE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\1</code></td>
+      <td>Backreference to first captured group</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>One or more in ERE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Zero or one in ERE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">()</code></td>
+      <td>Grouping in ERE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>OR in ERE</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\b</code></td>
+      <td>Word boundary in GNU <code class="language-plaintext highlighter-rouge">grep</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="7-character-classes">7. Character Classes</h1>
+
+<p>A character class is written using square brackets:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[...]
+</code></pre></div></div>
+
+<p>It matches <strong>one character</strong> from the specified set.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+b
+c
+</code></pre></div></div>
+
+<p>It does not match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc
+</code></pre></div></div>
+
+<p>as a three-character sequence.</p>
+
+<p>It matches one character.</p>
+
+<hr />
+
+<h1 id="8-character-class-example">8. Character Class Example</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+bat
+rat
+mat
+sat
+</code></pre></div></div>
+
+<p>Regex:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[cb]at
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+bat
+</code></pre></div></div>
+
+<p>because the first character must be either:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-ranges-in-character-classes">9. Ranges in Character Classes</h1>
+
+<p>You can specify a range.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1-5]
+</code></pre></div></div>
+
+<p>matches one of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+4
+5
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pat[1-5]tern'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat1tern
+pat2tern
+pat3tern
+pat4tern
+pat5tern
+</code></pre></div></div>
+
+<p>but not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat6tern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-negated-character-classes">10. Negated Character Classes</h1>
+
+<p>Place <code class="language-plaintext highlighter-rouge">^</code> immediately after <code class="language-plaintext highlighter-rouge">[</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[^1-5]
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<blockquote>
+  <p>Match one character that is NOT in the range <code class="language-plaintext highlighter-rouge">1</code> through <code class="language-plaintext highlighter-rouge">5</code>.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pat[^1-5]tern'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat6tern
+pat7tern
+patAtern
+patxtern
+</code></pre></div></div>
+
+<p>but does not match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat1tern
+pat2tern
+pat3tern
+pat4tern
+pat5tern
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">^</code> has a special meaning as negation only when it appears immediately after <code class="language-plaintext highlighter-rouge">[</code>.</p>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^pattern
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[^1-5]
+</code></pre></div></div>
+
+<p>They mean completely different things.</p>
+
+<hr />
+
+<h1 id="11-anchors--and-">11. Anchors: <code class="language-plaintext highlighter-rouge">^</code> and <code class="language-plaintext highlighter-rouge">$</code></h1>
+
+<p>Two extremely important regex operators are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+$
+</code></pre></div></div>
+
+<h2><code class="language-plaintext highlighter-rouge">^</code></h2>
+
+<p>Matches the beginning of a line.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'^pattern'</span> file
+</code></pre></div></div>
+
+<p>matches lines beginning with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern123
+pattern abc
+pattern
+</code></pre></div></div>
+
+<p>But not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello pattern
+abcpattern
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-1"><code class="language-plaintext highlighter-rouge">$</code></h2>
+
+<p>Matches the end of a line.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern$'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello pattern
+pattern
+abcpattern
+</code></pre></div></div>
+
+<p>but not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern hello
+pattern123
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-beginning-and-end-together">12. Beginning and End Together</h1>
+
+<p>You can combine both:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^pattern$
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<blockquote>
+  <p>The entire line must be exactly <code class="language-plaintext highlighter-rouge">pattern</code>.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'^pattern$'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>but not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern123
+hello pattern
+pattern hello
+</code></pre></div></div>
+
+<p>This is useful for exact-line matching.</p>
+
+<hr />
+
+<h1 id="13-the-dot-">13. The Dot <code class="language-plaintext highlighter-rouge">.</code></h1>
+
+<p>The dot means:</p>
+
+<blockquote>
+  <p>Match any single character except newline.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern.pattern'</span> file
+</code></pre></div></div>
+
+<p>The pattern:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern.pattern
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
++
+any one character
++
+pattern
+</code></pre></div></div>
+
+<p>It can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternXpattern
+pattern1pattern
+pattern-pattern
+pattern_pattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-dot-does-not-mean-literal-dot">14. Dot Does Not Mean Literal Dot</h1>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'file.txt'</span> file
+</code></pre></div></div>
+
+<p>does not necessarily mean a literal dot.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">.</code> is a regex metacharacter.</p>
+
+<p>It can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fileXtxt
+file1txt
+file-txt
+</code></pre></div></div>
+
+<p>If you want a literal dot:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'file\.txt'</span> file
+</code></pre></div></div>
+
+<p>Now the dot is treated literally.</p>
+
+<hr />
+
+<h1 id="15-escaping-special-characters">15. Escaping Special Characters</h1>
+
+<p>The backslash:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\
+</code></pre></div></div>
+
+<p>can change the meaning of a character.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>literal .
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\.'</span> file
+</code></pre></div></div>
+
+<p>searches for a literal dot.</p>
+
+<p>Example matching lines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello.world
+192.168.1.1
+file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-b--word-boundary">16. <code class="language-plaintext highlighter-rouge">\b</code> — Word Boundary</h1>
+
+<p>GNU <code class="language-plaintext highlighter-rouge">grep</code> supports:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\b
+</code></pre></div></div>
+
+<p>as a word boundary.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern\b'</span> file
+</code></pre></div></div>
+
+<p>This matches <code class="language-plaintext highlighter-rouge">pattern</code> when it ends at a word boundary.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+pattern123
+pattern-test
+</code></pre></div></div>
+
+<p>The exact behavior depends on what characters follow and how GNU <code class="language-plaintext highlighter-rouge">grep</code> defines word characters.</p>
+
+<p>A useful example is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\bpattern\b'</span> file
+</code></pre></div></div>
+
+<p>which searches for <code class="language-plaintext highlighter-rouge">pattern</code> as a complete word.</p>
+
+<p>It avoids matching:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patterns
+mypattern
+pattern123
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-grep">17. <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<p>The basic syntax is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep </span>PATTERN FILE
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'hello'</span> file.txt
+</code></pre></div></div>
+
+<p>This searches <code class="language-plaintext highlighter-rouge">file.txt</code> for lines matching:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18-grep-pattern-file">18. <code class="language-plaintext highlighter-rouge">grep</code> Pattern File</h1>
+
+<p>General form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern'</span> file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'error'</span> log.txt
+</code></pre></div></div>
+
+<p>This prints lines containing a match for:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error
+</code></pre></div></div>
+
+<p>Regex makes the pattern much more powerful.</p>
+
+<hr />
+
+<h1 id="19-cat-file--grep-pattern">19. <code class="language-plaintext highlighter-rouge">cat file | grep pattern</code></h1>
+
+<p>You can also write:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'pattern'</span>
+</code></pre></div></div>
+
+<p>This sends the output of <code class="language-plaintext highlighter-rouge">cat</code> into <code class="language-plaintext highlighter-rouge">grep</code>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file
+ ↓
+cat
+ ↓
+stdout
+ ↓
+pipe
+ ↓
+grep
+ ↓
+matching lines
+</code></pre></div></div>
+
+<p>However, when <code class="language-plaintext highlighter-rouge">grep</code> can read the file directly, this is usually simpler:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern'</span> file
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'pattern'</span>
+</code></pre></div></div>
+
+<p>This is sometimes called a <strong>useless use of <code class="language-plaintext highlighter-rouge">cat</code></strong>, although the pipeline can still be useful when the input is coming from another command.</p>
+
+<hr />
+
+<h1 id="20-grep-patternpattern">20. <code class="language-plaintext highlighter-rouge">grep 'pattern.pattern'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'pattern.pattern'</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern.pattern
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
++
+any one character
++
+pattern
+</code></pre></div></div>
+
+<p>Matches include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternXpattern
+pattern1pattern
+pattern-pattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-grep-pattern">21. <code class="language-plaintext highlighter-rouge">grep 'pattern$'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'pattern$'</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">$</code> anchors the pattern to the end of the line.</p>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+hello pattern
+abcpattern
+</code></pre></div></div>
+
+<p>Does not match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern hello
+pattern123
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-grep-">22. <code class="language-plaintext highlighter-rouge">grep '\.'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'\.'</span>
+</code></pre></div></div>
+
+<p>The pattern:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Literal dot.</p>
+</blockquote>
+
+<p>It matches lines containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello.world
+example.com
+192.168.1.1
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-grep-pattern">23. <code class="language-plaintext highlighter-rouge">grep '^pattern'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'^pattern'</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">^</code> means:</p>
+
+<blockquote>
+  <p>Start of line.</p>
+</blockquote>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+pattern123
+pattern hello
+</code></pre></div></div>
+
+<p>Does not match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello pattern
+abcpattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-grep-patternb">24. <code class="language-plaintext highlighter-rouge">grep 'pattern\b'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'pattern\b'</span>
+</code></pre></div></div>
+
+<p>This searches for <code class="language-plaintext highlighter-rouge">pattern</code> followed by a word boundary.</p>
+
+<p>A more useful complete-word search is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\bpattern\b'</span> file
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>word boundary
++
+pattern
++
+word boundary
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-grep-pattern">25. <code class="language-plaintext highlighter-rouge">grep 'patt[ern]'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'patt[ern]'</span>
+</code></pre></div></div>
+
+<p>The character class:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[ern]
+</code></pre></div></div>
+
+<p>matches exactly one character:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e
+r
+n
+</code></pre></div></div>
+
+<p>Therefore the pattern matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patte
+pattr
+pattn
+</code></pre></div></div>
+
+<p>as substrings.</p>
+
+<p>It does <strong>not</strong> mean:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patter
+</code></pre></div></div>
+
+<p>as a whole.</p>
+
+<h3 id="important-character-class-rule">Important Character-Class Rule</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one character: a OR b OR c
+</code></pre></div></div>
+
+<p>It does not mean:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-grep-pattern">26. <code class="language-plaintext highlighter-rouge">grep 'pat.*tern'</code></h1>
+
+<p>A very important regex combination is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">.*</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more characters
+</code></pre></div></div>
+
+<p>because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means one arbitrary character, and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>means zero or more repetitions of the preceding expression.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat.*tern
+</code></pre></div></div>
+
+<p>can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+patXtern
+pat123tern
+pat anything here tern
+</code></pre></div></div>
+
+<p>The middle part can contain zero or more characters.</p>
+
+<hr />
+
+<h1 id="27-why-does--match-so-much">27. Why Does <code class="language-plaintext highlighter-rouge">.*</code> Match So Much?</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat.*tern
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
+</code></pre></div></div>
+
+<p>must appear first.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p>can consume zero or more characters.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tern
+</code></pre></div></div>
+
+<p>must appear.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>matches because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
++
+""
++
+tern
+</code></pre></div></div>
+
+<p>There are zero characters between <code class="language-plaintext highlighter-rouge">pat</code> and <code class="language-plaintext highlighter-rouge">tern</code>.</p>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patABCtern
+</code></pre></div></div>
+
+<p>matches because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
++
+ABC
++
+tern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-grep-bpattern">28. <code class="language-plaintext highlighter-rouge">grep '\bpat.*tern'</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | <span class="nb">grep</span> <span class="s1">'\bpat.*tern'</span>
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\b
+</code></pre></div></div>
+
+<p>→ word boundary</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
+</code></pre></div></div>
+
+<p>→ literal <code class="language-plaintext highlighter-rouge">pat</code></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p>→ zero or more characters</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tern
+</code></pre></div></div>
+
+<p>→ literal <code class="language-plaintext highlighter-rouge">tern</code></p>
+
+<p>So the pattern starts at a word boundary, then finds <code class="language-plaintext highlighter-rouge">pat</code>, allows arbitrary characters, and finally finds <code class="language-plaintext highlighter-rouge">tern</code>.</p>
+
+<hr />
+
+<h1 id="29-repetition-with-mn-in-bre">29. Repetition with <code class="language-plaintext highlighter-rouge">\{m,n\}</code> in BRE</h1>
+
+<p>Basic <code class="language-plaintext highlighter-rouge">grep</code> uses Basic Regular Expressions.</p>
+
+<p>In BRE, interval repetition is commonly written as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\{m,n\}
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<blockquote>
+  <p>Repeat the previous atom between <code class="language-plaintext highlighter-rouge">m</code> and <code class="language-plaintext highlighter-rouge">n</code> times.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern\{2,4\}'</span> file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p a t t e r n
+</code></pre></div></div>
+
+<p>repeated 2 to 4 times.</p>
+
+<p>It can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+patternpatternpattern
+patternpatternpatternpattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-24-breakdown">30. <code class="language-plaintext highlighter-rouge">\{2,4\}</code> Breakdown</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern\{2,4\}
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>is the atom being repeated.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\{2,4\}
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repeat previous atom 2 through 4 times
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<p>So does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpatternpattern
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpatternpatternpattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-exact-repetition">31. Exact Repetition</h1>
+
+<p>You can specify exactly how many times.</p>
+
+<p>In BRE:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern\{3\}
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>repeated exactly 3 times.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern\{3\}'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpatternpattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-minimum-repetition">32. Minimum Repetition</h1>
+
+<p>You can also specify a minimum.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern\{2,\}
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>At least two repetitions.</p>
+</blockquote>
+
+<p>So it can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+patternpatternpattern
+patternpatternpatternpattern
+...
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-backreferences">33. Backreferences</h1>
+
+<p>A <strong>backreference</strong> allows a regex to refer back to text captured earlier.</p>
+
+<p>This is a powerful concept.</p>
+
+<p>Suppose we want to find repeated text:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hellohello
+</code></pre></div></div>
+
+<p>We can capture:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>and then require the same text again.</p>
+
+<hr />
+
+<h1 id="34-capturing-groups-in-basic-grep">34. Capturing Groups in Basic <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<p>Basic <code class="language-plaintext highlighter-rouge">grep</code> uses escaped parentheses for grouping:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(...\)
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(pattern\)
+</code></pre></div></div>
+
+<p>captures:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>The first captured group can then be referenced with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-backreference-example">35. Backreference Example</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\(pattern\)\1'</span> file
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(pattern\)
+</code></pre></div></div>
+
+<p>captures:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Match exactly the same text captured by group 1.</p>
+</blockquote>
+
+<p>Therefore the complete pattern means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-why-backreferences-are-useful">36. Why Backreferences Are Useful</h1>
+
+<p>Without a backreference:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+</code></pre></div></div>
+
+<p>could be matched literally.</p>
+
+<p>But the power of a backreference is that the captured text can be variable.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(foo\)\1
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>foofoo
+</code></pre></div></div>
+
+<p>but also:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(bar\)\1
+</code></pre></div></div>
+
+<p>would match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>barbar
+</code></pre></div></div>
+
+<p>The same concept can be used with a general character pattern.</p>
+
+<hr />
+
+<h1 id="37-capture-any-word-and-match-it-again">37. Capture Any Word and Match It Again</h1>
+
+<p>A simplified example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\b\([[:alnum:]_]\+\)\b.*\b\1\b'</span> file
+</code></pre></div></div>
+
+<p>This attempts to find a word that occurs again later in the line.</p>
+
+<p>The important concept is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\( ... \)
+    ↓
+capture
+
+\1
+    ↓
+reuse captured text
+</code></pre></div></div>
+
+<p>Backreferences are especially useful for detecting repeated words or duplicated structures.</p>
+
+<hr />
+
+<h1 id="38-backreference-example-with-a-character">38. Backreference Example with a Character</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\([a-z]\)\1'</span> file
+</code></pre></div></div>
+
+<p>This captures one lowercase letter and requires the same letter immediately afterward.</p>
+
+<p>It can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>book
+coffee
+letter
+</code></pre></div></div>
+
+<p>because they contain repeated characters such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oo
+ff
+tt
+</code></pre></div></div>
+
+<h3 id="breakdown">Breakdown</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\([a-z]\)
+</code></pre></div></div>
+
+<p>captures one letter.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>requires that same letter again.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(o\)\1
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oo
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-operator-precedence">39. Operator Precedence</h1>
+
+<p>Regex operators do not all have the same priority.</p>
+
+<p>A useful conceptual order is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Grouping
+2. Repetition
+3. Concatenation
+4. Alternation
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab)*
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>repeat the group "ab"
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a(b*)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a followed by zero or more b's
+</code></pre></div></div>
+
+<p>These are different.</p>
+
+<hr />
+
+<h1 id="40-why-precedence-matters">40. Why Precedence Matters</h1>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab*
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab)*
+</code></pre></div></div>
+
+<h3 id="ab"><code class="language-plaintext highlighter-rouge">ab*</code></h3>
+
+<p>Means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
++
+zero or more b's
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+ab
+abb
+abbb
+</code></pre></div></div>
+
+<h3 id="ab-1"><code class="language-plaintext highlighter-rouge">(ab)*</code></h3>
+
+<p>Means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more repetitions of "ab"
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>""
+ab
+abab
+ababab
+</code></pre></div></div>
+
+<p>The grouping changes what <code class="language-plaintext highlighter-rouge">*</code> applies to.</p>
+
+<hr />
+
+<h1 id="41-egrep">41. <code class="language-plaintext highlighter-rouge">egrep</code></h1>
+
+<p>Historically:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep
+</code></pre></div></div>
+
+<p>means Extended <code class="language-plaintext highlighter-rouge">grep</code>.</p>
+
+<p>The modern equivalent is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span>
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'M+'</span> file
+</code></pre></div></div>
+
+<p>is equivalent to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'M+'</span> file
+</code></pre></div></div>
+
+<p>For new scripts, <code class="language-plaintext highlighter-rouge">grep -E</code> is generally preferred because <code class="language-plaintext highlighter-rouge">egrep</code> is considered a legacy name.</p>
+
+<hr />
+
+<h1 id="42-m">42. <code class="language-plaintext highlighter-rouge">M+</code></h1>
+
+<p>In Extended Regular Expressions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>One or more repetitions of the previous atom.</p>
+</blockquote>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+MM
+MMM
+MMMM
+...
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'M+'</span>
+</code></pre></div></div>
+
+<p>matches lines containing one or more consecutive <code class="language-plaintext highlighter-rouge">M</code> characters.</p>
+
+<hr />
+
+<h1 id="43-m">43. <code class="language-plaintext highlighter-rouge">^M+</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'^M+'</span>
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<p>→ beginning of line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>→ one or more <code class="language-plaintext highlighter-rouge">M</code> characters</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M+
+</code></pre></div></div>
+
+<p>matches lines that begin with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MM
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MMM
+</code></pre></div></div>
+
+<p>and so on.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mhello
+MMhello
+MMMabc
+</code></pre></div></div>
+
+<p>match.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helloM
+abcMM
+</code></pre></div></div>
+
+<p>do not match.</p>
+
+<hr />
+
+<h1 id="44-m">44. <code class="language-plaintext highlighter-rouge">^M*</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'^M*'</span>
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<p>→ beginning of line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>→ zero or more <code class="language-plaintext highlighter-rouge">M</code> characters</p>
+
+<p>This is an important difference from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M+
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">*</code> allows <strong>zero</strong> occurrences.</p>
+
+<p>Therefore, <code class="language-plaintext highlighter-rouge">^M*</code> technically matches the beginning of <strong>every line</strong>, because zero <code class="language-plaintext highlighter-rouge">M</code>s is allowed.</p>
+
+<h3 id="compare">Compare</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M+
+</code></pre></div></div>
+
+<p>→ line must begin with at least one <code class="language-plaintext highlighter-rouge">M</code></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M*
+</code></pre></div></div>
+
+<p>→ line may begin with zero or more <code class="language-plaintext highlighter-rouge">M</code>s</p>
+
+<hr />
+
+<h1 id="45-m-vs-m">45. <code class="language-plaintext highlighter-rouge">M*</code> vs <code class="language-plaintext highlighter-rouge">M.*</code></h1>
+
+<p>This is a very important regex distinction.</p>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M.*
+</code></pre></div></div>
+
+<h2 id="m"><code class="language-plaintext highlighter-rouge">M*</code></h2>
+
+<p>Means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more M characters
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>""
+M
+MM
+MMM
+</code></pre></div></div>
+
+<p>The repeated thing is only:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="m-1"><code class="language-plaintext highlighter-rouge">M.*</code></h2>
+
+<p>Means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
++
+zero or more arbitrary characters
+</code></pre></div></div>
+
+<p>So it requires an <code class="language-plaintext highlighter-rouge">M</code> first.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ma
+Mabc
+M123xyz
+Mhello world
+</code></pre></div></div>
+
+<p>can match.</p>
+
+<hr />
+
+<h1 id="46-ma-vs-ma">46. <code class="language-plaintext highlighter-rouge">M*a</code> vs <code class="language-plaintext highlighter-rouge">M.*a</code></h1>
+
+<p>This distinction is often asked in exams.</p>
+
+<h2 id="pattern-1">Pattern 1</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*a
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more M's
++
+a
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Ma
+MMa
+MMMa
+</code></pre></div></div>
+
+<p>It does not match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M123a
+</code></pre></div></div>
+
+<p>because the middle characters must all be <code class="language-plaintext highlighter-rouge">M</code>.</p>
+
+<hr />
+
+<h2 id="pattern-2">Pattern 2</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M.*a
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
++
+zero or more arbitrary characters
++
+a
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ma
+M123a
+Mhelloa
+MabcXYZa
+</code></pre></div></div>
+
+<h3 id="key-difference">Key Difference</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*a
+</code></pre></div></div>
+
+<p>allows only:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M M M M ...
+</code></pre></div></div>
+
+<p>before <code class="language-plaintext highlighter-rouge">a</code>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M.*a
+</code></pre></div></div>
+
+<p>allows:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>anything
+</code></pre></div></div>
+
+<p>between the initial <code class="language-plaintext highlighter-rouge">M</code> and final <code class="language-plaintext highlighter-rouge">a</code>.</p>
+
+<hr />
+
+<h1 id="47-grouping-with-">47. Grouping with <code class="language-plaintext highlighter-rouge">()</code></h1>
+
+<p>Extended regex supports grouping using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(...)
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)+
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Repeat the group <code class="language-plaintext highlighter-rouge">ma</code> one or more times.</p>
+</blockquote>
+
+<p>This is different from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma+
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-ma">48. <code class="language-plaintext highlighter-rouge">(ma)+</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'(ma)+'</span>
+</code></pre></div></div>
+
+<p>The group is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>means one or more repetitions.</p>
+
+<p>So it matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+mama
+mamama
+mamamama
+</code></pre></div></div>
+
+<p>because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+ma ma
+ma ma ma
+...
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-ma">49. <code class="language-plaintext highlighter-rouge">(ma)*</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'(ma)*'</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>means zero or more repetitions of the entire group:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)
+</code></pre></div></div>
+
+<p>Therefore it can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>""
+ma
+mama
+mamama
+...
+</code></pre></div></div>
+
+<p>Because zero repetitions are allowed, this pattern can match at an empty position in essentially every line.</p>
+
+<hr />
+
+<h1 id="50-ma-vs-ma">50. <code class="language-plaintext highlighter-rouge">(ma)+</code> vs <code class="language-plaintext highlighter-rouge">(ma)*</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">(ma)+</code></td>
+      <td>One or more <code class="language-plaintext highlighter-rouge">ma</code> groups</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">(ma)*</code></td>
+      <td>Zero or more <code class="language-plaintext highlighter-rouge">ma</code> groups</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)+
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+mama
+mamama
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)*
+</code></pre></div></div>
+
+<p>also permits zero repetitions.</p>
+
+<hr />
+
+<h1 id="51-alternation-">51. Alternation <code class="language-plaintext highlighter-rouge">|</code></h1>
+
+<p>Extended regex provides:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|
+</code></pre></div></div>
+
+<p>which means:</p>
+
+<blockquote>
+  <p>OR</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file | egrep <span class="s1">'(ED|ME)'</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+OR
+ME
+</code></pre></div></div>
+
+<p>So it matches lines containing either:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ME
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="52-edme">52. <code class="language-plaintext highlighter-rouge">(ED|ME)</code></h1>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(
+    ED
+    |
+    ME
+)
+</code></pre></div></div>
+
+<p>The parentheses group the alternatives.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">|</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED OR ME
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ME
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EDME
+</code></pre></div></div>
+
+<p>also contains a match, because <code class="language-plaintext highlighter-rouge">grep</code> searches for matching substrings.</p>
+
+<hr />
+
+<h1 id="53-why-parentheses-matter-with-">53. Why Parentheses Matter with <code class="language-plaintext highlighter-rouge">|</code></h1>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED|ME
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ED|ME)
+</code></pre></div></div>
+
+<p>When used as part of a larger regex, grouping determines what the alternation applies to.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^(ED|ME)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>The line must begin with either <code class="language-plaintext highlighter-rouge">ED</code> or <code class="language-plaintext highlighter-rouge">ME</code>.</p>
+</blockquote>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^ED|ME
+</code></pre></div></div>
+
+<p>is interpreted as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(^ED) | (ME)
+</code></pre></div></div>
+
+<p>So it can match either a line beginning with <code class="language-plaintext highlighter-rouge">ED</code> or <code class="language-plaintext highlighter-rouge">ME</code> anywhere in the line.</p>
+
+<p>This is a classic precedence issue.</p>
+
+<hr />
+
+<h1 id="54-character-class-vs-alternation">54. Character Class vs Alternation</h1>
+
+<p>These can sometimes look similar:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[EM]
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(E|M)
+</code></pre></div></div>
+
+<p>But they work at different levels.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[EM]
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>One character: <code class="language-plaintext highlighter-rouge">E</code> or <code class="language-plaintext highlighter-rouge">M</code>.</p>
+</blockquote>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(E|M)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>One alternative: <code class="language-plaintext highlighter-rouge">E</code> or <code class="language-plaintext highlighter-rouge">M</code>.</p>
+</blockquote>
+
+<p>For multiple-character alternatives:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ED|ME)
+</code></pre></div></div>
+
+<p>is required.</p>
+
+<p>A character class cannot represent multi-character alternatives.</p>
+
+<hr />
+
+<h1 id="55-bre-vs-ere">55. BRE vs ERE</h1>
+
+<p>This is extremely important for <code class="language-plaintext highlighter-rouge">grep</code>.</p>
+
+<h2 id="basic-regular-expressions">Basic Regular Expressions</h2>
+
+<p>Default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern'</span> file
+</code></pre></div></div>
+
+<p>Some operators require backslashes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(
+\)
+\{
+\}
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\(ab\)\{2,4\}'</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="extended-regular-expressions">Extended Regular Expressions</h2>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'pattern'</span> file
+</code></pre></div></div>
+
+<p>or historically:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'pattern'</span> file
+</code></pre></div></div>
+
+<p>Operators become easier to write:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>()
++
+?
+{}
+|
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'(ab){2,4}'</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="56-comparison-table">56. Comparison Table</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Meaning</th>
+      <th>BRE (<code class="language-plaintext highlighter-rouge">grep</code>)</th>
+      <th>ERE (<code class="language-plaintext highlighter-rouge">grep -E</code>)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Grouping</td>
+      <td><code class="language-plaintext highlighter-rouge">\(...\)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">(...)</code></td>
+    </tr>
+    <tr>
+      <td>Alternation</td>
+      <td><code class="language-plaintext highlighter-rouge">\|</code> in GNU BRE</td>
+      <td><code class="language-plaintext highlighter-rouge">\|</code>/<code class="language-plaintext highlighter-rouge">|</code> behavior differs; use <code class="language-plaintext highlighter-rouge">|</code> in ERE</td>
+    </tr>
+    <tr>
+      <td>One or more</td>
+      <td><code class="language-plaintext highlighter-rouge">\+</code> in GNU BRE</td>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+    </tr>
+    <tr>
+      <td>Zero or one</td>
+      <td><code class="language-plaintext highlighter-rouge">\?</code> in GNU BRE</td>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+    </tr>
+    <tr>
+      <td>Interval</td>
+      <td><code class="language-plaintext highlighter-rouge">\{m,n\}</code></td>
+      <td><code class="language-plaintext highlighter-rouge">{m,n}</code></td>
+    </tr>
+    <tr>
+      <td>Backreference</td>
+      <td><code class="language-plaintext highlighter-rouge">\1</code></td>
+      <td><code class="language-plaintext highlighter-rouge">\1</code></td>
+    </tr>
+    <tr>
+      <td>Character class</td>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+    </tr>
+    <tr>
+      <td>Any character</td>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+    </tr>
+    <tr>
+      <td>Start</td>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+    </tr>
+    <tr>
+      <td>End</td>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For portability and clarity, remember that <code class="language-plaintext highlighter-rouge">grep -E</code> uses the familiar extended forms.</p>
+
+<hr />
+
+<h1 id="57-correcting-common-lecture-typing-issues">57. Correcting Common Lecture Typing Issues</h1>
+
+<p>When writing regex, pay close attention to these characters.</p>
+
+<h3 id="beginning-of-line-anchor">Beginning-of-line anchor</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^pattern
+</code></pre></div></div>
+
+<p>Not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ˆpattern
+</code></pre></div></div>
+
+<p>The second character can be a different Unicode character (<code class="language-plaintext highlighter-rouge">ˆ</code>) rather than the ASCII regex anchor <code class="language-plaintext highlighter-rouge">^</code>.</p>
+
+<hr />
+
+<h3 id="literal-dot">Literal dot</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="zero-or-more-characters">Zero or more characters</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="backreference">Backreference</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="bre-grouping">BRE grouping</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(pattern\)
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="bre-repetition">BRE repetition</h3>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\{2,4\}
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="58-regex-atoms">58. Regex Atoms</h1>
+
+<p>An <strong>atom</strong> is a basic unit that can be repeated or combined.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+.
+[abc]
+\(abc\)
+</code></pre></div></div>
+
+<p>Then quantifiers can operate on an atom.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a*
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>is the atom.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>repeats it.</p>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab)*
+</code></pre></div></div>
+
+<p>the atom is the entire group:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab)
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="59-quantifiers">59. Quantifiers</h1>
+
+<p>Quantifiers describe how many times something can occur.</p>
+
+<p>Common ones in ERE:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
++
+?
+{m}
+{m,n}
+{m,}
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantifier</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Zero or more</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>One or more</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Zero or one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{m}</code></td>
+      <td>Exactly <code class="language-plaintext highlighter-rouge">m</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{m,n}</code></td>
+      <td>Between <code class="language-plaintext highlighter-rouge">m</code> and <code class="language-plaintext highlighter-rouge">n</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{m,}</code></td>
+      <td>At least <code class="language-plaintext highlighter-rouge">m</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="60-important-difference--vs-">60. Important Difference: <code class="language-plaintext highlighter-rouge">*</code> vs <code class="language-plaintext highlighter-rouge">+</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more M
+</code></pre></div></div>
+
+<p>So zero <code class="language-plaintext highlighter-rouge">M</code>s are allowed.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one or more M
+</code></pre></div></div>
+
+<p>At least one <code class="language-plaintext highlighter-rouge">M</code> is required.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>""
+M
+MM
+MMM
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+MM
+MMM
+</code></pre></div></div>
+
+<p>but not zero <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<hr />
+
+<h1 id="61-practical-regex-breakdown-technique">61. Practical Regex Breakdown Technique</h1>
+
+<p>Whenever you see a complicated regex, break it into pieces.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\bpat.*tern
+</code></pre></div></div>
+
+<p>Break it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\b
+</code></pre></div></div>
+
+<p>Word boundary</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
+</code></pre></div></div>
+
+<p>Literal characters</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p>Zero or more arbitrary characters</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tern
+</code></pre></div></div>
+
+<p>Literal characters</p>
+
+<p>Then combine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>word boundary
+     +
+pat
+     +
+anything
+     +
+tern
+</code></pre></div></div>
+
+<p>This is much easier than trying to understand the entire regex at once.</p>
+
+<hr />
+
+<h1 id="62-another-breakdown-example">62. Another Breakdown Example</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^(M+)
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<p>Beginning of line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(M+)
+</code></pre></div></div>
+
+<p>Group containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>which means one or more <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^(M+)
+</code></pre></div></div>
+
+<p>matches one or more <code class="language-plaintext highlighter-rouge">M</code>s at the beginning of the line.</p>
+
+<hr />
+
+<h1 id="63-advanced-example-repeated-group">63. Advanced Example: Repeated Group</h1>
+
+<p>Regex:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)+
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ma)
+</code></pre></div></div>
+
+<p>Group.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>One or more repetitions.</p>
+
+<p>Possible matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+mama
+mamama
+mamamama
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="64-advanced-example-alternatives">64. Advanced Example: Alternatives</h1>
+
+<p>Regex:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ED|ME)
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+</code></pre></div></div>
+
+<p>OR:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ME
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ME
+</code></pre></div></div>
+
+<p>are both valid matches.</p>
+
+<hr />
+
+<h1 id="65-advanced-example-repeated-captured-text">65. Advanced Example: Repeated Captured Text</h1>
+
+<p>Regex:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(pattern\)\1
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(pattern\)
+</code></pre></div></div>
+
+<p>Capture:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>requires the same captured text again.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>patternpattern
+</code></pre></div></div>
+
+<p>matches.</p>
+
+<hr />
+
+<h1 id="66-common-regex-mistakes">66. Common Regex Mistakes</h1>
+
+<h2 id="mistake-1-thinking--means-literal-dot">Mistake 1: Thinking <code class="language-plaintext highlighter-rouge">.</code> means literal dot</h2>
+
+<p>Wrong understanding:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means a literal period.</p>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means any single character.</p>
+
+<p>For a literal period:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2-confusing--with-">Mistake 2: Confusing <code class="language-plaintext highlighter-rouge">*</code> with <code class="language-plaintext highlighter-rouge">+</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>allows zero occurrences.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>requires at least one occurrence.</p>
+
+<hr />
+
+<h2 id="mistake-3-confusing-abc-with-abc">Mistake 3: Confusing <code class="language-plaintext highlighter-rouge">[abc]</code> with <code class="language-plaintext highlighter-rouge">(abc)</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]
+</code></pre></div></div>
+
+<p>means one character:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a OR b OR c
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(abc)
+</code></pre></div></div>
+
+<p>groups the complete sequence:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4-forgetting--position-in-a-character-class">Mistake 4: Forgetting <code class="language-plaintext highlighter-rouge">^</code> position in a character class</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[^0-9]
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Not a digit.</p>
+</blockquote>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[0-9^]
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>A digit or literal <code class="language-plaintext highlighter-rouge">^</code>.</p>
+</blockquote>
+
+<p>The position of <code class="language-plaintext highlighter-rouge">^</code> matters.</p>
+
+<hr />
+
+<h2 id="mistake-5-using-bre-syntax-with-ere">Mistake 5: Using BRE syntax with ERE</h2>
+
+<p>Default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'a\{2,4\}'</span> file
+</code></pre></div></div>
+
+<p>uses BRE interval syntax.</p>
+
+<p>With:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'a{2,4}'</span> file
+</code></pre></div></div>
+
+<p>the braces do not need the BRE escaping.</p>
+
+<hr />
+
+<h1 id="67-regex-practice-dataset">67. Regex Practice Dataset</h1>
+
+<p>Create a file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span> regex.txt
+</code></pre></div></div>
+
+<p>Enter:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+pattern123
+hello pattern
+pattern hello
+patternXpattern
+pattern1pattern
+pattern-pattern
+hello.world
+192.168.1.1
+mypattern
+patterns
+pat1tern
+pat2tern
+pat3tern
+pat5tern
+pat6tern
+M
+MM
+MMM
+MMMM
+Ma
+M123a
+Mhelloa
+a
+Ma
+MMa
+MMMa
+ma
+mama
+mamama
+ED
+ME
+employee
+MED
+EDUCATION
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>to finish.</p>
+
+<hr />
+
+<h1 id="68-practice-1--beginning-of-line">68. Practice 1 — Beginning of Line</h1>
+
+<p>Find lines beginning with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'^pattern'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="69-practice-2--end-of-line">69. Practice 2 — End of Line</h1>
+
+<p>Find lines ending with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
+</code></pre></div></div>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern$'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="70-practice-3--literal-dot">70. Practice 3 — Literal Dot</h1>
+
+<p>Find lines containing a literal dot.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\.'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="71-practice-4--one-arbitrary-character">71. Practice 4 — One Arbitrary Character</h1>
+
+<p>Find occurrences of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern
++
+one character
++
+pattern
+</code></pre></div></div>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern.pattern'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="72-practice-5--character-class">72. Practice 5 — Character Class</h1>
+
+<p>Find:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat1tern
+pat2tern
+pat3tern
+pat4tern
+pat5tern
+</code></pre></div></div>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pat[1-5]tern'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="73-practice-6--negated-character-class">73. Practice 6 — Negated Character Class</h1>
+
+<p>Find:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
++
+one character other than 1-5
++
+tern
+</code></pre></div></div>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pat[^1-5]tern'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="74-practice-7--one-or-more-m">74. Practice 7 — One or More <code class="language-plaintext highlighter-rouge">M</code></h1>
+
+<p>Find lines containing one or more consecutive <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<p>Using ERE:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'M+'</span> regex.txt
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep <span class="s1">'M+'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="75-practice-8--m-at-beginning">75. Practice 8 — <code class="language-plaintext highlighter-rouge">M</code> at Beginning</h1>
+
+<p>Find lines beginning with one or more <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^M+'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="76-practice-9--m">76. Practice 9 — <code class="language-plaintext highlighter-rouge">M*</code></h1>
+
+<p>Find lines using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M*
+</code></pre></div></div>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^M*'</span> regex.txt
+</code></pre></div></div>
+
+<h3 id="important-observation">Important Observation</h3>
+
+<p>This will match essentially every line because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>allows zero <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<p>This is a common exam trick.</p>
+
+<hr />
+
+<h1 id="77-practice-10--ma">77. Practice 10 — <code class="language-plaintext highlighter-rouge">M*a</code></h1>
+
+<p>Find strings consisting of zero or more <code class="language-plaintext highlighter-rouge">M</code>s followed by <code class="language-plaintext highlighter-rouge">a</code>.</p>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'M*a'</span> regex.txt
+</code></pre></div></div>
+
+<p>Matches examples such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Ma
+MMa
+MMMa
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="78-practice-11--ma">78. Practice 11 — <code class="language-plaintext highlighter-rouge">M.*a</code></h1>
+
+<p>Find a line containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
++
+anything
++
+a
+</code></pre></div></div>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'M.*a'</span> regex.txt
+</code></pre></div></div>
+
+<p>This can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ma
+M123a
+Mhelloa
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="79-practice-12--repeated-ma">79. Practice 12 — Repeated <code class="language-plaintext highlighter-rouge">ma</code></h1>
+
+<p>Find one or more repetitions of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+</code></pre></div></div>
+
+<h3 id="solution-11">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'(ma)+'</span> regex.txt
+</code></pre></div></div>
+
+<p>Matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ma
+mama
+mamama
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="80-practice-13--zero-or-more-ma">80. Practice 13 — Zero or More <code class="language-plaintext highlighter-rouge">ma</code></h1>
+
+<p>Find zero or more repetitions of the group <code class="language-plaintext highlighter-rouge">ma</code>.</p>
+
+<h3 id="solution-12">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'(ma)*'</span> regex.txt
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>allows zero repetitions.</p>
+
+<p>Therefore this pattern can match at an empty position.</p>
+
+<hr />
+
+<h1 id="81-practice-14--ed-or-me">81. Practice 14 — <code class="language-plaintext highlighter-rouge">ED</code> or <code class="language-plaintext highlighter-rouge">ME</code></h1>
+
+<p>Find lines containing either:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ME
+</code></pre></div></div>
+
+<h3 id="solution-13">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'(ED|ME)'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="82-practice-15--repeated-pattern">82. Practice 15 — Repeated <code class="language-plaintext highlighter-rouge">pattern</code></h1>
+
+<p>Find <code class="language-plaintext highlighter-rouge">pattern</code> repeated two to four times.</p>
+
+<p>Using basic <code class="language-plaintext highlighter-rouge">grep</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pattern\{2,4\}'</span> regex.txt
+</code></pre></div></div>
+
+<p>Using extended <code class="language-plaintext highlighter-rouge">grep</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'pattern{2,4}'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="83-practice-16--backreference">83. Practice 16 — Backreference</h1>
+
+<p>Find a repeated copy of the same word:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wordword
+</code></pre></div></div>
+
+<p>A simplified example for <code class="language-plaintext highlighter-rouge">pattern</code> specifically:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\(pattern\)\1'</span> regex.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>capture pattern
++
+match the captured pattern again
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="84-practice-17--repeated-character-using-backreference">84. Practice 17 — Repeated Character Using Backreference</h1>
+
+<p>Find consecutive duplicate lowercase characters.</p>
+
+<h3 id="solution-14">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'([a-z])\1'</span> regex.txt
+</code></pre></div></div>
+
+<p>Examples that can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>book
+coffee
+letter
+</code></pre></div></div>
+
+<p>because they contain:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>oo
+ff
+tt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="85-practice-18--complete-word">85. Practice 18 — Complete Word</h1>
+
+<p>Find <code class="language-plaintext highlighter-rouge">pattern</code> as a complete word rather than part of another word.</p>
+
+<h3 id="solution-15">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\bpattern\b'</span> regex.txt
+</code></pre></div></div>
+
+<p>This avoids matches such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mypattern
+patterns
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="86-practice-19--pattern">86. Practice 19 — <code class="language-plaintext highlighter-rouge">pat.*tern</code></h1>
+
+<p>Find lines containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pat
+</code></pre></div></div>
+
+<p>followed later by:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tern
+</code></pre></div></div>
+
+<p>with any number of characters in between.</p>
+
+<h3 id="solution-16">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'pat.*tern'</span> regex.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="87-practice-20--beginning--repetition">87. Practice 20 — Beginning + Repetition</h1>
+
+<p>Find lines that begin with at least two <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<h3 id="solution-17">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'^MM+'</span> regex.txt
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<p>→ beginning</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+</code></pre></div></div>
+
+<p>→ first M</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>→ one or more additional M’s</p>
+
+<p>Therefore the total is at least two <code class="language-plaintext highlighter-rouge">M</code>s.</p>
+
+<hr />
+
+<h1 id="88-exam-level-comparison-questions">88. Exam-Level Comparison Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*a
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M.*a
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*a
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more M characters
+followed by a
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Ma
+MMa
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M.*a
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M
+followed by zero or more arbitrary characters
+followed by a
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ma
+M123a
+Mhelloa
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="89-exam-level-comparison--vs-">89. Exam-Level Comparison: <code class="language-plaintext highlighter-rouge">*</code> vs <code class="language-plaintext highlighter-rouge">+</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zero or more M
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one or more M
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M*
+</code></pre></div></div>
+
+<p>allows zero occurrences.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>M+
+</code></pre></div></div>
+
+<p>does not.</p>
+
+<hr />
+
+<h1 id="90-exam-level-comparison--vs-">90. Exam-Level Comparison: <code class="language-plaintext highlighter-rouge">[]</code> vs <code class="language-plaintext highlighter-rouge">()</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one character: a, b, or c
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(abc)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the sequence abc as a group
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab|cd)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab OR cd
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="91-exam-level-comparison-m-vs-m">91. Exam-Level Comparison: <code class="language-plaintext highlighter-rouge">^M+</code> vs <code class="language-plaintext highlighter-rouge">^M*</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M+
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start of line
++
+at least one M
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^M*
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start of line
++
+zero or more M
+</code></pre></div></div>
+
+<p>Because zero M is allowed by <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">^M*</code> can match the beginning of every line.</p>
+
+<hr />
+
+<h1 id="92-exam-level-comparison--vs-">92. Exam-Level Comparison: <code class="language-plaintext highlighter-rouge">.</code> vs <code class="language-plaintext highlighter-rouge">\.</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>any single character
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>literal dot
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'a.b'</span> file
+</code></pre></div></div>
+
+<p>can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aXb
+a1b
+a-b
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'a\.b'</span> file
+</code></pre></div></div>
+
+<p>matches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a.b
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="93-exam-level-comparison-grep-vs-grep--e">93. Exam-Level Comparison: <code class="language-plaintext highlighter-rouge">grep</code> vs <code class="language-plaintext highlighter-rouge">grep -E</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'a\{2,4\}'</span> file
+</code></pre></div></div>
+
+<p>uses Basic Regular Expression syntax.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'a{2,4}'</span> file
+</code></pre></div></div>
+
+<p>uses Extended Regular Expression syntax.</p>
+
+<p>Likewise:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="nt">-E</span> <span class="s1">'(ab)+'</span>
+</code></pre></div></div>
+
+<p>uses ordinary parentheses and <code class="language-plaintext highlighter-rouge">+</code>.</p>
+
+<p>With GNU BRE, equivalent concepts can require escaping:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'\(ab\)\+'</span> file
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="94-regex-operator-cheat-sheet">94. Regex Operator Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.          any single character
+
+^          beginning of line
+
+$          end of line
+
+*          zero or more of previous atom
+
++          one or more of previous atom (ERE)
+
+?          zero or one of previous atom (ERE)
+
+[abc]      one character: a/b/c
+
+[a-z]      one character in a-z
+
+[0-9]      one digit
+
+[^0-9]     one character that is not a digit
+
+\{m,n\}    m through n repetitions in BRE
+
+{m,n}      m through n repetitions in ERE
+
+\( ... \)  capture group in BRE
+
+(...)      capture/group in ERE
+
+\1         first captured group
+
+|          OR in ERE
+
+\b         word boundary in GNU grep
+
+.*         zero or more arbitrary characters
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="95-the-most-important-regex-mental-models">95. The Most Important Regex Mental Models</h1>
+
+<h2 id="-2"><code class="language-plaintext highlighter-rouge">.</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+↓
+ONE arbitrary character
+</code></pre></div></div>
+
+<h2 id="-3"><code class="language-plaintext highlighter-rouge">*</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X*
+↓
+ZERO or more X
+</code></pre></div></div>
+
+<h2 id="-4"><code class="language-plaintext highlighter-rouge">+</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X+
+↓
+ONE or more X
+</code></pre></div></div>
+
+<h2 id="-5"><code class="language-plaintext highlighter-rouge">^</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^pattern
+↓
+pattern must begin the line
+</code></pre></div></div>
+
+<h2 id="-6"><code class="language-plaintext highlighter-rouge">$</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern$
+↓
+pattern must end the line
+</code></pre></div></div>
+
+<h2 id="abc"><code class="language-plaintext highlighter-rouge">[abc]</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[abc]
+↓
+ONE character: a OR b OR c
+</code></pre></div></div>
+
+<h2 id="abc-1"><code class="language-plaintext highlighter-rouge">[^abc]</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[^abc]
+↓
+ONE character that is NOT a/b/c
+</code></pre></div></div>
+
+<h2 id="-7"><code class="language-plaintext highlighter-rouge">.*</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+↓
+ZERO or more arbitrary characters
+</code></pre></div></div>
+
+<h2 id="ab-2"><code class="language-plaintext highlighter-rouge">(ab)+</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(ab)+
+↓
+one or more copies of "ab"
+</code></pre></div></div>
+
+<h2 id="edme"><code class="language-plaintext highlighter-rouge">(ED|ME)</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ED OR ME
+</code></pre></div></div>
+
+<h2 id="1"><code class="language-plaintext highlighter-rouge">\1</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+↓
+same text captured by group 1
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="96-final-regex-strategy">96. Final Regex Strategy</h1>
+
+<p>When you encounter a complicated regex in an exam or script, do not try to understand it all at once.</p>
+
+<p>Use this procedure:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Step 1 → Identify anchors
+          ^  $
+
+Step 2 → Identify character classes
+          [abc]
+          [0-9]
+          [^...]
+
+Step 3 → Identify special atoms
+          .
+          \.
+
+Step 4 → Identify quantifiers
+          *
+          +
+          ?
+          {m,n}
+
+Step 5 → Identify groups
+          (...)
+          \(...\)
+
+Step 6 → Identify alternation
+          |
+
+Step 7 → Identify backreferences
+          \1
+          \2
+
+Step 8 → Combine everything
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\bpat.*tern
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\b     → word boundary
+pat    → literal pat
+.*     → zero or more arbitrary characters
+tern   → literal tern
+</code></pre></div></div>
+
+<p>So the complete meaning is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>At a word boundary,
+find "pat",
+allow any number of characters,
+then find "tern".
+</code></pre></div></div>
+
+<p>The key to mastering regex is <strong>not memorizing giant patterns</strong>. It is learning to break every regex into small atoms, anchors, character classes, quantifiers, groups, and operators, then rebuild its meaning step by step.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L3.5 - Linux process management</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L4.2: Pattern Matching - Part 02</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

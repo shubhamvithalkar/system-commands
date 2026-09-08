@@ -1,0 +1,3850 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.4 - Simple Commands in Linux - 2 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link active">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 1</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>1.4 - Simple Commands in Linux - 2</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="14---simple-commands-in-linux---2">1.4 - Simple Commands in Linux - 2</h1>
+
+<h1 id="linux-system-commands--files-help-links-filesystems-and-processes">Linux System Commands — Files, Help, Links, Filesystems, and Processes</h1>
+
+<h2 id="1-multiple--in-a-path">1. Multiple <code class="language-plaintext highlighter-rouge">/</code> in a Path</h2>
+
+<p>In Linux, multiple consecutive <code class="language-plaintext highlighter-rouge">/</code> characters in a path generally have the same effect as a single <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/shubham
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> //home//shubham
+</code></pre></div></div>
+
+<p>normally refer to the same location.</p>
+
+<p>You can verify:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/shubham
+<span class="nb">pwd
+
+cd</span> //home//shubham
+<span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>The resulting directory is normally the same.</p>
+
+<h3 id="important">Important</h3>
+
+<p>Do not confuse:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//
+</code></pre></div></div>
+
+<p>The root directory is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>Although multiple slashes are generally treated equivalently in ordinary Linux paths, there are special pathname semantics in some contexts and standards, so <strong>do not use multiple slashes as a style convention</strong>.</p>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/project/file.txt
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//home//shubham//project//file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-ls--l-dir--list-the-contents-of-a-directory">2. <code class="language-plaintext highlighter-rouge">ls -l dir</code> — List the Contents of a Directory</h1>
+
+<p>Suppose you have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── file1.txt
+├── file2.txt
+└── script.sh
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> project
+</code></pre></div></div>
+
+<p>This displays the <strong>contents of <code class="language-plaintext highlighter-rouge">project</code></strong> in long format.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r--r-- 1 shubham shubham 100 Sep 8 10:00 file1.txt
+-rw-r--r-- 1 shubham shubham 200 Sep 8 10:01 file2.txt
+-rwxr-xr-x 1 shubham shubham 500 Sep 8 10:02 script.sh
+</code></pre></div></div>
+
+<p>Notice that the directory itself is not what is being described.</p>
+
+<p>The command means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls       → list
+-l       → long format
+project  → target directory
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-ls--ld--list-the-directory-itself">3. <code class="language-plaintext highlighter-rouge">ls -ld</code> — List the Directory Itself</h1>
+
+<p>This is a very important distinction.</p>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> project
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-ld</span> project
+</code></pre></div></div>
+
+<h3 id="ls--l-project"><code class="language-plaintext highlighter-rouge">ls -l project</code></h3>
+
+<p>Shows the <strong>contents</strong> of <code class="language-plaintext highlighter-rouge">project</code>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file1.txt
+file2.txt
+script.sh
+</code></pre></div></div>
+
+<h3 id="ls--ld-project"><code class="language-plaintext highlighter-rouge">ls -ld project</code></h3>
+
+<p>Shows information about the <strong>directory itself</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drwxr-xr-x 3 shubham shubham 4096 Sep 8 10:00 project
+</code></pre></div></div>
+
+<h3 id="mental-model">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l directory
+      ↓
+"What is inside this directory?"
+
+ls -ld directory
+       ↓
+"Tell me about this directory itself."
+</code></pre></div></div>
+
+<p>This is especially useful when inspecting directory permissions.</p>
+
+<hr />
+
+<h1 id="4-multiple-options-in-one-hyphen">4. Multiple Options in One Hyphen</h1>
+
+<p>Many Unix/Linux commands allow short options to be combined.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>can usually be written as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-al</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-l → long format
+-a → include hidden files
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Show all files, including hidden files, in long format.</p>
+</blockquote>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>can be written:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-lh</span>
+</code></pre></div></div>
+
+<h3 id="important-1">Important</h3>
+
+<p>Short-option combination is a feature of many commands, but <strong>not every command or every option syntax behaves identically</strong>. Always check the command’s documentation when unsure.</p>
+
+<hr />
+
+<h1 id="5-long-options">5. Long Options</h1>
+
+<p>Linux commands often provide long-form options.</p>
+
+<p>Short option:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Long option:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">--all</span>
+</code></pre></div></div>
+
+<p>Both mean approximately:</p>
+
+<blockquote>
+  <p>Include hidden entries.</p>
+</blockquote>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">--human-readable</span>
+</code></pre></div></div>
+
+<h3 id="short-vs-long">Short vs Long</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-a
+ ↓
+short option
+
+--all
+ ↓
+long option
+</code></pre></div></div>
+
+<p>Short options are convenient for frequent interactive use.</p>
+
+<p>Long options are often easier to understand when reading commands.</p>
+
+<hr />
+
+<h1 id="6-less--view-files-page-by-page">6. <code class="language-plaintext highlighter-rouge">less</code> — View Files Page by Page</h1>
+
+<p><code class="language-plaintext highlighter-rouge">less</code> is a terminal pager used to read large amounts of text without printing the entire file at once.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less filename
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less /var/log/syslog
+</code></pre></div></div>
+
+<p>Instead of dumping the whole file onto the terminal, <code class="language-plaintext highlighter-rouge">less</code> opens an interactive viewer.</p>
+
+<h3 id="important-keys">Important Keys</h3>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">less</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Space      → next page
+b          → previous page
+↑ / ↓      → move one line
+g          → beginning
+G          → end
+/word      → search
+n          → next search result
+N          → previous search result
+q          → quit
+</code></pre></div></div>
+
+<h3 id="why-is-less-useful">Why is <code class="language-plaintext highlighter-rouge">less</code> useful?</h3>
+
+<p>Suppose a file contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100,000 lines
+</code></pre></div></div>
+
+<p>Using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>hugefile.txt
+</code></pre></div></div>
+
+<p>could flood your terminal.</p>
+
+<p>Instead:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less hugefile.txt
+</code></pre></div></div>
+
+<p>lets you navigate through it.</p>
+
+<hr />
+
+<h1 id="7-cat--display-file-contents">7. <code class="language-plaintext highlighter-rouge">cat</code> — Display File Contents</h1>
+
+<p><code class="language-plaintext highlighter-rouge">cat</code> means <strong>concatenate</strong>, but it is commonly used to display text files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>notes.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+Shell
+AWK
+Sed
+Grep
+</code></pre></div></div>
+
+<h3 id="concatenating-files">Concatenating files</h3>
+
+<p>You can also combine files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file1.txt file2.txt
+</code></pre></div></div>
+
+<p>This prints the contents of both files.</p>
+
+<p>You can redirect the result:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file1.txt file2.txt <span class="o">&gt;</span> combined.txt
+</code></pre></div></div>
+
+<p>Now <code class="language-plaintext highlighter-rouge">combined.txt</code> contains both files.</p>
+
+<hr />
+
+<h1 id="8-more--another-pager">8. <code class="language-plaintext highlighter-rouge">more</code> — Another Pager</h1>
+
+<p><code class="language-plaintext highlighter-rouge">more</code> is another command for viewing text one screen at a time.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>more file.txt
+</code></pre></div></div>
+
+<p>Historically, <code class="language-plaintext highlighter-rouge">more</code> was designed primarily for forward navigation through text.</p>
+
+<p><code class="language-plaintext highlighter-rouge">less</code> provides more functionality and is commonly preferred.</p>
+
+<hr />
+
+<h1 id="9-less-is-more">9. “Less Is More”</h1>
+
+<p>This is a common Unix joke/reference:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">less</code> is more.</p>
+</blockquote>
+
+<p>It is based on the relationship between the commands:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>more
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">less</code> was designed as a more capable pager than the older <code class="language-plaintext highlighter-rouge">more</code>.</p>
+
+<p>A useful practical rule:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>small_file.txt
+</code></pre></div></div>
+
+<p>for small files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less large_file.txt
+</code></pre></div></div>
+
+<p>for large files.</p>
+
+<hr />
+
+<h1 id="10-head--display-the-beginning-of-a-file">10. <code class="language-plaintext highlighter-rouge">head</code> — Display the Beginning of a File</h1>
+
+<p><code class="language-plaintext highlighter-rouge">head</code> displays the beginning of a file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head </span>file.txt
+</code></pre></div></div>
+
+<p>By default, it displays the first <strong>10 lines</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head </span>employees.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-head--n-5">11. <code class="language-plaintext highlighter-rouge">head -n 5</code></h1>
+
+<p>To display exactly five lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head
+ ↓
+beginning
+
+-n 5
+ ↓
+five lines
+</code></pre></div></div>
+
+<p>You can use any number:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 20 file.txt
+</code></pre></div></div>
+
+<p>→ first 20 lines.</p>
+
+<hr />
+
+<h1 id="12-tail--display-the-end-of-a-file">12. <code class="language-plaintext highlighter-rouge">tail</code> — Display the End of a File</h1>
+
+<p><code class="language-plaintext highlighter-rouge">tail</code> displays the end of a file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail </span>file.txt
+</code></pre></div></div>
+
+<p>By default, it displays the last <strong>10 lines</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail </span>application.log
+</code></pre></div></div>
+
+<p>This is particularly useful for logs.</p>
+
+<hr />
+
+<h1 id="13-tail--n-5">13. <code class="language-plaintext highlighter-rouge">tail -n 5</code></h1>
+
+<p>To display the last five lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 5 /var/log/syslog
+</code></pre></div></div>
+
+<p>This gives the final five lines of the file.</p>
+
+<hr />
+
+<h1 id="14-head-vs-tail">14. <code class="language-plaintext highlighter-rouge">head</code> vs <code class="language-plaintext highlighter-rouge">tail</code></h1>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head → beginning
+tail → end
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<p>→ first 5 lines.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<p>→ last 5 lines.</p>
+
+<hr />
+
+<h1 id="15-wc--count-lines-words-and-bytes">15. <code class="language-plaintext highlighter-rouge">wc</code> — Count Lines, Words, and Bytes</h1>
+
+<p><code class="language-plaintext highlighter-rouge">wc</code> means <strong>word count</strong>.</p>
+
+<p>Without options:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc </span>file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10 25 150 file.txt
+</code></pre></div></div>
+
+<p>These numbers represent:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10  → lines
+25  → words
+150 → bytes
+</code></pre></div></div>
+
+<p>So the general output is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lines  words  bytes  filename
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-wc--l--count-lines">16. <code class="language-plaintext highlighter-rouge">wc -l</code> — Count Lines</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-l</code> option counts lines.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100 file.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt contains 100 newline characters/lines as counted by wc.
+</code></pre></div></div>
+
+<h3 id="useful-in-scripting">Useful in scripting</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">count</span><span class="o">=</span><span class="si">$(</span><span class="nb">wc</span> <span class="nt">-l</span> &lt; file.txt<span class="si">)</span>
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$count</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Using input redirection:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> &lt; file.txt
+</code></pre></div></div>
+
+<p>returns only the count:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>100 file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-which">17. <code class="language-plaintext highlighter-rouge">which</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">which</code> searches for an executable in the directories listed in <code class="language-plaintext highlighter-rouge">$PATH</code>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which python
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/python
+</code></pre></div></div>
+
+<p>Another:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/ls
+</code></pre></div></div>
+
+<h3 id="important-modern-practice">Important Modern Practice</h3>
+
+<p>For shell command resolution, especially in Bash, these are often more informative:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type ls</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="nt">-v</span> <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Because <code class="language-plaintext highlighter-rouge">which</code> mainly focuses on executables in <code class="language-plaintext highlighter-rouge">$PATH</code>, while shell commands can also be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aliases
+functions
+builtins
+keywords
+external executables
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18-whatis">18. <code class="language-plaintext highlighter-rouge">whatis</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">whatis</code> provides a short description of a command from the manual-page database.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatis <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls (1) - list directory contents
+</code></pre></div></div>
+
+<p>Another:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatis <span class="nb">chmod</span>
+</code></pre></div></div>
+
+<p>This is useful when you only need a quick description rather than the complete manual.</p>
+
+<hr />
+
+<h1 id="19-apropos">19. <code class="language-plaintext highlighter-rouge">apropos</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">apropos</code> searches manual-page descriptions for a keyword.</p>
+
+<p>Suppose you don’t know the command name but want to find commands related to calendars.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apropos calendar
+</code></pre></div></div>
+
+<p>It searches descriptions and displays matching manual pages.</p>
+
+<h3 id="mental-model-1">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatis command
+     ↓
+"What does this command do?"
+
+apropos keyword
+     ↓
+"Which commands are related to this topic?"
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-man--k">20. <code class="language-plaintext highlighter-rouge">man -k</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">man -k</code> performs a keyword search through manual-page descriptions.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man <span class="nt">-k</span> calendar
+</code></pre></div></div>
+
+<p>This is essentially the manual-page keyword search functionality associated with <code class="language-plaintext highlighter-rouge">apropos</code>.</p>
+
+<p>You can think of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apropos calendar
+</code></pre></div></div>
+
+<p>as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man <span class="nt">-k</span> calendar
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-help">21. <code class="language-plaintext highlighter-rouge">help</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">help</code> is a Bash builtin that provides help for Bash builtins.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">help cd</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">help echo</span>
+</code></pre></div></div>
+
+<p>You can also search Bash help:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">help</span>
+</code></pre></div></div>
+
+<p>This lists available Bash builtins and help topics.</p>
+
+<h3 id="important-2">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">help</code> is especially useful for shell builtins such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd
+echo
+read
+export
+set
+unset
+alias
+type</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-man">22. <code class="language-plaintext highlighter-rouge">man</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">man</code> command displays manual pages.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>You enter an interactive manual viewer.</p>
+
+<p>Search inside the manual:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/keyword
+</code></pre></div></div>
+
+<p>Move through results:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n
+</code></pre></div></div>
+
+<p>Quit:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<h3 id="example">Example</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man <span class="nb">chmod</span>
+</code></pre></div></div>
+
+<p>This provides detailed documentation for <code class="language-plaintext highlighter-rouge">chmod</code>.</p>
+
+<hr />
+
+<h1 id="23-info">23. <code class="language-plaintext highlighter-rouge">info</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">info</code> is another documentation system used on many GNU/Linux systems.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info coreutils
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>GNU Info documentation can contain more structured, interconnected documentation than traditional man pages.</p>
+
+<h3 id="general-distinction">General distinction</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man
+ ↓
+Manual pages
+
+info
+ ↓
+GNU Info documentation
+</code></pre></div></div>
+
+<p>Both are useful documentation systems.</p>
+
+<hr />
+
+<h1 id="24-type">24. <code class="language-plaintext highlighter-rouge">type</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">type</code> tells you how the shell interprets a command.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type cd</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd is a shell builtin
+</code></pre></div></div>
+
+<p>Try:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type ls</span>
+</code></pre></div></div>
+
+<p>You may get:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls is aliased to `ls --color=auto'
+</code></pre></div></div>
+
+<p>if an alias exists.</p>
+
+<p>Or it may report the executable location.</p>
+
+<h3 id="why-type-is-powerful">Why <code class="language-plaintext highlighter-rouge">type</code> is powerful</h3>
+
+<p>A command name does not necessarily mean an external executable.</p>
+
+<p>It might be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias
+function
+builtin
+keyword
+external command
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">type</code> helps identify which one you are dealing with.</p>
+
+<hr />
+
+<h1 id="25-file">25. <code class="language-plaintext highlighter-rouge">file</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">file</code> command attempts to identify the type of a file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file filename
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file notes.txt
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt: ASCII text
+</code></pre></div></div>
+
+<p>For an image:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file photo.jpg
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>photo.jpg: JPEG image data
+</code></pre></div></div>
+
+<p>For a script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file script.sh
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script.sh: Bourne-Again shell script, ASCII text executable
+</code></pre></div></div>
+
+<p>The exact output depends on the file and installed <code class="language-plaintext highlighter-rouge">file</code> database.</p>
+
+<hr />
+
+<h1 id="26-alias">26. <code class="language-plaintext highlighter-rouge">alias</code></h1>
+
+<p>An alias creates a shortcut for a command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">ll</span><span class="o">=</span><span class="s1">'ls -l'</span>
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ll
+</code></pre></div></div>
+
+<p>runs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<h3 id="display-aliases">Display aliases</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias</span>
+</code></pre></div></div>
+
+<h3 id="check-one-alias">Check one alias</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span>ll
+</code></pre></div></div>
+
+<h3 id="important-3">Important</h3>
+
+<p>Aliases are normally shell-specific and commonly exist only for the current shell unless placed in a shell startup file such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.bashrc
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-unalias">27. <code class="language-plaintext highlighter-rouge">unalias</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">unalias</code> removes an alias.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">ll</span><span class="o">=</span><span class="s1">'ls -l'</span>
+</code></pre></div></div>
+
+<p>Remove it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">unalias </span>ll
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ll
+</code></pre></div></div>
+
+<p>will no longer be expanded as that alias.</p>
+
+<h3 id="remove-all-aliases">Remove all aliases</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">unalias</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Use this carefully because it removes all aliases in the current shell.</p>
+
+<hr />
+
+<h1 id="28-touch">28. <code class="language-plaintext highlighter-rouge">touch</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">touch</code> is commonly used to create an empty file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file.txt
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">file.txt</code> does not exist:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>is created.</p>
+
+<p>If it already exists, <code class="language-plaintext highlighter-rouge">touch</code> normally updates its timestamps rather than replacing its contents.</p>
+
+<h3 id="important-4">Important</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>existing.txt
+</code></pre></div></div>
+
+<p>does <strong>not</strong> erase the file.</p>
+
+<p>This is a common exam question.</p>
+
+<hr />
+
+<h1 id="29-mkdir">29. <code class="language-plaintext highlighter-rouge">mkdir</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">mkdir</code> means <strong>make directory</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>project
+</code></pre></div></div>
+
+<p>creates:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+</code></pre></div></div>
+
+<h3 id="create-multiple-directories">Create multiple directories</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>dir1 dir2 dir3
+</code></pre></div></div>
+
+<h3 id="create-nested-directories">Create nested directories</h3>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> project/src/components
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-p</code> option creates missing parent directories as necessary.</p>
+
+<hr />
+
+<h1 id="30-cp">30. <code class="language-plaintext highlighter-rouge">cp</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">cp</code> copies files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>source.txt destination.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>file.txt backup.txt
+</code></pre></div></div>
+
+<p>The original remains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>and a new copy exists:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backup.txt
+</code></pre></div></div>
+
+<h3 id="copy-into-a-directory">Copy into a directory</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>file.txt backup/
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-rm">31. <code class="language-plaintext highlighter-rouge">rm</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">rm</code> removes files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>file.txt
+</code></pre></div></div>
+
+<p>After successful execution, the directory entry is removed.</p>
+
+<h3 id="important-5">Important</h3>
+
+<p>Linux normally does not provide a recycle bin when using <code class="language-plaintext highlighter-rouge">rm</code> directly.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>file.txt
+</code></pre></div></div>
+
+<p>should be treated as a potentially destructive command.</p>
+
+<hr />
+
+<h1 id="32-rmdir">32. <code class="language-plaintext highlighter-rouge">rmdir</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">rmdir</code> removes <strong>empty directories</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rmdir </span>emptydir
+</code></pre></div></div>
+
+<p>If the directory contains files, <code class="language-plaintext highlighter-rouge">rmdir</code> normally fails.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emptydir/
+</code></pre></div></div>
+
+<p>can be removed.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── file.txt
+└── script.sh
+</code></pre></div></div>
+
+<p>cannot normally be removed using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rmdir </span>project
+</code></pre></div></div>
+
+<p>because it is not empty.</p>
+
+<hr />
+
+<h1 id="33-rm--r">33. <code class="language-plaintext highlighter-rouge">rm -r</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-r</code> option means <strong>recursive</strong>.</p>
+
+<p>It allows <code class="language-plaintext highlighter-rouge">rm</code> to remove directories and their contents.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-r</span> project
+</code></pre></div></div>
+
+<p>If:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── file1.txt
+├── file2.txt
+└── src/
+    └── main.py
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-r</span> project
+</code></pre></div></div>
+
+<p>removes the directory and its contents recursively.</p>
+
+<h3 id="warning">WARNING</h3>
+
+<p>Be extremely careful with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>because it can remove large directory trees.</p>
+
+<hr />
+
+<h1 id="34-rm--i">34. <code class="language-plaintext highlighter-rouge">rm -i</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-i</code> option means <strong>interactive confirmation</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-i</span> file.txt
+</code></pre></div></div>
+
+<p>The command asks for confirmation before removing the file.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm: remove regular file 'file.txt'? 
+</code></pre></div></div>
+
+<p>You can respond:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>y
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n
+</code></pre></div></div>
+
+<h3 id="safer-habit">Safer habit</h3>
+
+<p>When you are unsure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-i</span> file.txt
+</code></pre></div></div>
+
+<p>is safer than blindly using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-mv-and-recursive-behavior">35. <code class="language-plaintext highlighter-rouge">mv</code> and Recursive Behavior</h1>
+
+<p>A common point of confusion is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mv
+</code></pre></div></div>
+
+<p>versus:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp
+</code></pre></div></div>
+
+<p>When moving a directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv </span>directory destination/
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">mv</code> moves the directory and its contents without requiring a separate <code class="language-plaintext highlighter-rouge">-r</code> option.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── a.txt
+└── b.txt
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv </span>project backup/
+</code></pre></div></div>
+
+<p>The entire directory tree moves.</p>
+
+<hr />
+
+<h1 id="36-why-cp-needs--r-for-directories">36. Why <code class="language-plaintext highlighter-rouge">cp</code> Needs <code class="language-plaintext highlighter-rouge">-r</code> for Directories</h1>
+
+<p>By default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp </span>project backup/
+</code></pre></div></div>
+
+<p>does not recursively copy the contents of a directory.</p>
+
+<p>For directories, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> <span class="nt">-r</span> project backup/
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-r
+ ↓
+recursive
+</code></pre></div></div>
+
+<p>It tells <code class="language-plaintext highlighter-rouge">cp</code> to descend into the directory and copy its contents.</p>
+
+<hr />
+
+<h1 id="37-cp--r">37. <code class="language-plaintext highlighter-rouge">cp -r</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> <span class="nt">-r</span> project project_backup
+</code></pre></div></div>
+
+<p>Before:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── main.py
+├── README.md
+└── src/
+    └── app.py
+</code></pre></div></div>
+
+<p>After:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── main.py
+├── README.md
+└── src/
+    └── app.py
+
+project_backup/
+├── main.py
+├── README.md
+└── src/
+    └── app.py
+</code></pre></div></div>
+
+<p>You now have two separate directory trees.</p>
+
+<hr />
+
+<h1 id="38-links-in-linux">38. Links in Linux</h1>
+
+<p>Linux supports different types of links.</p>
+
+<p>The two important types are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Symbolic link
+Hard link
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-symbolic-link--ln--s">39. Symbolic Link — <code class="language-plaintext highlighter-rouge">ln -s</code></h1>
+
+<p>A symbolic link, or <strong>soft link</strong>, is a special file that contains a reference/path to another file or directory.</p>
+
+<p>Create one using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> target linkname
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> original.txt shortcut.txt
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shortcut.txt
+      │
+      └────→ original.txt
+</code></pre></div></div>
+
+<h3 id="check-it">Check it</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lrwxrwxrwx 1 shubham shubham 12 Sep 8 12:00 shortcut.txt -&gt; original.txt
+</code></pre></div></div>
+
+<p>The initial:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>l
+</code></pre></div></div>
+
+<p>indicates a symbolic link.</p>
+
+<hr />
+
+<h1 id="40-symbolic-links-to-directories">40. Symbolic Links to Directories</h1>
+
+<p>Symbolic links can point to directories.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> /home/shubham/project project_link
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>project_link
+</code></pre></div></div>
+
+<p>takes you into the target directory.</p>
+
+<p>This is one reason symbolic links are extremely useful.</p>
+
+<hr />
+
+<h1 id="41-broken-symbolic-links">41. Broken Symbolic Links</h1>
+
+<p>A symbolic link can point to something that no longer exists.</p>
+
+<p>Create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> original.txt link.txt
+</code></pre></div></div>
+
+<p>Delete the target:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm </span>original.txt
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link.txt → original.txt
+</code></pre></div></div>
+
+<p>but:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>original.txt
+</code></pre></div></div>
+
+<p>does not exist.</p>
+
+<p>The symbolic link is now <strong>broken</strong> or <strong>dangling</strong>.</p>
+
+<hr />
+
+<h1 id="42-hard-link--ln">42. Hard Link — <code class="language-plaintext highlighter-rouge">ln</code></h1>
+
+<p>Without <code class="language-plaintext highlighter-rouge">-s</code>, <code class="language-plaintext highlighter-rouge">ln</code> creates a hard link.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln </span>original.txt hardlink.txt
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>original.txt ──┐
+               ├──→ inode
+hardlink.txt ──┘
+</code></pre></div></div>
+
+<p>Both names refer to the same inode.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-i</span> original.txt hardlink.txt
+</code></pre></div></div>
+
+<p>If both show the same inode number, they refer to the same underlying inode.</p>
+
+<hr />
+
+<h1 id="43-soft-link-vs-hard-link">43. Soft Link vs Hard Link</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Symbolic Link</th>
+      <th>Hard Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Command</td>
+      <td><code class="language-plaintext highlighter-rouge">ln -s</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ln</code></td>
+    </tr>
+    <tr>
+      <td>Has separate inode?</td>
+      <td>Yes</td>
+      <td>No, points to same inode</td>
+    </tr>
+    <tr>
+      <td>Can point to directory?</td>
+      <td>Yes</td>
+      <td>Normally no for ordinary users</td>
+    </tr>
+    <tr>
+      <td>Can cross filesystems?</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Can become broken?</td>
+      <td>Yes</td>
+      <td>No in the same sense</td>
+    </tr>
+    <tr>
+      <td>Stores target path?</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Same inode as target?</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="mental-model-2">Mental Model</h3>
+
+<p>Soft link:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link
+ ↓
+target path
+ ↓
+target
+ ↓
+inode
+</code></pre></div></div>
+
+<p>Hard link:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>filename A ──┐
+             ├──→ same inode
+filename B ──┘
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-stat">44. <code class="language-plaintext highlighter-rouge">stat</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">stat</code> displays detailed information about a file or filesystem object.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stat </span>file.txt
+</code></pre></div></div>
+
+<p>Example information may include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File: file.txt
+Size: 100
+Blocks: 8
+IO Block: 4096
+regular file
+Device: ...
+Inode: 12345
+Links: 2
+Access: ...
+Uid: ...
+Gid: ...
+Access: ...
+Modify: ...
+Change: ...
+Birth: ...
+</code></pre></div></div>
+
+<p>The exact output depends on the filesystem and system.</p>
+
+<h3 id="important-information">Important Information</h3>
+
+<p><code class="language-plaintext highlighter-rouge">stat</code> can show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inode number
+file size
+permissions
+owner
+group
+link count
+timestamps
+file type
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="45-file-timestamps">45. File Timestamps</h1>
+
+<p><code class="language-plaintext highlighter-rouge">stat</code> can expose several timestamps.</p>
+
+<p>Common Linux filesystem timestamps include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Access  → atime
+Modify  → mtime
+Change  → ctime
+</code></pre></div></div>
+
+<h3 id="access-time">Access time</h3>
+
+<p>Generally relates to the last access/read.</p>
+
+<h3 id="modification-time">Modification time</h3>
+
+<p>Generally relates to the last modification of file contents.</p>
+
+<h3 id="change-time">Change time</h3>
+
+<p>Represents the last change to inode metadata, such as permissions, ownership, link count, etc.</p>
+
+<h3 id="important-6">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ctime</code> does <strong>not</strong> mean “creation time” on Linux.</p>
+
+<p>This is a common exam trap.</p>
+
+<hr />
+
+<h1 id="46-du--disk-usage">46. <code class="language-plaintext highlighter-rouge">du</code> — Disk Usage</h1>
+
+<p><code class="language-plaintext highlighter-rouge">du</code> means <strong>disk usage</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span>
+</code></pre></div></div>
+
+<p>It shows the disk space used by files/directories.</p>
+
+<p>For a directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du </span>project
+</code></pre></div></div>
+
+<h3 id="human-readable">Human-readable</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-h</span> project
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4.0K    project/src
+8.0K    project
+</code></pre></div></div>
+
+<h3 id="summary">Summary</h3>
+
+<p>A very useful option is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> project
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-s → summary
+-h → human-readable
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>120M    project
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="47-du-vs-df">47. <code class="language-plaintext highlighter-rouge">du</code> vs <code class="language-plaintext highlighter-rouge">df</code></h1>
+
+<p>Do not confuse:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span>
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span>
+</code></pre></div></div>
+
+<h3 id="du"><code class="language-plaintext highlighter-rouge">du</code></h3>
+
+<p>Asks:</p>
+
+<blockquote>
+  <p>How much space are these files/directories using?</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> project
+</code></pre></div></div>
+
+<h3 id="df"><code class="language-plaintext highlighter-rouge">df</code></h3>
+
+<p>Asks:</p>
+
+<blockquote>
+  <p>How much filesystem space is used/free?</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du → files/directories
+df → filesystems
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-proc-and-sys">48. <code class="language-plaintext highlighter-rouge">/proc</code> and <code class="language-plaintext highlighter-rouge">/sys</code></h1>
+
+<p>Linux provides special virtual filesystems containing information about the running system.</p>
+
+<p>Two important ones are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc
+/sys
+</code></pre></div></div>
+
+<p>They are not ordinary directories containing normal files stored permanently on disk.</p>
+
+<p>They provide interfaces to kernel/system information.</p>
+
+<hr />
+
+<h1 id="49-proc">49. <code class="language-plaintext highlighter-rouge">/proc</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/proc</code> is a virtual filesystem commonly called the <strong>proc filesystem</strong>.</p>
+
+<p>It exposes information about:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>processes
+CPU
+memory
+kernel
+system configuration
+</code></pre></div></div>
+
+<p>You can inspect it using ordinary commands.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /proc
+</code></pre></div></div>
+
+<p>You may see directories such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+...
+self
+sys
+cpuinfo
+meminfo
+version
+partitions
+</code></pre></div></div>
+
+<p>Some entries correspond to processes.</p>
+
+<hr />
+
+<h1 id="50-process-ids-in-proc">50. Process IDs in <code class="language-plaintext highlighter-rouge">/proc</code></h1>
+
+<p>Many numeric directories under <code class="language-plaintext highlighter-rouge">/proc</code> represent processes.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/1
+/proc/100
+/proc/2500
+</code></pre></div></div>
+
+<p>Each number can represent a <strong>PID</strong>.</p>
+
+<p>PID means:</p>
+
+<blockquote>
+  <p>Process ID</p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/1234
+</code></pre></div></div>
+
+<p>contains information associated with process ID <code class="language-plaintext highlighter-rouge">1234</code>.</p>
+
+<hr />
+
+<h1 id="51-proccpuinfo">51. <code class="language-plaintext highlighter-rouge">/proc/cpuinfo</code></h1>
+
+<p>The file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/cpuinfo
+</code></pre></div></div>
+
+<p>contains information about CPUs/processors visible to the kernel.</p>
+
+<p>View it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/cpuinfo
+</code></pre></div></div>
+
+<p>You may see information such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>processor
+vendor_id
+cpu family
+model
+model name
+cpu MHz
+cache size
+flags
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"model name"</span> /proc/cpuinfo
+</code></pre></div></div>
+
+<p>can show CPU model information.</p>
+
+<hr />
+
+<h1 id="52-procversion">52. <code class="language-plaintext highlighter-rouge">/proc/version</code></h1>
+
+<p>View kernel/compiler version information using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/version
+</code></pre></div></div>
+
+<p>It can contain information about:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux kernel version
+compiler
+build information
+</code></pre></div></div>
+
+<p>Example structure:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux version 6.x.x ...
+</code></pre></div></div>
+
+<p>The exact version depends on your system.</p>
+
+<hr />
+
+<h1 id="53-uname--a">53. <code class="language-plaintext highlighter-rouge">uname -a</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">uname</code> provides system information.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-a</code> option means to display available system information.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux hostname 6.x.x-generic #... x86_64 GNU/Linux
+</code></pre></div></div>
+
+<p>It can provide information such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kernel name
+hostname
+kernel release
+kernel version
+machine architecture
+operating system
+</code></pre></div></div>
+
+<h3 id="compare">Compare</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/version
+</code></pre></div></div>
+
+<p>They both provide kernel-related information, but through different interfaces and with different details.</p>
+
+<hr />
+
+<h1 id="54-procmeminfo">54. <code class="language-plaintext highlighter-rouge">/proc/meminfo</code></h1>
+
+<p>The file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/meminfo
+</code></pre></div></div>
+
+<p>provides detailed memory statistics.</p>
+
+<p>View it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/meminfo
+</code></pre></div></div>
+
+<p>You may see entries such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MemTotal
+MemFree
+MemAvailable
+Buffers
+Cached
+SwapCached
+SwapTotal
+SwapFree
+</code></pre></div></div>
+
+<p>You can search for a particular field:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep </span>MemTotal /proc/meminfo
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="55-free-and-procmeminfo">55. <code class="language-plaintext highlighter-rouge">free</code> and <code class="language-plaintext highlighter-rouge">/proc/meminfo</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">free</code> command provides a convenient summary of memory usage.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/meminfo
+</code></pre></div></div>
+
+<p>provides much more detailed kernel memory information.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/meminfo
+      ↓
+detailed memory statistics
+
+free
+      ↓
+human-friendly memory summary
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="56-procpartitions">56. <code class="language-plaintext highlighter-rouge">/proc/partitions</code></h1>
+
+<p>The file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/partitions
+</code></pre></div></div>
+
+<p>provides information about recognized block-device partitions.</p>
+
+<p>View it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/partitions
+</code></pre></div></div>
+
+<p>You may see columns resembling:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>major minor  #blocks  name
+</code></pre></div></div>
+
+<p>and entries such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sda
+sda1
+sda2
+</code></pre></div></div>
+
+<p>The exact devices depend on your system.</p>
+
+<hr />
+
+<h1 id="57-df">57. <code class="language-plaintext highlighter-rouge">df</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">df</code> means <strong>disk free</strong>.</p>
+
+<p>It reports filesystem disk-space usage.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span>
+</code></pre></div></div>
+
+<p>For human-readable output:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       100G   40G   55G  43% /
+</code></pre></div></div>
+
+<h3 id="important-columns">Important Columns</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Filesystem
+Size
+Used
+Avail
+Use%
+Mounted on
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="58-df-vs-du--exam-question">58. <code class="language-plaintext highlighter-rouge">df</code> vs <code class="language-plaintext highlighter-rouge">du</code> — Exam Question</h1>
+
+<h3 id="question">Question</h3>
+
+<p>Which command shows how much space a directory’s contents are using?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span>
+</code></pre></div></div>
+
+<h3 id="question-1">Question</h3>
+
+<p>Which command shows filesystem capacity and available space?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span>
+</code></pre></div></div>
+
+<h3 id="remember">Remember</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du = disk usage
+df = disk free
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="59-process-ids-pids">59. Process IDs (PIDs)</h1>
+
+<p>A <strong>process</strong> is a running instance of a program.</p>
+
+<p>Every process normally has a unique <strong>Process ID (PID)</strong> at a given time.</p>
+
+<p>You can inspect processes using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID      PID   PPID  C STIME TTY      TIME CMD
+root       1     0   0 ...   ?        ...  /sbin/init
+shubham  2500  2000  0 ...   pts/0    ...  bash
+</code></pre></div></div>
+
+<p>Important fields:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID  → process ID
+PPID → parent process ID
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="60-pids-and-proc">60. PIDs and <code class="language-plaintext highlighter-rouge">/proc</code></h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>shows:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID
+2500
+</code></pre></div></div>
+
+<p>Then Linux may expose information about that process under:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/2500
+</code></pre></div></div>
+
+<p>You can inspect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /proc/2500
+</code></pre></div></div>
+
+<p>This creates a connection between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+ ↓
+PID
+ ↓
+/proc/PID
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+ ↓
+2500
+ ↓
+/proc/2500
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="61-sys">61. <code class="language-plaintext highlighter-rouge">/sys</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/sys</code> is another virtual filesystem, commonly called <strong>sysfs</strong>.</p>
+
+<p>It exposes information about devices, drivers, buses, kernel objects, and other hardware-related structures.</p>
+
+<p>Explore it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /sys
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>block
+bus
+class
+dev
+devices
+firmware
+fs
+kernel
+module
+power
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="62-proc-vs-sys">62. <code class="language-plaintext highlighter-rouge">/proc</code> vs <code class="language-plaintext highlighter-rouge">/sys</code></h1>
+
+<p>A useful conceptual distinction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc
+ ↓
+processes + kernel/system information
+
+/sys
+ ↓
+devices + drivers + kernel object model
+</code></pre></div></div>
+
+<p>Both are virtual filesystems provided by the Linux kernel.</p>
+
+<p>They provide information through filesystem-like interfaces.</p>
+
+<hr />
+
+<h1 id="63-sysbususbdevices">63. <code class="language-plaintext highlighter-rouge">/sys/bus/usb/devices</code></h1>
+
+<p>USB devices are represented through the sysfs hierarchy.</p>
+
+<p>Explore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /sys/bus/usb/devices
+</code></pre></div></div>
+
+<p>You may see entries such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1-0:1.0
+1-1
+1-1:1.0
+usb1
+</code></pre></div></div>
+
+<p>The exact entries depend on your machine and currently connected devices.</p>
+
+<p>You can inspect a particular entry, for example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /sys/bus/usb/devices/
+</code></pre></div></div>
+
+<p>You may find symbolic links connecting different parts of the sysfs hierarchy.</p>
+
+<hr />
+
+<h1 id="64-why-sys-uses-links">64. Why <code class="language-plaintext highlighter-rouge">/sys</code> Uses Links</h1>
+
+<p>Sysfs organizes hardware objects into relationships such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>device
+   ↓
+bus
+   ↓
+driver
+   ↓
+class
+</code></pre></div></div>
+
+<p>Symbolic links help represent these relationships without duplicating the underlying kernel objects.</p>
+
+<p>Therefore, when exploring:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /sys/bus/usb/devices
+</code></pre></div></div>
+
+<p>you may encounter symbolic links.</p>
+
+<hr />
+
+<h1 id="65-important-commands-at-a-glance">65. Important Commands at a Glance</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -l dir</code></td>
+      <td>List directory contents in long format</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -ld dir</code></td>
+      <td>Show information about the directory itself</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -la</code></td>
+      <td>Long listing including hidden entries</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls --all</code></td>
+      <td>Long-form equivalent of <code class="language-plaintext highlighter-rouge">-a</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">less file</code></td>
+      <td>Interactive file pager</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat file</code></td>
+      <td>Display/concatenate file contents</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">more file</code></td>
+      <td>Page through text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">head file</code></td>
+      <td>First 10 lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">head -n 5 file</code></td>
+      <td>First 5 lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tail file</code></td>
+      <td>Last 10 lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tail -n 5 file</code></td>
+      <td>Last 5 lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">wc file</code></td>
+      <td>Count lines, words, bytes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">wc -l file</code></td>
+      <td>Count lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">which command</code></td>
+      <td>Locate executable in <code class="language-plaintext highlighter-rouge">$PATH</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">whatis command</code></td>
+      <td>Short manual description</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">apropos keyword</code></td>
+      <td>Search manual descriptions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">man -k keyword</code></td>
+      <td>Keyword-search manual database</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">help command</code></td>
+      <td>Bash builtin help</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">man command</code></td>
+      <td>Manual page</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">info command</code></td>
+      <td>GNU Info documentation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">type command</code></td>
+      <td>Show how shell resolves command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file file</code></td>
+      <td>Identify file type</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">alias</code></td>
+      <td>Display/create aliases</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">unalias</code></td>
+      <td>Remove aliases</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">touch file</code></td>
+      <td>Create file/update timestamps</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mkdir dir</code></td>
+      <td>Create directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cp file dest</code></td>
+      <td>Copy</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cp -r dir dest</code></td>
+      <td>Recursively copy directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rm file</code></td>
+      <td>Remove file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rmdir dir</code></td>
+      <td>Remove empty directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rm -r dir</code></td>
+      <td>Recursively remove directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rm -i file</code></td>
+      <td>Ask before removing</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mv source dest</code></td>
+      <td>Move/rename</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ln -s target link</code></td>
+      <td>Create symbolic link</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ln target link</code></td>
+      <td>Create hard link</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">stat file</code></td>
+      <td>Detailed file metadata</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">du</code></td>
+      <td>Disk usage of files/directories</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">df</code></td>
+      <td>Filesystem free/used space</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">uname -a</code></td>
+      <td>System/kernel information</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat /proc/cpuinfo</code></td>
+      <td>CPU information</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat /proc/version</code></td>
+      <td>Kernel/compiler information</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat /proc/meminfo</code></td>
+      <td>Detailed memory information</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat /proc/partitions</code></td>
+      <td>Partition/block-device information</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="66-critical-differences-to-memorize">66. Critical Differences to Memorize</h1>
+
+<h2 id="ls--l-vs-ls--ld"><code class="language-plaintext highlighter-rouge">ls -l</code> vs <code class="language-plaintext highlighter-rouge">ls -ld</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> <span class="nb">dir</span>
+</code></pre></div></div>
+
+<p>→ contents of <code class="language-plaintext highlighter-rouge">dir</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-ld</span> <span class="nb">dir</span>
+</code></pre></div></div>
+
+<p>→ <code class="language-plaintext highlighter-rouge">dir</code> itself</p>
+
+<hr />
+
+<h2 id="cat-vs-less-vs-more"><code class="language-plaintext highlighter-rouge">cat</code> vs <code class="language-plaintext highlighter-rouge">less</code> vs <code class="language-plaintext highlighter-rouge">more</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+ ↓
+dump/display contents
+
+less
+ ↓
+interactive pager
+
+more
+ ↓
+pager, generally simpler/older
+</code></pre></div></div>
+
+<p>For large files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less file
+</code></pre></div></div>
+
+<p>is usually preferable to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>file
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="head-vs-tail"><code class="language-plaintext highlighter-rouge">head</code> vs <code class="language-plaintext highlighter-rouge">tail</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head → beginning
+tail → end
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="wc-vs-wc--l"><code class="language-plaintext highlighter-rouge">wc</code> vs <code class="language-plaintext highlighter-rouge">wc -l</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc </span>file
+</code></pre></div></div>
+
+<p>→ lines + words + bytes</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> file
+</code></pre></div></div>
+
+<p>→ lines only</p>
+
+<hr />
+
+<h2 id="whatis-vs-apropos"><code class="language-plaintext highlighter-rouge">whatis</code> vs <code class="language-plaintext highlighter-rouge">apropos</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatis ls
+</code></pre></div></div>
+
+<p>asks:</p>
+
+<blockquote>
+  <p>What is <code class="language-plaintext highlighter-rouge">ls</code>?</p>
+</blockquote>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apropos search
+</code></pre></div></div>
+
+<p>asks:</p>
+
+<blockquote>
+  <p>Which commands are related to “search”?</p>
+</blockquote>
+
+<hr />
+
+<h2 id="help-vs-man"><code class="language-plaintext highlighter-rouge">help</code> vs <code class="language-plaintext highlighter-rouge">man</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>help
+ ↓
+Bash builtin help
+
+man
+ ↓
+manual pages
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">help cd
+</span>man <span class="nb">ls</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="du-vs-df"><code class="language-plaintext highlighter-rouge">du</code> vs <code class="language-plaintext highlighter-rouge">df</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du → directory/file disk usage
+df → filesystem capacity/free space
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="cp-vs-mv"><code class="language-plaintext highlighter-rouge">cp</code> vs <code class="language-plaintext highlighter-rouge">mv</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp → copy
+mv → move/rename
+</code></pre></div></div>
+
+<p>For directories:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> <span class="nt">-r</span> directory destination
+</code></pre></div></div>
+
+<p>but:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mv </span>directory destination
+</code></pre></div></div>
+
+<p>does not require <code class="language-plaintext highlighter-rouge">-r</code>.</p>
+
+<hr />
+
+<h2 id="rmdir-vs-rm--r"><code class="language-plaintext highlighter-rouge">rmdir</code> vs <code class="language-plaintext highlighter-rouge">rm -r</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rmdir </span>directory
+</code></pre></div></div>
+
+<p>→ only removes an empty directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-r</span> directory
+</code></pre></div></div>
+
+<p>→ removes the directory recursively with its contents.</p>
+
+<hr />
+
+<h2 id="soft-link-vs-hard-link">Soft Link vs Hard Link</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> target <span class="nb">link</span>
+</code></pre></div></div>
+
+<p>→ symbolic/soft link.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln </span>target <span class="nb">link</span>
+</code></pre></div></div>
+
+<p>→ hard link.</p>
+
+<hr />
+
+<h1 id="67-practice-questions">67. Practice Questions</h1>
+
+<h2 id="q1">Q1</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> project
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-ld</span> project
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l project
+→ contents of project
+
+ls -ld project
+→ project directory itself
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2">Q2</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<h3 id="answer-1">Answer</h3>
+
+<p>Displays the first five lines.</p>
+
+<hr />
+
+<h2 id="q3">Q3</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 5 file.txt
+</code></pre></div></div>
+
+<h3 id="answer-2">Answer</h3>
+
+<p>Displays the last five lines.</p>
+
+<hr />
+
+<h2 id="q4">Q4</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc </span>file.txt
+</code></pre></div></div>
+
+<p>normally display?</p>
+
+<h3 id="answer-3">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lines
+words
+bytes
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5">Q5</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> file.txt
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-4">Answer</h3>
+
+<p>Counts lines.</p>
+
+<hr />
+
+<h2 id="q6">Q6</h2>
+
+<p>Which command gives a short description of <code class="language-plaintext highlighter-rouge">chmod</code>?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whatis <span class="nb">chmod</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7">Q7</h2>
+
+<p>Which command searches for commands related to a keyword?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apropos keyword
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man <span class="nt">-k</span> keyword
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8">Q8</h2>
+
+<p>What is the purpose of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type cd</span>
+</code></pre></div></div>
+
+<h3 id="answer-5">Answer</h3>
+
+<p>It tells you how the shell interprets <code class="language-plaintext highlighter-rouge">cd</code>, such as identifying it as a shell builtin.</p>
+
+<hr />
+
+<h2 id="q9">Q9</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file.txt
+</code></pre></div></div>
+
+<p>do if the file does not exist?</p>
+
+<h3 id="answer-6">Answer</h3>
+
+<p>Creates an empty file.</p>
+
+<hr />
+
+<h2 id="q10">Q10</h2>
+
+<p>What happens if the file already exists?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>file.txt
+</code></pre></div></div>
+
+<h3 id="answer-7">Answer</h3>
+
+<p>Its contents are not normally changed; its timestamps are updated.</p>
+
+<hr />
+
+<h2 id="q11">Q11</h2>
+
+<p>Which command removes an empty directory?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rmdir </span>directory
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q12">Q12</h2>
+
+<p>Which command recursively copies a directory?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> <span class="nt">-r</span> directory destination
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q13">Q13</h2>
+
+<p>Which command recursively removes a directory?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-r</span> directory
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q14">Q14</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-i</span> file.txt
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-8">Answer</h3>
+
+<p>Asks for confirmation before removing the file.</p>
+
+<hr />
+
+<h2 id="q15">Q15</h2>
+
+<p>What is created by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> original.txt link.txt
+</code></pre></div></div>
+
+<h3 id="answer-9">Answer</h3>
+
+<p>A symbolic/soft link.</p>
+
+<hr />
+
+<h2 id="q16">Q16</h2>
+
+<p>What is created by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln </span>original.txt link.txt
+</code></pre></div></div>
+
+<h3 id="answer-10">Answer</h3>
+
+<p>A hard link.</p>
+
+<hr />
+
+<h2 id="q17">Q17</h2>
+
+<p>How can you verify that two files are hard links to the same inode?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-i</span> file1 file2
+</code></pre></div></div>
+
+<p>If they have the same inode number, they refer to the same inode.</p>
+
+<hr />
+
+<h2 id="q18">Q18</h2>
+
+<p>Which command displays detailed file metadata?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stat </span>file
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q19">Q19</h2>
+
+<p>Which command tells you how much space a directory is using?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> directory
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q20">Q20</h2>
+
+<p>Which command tells you filesystem capacity and available space?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q21">Q21</h2>
+
+<p>Where can you find detailed CPU information?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/cpuinfo
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q22">Q22</h2>
+
+<p>Where can you find detailed memory information?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/meminfo
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q23">Q23</h2>
+
+<p>If <code class="language-plaintext highlighter-rouge">ps</code> shows PID <code class="language-plaintext highlighter-rouge">1234</code>, where can you look for information associated with that process?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/1234
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q24">Q24</h2>
+
+<p>What is <code class="language-plaintext highlighter-rouge">/sys</code>?</p>
+
+<h3 id="answer-11">Answer</h3>
+
+<p>A virtual filesystem, sysfs, that exposes kernel/device/driver and related system-object information.</p>
+
+<hr />
+
+<h2 id="q25">Q25</h2>
+
+<p>What does this path relate to?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/sys/bus/usb/devices
+</code></pre></div></div>
+
+<h3 id="answer-12">Answer</h3>
+
+<p>It is part of sysfs and represents USB devices and their relationships within the kernel’s device model.</p>
+
+<hr />
+
+<h1 id="68-mini-practical-lab">68. Mini Practical Lab</h1>
+
+<p>Create a practice environment:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> linux_lab/project/src
+<span class="nb">cd </span>linux_lab
+</code></pre></div></div>
+
+<p>Create files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>project/file1.txt
+<span class="nb">touch </span>project/file2.txt
+<span class="nb">touch </span>project/src/main.py
+</code></pre></div></div>
+
+<p>Put some content into them:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Linux"</span> <span class="o">&gt;</span> project/file1.txt
+<span class="nb">echo</span> <span class="s2">"System Commands"</span> <span class="o">&gt;</span> project/file2.txt
+<span class="nb">echo</span> <span class="s2">"print('Hello')"</span> <span class="o">&gt;</span> project/src/main.py
+</code></pre></div></div>
+
+<p>Inspect the directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> project
+</code></pre></div></div>
+
+<p>Inspect the directory itself:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-ld</span> project
+</code></pre></div></div>
+
+<p>Inspect file types:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file project/file1.txt
+file project/src/main.py
+</code></pre></div></div>
+
+<p>View the files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>project/file1.txt
+less project/file2.txt
+</code></pre></div></div>
+
+<p>Check first lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">head</span> <span class="nt">-n</span> 5 project/file1.txt
+</code></pre></div></div>
+
+<p>Check last lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-n</span> 5 project/file2.txt
+</code></pre></div></div>
+
+<p>Count lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> project/file1.txt
+</code></pre></div></div>
+
+<p>Check metadata:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stat </span>project/file1.txt
+</code></pre></div></div>
+
+<p>Check disk usage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">du</span> <span class="nt">-sh</span> project
+</code></pre></div></div>
+
+<p>Check filesystem usage:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span> <span class="nt">-h</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="69-link-practice">69. Link Practice</h1>
+
+<p>Create a hard link:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln </span>project/file1.txt hardlink.txt
+</code></pre></div></div>
+
+<p>Create a symbolic link:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> project/file1.txt softlink.txt
+</code></pre></div></div>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-li</span> project/file1.txt hardlink.txt softlink.txt
+</code></pre></div></div>
+
+<p>You should conceptually see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/file1.txt  → inode A
+hardlink.txt       → inode A
+softlink.txt       → inode B
+</code></pre></div></div>
+
+<p>The symbolic link has its own inode, while the hard link shares the target’s inode.</p>
+
+<p>Check the symbolic link:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> softlink.txt
+</code></pre></div></div>
+
+<p>You should see something similar to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>softlink.txt -&gt; project/file1.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="70-system-information-practice">70. System Information Practice</h1>
+
+<p>Check kernel information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Check CPU:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/cpuinfo
+</code></pre></div></div>
+
+<p>Check kernel version information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/version
+</code></pre></div></div>
+
+<p>Check memory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>Detailed memory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/meminfo
+</code></pre></div></div>
+
+<p>Check partitions:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /proc/partitions
+</code></pre></div></div>
+
+<p>Check filesystem space:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">df</span> <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>Explore sysfs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /sys
+</code></pre></div></div>
+
+<p>Explore USB devices:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /sys/bus/usb/devices
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="71-final-mental-model">71. Final Mental Model</h1>
+
+<p>The commands in this lesson can be grouped into several major areas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    Linux System Commands
+                            │
+       ┌────────────────────┼────────────────────┐
+       │                    │                    │
+   File Viewing          Filesystem           System Info
+       │                    │                    │
+   cat                  touch                  /proc
+   less                 mkdir                  /sys
+   more                 cp                     uname
+   head                 mv                     free
+   tail                 rm                     df
+   wc                   rmdir
+                        du
+       │                    │
+       └────────────┬───────┘
+                    │
+                  Links
+                    │
+              ┌─────┴─────┐
+              │           │
+           ln -s          ln
+          soft link    hard link
+              │           │
+              └─────┬─────┘
+                    │
+                  Inode
+                    │
+                 stat
+</code></pre></div></div>
+
+<p>The most important distinctions to remember are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l dir       → contents of directory
+ls -ld dir      → directory itself
+
+cat             → display everything
+less            → interactive pager
+more            → pager
+
+head            → beginning
+tail            → end
+
+wc              → lines + words + bytes
+wc -l           → lines
+
+whatis          → short description
+apropos/man -k  → search by keyword
+help            → Bash builtin help
+man             → manual page
+info            → GNU Info documentation
+type            → how shell resolves command
+
+touch           → create/update timestamps
+mkdir           → create directory
+cp              → copy
+mv              → move/rename
+rm              → remove
+rmdir           → remove empty directory
+rm -r           → recursive removal
+rm -i           → interactive removal
+
+ln -s           → symbolic link
+ln              → hard link
+
+stat            → detailed metadata
+du              → disk usage
+df              → filesystem usage
+
+/proc           → processes/kernel information
+/sys            → devices/drivers/kernel objects
+</code></pre></div></div>
+
+<h2 id="high-value-exam-memory">High-Value Exam Memory</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/PID
+    ↓
+process information
+
+/proc/cpuinfo
+    ↓
+CPU information
+
+/proc/meminfo
+    ↓
+memory information
+
+/proc/version
+    ↓
+kernel/compiler information
+
+/proc/partitions
+    ↓
+partition/block-device information
+
+/sys
+    ↓
+device/kernel object information
+
+/sys/bus/usb/devices
+    ↓
+USB device hierarchy
+</code></pre></div></div>
+
+<p>And the central filesystem/link concept is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     Directory Entry
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+        Hard Link                  Symbolic Link
+             │                           │
+             ↓                           ↓
+          Inode                    Link's own inode
+             │                           │
+             ↓                           ↓
+         File data                 Target path
+</code></pre></div></div>
+
+<p>Understanding these relationships makes commands such as <code class="language-plaintext highlighter-rouge">ls -i</code>, <code class="language-plaintext highlighter-rouge">ls -l</code>, <code class="language-plaintext highlighter-rouge">stat</code>, <code class="language-plaintext highlighter-rouge">ln</code>, <code class="language-plaintext highlighter-rouge">ln -s</code>, <code class="language-plaintext highlighter-rouge">cp</code>, <code class="language-plaintext highlighter-rouge">mv</code>, <code class="language-plaintext highlighter-rouge">du</code>, <code class="language-plaintext highlighter-rouge">df</code>, <code class="language-plaintext highlighter-rouge">/proc</code>, and <code class="language-plaintext highlighter-rouge">/sys</code> much easier to reason about rather than memorizing them individually.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">1.3 - Simple Commands in Linux - 1</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L2.1 - Command line editors - Part 01</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

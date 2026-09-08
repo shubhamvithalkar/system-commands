@@ -1,0 +1,4297 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.2 - Command line environment | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link active">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 1</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>1.2 - Command line environment</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="12---command-line-environment">1.2 - Command line environment</h1>
+
+<h1 id="linux-fundamentals--basic-commands-command-anatomy-file-system-and-paths">Linux Fundamentals — Basic Commands, Command Anatomy, File System, and Paths</h1>
+
+<h2 id="1-overview">1. Overview</h2>
+
+<p>Before learning advanced Linux commands, you need to understand a few fundamental commands and concepts.</p>
+
+<p>In this lesson we will learn:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pwd</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ls</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ps</code></li>
+  <li><code class="language-plaintext highlighter-rouge">uname</code></li>
+  <li><code class="language-plaintext highlighter-rouge">clear</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Ctrl-L</code></li>
+  <li><code class="language-plaintext highlighter-rouge">exit</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Ctrl-D</code></li>
+  <li>Anatomy of a Linux command</li>
+  <li><code class="language-plaintext highlighter-rouge">ls -a</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ls -l</code></li>
+  <li>Linux file system</li>
+  <li>Paths</li>
+</ul>
+
+<p>The goal is not just to memorize commands, but to understand <strong>where you are, what files exist, what processes are running, what your system is, and how Linux represents locations using paths</strong>.</p>
+
+<hr />
+
+<h1 id="2-pwd">2. <code class="language-plaintext highlighter-rouge">pwd</code></h1>
+
+<h2 id="21-what-is-pwd">2.1 What is <code class="language-plaintext highlighter-rouge">pwd</code>?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">pwd</code> stands for:</p>
+
+<blockquote>
+  <p><strong>Print Working Directory</strong></p>
+</blockquote>
+
+<p>It tells you the directory in which your shell is currently located.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>Your output will depend on your system.</p>
+
+<hr />
+
+<h2 id="22-why-does-pwd-exist">2.2 Why does <code class="language-plaintext highlighter-rouge">pwd</code> exist?</h2>
+
+<p>A terminal does not always visually show your complete current location.</p>
+
+<p>For example, you might be somewhere deep inside a project:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux/exam/scripts
+</code></pre></div></div>
+
+<p>Instead of guessing where you are, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="23-mental-model">2.3 Mental Model</h2>
+
+<p>Think of the terminal as a person standing somewhere inside a huge building.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pwd</code> asks:</p>
+
+<blockquote>
+  <p>“Where am I standing right now?”</p>
+</blockquote>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Computer
+└── home
+    └── shubham
+        └── projects
+            └── linux
+                └── scripts   ← You are here
+
+pwd
+ ↓
+/home/shubham/projects/linux/scripts
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="24-basic-example">2.4 Basic Example</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>Now move somewhere else:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /tmp
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp
+</code></pre></div></div>
+
+<p>The value changes because your current working directory changed.</p>
+
+<hr />
+
+<h2 id="25-important-rule">2.5 Important Rule</h2>
+
+<p><code class="language-plaintext highlighter-rouge">pwd</code> does not list files.</p>
+
+<p>It tells you <strong>where you currently are</strong>.</p>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Where am I?
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What is here?
+</code></pre></div></div>
+
+<p>This distinction is fundamental.</p>
+
+<hr />
+
+<h1 id="3-ls">3. <code class="language-plaintext highlighter-rouge">ls</code></h1>
+
+<h2 id="31-what-is-ls">3.1 What is <code class="language-plaintext highlighter-rouge">ls</code>?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ls</code> stands for <strong>list</strong>.</p>
+
+<p>It displays files and directories.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Documents
+Downloads
+Music
+Pictures
+Projects
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="32-why-is-ls-useful">3.2 Why is <code class="language-plaintext highlighter-rouge">ls</code> useful?</h2>
+
+<p>After navigating into a directory, you usually want to know what is inside it.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~/Documents
+<span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assignment.pdf
+notes.txt
+project
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd
+ ↓
+Where am I?
+
+ls
+ ↓
+What is here?
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-ls-basic-examples">4. <code class="language-plaintext highlighter-rouge">ls</code> Basic Examples</h1>
+
+<h2 id="example-1">Example 1</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Lists the contents of the current directory.</p>
+
+<hr />
+
+<h2 id="example-2--list-another-directory">Example 2 — List Another Directory</h2>
+
+<p>You don’t have to move into a directory first.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /tmp
+</code></pre></div></div>
+
+<p>This lists the contents of <code class="language-plaintext highlighter-rouge">/tmp</code>.</p>
+
+<hr />
+
+<h2 id="example-3--multiple-directories">Example 3 — Multiple Directories</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /tmp /var
+</code></pre></div></div>
+
+<p>This asks <code class="language-plaintext highlighter-rouge">ls</code> to list both locations.</p>
+
+<hr />
+
+<h1 id="5-ls--a">5. <code class="language-plaintext highlighter-rouge">ls -a</code></h1>
+
+<h2 id="51-what-does--a-mean">5.1 What does <code class="language-plaintext highlighter-rouge">-a</code> mean?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">-a</code> means:</p>
+
+<blockquote>
+  <p><strong>all</strong></p>
+</blockquote>
+
+<p>It tells <code class="language-plaintext highlighter-rouge">ls</code> to include hidden files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+..
+.bashrc
+.profile
+Documents
+Downloads
+notes.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="52-hidden-files-in-linux">5.2 Hidden Files in Linux</h2>
+
+<p>Linux commonly treats filenames beginning with <code class="language-plaintext highlighter-rouge">.</code> as hidden.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.bashrc
+.profile
+.git
+.config
+</code></pre></div></div>
+
+<p>These are not normally displayed by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>But they appear with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="53-why-are-hidden-files-useful">5.3 Why Are Hidden Files Useful?</h2>
+
+<p>Hidden files are often used for:</p>
+
+<ul>
+  <li>Configuration</li>
+  <li>User preferences</li>
+  <li>Shell configuration</li>
+  <li>Application settings</li>
+  <li>Git metadata</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.bashrc
+</code></pre></div></div>
+
+<p>contains Bash configuration for many Linux users.</p>
+
+<p>A Git repository commonly contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.git
+</code></pre></div></div>
+
+<p>which stores repository metadata.</p>
+
+<hr />
+
+<h1 id="6--and-">6. <code class="language-plaintext highlighter-rouge">.</code> and <code class="language-plaintext highlighter-rouge">..</code></h1>
+
+<p>When you run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>you commonly see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+..
+</code></pre></div></div>
+
+<p>These are special directory entries.</p>
+
+<h3><code class="language-plaintext highlighter-rouge">.</code></h3>
+
+<p>Represents the <strong>current directory</strong>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+↓
+Where I am now
+</code></pre></div></div>
+
+<h3 id="-1"><code class="language-plaintext highlighter-rouge">..</code></h3>
+
+<p>Represents the <strong>parent directory</strong>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+↓
+One directory above the current directory
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="example">Example</h2>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>is your current directory.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-ls--l">7. <code class="language-plaintext highlighter-rouge">ls -l</code></h1>
+
+<h2 id="71-what-does--l-mean">7.1 What does <code class="language-plaintext highlighter-rouge">-l</code> mean?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">-l</code> means:</p>
+
+<blockquote>
+  <p><strong>long listing format</strong></p>
+</blockquote>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>total 12
+-rw-r--r-- 1 shubham shubham  120 Sep  8 10:30 notes.txt
+drwxr-xr-x 2 shubham shubham 4096 Sep  8 10:25 projects
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-understanding-ls--l">8. Understanding <code class="language-plaintext highlighter-rouge">ls -l</code></h1>
+
+<p>A typical line looks like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r--r-- 1 shubham shubham 120 Sep 8 10:30 notes.txt
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r--r--  1  shubham  shubham  120  Sep 8 10:30  notes.txt
+│            │     │        │      │        │             │
+│            │     │        │      │        │             └── Name
+│            │     │        │      │        └── Date/time
+│            │     │        │      └── Size
+│            │     │        └── Group
+│            │     └── Owner
+│            └── Link count
+└── File type + permissions
+</code></pre></div></div>
+
+<p>The exact columns can vary somewhat depending on the Linux implementation and options.</p>
+
+<hr />
+
+<h1 id="9-file-type-in-ls--l">9. File Type in <code class="language-plaintext highlighter-rouge">ls -l</code></h1>
+
+<p>The first character usually identifies the type.</p>
+
+<p>Common examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-    Regular file
+d    Directory
+l    Symbolic link
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-r--r-- notes.txt
+</code></pre></div></div>
+
+<p>The first character:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-
+</code></pre></div></div>
+
+<p>means it is a regular file.</p>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drwxr-xr-x projects
+</code></pre></div></div>
+
+<p>the first character:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d
+</code></pre></div></div>
+
+<p>means it is a directory.</p>
+
+<hr />
+
+<h1 id="10-permissions-preview">10. Permissions Preview</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rwxr-xr--
+</code></pre></div></div>
+
+<p>The first character:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-
+</code></pre></div></div>
+
+<p>indicates a regular file.</p>
+
+<p>The remaining nine characters are permissions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rwx r-x r--
+│   │   │
+│   │   └── Others
+│   └────── Group
+└────────── Owner
+</code></pre></div></div>
+
+<p>The permissions are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r = read
+w = write
+x = execute
+</code></pre></div></div>
+
+<p>Detailed permissions are a larger Linux topic, but you should recognize this structure when using <code class="language-plaintext highlighter-rouge">ls -l</code>.</p>
+
+<hr />
+
+<h1 id="11-combining-options">11. Combining Options</h1>
+
+<p>You can combine <code class="language-plaintext highlighter-rouge">ls</code> options.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-l → long format
+-a → include hidden files
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>shows hidden files in long format.</p>
+
+<p>You may also encounter:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-al</span>
+</code></pre></div></div>
+
+<p>For these two options, the result is generally equivalent.</p>
+
+<hr />
+
+<h1 id="12-ps">12. <code class="language-plaintext highlighter-rouge">ps</code></h1>
+
+<h2 id="121-what-is-ps">12.1 What is <code class="language-plaintext highlighter-rouge">ps</code>?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ps</code> stands for:</p>
+
+<blockquote>
+  <p><strong>Process Status</strong></p>
+</blockquote>
+
+<p>It displays information about running processes.</p>
+
+<p>A <strong>process</strong> is a running instance of a program.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+firefox
+python
+terminal
+</code></pre></div></div>
+
+<p>can all correspond to processes while they are running.</p>
+
+<hr />
+
+<h2 id="122-basic-command">12.2 Basic Command</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    PID TTY          TIME CMD
+   4210 pts/0    00:00:00 bash
+   5120 pts/0    00:00:00 ps
+</code></pre></div></div>
+
+<p>The exact output depends on your system.</p>
+
+<hr />
+
+<h2 id="123-important-columns">12.3 Important Columns</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PID</td>
+      <td>Process ID</td>
+    </tr>
+    <tr>
+      <td>TTY</td>
+      <td>Terminal associated with the process</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>CPU time used</td>
+    </tr>
+    <tr>
+      <td>CMD</td>
+      <td>Command/process name</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <strong>PID</strong> is particularly important.</p>
+
+<p>PID means:</p>
+
+<blockquote>
+  <p><strong>Process ID</strong></p>
+</blockquote>
+
+<p>It identifies a process.</p>
+
+<hr />
+
+<h1 id="13-why-ps-is-useful">13. Why <code class="language-plaintext highlighter-rouge">ps</code> Is Useful</h1>
+
+<p>You use <code class="language-plaintext highlighter-rouge">ps</code> to investigate processes.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>can help answer:</p>
+
+<blockquote>
+  <p>“What processes are currently associated with my terminal?”</p>
+</blockquote>
+
+<p>Later, options such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+ps <span class="nt">-f</span>
+ps <span class="nt">-ef</span>
+ps <span class="nt">--forest</span>
+</code></pre></div></div>
+
+<p>allow you to inspect processes in greater detail.</p>
+
+<hr />
+
+<h1 id="14-uname">14. <code class="language-plaintext highlighter-rouge">uname</code></h1>
+
+<h2 id="141-what-is-uname">14.1 What is <code class="language-plaintext highlighter-rouge">uname</code>?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">uname</code> provides information about the operating system/kernel.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>Typical output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="142-why-is-uname-useful">14.2 Why is <code class="language-plaintext highlighter-rouge">uname</code> useful?</h2>
+
+<p>It can help identify characteristics of the operating-system environment.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>usually tells you the kernel name.</p>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>to request more information.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux hostname 6.x.x-generic #... x86_64 GNU/Linux
+</code></pre></div></div>
+
+<p>The exact output depends on your system.</p>
+
+<hr />
+
+<h2 id="143-important-distinction">14.3 Important Distinction</h2>
+
+<p>Do not confuse:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">uname</code> primarily reports kernel/system information.</p>
+
+<p><code class="language-plaintext highlighter-rouge">hostname</code> reports the system’s configured host name.</p>
+
+<hr />
+
+<h1 id="15-clear">15. <code class="language-plaintext highlighter-rouge">clear</code></h1>
+
+<h2 id="151-what-does-clear-do">15.1 What does <code class="language-plaintext highlighter-rouge">clear</code> do?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clear
+</code></pre></div></div>
+
+<p>clears the visible terminal screen.</p>
+
+<p>It does not normally delete your files or commands.</p>
+
+<p>It simply refreshes the terminal display.</p>
+
+<hr />
+
+<h2 id="152-example">15.2 Example</h2>
+
+<p>Suppose your terminal contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pwd
+/home/shubham
+
+$ ls
+Documents
+Downloads
+
+$ date
+Mon Sep 8 ...
+</code></pre></div></div>
+
+<p>Running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clear
+</code></pre></div></div>
+
+<p>makes the terminal appear clean.</p>
+
+<hr />
+
+<h1 id="16-ctrl-l">16. <code class="language-plaintext highlighter-rouge">Ctrl-L</code></h1>
+
+<p>You can also commonly clear/redraw the terminal display using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl + L
+</code></pre></div></div>
+
+<p>In an interactive Bash terminal, <code class="language-plaintext highlighter-rouge">Ctrl-L</code> is normally bound to the readline command that clears/redraws the screen.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>clear
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-L
+</code></pre></div></div>
+
+<p>are commonly used for the same practical purpose.</p>
+
+<hr />
+
+<h1 id="17-clear-vs-ctrl-l">17. <code class="language-plaintext highlighter-rouge">clear</code> vs <code class="language-plaintext highlighter-rouge">Ctrl-L</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">clear</code></td>
+      <td>Command to clear/redraw terminal display</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-L</code></td>
+      <td>Keyboard shortcut to clear/redraw the terminal</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Neither is a replacement for deleting files or cleaning the filesystem.</p>
+
+<hr />
+
+<h1 id="18-exit">18. <code class="language-plaintext highlighter-rouge">exit</code></h1>
+
+<h2 id="181-what-does-exit-do">18.1 What does <code class="language-plaintext highlighter-rouge">exit</code> do?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>terminates the current shell/session.</p>
+
+<p>For example, if you opened a Bash shell inside another shell:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Parent shell
+    │
+    └── Child shell
+</code></pre></div></div>
+
+<p>running:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre></div></div>
+
+<p>ends the child shell and returns to the parent shell.</p>
+
+<p>If it is your terminal’s main shell, it may close the terminal session.</p>
+
+<hr />
+
+<h1 id="19-ctrl-d">19. <code class="language-plaintext highlighter-rouge">Ctrl-D</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-D</code> is another important terminal shortcut.</p>
+
+<p>At an interactive shell prompt, <code class="language-plaintext highlighter-rouge">Ctrl-D</code> commonly signals <strong>EOF (end-of-file)</strong> on standard input.</p>
+
+<p>If the shell is waiting for input and receives EOF, it may exit.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exit
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+</code></pre></div></div>
+
+<p>can commonly be used to leave an interactive shell.</p>
+
+<hr />
+
+<h1 id="20-important-difference-ctrl-d-is-not-literally-exit">20. Important Difference: <code class="language-plaintext highlighter-rouge">Ctrl-D</code> Is Not Literally “Exit”</h1>
+
+<p>Do not think of <code class="language-plaintext highlighter-rouge">Ctrl-D</code> as simply another spelling of <code class="language-plaintext highlighter-rouge">exit</code>.</p>
+
+<p>More accurately:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl-D
+ ↓
+EOF / end-of-input indication
+ ↓
+Shell may exit when appropriate
+</code></pre></div></div>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">Ctrl-D</code> can have different effects depending on what program is currently reading input.</p>
+
+<hr />
+
+<h1 id="21-anatomy-of-a-linux-command">21. Anatomy of a Linux Command</h1>
+
+<p>Understanding command anatomy is more important than memorizing individual commands.</p>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /home/shubham
+</code></pre></div></div>
+
+<p>Break it into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls       -l          /home/shubham
+│        │                 │
+│        │                 └── Argument
+│        └──────────────────── Option
+└───────────────────────────── Command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-command">22. Command</h1>
+
+<p>The first word is usually the command/program being invoked.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+
+<p>is the command.</p>
+
+<p>Other examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd
+date
+</span>ps
+<span class="nb">uname</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-options">23. Options</h1>
+
+<p>Options modify the behavior of a command.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-a
+</code></pre></div></div>
+
+<p>is an option.</p>
+
+<p>Another:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-l
+</code></pre></div></div>
+
+<p>requests long-format output.</p>
+
+<hr />
+
+<h1 id="24-arguments">24. Arguments</h1>
+
+<p>An <strong>argument</strong> provides data to the command.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /home
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+
+<p>is the command.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home
+</code></pre></div></div>
+
+<p>is an argument specifying what location to list.</p>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>notes.txt
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+</code></pre></div></div>
+
+<p>is the command.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+</code></pre></div></div>
+
+<p>is an argument.</p>
+
+<hr />
+
+<h1 id="25-options-vs-arguments">25. Options vs Arguments</h1>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /home
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+│
+├── -l       → option
+│
+└── /home    → argument
+</code></pre></div></div>
+
+<p>The option changes <strong>how</strong> <code class="language-plaintext highlighter-rouge">ls</code> behaves.</p>
+
+<p>The argument tells it <strong>what</strong> to operate on.</p>
+
+<hr />
+
+<h1 id="26-short-options">26. Short Options</h1>
+
+<p>Short options often use a single hyphen.</p>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+<span class="nb">ls</span> <span class="nt">-l</span>
+ps <span class="nt">-e</span>
+ps <span class="nt">-f</span>
+</code></pre></div></div>
+
+<p>Some commands allow multiple short options to be combined:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>which represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-l
+-a
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-long-options">27. Long Options</h1>
+
+<p>Many Linux commands also provide long-form options.</p>
+
+<p>These commonly use two hyphens:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="nt">--option</span>
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">--forest</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--forest
+</code></pre></div></div>
+
+<p>is a long option.</p>
+
+<p>Short and long options depend on the individual command; not every command supports every style.</p>
+
+<hr />
+
+<h1 id="28-general-command-anatomy">28. General Command Anatomy</h1>
+
+<p>A useful general model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command [options] [arguments]
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /home
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command   option   argument
+   │        │          │
+   ▼        ▼          ▼
+  ls       -l        /home
+</code></pre></div></div>
+
+<p>However, this is a <strong>general model</strong>, not an absolute grammar for every Unix command.</p>
+
+<p>Some commands have different syntax.</p>
+
+<hr />
+
+<h1 id="29-shell-vs-command">29. Shell vs Command</h1>
+
+<p>This is an important distinction.</p>
+
+<p>When you type:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>the shell first parses the command line.</p>
+
+<p>Then it performs relevant expansions and command lookup.</p>
+
+<p>Then the selected command executes.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You type:
+ls -l
+   ↓
+Shell parses command
+   ↓
+Shell identifies command
+   ↓
+Shell finds executable
+   ↓
+Shell starts/executes it
+   ↓
+ls processes -l
+   ↓
+Output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-linux-file-system">30. Linux File System</h1>
+
+<p>Linux uses a hierarchical file system.</p>
+
+<p>It can be visualized as a tree:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+├── bin
+├── boot
+├── dev
+├── etc
+├── home
+│   ├── alice
+│   └── shubham
+├── lib
+├── media
+├── mnt
+├── opt
+├── proc
+├── root
+├── run
+├── sbin
+├── srv
+├── sys
+├── tmp
+├── usr
+└── var
+</code></pre></div></div>
+
+<p>The exact contents vary between Linux distributions and installations.</p>
+
+<hr />
+
+<h1 id="31-root-of-the-file-system">31. Root of the File System</h1>
+
+<p>The top of the Linux filesystem hierarchy is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>This is called the <strong>root directory</strong>.</p>
+
+<p>Do not confuse:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/root
+</code></pre></div></div>
+
+<p>They are different.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+↓
+Root of the entire filesystem
+
+/root
+↓
+Home directory of the root user
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-important-linux-directories">32. Important Linux Directories</h1>
+
+<p>You should recognize some common directories.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Typical purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>Root of filesystem</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/home</code></td>
+      <td>Home directories of regular users</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/root</code></td>
+      <td>Home directory of root user</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/etc</code></td>
+      <td>System/application configuration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/tmp</code></td>
+      <td>Temporary files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/usr</code></td>
+      <td>Many user-space programs, libraries, and shared data</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/var</code></td>
+      <td>Variable data such as logs and caches</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev</code></td>
+      <td>Device files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/proc</code></td>
+      <td>Process/kernel information interface</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/sys</code></td>
+      <td>Kernel/device information interface</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/bin</code></td>
+      <td>Essential user commands on systems where this directory is distinct</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/sbin</code></td>
+      <td>System administration commands on systems where this directory is distinct</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Modern distributions may merge directories such as <code class="language-plaintext highlighter-rouge">/bin</code> into <code class="language-plaintext highlighter-rouge">/usr/bin</code>, so the exact physical layout can vary.</p>
+
+<hr />
+
+<h1 id="33-home">33. <code class="language-plaintext highlighter-rouge">/home</code></h1>
+
+<p>Regular users commonly have directories inside:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+/home/alice
+/home/bob
+</code></pre></div></div>
+
+<p>If your username is <code class="language-plaintext highlighter-rouge">shubham</code>, your home directory may be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>This is commonly represented by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-etc">34. <code class="language-plaintext highlighter-rouge">/etc</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/etc</code> contains system-wide configuration files.</p>
+
+<p>Examples may include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/hosts
+/etc/passwd
+/etc/ssh/
+/etc/systemd/
+</code></pre></div></div>
+
+<p>You will encounter <code class="language-plaintext highlighter-rouge">/etc</code> frequently when learning Linux administration.</p>
+
+<hr />
+
+<h1 id="35-tmp">35. <code class="language-plaintext highlighter-rouge">/tmp</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/tmp</code> is commonly used for temporary files.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /tmp
+<span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp
+</code></pre></div></div>
+
+<p>You can inspect it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /tmp
+</code></pre></div></div>
+
+<p>Files in <code class="language-plaintext highlighter-rouge">/tmp</code> may be removed automatically depending on the operating system’s configuration.</p>
+
+<p>Do not assume every file in <code class="language-plaintext highlighter-rouge">/tmp</code> can safely be deleted manually.</p>
+
+<hr />
+
+<h1 id="36-var">36. <code class="language-plaintext highlighter-rouge">/var</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/var</code> stores data that changes during system operation.</p>
+
+<p>Examples include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/log
+/var/cache
+/var/lib
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /var/log
+</code></pre></div></div>
+
+<p>may show system and application log files.</p>
+
+<hr />
+
+<h1 id="37-usr">37. <code class="language-plaintext highlighter-rouge">/usr</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/usr</code> contains a large amount of user-space software, libraries, documentation, and other shared data.</p>
+
+<p>Common directories include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin
+/usr/sbin
+/usr/lib
+/usr/share
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>may be the full path of the <code class="language-plaintext highlighter-rouge">date</code> executable on a typical Linux system.</p>
+
+<hr />
+
+<h1 id="38-dev">38. <code class="language-plaintext highlighter-rouge">/dev</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/dev</code> contains device-related filesystem entries.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/null
+/dev/zero
+/dev/random
+</code></pre></div></div>
+
+<p>Linux represents many devices and special interfaces through files under <code class="language-plaintext highlighter-rouge">/dev</code>.</p>
+
+<p>A complete treatment of device files is an advanced topic, but remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev
+ ↓
+Device and special file interfaces
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-proc">39. <code class="language-plaintext highlighter-rouge">/proc</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/proc</code> is a virtual filesystem that exposes process and kernel-related information.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /proc
+</code></pre></div></div>
+
+<p>You may see directories with numeric names:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+...
+4210
+...
+</code></pre></div></div>
+
+<p>These can correspond to process IDs.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc/4210
+</code></pre></div></div>
+
+<p>can contain information associated with PID <code class="language-plaintext highlighter-rouge">4210</code>.</p>
+
+<hr />
+
+<h1 id="40-sys">40. <code class="language-plaintext highlighter-rouge">/sys</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/sys</code> is another virtual filesystem that exposes information and controls related to the kernel and devices.</p>
+
+<p>For basic Linux learning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/proc → process/kernel information
+/sys  → kernel/device/system information
+</code></pre></div></div>
+
+<p>This distinction is useful to remember.</p>
+
+<hr />
+
+<h1 id="41-paths">41. Paths</h1>
+
+<p>A <strong>path</strong> specifies the location of a file or directory in the filesystem.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/notes.txt
+</code></pre></div></div>
+
+<p>is a path.</p>
+
+<p>Think of it as an address.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>House address
+       ↓
+Location of something
+
+Filesystem path
+       ↓
+Location of a file/directory
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="42-absolute-path">42. Absolute Path</h1>
+
+<p>An <strong>absolute path</strong> starts from the root directory:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/notes.txt
+</code></pre></div></div>
+
+<p>This gives the complete location from the filesystem root.</p>
+
+<hr />
+
+<h1 id="43-absolute-path-mental-model">43. Absolute Path Mental Model</h1>
+
+<p>Suppose the filesystem is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+└── home
+    └── shubham
+        └── projects
+            └── linux
+                └── notes.txt
+</code></pre></div></div>
+
+<p>The absolute path of <code class="language-plaintext highlighter-rouge">notes.txt</code> is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux/notes.txt
+</code></pre></div></div>
+
+<p>It starts at:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>and describes the complete route.</p>
+
+<hr />
+
+<h1 id="44-relative-path">44. Relative Path</h1>
+
+<p>A <strong>relative path</strong> is interpreted relative to the current working directory.</p>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>and the directory contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>You can refer to it using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linux
+</code></pre></div></div>
+
+<p>instead of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">linux</code> is interpreted relative to the current directory.</p>
+
+<hr />
+
+<h1 id="45-absolute-vs-relative-path">45. Absolute vs Relative Path</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Starts from</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Absolute</td>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/home/shubham/file.txt</code></td>
+    </tr>
+    <tr>
+      <td>Relative</td>
+      <td>Current directory</td>
+      <td><code class="language-plaintext highlighter-rouge">file.txt</code></td>
+    </tr>
+    <tr>
+      <td>Relative</td>
+      <td>Current directory</td>
+      <td><code class="language-plaintext highlighter-rouge">projects/file.txt</code></td>
+    </tr>
+    <tr>
+      <td>Relative</td>
+      <td>Parent directory</td>
+      <td><code class="language-plaintext highlighter-rouge">../file.txt</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Absolute path
+↓
+Start from /
+↓
+Follow complete route
+
+Relative path
+↓
+Start from where I currently am
+↓
+Follow route from there
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="46--in-paths">46. <code class="language-plaintext highlighter-rouge">.</code> in Paths</h1>
+
+<p><code class="language-plaintext highlighter-rouge">.</code> means:</p>
+
+<blockquote>
+  <p>Current directory</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>returns:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>refers to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>is effectively asking:</p>
+
+<blockquote>
+  <p>List the current directory.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="47--in-paths">47. <code class="language-plaintext highlighter-rouge">..</code> in Paths</h1>
+
+<p><code class="language-plaintext highlighter-rouge">..</code> means:</p>
+
+<blockquote>
+  <p>Parent directory</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>is the current directory.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>refers to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>You can verify:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd
+cd</span> ..
+<span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+/home/shubham/projects
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-multiple-">48. Multiple <code class="language-plaintext highlighter-rouge">..</code></h1>
+
+<p>You can go up multiple levels.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../../
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>parent
+  ↓
+parent again
+</code></pre></div></div>
+
+<p>Suppose you are here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux/scripts
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../..
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49---home-directory-shortcut">49. <code class="language-plaintext highlighter-rouge">~</code> — Home Directory Shortcut</h1>
+
+<p>The shell commonly uses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~
+</code></pre></div></div>
+
+<p>to represent the current user’s home directory.</p>
+
+<p>If:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$HOME=/home/shubham
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~
+</code></pre></div></div>
+
+<p>can represent:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~
+</code></pre></div></div>
+
+<p>takes you to your home directory.</p>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ~/Documents
+</code></pre></div></div>
+
+<p>to refer to the <code class="language-plaintext highlighter-rouge">Documents</code> directory inside your home directory.</p>
+
+<hr />
+
+<h1 id="50-important-difference--vs-">50. Important Difference: <code class="language-plaintext highlighter-rouge">/</code> vs <code class="language-plaintext highlighter-rouge">~</code></h1>
+
+<p>These are not the same.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Filesystem root.</p>
+</blockquote>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Current user’s home directory.</p>
+</blockquote>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+└── home
+    └── shubham
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/          → filesystem root
+/home      → home directory container
+/home/shubham → user's home
+~          → /home/shubham
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="51-path-examples">51. Path Examples</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../..
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/linux/notes.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp
+</code></pre></div></div>
+
+<p>is an absolute path.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/Documents
+</code></pre></div></div>
+
+<p>means the <code class="language-plaintext highlighter-rouge">Documents</code> directory under the current user’s home directory.</p>
+
+<hr />
+
+<h1 id="52-path-separator">52. Path Separator</h1>
+
+<p>Linux uses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>as the directory separator.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects/file.txt
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+└── home
+    └── shubham
+        └── projects
+            └── file.txt
+</code></pre></div></div>
+
+<p>Each <code class="language-plaintext highlighter-rouge">/</code> separates one filesystem component from another.</p>
+
+<hr />
+
+<h1 id="53-common-path-mistake">53. Common Path Mistake</h1>
+
+<p>Do not confuse:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>home/shubham
+</code></pre></div></div>
+
+<p>The first is absolute because it starts with <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<p>The second is relative.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+ ↑
+starts at root
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>home/shubham
+ ↑
+starts relative to current directory
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="54-using-pwd-ls-and-paths-together">54. Using <code class="language-plaintext highlighter-rouge">pwd</code>, <code class="language-plaintext highlighter-rouge">ls</code>, and Paths Together</h1>
+
+<p>These three concepts work together constantly.</p>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>might show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>linux
+python
+web
+</code></pre></div></div>
+
+<p>You can inspect the Linux directory without entering it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls </span>linux
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ./linux
+</code></pre></div></div>
+
+<p>or using an absolute path:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /home/shubham/projects/linux
+</code></pre></div></div>
+
+<p>All three can refer to the same directory from this starting location.</p>
+
+<hr />
+
+<h1 id="55-practical-navigation-mental-model">55. Practical Navigation Mental Model</h1>
+
+<p>Imagine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+└── home
+    └── shubham
+        └── projects
+            ├── linux
+            ├── python
+            └── web
+</code></pre></div></div>
+
+<p>If you are in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>answers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Where am I?
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>answers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What is here?
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls </span>linux
+</code></pre></div></div>
+
+<p>answers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What is inside linux?
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ..
+</code></pre></div></div>
+
+<p>answers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What is inside my parent directory?
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="56-real-world-workflow">56. Real-World Workflow</h1>
+
+<p>A typical terminal workflow might look like:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Documents
+Downloads
+projects
+</code></pre></div></div>
+
+<p>Enter a directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>projects
+</code></pre></div></div>
+
+<p>Check location:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>List everything, including hidden files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Get detailed information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Or combine them:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span>
+</code></pre></div></div>
+
+<p>This is a basic but extremely important Linux workflow.</p>
+
+<hr />
+
+<h1 id="57-command-anatomy--complete-example">57. Command Anatomy — Complete Example</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /home/shubham
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+│
+└── command
+
+-la
+│
+├── -l → long listing
+└── -a → include hidden files
+
+/home/shubham
+│
+└── argument/path
+</code></pre></div></div>
+
+<p>The shell processes the command line and invokes <code class="language-plaintext highlighter-rouge">ls</code> with the appropriate arguments/options.</p>
+
+<hr />
+
+<h1 id="58-another-command-anatomy-example">58. Another Command Anatomy Example</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+│
+└── command
+
+-e
+│
+└── option → select all processes
+
+-f
+│
+└── option → full-format listing
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -ef
+</code></pre></div></div>
+
+<p>means approximately:</p>
+
+<blockquote>
+  <p>Run <code class="language-plaintext highlighter-rouge">ps</code>, select all processes, and display them in full format.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="59-another-example">59. Another Example</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span> /tmp
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+│
+└── command
+
+-a
+│
+└── option → include hidden entries
+
+/tmp
+│
+└── argument → directory to list
+</code></pre></div></div>
+
+<p>Notice that <code class="language-plaintext highlighter-rouge">ls</code> does not necessarily operate only on the current directory.</p>
+
+<p>The path tells it what location to inspect.</p>
+
+<hr />
+
+<h1 id="60-common-mistakes">60. Common Mistakes</h1>
+
+<h2 id="mistake-1--thinking-pwd-lists-files">Mistake 1 — Thinking <code class="language-plaintext highlighter-rouge">pwd</code> Lists Files</h2>
+
+<p>Incorrect mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd → show files
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd → show current directory
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2--thinking-ls-changes-directory">Mistake 2 — Thinking <code class="language-plaintext highlighter-rouge">ls</code> Changes Directory</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>does not move you anywhere.</p>
+
+<p>It only lists directory contents.</p>
+
+<p>To change directories, you use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3--confusing--and-">Mistake 3 — Confusing <code class="language-plaintext highlighter-rouge">/</code> and <code class="language-plaintext highlighter-rouge">~</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/  → filesystem root
+~  → current user's home
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4--forgetting-hidden-files">Mistake 4 — Forgetting Hidden Files</h2>
+
+<p>If:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>doesn’t show a file beginning with <code class="language-plaintext highlighter-rouge">.</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.config
+.git
+.bashrc
+</code></pre></div></div>
+
+<p>try:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-5--thinking--a-means-all-files-including--automatically">Mistake 5 — Thinking <code class="language-plaintext highlighter-rouge">-a</code> Means “All Files Including <code class="language-plaintext highlighter-rouge">.</code> Automatically”</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ls -a</code> includes hidden entries, including the special:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+..
+</code></pre></div></div>
+
+<p>entries.</p>
+
+<hr />
+
+<h2 id="mistake-6--confusing-absolute-and-relative-paths">Mistake 6 — Confusing Absolute and Relative Paths</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/file.txt
+</code></pre></div></div>
+
+<p>is absolute.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>is relative to the current directory.</p>
+
+<hr />
+
+<h1 id="61-exam-perspective">61. Exam Perspective</h1>
+
+<p>These topics are basic, but they are frequently used as foundations for harder Linux questions.</p>
+
+<h2 id="important-things-to-memorize">Important Things to Memorize</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd
+→ Print Working Directory
+
+ls
+→ List directory contents
+
+ls -a
+→ Include hidden entries
+
+ls -l
+→ Long listing
+
+ps
+→ Process status
+
+uname
+→ Kernel/system information
+
+clear
+→ Clear/redraw terminal
+
+Ctrl-L
+→ Clear/redraw terminal display
+
+exit
+→ Exit current shell
+
+Ctrl-D
+→ Send EOF; often exits an interactive shell
+
+/
+→ Filesystem root
+
+~
+→ Current user's home directory
+
+.
+→ Current directory
+
+..
+→ Parent directory
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="62-exam-traps">62. Exam Traps</h1>
+
+<h3 id="trap-1">Trap 1</h3>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Prints the current working directory.</p>
+</blockquote>
+
+<p>Not the username and not the contents of the directory.</p>
+
+<hr />
+
+<h3 id="trap-2">Trap 2</h3>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Includes hidden directory entries/files in the listing.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="trap-3">Trap 3</h3>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Displays a long-format listing containing information such as permissions, ownership, size, timestamps, and names.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="trap-4">Trap 4</h3>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>mean?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Root of the filesystem.</p>
+</blockquote>
+
+<p>Not the root user’s home directory.</p>
+
+<hr />
+
+<h3 id="trap-5">Trap 5</h3>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>mean?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Parent directory.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="trap-6">Trap 6</h3>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>mean?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Current directory.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="trap-7">Trap 7</h3>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~
+</code></pre></div></div>
+
+<p>usually mean in the shell?</p>
+
+<p>Answer:</p>
+
+<blockquote>
+  <p>Current user’s home directory through tilde expansion.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="63-practice-questions--level-1">63. Practice Questions — Level 1</h1>
+
+<h2 id="q1">Q1</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">pwd</code> stand for?</p>
+
+<hr />
+
+<h2 id="q2">Q2</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">pwd</code> display?</p>
+
+<hr />
+
+<h2 id="q3">Q3</h2>
+
+<p>What is the purpose of <code class="language-plaintext highlighter-rouge">ls</code>?</p>
+
+<hr />
+
+<h2 id="q4">Q4</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<hr />
+
+<h2 id="q5">Q5</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<hr />
+
+<h2 id="q6">Q6</h2>
+
+<p>What is a hidden file in Linux?</p>
+
+<hr />
+
+<h2 id="q7">Q7</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">ps</code> display?</p>
+
+<hr />
+
+<h2 id="q8">Q8</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">uname</code> generally report?</p>
+
+<hr />
+
+<h2 id="q9">Q9</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">clear</code> do?</p>
+
+<hr />
+
+<h2 id="q10">Q10</h2>
+
+<p>What is the purpose of <code class="language-plaintext highlighter-rouge">Ctrl-L</code> in an interactive terminal?</p>
+
+<hr />
+
+<h2 id="q11">Q11</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">exit</code> do?</p>
+
+<hr />
+
+<h2 id="q12">Q12</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">Ctrl-D</code> commonly signal to an interactive shell?</p>
+
+<hr />
+
+<h1 id="64-practice-questions--level-2">64. Practice Questions — Level 2</h1>
+
+<h2 id="q13">Q13</h2>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>returns:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects
+</code></pre></div></div>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>represent?</p>
+
+<hr />
+
+<h2 id="q14">Q14</h2>
+
+<p>From:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects
+</code></pre></div></div>
+
+<p>what does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>represent?</p>
+
+<hr />
+
+<h2 id="q15">Q15</h2>
+
+<p>If your current directory is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux
+</code></pre></div></div>
+
+<p>what directory does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../..
+</code></pre></div></div>
+
+<p>represent?</p>
+
+<hr />
+
+<h2 id="q16">Q16</h2>
+
+<p>Explain the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/file.txt
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q17">Q17</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/root
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q18">Q18</h2>
+
+<p>What does the following command mean?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /tmp
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q19">Q19</h2>
+
+<p>Break down:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>into its command and options.</p>
+
+<hr />
+
+<h2 id="q20">Q20</h2>
+
+<p>Identify the command, option, and argument:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /home
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="65-practice-questions--level-3">65. Practice Questions — Level 3</h1>
+
+<h2 id="q21--path-reasoning">Q21 — Path Reasoning</h2>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux/scripts
+</code></pre></div></div>
+
+<p>Determine the location represented by each:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+..
+../..
+../../notes.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q22--command-anatomy">Q22 — Command Anatomy</h2>
+
+<p>Break down:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /home/student
+</code></pre></div></div>
+
+<p>into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command:
+Options:
+Argument:
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q23--output-prediction">Q23 — Output Prediction</h2>
+
+<p>Suppose a directory contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+script.sh
+.config
+.git
+</code></pre></div></div>
+
+<p>What might:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>show?</p>
+
+<p>What might:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>show?</p>
+
+<hr />
+
+<h2 id="q24--conceptual">Q24 — Conceptual</h2>
+
+<p>Explain why:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>answer different questions.</p>
+
+<hr />
+
+<h2 id="q25--filesystem">Q25 — Filesystem</h2>
+
+<p>Explain the relationship between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+├── home
+│   └── student
+└── etc
+</code></pre></div></div>
+
+<p>What is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<p>relative to <code class="language-plaintext highlighter-rouge">/</code>?</p>
+
+<hr />
+
+<h1 id="66-practice-questions--exam-challenge">66. Practice Questions — Exam Challenge</h1>
+
+<h2 id="q26">Q26</h2>
+
+<p>Assume the current directory is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux
+</code></pre></div></div>
+
+<p>and it contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+script.sh
+.config
+</code></pre></div></div>
+
+<p>The parent directory contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python
+web
+</code></pre></div></div>
+
+<p>Predict what each command attempts to list:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls
+ls</span> <span class="nt">-a</span>
+<span class="nb">ls</span> ..
+<span class="nb">ls</span> <span class="nb">.</span>
+<span class="nb">ls</span> ../python
+<span class="nb">ls</span> /home/student/projects/linux
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q27">Q27</h2>
+
+<p>Explain the complete execution model for:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /tmp
+</code></pre></div></div>
+
+<p>starting from the moment you press Enter.</p>
+
+<p>Your answer should include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shell
+↓
+command
+↓
+options
+↓
+argument
+↓
+program execution
+↓
+output
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q28">Q28</h2>
+
+<p>A student says:</p>
+
+<blockquote>
+  <p>”<code class="language-plaintext highlighter-rouge">/home/student</code> and <code class="language-plaintext highlighter-rouge">home/student</code> mean the same thing.”</p>
+</blockquote>
+
+<p>Is this always true?</p>
+
+<p>Explain.</p>
+
+<hr />
+
+<h2 id="q29">Q29</h2>
+
+<p>A student runs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /tmp
+<span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>What should <code class="language-plaintext highlighter-rouge">pwd</code> normally print?</p>
+
+<hr />
+
+<h2 id="q30">Q30</h2>
+
+<p>A student wants to:</p>
+
+<ol>
+  <li>Know where they are.</li>
+  <li>See all files including hidden files.</li>
+  <li>See detailed file information.</li>
+  <li>See running processes.</li>
+  <li>Identify the Linux kernel name.</li>
+</ol>
+
+<p>Which commands should they use?</p>
+
+<hr />
+
+<h1 id="67-answers">67. Answers</h1>
+
+<h2 id="answer-1">Answer 1</h2>
+
+<p><code class="language-plaintext highlighter-rouge">pwd</code> stands for:</p>
+
+<blockquote>
+  <p>Print Working Directory.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="answer-2">Answer 2</h2>
+
+<p>It prints the current working directory.</p>
+
+<hr />
+
+<h2 id="answer-3">Answer 3</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ls</code> lists directory contents.</p>
+
+<hr />
+
+<h2 id="answer-4">Answer 4</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>includes hidden entries in the listing.</p>
+
+<hr />
+
+<h2 id="answer-5">Answer 5</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>uses long listing format.</p>
+
+<hr />
+
+<h2 id="answer-6">Answer 6</h2>
+
+<p>A filename beginning with <code class="language-plaintext highlighter-rouge">.</code> is commonly treated as hidden by normal directory listings.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.bashrc
+.config
+.git
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-7">Answer 7</h2>
+
+<p><code class="language-plaintext highlighter-rouge">ps</code> displays process information.</p>
+
+<hr />
+
+<h2 id="answer-8">Answer 8</h2>
+
+<p><code class="language-plaintext highlighter-rouge">uname</code> generally reports information about the operating-system kernel/system.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>commonly outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-9">Answer 9</h2>
+
+<p><code class="language-plaintext highlighter-rouge">clear</code> clears/redraws the visible terminal display.</p>
+
+<hr />
+
+<h2 id="answer-10">Answer 10</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-L</code> commonly clears/redraws the terminal display in an interactive shell.</p>
+
+<hr />
+
+<h2 id="answer-11">Answer 11</h2>
+
+<p><code class="language-plaintext highlighter-rouge">exit</code> terminates the current shell.</p>
+
+<hr />
+
+<h2 id="answer-12">Answer 12</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Ctrl-D</code> commonly sends an EOF indication to a program reading standard input; at an interactive shell prompt, this can cause the shell to exit.</p>
+
+<hr />
+
+<h2 id="answer-13">Answer 13</h2>
+
+<p><code class="language-plaintext highlighter-rouge">.</code> represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-14">Answer 14</h2>
+
+<p><code class="language-plaintext highlighter-rouge">..</code> represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-15">Answer 15</h2>
+
+<p>Starting at:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>takes you to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects
+</code></pre></div></div>
+
+<p>and another:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+</code></pre></div></div>
+
+<p>takes you to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../..
+</code></pre></div></div>
+
+<p>represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-16">Answer 16</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/file.txt
+</code></pre></div></div>
+
+<p>is an absolute path.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>is a relative path interpreted from the current working directory.</p>
+
+<hr />
+
+<h2 id="answer-17">Answer 17</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>is the root of the entire filesystem.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/root
+</code></pre></div></div>
+
+<p>is a directory named <code class="language-plaintext highlighter-rouge">root</code> directly under the filesystem root and is commonly the home directory of the root user.</p>
+
+<hr />
+
+<h2 id="answer-18">Answer 18</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /tmp
+</code></pre></div></div>
+
+<p>means approximately:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+list directory contents
+
+-a
+ ↓
+include hidden entries
+
+-l
+ ↓
+long format
+
+/tmp
+ ↓
+directory to list
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-19">Answer 19</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps → command
+-e → select all processes
+-f → full-format listing
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-20">Answer 20</h2>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> /home
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command  → ls
+Option   → -l
+Argument → /home
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-21">Answer 21</h2>
+
+<p>Current directory:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux/scripts
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>. 
+→ /home/student/projects/linux/scripts
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>..
+→ /home/student/projects/linux
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../..
+→ /home/student/projects
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../../notes.txt
+→ /home/student/projects/notes.txt
+</code></pre></div></div>
+
+<p>assuming that file exists.</p>
+
+<hr />
+
+<h2 id="answer-22">Answer 22</h2>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /home/student
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command:
+ls
+
+Options:
+-l
+-a
+
+Argument:
+/home/student
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-23">Answer 23</h2>
+
+<p>Normal:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>might show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+script.sh
+</code></pre></div></div>
+
+<p>because hidden entries beginning with <code class="language-plaintext highlighter-rouge">.</code> are normally omitted.</p>
+
+<p>While:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>might show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+..
+.config
+.git
+notes.txt
+script.sh
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-24">Answer 24</h2>
+
+<p>They answer different questions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pwd
+↓
+Where am I?
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+↓
+What is in this location?
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-25">Answer 25</h2>
+
+<p>The filesystem root is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<p>is a location underneath <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<p>It is an absolute path because it begins with <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<hr />
+
+<h2 id="answer-26">Answer 26</h2>
+
+<p>Assuming the stated directory structure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>lists normal visible entries in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/linux
+</code></pre></div></div>
+
+<p>so:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+script.sh
+</code></pre></div></div>
+
+<p>may appear.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>also includes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.config
+.
+..
+</code></pre></div></div>
+
+<p>as applicable.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ..
+</code></pre></div></div>
+
+<p>lists the parent:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects
+</code></pre></div></div>
+
+<p>so entries such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python
+web
+linux
+</code></pre></div></div>
+
+<p>may appear.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>lists the current directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ../python
+</code></pre></div></div>
+
+<p>lists the <code class="language-plaintext highlighter-rouge">python</code> directory relative to the current location.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /home/student/projects/linux
+</code></pre></div></div>
+
+<p>lists the same current directory using an absolute path.</p>
+
+<hr />
+
+<h2 id="answer-27">Answer 27</h2>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> /tmp
+</code></pre></div></div>
+
+<p>the conceptual flow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>You type command
+      ↓
+Press Enter
+      ↓
+Shell parses the command line
+      ↓
+Shell identifies `ls`
+      ↓
+`-l` and `-a` are passed as options
+      ↓
+`/tmp` is passed as the target argument
+      ↓
+`ls` executes
+      ↓
+`ls` reads the target directory
+      ↓
+Hidden entries are included
+      ↓
+Long-format information is displayed
+      ↓
+Output appears in the terminal
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-28">Answer 28</h2>
+
+<p>They are not necessarily the same.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student
+</code></pre></div></div>
+
+<p>is absolute.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>home/student
+</code></pre></div></div>
+
+<p>is relative.</p>
+
+<p>The second is interpreted from the current working directory.</p>
+
+<hr />
+
+<h2 id="answer-29">Answer 29</h2>
+
+<p>Normally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/tmp
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="answer-30">Answer 30</h2>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>for the current directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>for all entries including hidden entries.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>for detailed information.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>for process information.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>for the kernel name.</p>
+
+<hr />
+
+<h1 id="68-final-cheat-sheet">68. Final Cheat Sheet</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">pwd</code></td>
+      <td>Print current working directory</td>
+      <td><code class="language-plaintext highlighter-rouge">pwd</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls</code></td>
+      <td>List directory contents</td>
+      <td><code class="language-plaintext highlighter-rouge">ls</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -a</code></td>
+      <td>Include hidden entries</td>
+      <td><code class="language-plaintext highlighter-rouge">ls -a</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -l</code></td>
+      <td>Long listing</td>
+      <td><code class="language-plaintext highlighter-rouge">ls -l</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls -la</code></td>
+      <td>Long listing + hidden entries</td>
+      <td><code class="language-plaintext highlighter-rouge">ls -la</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps</code></td>
+      <td>Process status</td>
+      <td><code class="language-plaintext highlighter-rouge">ps</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">uname</code></td>
+      <td>Kernel/system information</td>
+      <td><code class="language-plaintext highlighter-rouge">uname</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">clear</code></td>
+      <td>Clear/redraw terminal</td>
+      <td><code class="language-plaintext highlighter-rouge">clear</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-L</code></td>
+      <td>Clear/redraw terminal</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-L</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">exit</code></td>
+      <td>Exit current shell</td>
+      <td><code class="language-plaintext highlighter-rouge">exit</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-D</code></td>
+      <td>Send EOF; often exits shell at prompt</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-D</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="69-path-cheat-sheet">69. Path Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+→ Filesystem root
+
+~
+→ Current user's home directory
+
+.
+→ Current directory
+
+..
+→ Parent directory
+</code></pre></div></div>
+
+<h3 id="absolute-path">Absolute path</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/student/projects/file.txt
+</code></pre></div></div>
+
+<p>Starts from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<h3 id="relative-path">Relative path</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>projects/file.txt
+</code></pre></div></div>
+
+<p>Starts from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>current directory
+</code></pre></div></div>
+
+<h3 id="current-directory">Current directory</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./file.txt
+</code></pre></div></div>
+
+<h3 id="parent-directory">Parent directory</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../file.txt
+</code></pre></div></div>
+
+<h3 id="two-levels-upward">Two levels upward</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>../../file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="70-the-most-important-mental-model">70. The Most Important Mental Model</h1>
+
+<p>When working in Linux, constantly think in terms of three questions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. WHERE AM I?
+        ↓
+      pwd
+
+2. WHAT IS HERE?
+        ↓
+       ls
+
+3. WHAT IS RUNNING?
+        ↓
+       ps
+</code></pre></div></div>
+
+<p>Then understand how locations are represented:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Filesystem
+    │
+    └── /
+         │
+         ├── home
+         │    └── student
+         │         └── projects
+         │
+         ├── etc
+         ├── tmp
+         ├── usr
+         └── var
+</code></pre></div></div>
+
+<p>And remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/       → filesystem root
+~       → my home
+.       → where I am
+..      → one level above me
+</code></pre></div></div>
+
+<p>Finally, understand command anatomy:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command       options       arguments
+   │             │              │
+   ▼             ▼              ▼
+  ls            -la           /tmp
+</code></pre></div></div>
+
+<p>This foundation is essential because almost every later Linux topic builds on these concepts.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">1.1 - Launching a Linux Virtual Machine</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">1.3 - Simple Commands in Linux - 1</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

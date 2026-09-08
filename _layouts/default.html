@@ -1,63 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css">
+  
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body>
 
-  <!-- Top Navbar -->
+  <!-- Top Navigation Bar -->
   <header class="top-nav">
     <div class="nav-container">
-      <a class="site-brand" href="{{ site.baseurl }}/">
-        <span class="brand-badge">Docs</span>
-        <span class="brand-title">{{ site.title }}</span>
-      </a>
-      <div class="nav-actions">
-        <a href="https://github.com/{{ site.github_username }}/system-commands" target="_blank" class="github-btn">
-          GitHub
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="{{ '/' | relative_url }}">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">{{ site.title }}</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/{{ site.github_username }}/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Layout Container -->
-  <div class="app-layout">
-    <!-- Fixed Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-inner">
-        <nav class="sidebar-nav">
-          {% for section in site.data.navigation %}
-            <div class="week-group">
-              <div class="week-title">{{ section.week }}</div>
-              <ul class="topic-list">
-                {% for topic in section.topics %}
-                  <li>
-                    <a href="{{ site.baseurl }}{{ topic.url }}"
-                       class="nav-link {% if page.url == topic.url %}active{% endif %}">
-                      {{ topic.title }}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="{{ '/' | relative_url }}" class="sidebar-home-link {% if page.url == '/' or page.url == '/index.html' %}active{% endif %}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      {% for section in site.data.navigation %}
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>{{ section.week }}</span>
             </div>
-          {% endfor %}
-        </nav>
-      </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            {% for topic in section.topics %}
+              <li>
+                <a href="{{ topic.url | relative_url }}"
+                   class="nav-link {% if page.url == topic.url %}active{% endif %}">
+                  {{ topic.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
     </aside>
 
-    <!-- Content Workspace -->
-    <main class="main-content">
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
       <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        {% assign current_week = "" %}
+        {% for section in site.data.navigation %}
+          {% for topic in section.topics %}
+            {% if topic.url == page.url %}
+              {% assign current_week = section.week %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        {% if current_week != "" %}
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>{{ current_week }}</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>{{ page.title }}</span>
+          </nav>
+        {% endif %}
+
+        <!-- Markdown Document Content -->
         {{ content }}
+
+        <!-- Previous / Next Chapter Cards -->
+        {% assign current_url = page.url %}
+        {% assign prev_topic = nil %}
+        {% assign next_topic = nil %}
+        {% assign found_current = false %}
+
+        {% for section in site.data.navigation %}
+          {% for topic in section.topics %}
+            {% if found_current and next_topic == nil %}
+              {% assign next_topic = topic %}
+            {% endif %}
+            {% if topic.url == current_url %}
+              {% assign found_current = true %}
+            {% endif %}
+            {% if found_current == false %}
+              {% assign prev_topic = topic %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+
+        {% if prev_topic or next_topic %}
+          <div class="chapter-pagination">
+            {% if prev_topic %}
+              <a href="{{ prev_topic.url | relative_url }}" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">{{ prev_topic.title }}</span>
+              </a>
+            {% else %}
+              <div></div>
+            {% endif %}
+
+            {% if next_topic %}
+              <a href="{{ next_topic.url | relative_url }}" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">{{ next_topic.title }}</span>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       </article>
     </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
   </div>
 
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      {% for section in site.data.navigation %}
+      {
+        week: {{ section.week | jsonify }},
+        topics: [
+          {% for topic in section.topics %}
+          {
+            title: {{ topic.title | jsonify }},
+            url: {{ topic.url | relative_url | jsonify }}
+          }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+  </script>
+
+  <script src="{{ '/assets/js/main.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 </body>
 </html>

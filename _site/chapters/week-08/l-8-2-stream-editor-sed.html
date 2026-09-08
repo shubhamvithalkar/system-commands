@@ -1,0 +1,3222 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L 8.2 - Stream editor sed | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link active">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 8</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L 8.2 - Stream editor sed</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l-82---stream-editor-sed">L 8.2 - Stream editor sed</h1>
+
+<h1 id="sed--addressing-printing-deleting-substitution-ranges-scripts-and-debugging">sed — Addressing, Printing, Deleting, Substitution, Ranges, Scripts and Debugging</h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+
+<p><code class="language-plaintext highlighter-rouge">sed</code> stands for <strong>stream editor</strong>.</p>
+
+<p>It reads input line by line, applies editing commands, and writes the resulting text.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="o">[</span>options] <span class="s1">'command'</span> file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'p'</span> file.txt
+</code></pre></div></div>
+
+<p>A very important idea in <code class="language-plaintext highlighter-rouge">sed</code> is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INPUT
+  ↓
+sed reads one line
+  ↓
+address decides whether command applies
+  ↓
+command executes
+  ↓
+sed prints pattern space by default
+  ↓
+next line
+</code></pre></div></div>
+
+<p>To understand <code class="language-plaintext highlighter-rouge">sed</code> properly, you need to understand three concepts:</p>
+
+<ol>
+  <li><strong>Pattern space</strong> — the current line being processed.</li>
+  <li><strong>Address</strong> — tells <code class="language-plaintext highlighter-rouge">sed</code> which line(s) a command should operate on.</li>
+  <li><strong>Command</strong> — tells <code class="language-plaintext highlighter-rouge">sed</code> what to do: print, delete, substitute, insert, append, change, etc.</li>
+</ol>
+
+<hr />
+
+<h1 id="2-sed--e--file">2. <code class="language-plaintext highlighter-rouge">sed -e "" file</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-e</code> option specifies a <code class="language-plaintext highlighter-rouge">sed</code> editing command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>The empty command does nothing.</p>
+
+<p>However, <code class="language-plaintext highlighter-rouge">sed</code> still performs its normal default behavior:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read line
+↓
+do nothing
+↓
+print line
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>essentially displays the file unchanged.</p>
+
+<p>You can also write:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>For a single expression, <code class="language-plaintext highlighter-rouge">-e</code> is usually unnecessary.</p>
+
+<hr />
+
+<h1 id="3-sed--n--e--file">3. <code class="language-plaintext highlighter-rouge">sed -n -e "" file</code></h1>
+
+<p>Now consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>The important option is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-n
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-n</code> means:</p>
+
+<blockquote>
+  <p>Suppress automatic printing of the pattern space.</p>
+</blockquote>
+
+<p>Normally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed
+ ↓
+automatically prints each processed line
+</code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">-n</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -n
+ ↓
+does NOT automatically print
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>produces no output.</p>
+
+<p>This is extremely important because many <code class="language-plaintext highlighter-rouge">sed</code> commands become useful only when combined with <code class="language-plaintext highlighter-rouge">-n</code>.</p>
+
+<hr />
+
+<h1 id="4-default-printing-vs--n">4. Default Printing vs <code class="language-plaintext highlighter-rouge">-n</code></h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+date
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+date
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Because <code class="language-plaintext highlighter-rouge">sed</code> automatically prints each line.</p>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">''</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+<p>Nothing is printed.</p>
+
+<p>Why?</p>
+
+<p>Because automatic printing was disabled.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Without -n:
+command executes
++
+pattern space automatically printed
+
+With -n:
+command executes
++
+nothing automatically printed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-sed--e--file">5. <code class="language-plaintext highlighter-rouge">sed -e "=" file</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">=</code> command prints the current line number.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'='</span> file.txt
+</code></pre></div></div>
+
+<p>Suppose the file is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+apple
+2
+banana
+3
+cherry
+</code></pre></div></div>
+
+<p>Notice that both are printed:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line number
+actual line
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=     → explicitly prints line number
+sed   → automatically prints pattern space
+</code></pre></div></div>
+
+<p>Therefore each input line produces two output lines.</p>
+
+<hr />
+
+<h1 id="6-using--n-with-">6. Using <code class="language-plaintext highlighter-rouge">-n</code> with <code class="language-plaintext highlighter-rouge">=</code></h1>
+
+<p>Now run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">'='</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+2
+3
+</code></pre></div></div>
+
+<p>This is because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=  → explicitly prints line number
+-n → suppresses automatic printing of actual line
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'='</span> file.txt
+</code></pre></div></div>
+
+<p>is a convenient way to print line numbers only.</p>
+
+<hr />
+
+<h1 id="7-printing-a-particular-line">7. Printing a Particular Line</h1>
+
+<p>One of the most common <code class="language-plaintext highlighter-rouge">sed</code> tasks is printing a particular line.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>To print line 3:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>three
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<p>is the address.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>means print.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3p
+││
+│└── print
+└─── line 3
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-why--n-is-important-for-p">8. Why <code class="language-plaintext highlighter-rouge">-n</code> Is Important for <code class="language-plaintext highlighter-rouge">p</code></h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+three
+four
+five
+</code></pre></div></div>
+
+<p>Why is <code class="language-plaintext highlighter-rouge">three</code> printed twice?</p>
+
+<p>Because two things happen:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3p
+ ↓
+explicitly print line 3
+
+sed default behavior
+ ↓
+automatically print line 3 again
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<p>is normally what you want.</p>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>three
+</code></pre></div></div>
+
+<p>The combination:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-n + p
+</code></pre></div></div>
+
+<p>is one of the most important patterns in <code class="language-plaintext highlighter-rouge">sed</code>.</p>
+
+<hr />
+
+<h1 id="9-p-vs-p-vs-p">9. <code class="language-plaintext highlighter-rouge">p</code> vs <code class="language-plaintext highlighter-rouge">!p</code> vs <code class="language-plaintext highlighter-rouge">$p</code></h1>
+
+<p>These three expressions are very different.</p>
+
+<hr />
+
+<h2 id="91-p">9.1 <code class="language-plaintext highlighter-rouge">p</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'p'</span> file.txt
+</code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">-n</code>, this prints every line.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="92-p">9.2 <code class="language-plaintext highlighter-rouge">!p</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">!</code> means:</p>
+
+<blockquote>
+  <p>Apply the command to everything that does NOT match the address.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'3!p'</span> file.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>not line 3 → print
+</code></pre></div></div>
+
+<p>If the file is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+four
+five
+</code></pre></div></div>
+
+<p>Line 3 is excluded.</p>
+
+<hr />
+
+<h2 id="93-p">9.3 <code class="language-plaintext highlighter-rouge">$p</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$</code> represents the <strong>last line</strong>.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'$p'</span> file.txt
+</code></pre></div></div>
+
+<p>prints the last line.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>five
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-important-difference">10. Important Difference</h1>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+→ print selected lines
+
+!p
+→ print lines NOT selected by the address
+
+$p
+→ print the last line
+</code></pre></div></div>
+
+<p>These are not variations of the same concept.</p>
+
+<hr />
+
+<h1 id="11-address-range">11. Address Range</h1>
+
+<p>A <code class="language-plaintext highlighter-rouge">sed</code> command can operate on a range of lines.</p>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endcommand
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'2,4p'</span> file.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start at line 2
+continue through line 4
+print
+</code></pre></div></div>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>two
+three
+four
+</code></pre></div></div>
+
+<p>The range is inclusive.</p>
+
+<hr />
+
+<h1 id="12-combining-commands">12. Combining Commands</h1>
+
+<p>Multiple <code class="language-plaintext highlighter-rouge">sed</code> commands can be combined.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">'2p'</span> <span class="nt">-e</span> <span class="s1">'4p'</span> file.txt
+</code></pre></div></div>
+
+<p>This prints lines 2 and 4.</p>
+
+<p>You can also separate commands using semicolons:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'2p;4p'</span> file.txt
+</code></pre></div></div>
+
+<p>Both commands operate on the input.</p>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'
+2p
+4p
+'</span> file.txt
+</code></pre></div></div>
+
+<p>This is useful when commands become longer.</p>
+
+<hr />
+
+<h1 id="13-printing-every-nth-line">13. Printing Every nth Line</h1>
+
+<p>Suppose you want every 2nd line.</p>
+
+<p>A useful GNU <code class="language-plaintext highlighter-rouge">sed</code> address form is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'0~2p'</span> file.txt
+</code></pre></div></div>
+
+<p>This prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+4
+6
+8
+...
+</code></pre></div></div>
+
+<p>The general form is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>first~step
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'0~3p'</span> file.txt
+</code></pre></div></div>
+
+<p>prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+6
+9
+12
+...
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'1~3p'</span> file.txt
+</code></pre></div></div>
+
+<p>prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+4
+7
+10
+...
+</code></pre></div></div>
+
+<p>This is a GNU <code class="language-plaintext highlighter-rouge">sed</code> extension and is commonly available on Linux.</p>
+
+<hr />
+
+<h1 id="14-regex-address">14. Regex Address</h1>
+
+<p>An address does not have to be a line number.</p>
+
+<p>It can be a regular expression.</p>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/regex/command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> logfile.txt
+</code></pre></div></div>
+
+<p>This prints every line containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERROR
+</code></pre></div></div>
+
+<p>Example input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Server started
+ERROR Connection failed
+INFO Retrying
+ERROR Timeout
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERROR Connection failed
+ERROR Timeout
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-regex-address-mental-model">15. Regex Address Mental Model</h1>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> logfile.txt
+</code></pre></div></div>
+
+<p>think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read line
+   ↓
+does line match /ERROR/?
+   ↓
+ ┌─┴─┐
+yes  no
+ ↓    ↓
+ p    nothing
+</code></pre></div></div>
+
+<p>Because <code class="language-plaintext highlighter-rouge">-n</code> suppresses automatic printing.</p>
+
+<hr />
+
+<h1 id="16-regexn">16. <code class="language-plaintext highlighter-rouge">/regex/,+n</code></h1>
+
+<p>GNU <code class="language-plaintext highlighter-rouge">sed</code> supports:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/regex/,+n
+</code></pre></div></div>
+
+<p>This selects:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the line matching regex
++
+the next n lines
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/,+2p'</span> logfile.txt
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 INFO Start
+2 INFO Connection
+3 ERROR Failure
+4 INFO Retrying
+5 INFO Reconnecting
+6 INFO Success
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3 ERROR Failure
+4 INFO Retrying
+5 INFO Reconnecting
+</code></pre></div></div>
+
+<p>The regex matches line 3, and <code class="language-plaintext highlighter-rouge">+2</code> includes two additional lines.</p>
+
+<hr />
+
+<h1 id="17-deleting-a-particular-line">17. Deleting a Particular Line</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">d</code> command deletes the current pattern space.</p>
+
+<p>To delete line 3:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3d'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+four
+five
+</code></pre></div></div>
+
+<p>The original file is not modified.</p>
+
+<p><code class="language-plaintext highlighter-rouge">sed</code> normally writes the transformed result to standard output.</p>
+
+<hr />
+
+<h1 id="18-deleting-a-range-of-lines">18. Deleting a Range of Lines</h1>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endd
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'2,4d'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+five
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+five
+</code></pre></div></div>
+
+<p>Lines 2 through 4 were deleted.</p>
+
+<hr />
+
+<h1 id="19-regexd">19. <code class="language-plaintext highlighter-rouge">/regex/d</code></h1>
+
+<p>You can delete lines matching a regex.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d'</span> logfile.txt
+</code></pre></div></div>
+
+<p>This removes every line containing <code class="language-plaintext highlighter-rouge">ERROR</code>.</p>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Start
+ERROR Failure
+INFO Retrying
+ERROR Timeout
+INFO Success
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Start
+INFO Retrying
+INFO Success
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-printing-vs-deleting">20. Printing vs Deleting</h1>
+
+<p>Printing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> logfile.txt
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep only matching lines in the output.
+</code></pre></div></div>
+
+<p>Deleting:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d'</span> logfile.txt
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remove matching lines from the output.
+</code></pre></div></div>
+
+<p>A useful mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p → explicitly output selected lines
+
+d → remove selected lines from processing/output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-search-and-replace">21. Search and Replace</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">s</code> command performs substitution.</p>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/apple/orange/'</span> file.txt
+</code></pre></div></div>
+
+<p>This replaces the first occurrence of <code class="language-plaintext highlighter-rouge">apple</code> on each line.</p>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple pie
+apple juice
+banana
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>orange pie
+orange juice
+banana
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-replacing-all-occurrences-on-a-line">22. Replacing All Occurrences on a Line</h1>
+
+<p>By default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/apple/orange/'</span> file.txt
+</code></pre></div></div>
+
+<p>replaces only the first occurrence per line.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">g</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/apple/orange/g'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple apple apple
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>orange orange orange
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g = global
+</code></pre></div></div>
+
+<p>within each line.</p>
+
+<hr />
+
+<h1 id="23-replacing-only-at-a-specific-address">23. Replacing Only at a Specific Address</h1>
+
+<p>You can combine an address with substitution.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3s/apple/orange/'</span> file.txt
+</code></pre></div></div>
+
+<p>Only line 3 is affected.</p>
+
+<p>You can also use a regex address:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/s/server/client/'</span> logfile.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Find lines matching ERROR
+        ↓
+On those lines only
+        ↓
+replace server with client
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-extended-regular-expressions">24. Extended Regular Expressions</h1>
+
+<p>Basic <code class="language-plaintext highlighter-rouge">sed</code> uses <strong>BRE</strong> by default.</p>
+
+<p>For extended regular expressions, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'...'</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'...'</span>
+</code></pre></div></div>
+
+<p>On GNU/Linux, <code class="language-plaintext highlighter-rouge">-E</code> is the preferred portable spelling for enabling ERE.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/(cat|dog)/animal/g'</span> file.txt
+</code></pre></div></div>
+
+<p>Without extended regex, grouping and alternation require additional escaping in traditional BRE syntax.</p>
+
+<hr />
+
+<h1 id="25-bre-vs-ere">25. BRE vs ERE</h1>
+
+<p>Basic Regular Expression:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BRE
+</code></pre></div></div>
+
+<p>Extended Regular Expression:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERE
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">sed</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'...'</span>
+</code></pre></div></div>
+
+<p>uses BRE.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'...'</span>
+</code></pre></div></div>
+
+<p>uses ERE.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/(cat|dog)/animal/g'</span> file.txt
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(cat|dog)
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat OR dog
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-range-ending-with-a-regex">26. Range Ending With a Regex</h1>
+
+<p>A range can begin with one address and end with a regex.</p>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,/regex/command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'2,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<p>This starts at line 2 and continues until a line matching:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>END
+</code></pre></div></div>
+
+<p>is encountered.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 HEADER
+2 START
+3 apple
+4 banana
+5 END
+6 another
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'2,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 START
+3 apple
+4 banana
+5 END
+</code></pre></div></div>
+
+<p>The ending regex line is included.</p>
+
+<hr />
+
+<h1 id="27-regex-to-regex-range">27. Regex-to-Regex Range</h1>
+
+<p>You can use a regex as both the beginning and ending address.</p>
+
+<p>Syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/START/,/END/command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEADER
+START
+one
+two
+END
+FOOTER
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START
+one
+two
+END
+</code></pre></div></div>
+
+<p>This is extremely useful for extracting sections of text.</p>
+
+<hr />
+
+<h1 id="28-important-range-behavior">28. Important Range Behavior</h1>
+
+<p>For:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<p>the range includes both boundary lines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START
+ ↓
+content
+ ↓
+END
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START → included
+END   → included
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-insert-a-header-and-footer">29. Insert a Header and Footer</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">i</code> command inserts text <strong>before</strong> the current line.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">a</code> command appends text <strong>after</strong> the current line.</p>
+
+<p>For a header:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'1i HEADER'</span> file.txt
+</code></pre></div></div>
+
+<p>For a footer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'$a FOOTER'</span> file.txt
+</code></pre></div></div>
+
+<p>Example input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+</code></pre></div></div>
+
+<p>Header:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'1i HEADER'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HEADER
+one
+two
+three
+</code></pre></div></div>
+
+<p>Footer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'$a FOOTER'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+FOOTER
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-insert-or-append-at-any-line">30. Insert or Append at Any Line</h1>
+
+<p>Insert before line 3:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3i INSERTED'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+INSERTED
+three
+four
+</code></pre></div></div>
+
+<p>Append after line 3:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3a APPENDED'</span> file.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+APPENDED
+four
+</code></pre></div></div>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i → insert before
+a → append after
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-insert-or-append-at-a-regex-address">31. Insert or Append at a Regex Address</h1>
+
+<p>You can use a regex as the address.</p>
+
+<p>Insert before a line containing <code class="language-plaintext highlighter-rouge">ERROR</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/i WARNING'</span> logfile.txt
+</code></pre></div></div>
+
+<p>Append after a line containing <code class="language-plaintext highlighter-rouge">ERROR</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/a CHECK THIS'</span> logfile.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Start
+ERROR Failure
+INFO End
+</code></pre></div></div>
+
+<p>Using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/i WARNING'</span> logfile.txt
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Start
+WARNING
+ERROR Failure
+INFO End
+</code></pre></div></div>
+
+<p>Using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/a CHECK THIS'</span> logfile.txt
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO Start
+ERROR Failure
+CHECK THIS
+INFO End
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-change-a-line">32. Change a Line</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">c</code> command replaces the addressed line with new text.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3c REPLACED LINE'</span> file.txt
+</code></pre></div></div>
+
+<p>Input:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+REPLACED LINE
+four
+</code></pre></div></div>
+
+<p>You can also use a regex:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/c ERROR WAS HANDLED'</span> logfile.txt
+</code></pre></div></div>
+
+<p>Every matching line is replaced.</p>
+
+<hr />
+
+<h1 id="33-i-a-and-c">33. <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">a</code>, and <code class="language-plaintext highlighter-rouge">c</code></h1>
+
+<p>These commands are easy to confuse.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i → insert before the addressed line
+
+a → append after the addressed line
+
+c → change/replace the addressed line
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3i BEFORE'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BEFORE
+line 3
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3a AFTER'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 3
+AFTER
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3c REPLACED'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>REPLACED
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-sed-script-file">34. sed Script File</h1>
+
+<p>Instead of writing all commands on the command line, you can store them in a file.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>commands.sed
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-sed highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">1</span><span class="k">i</span> <span class="s">HEADER</span>
+<span class="kn">/</span><span class="sr">ERROR</span><span class="kn">/</span><span class="k">d</span>
+<span class="k">s</span><span class="p">/</span><span class="sr">foo</span><span class="p">/</span>bar<span class="p">/</span><span class="k">g</span>
+<span class="kn">$</span><span class="k">a</span> <span class="s">FOOTER</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-f</span> commands.sed input.txt
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-f</code> option means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read sed commands from a file
+</code></pre></div></div>
+
+<p>This is useful when the editing logic becomes large.</p>
+
+<hr />
+
+<h1 id="35-example-sed-script">35. Example sed Script</h1>
+
+<p>Create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi commands.sed
+</code></pre></div></div>
+
+<p>Put:</p>
+
+<div class="language-sed highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">1</span><span class="k">i</span> <span class="s">HEADER</span>
+<span class="kn">/</span><span class="sr">ERROR</span><span class="kn">/</span><span class="k">d</span>
+<span class="k">s</span><span class="p">/</span><span class="sr">apple</span><span class="p">/</span>orange<span class="p">/</span><span class="k">g</span>
+<span class="kn">$</span><span class="k">a</span> <span class="s">FOOTER</span>
+</code></pre></div></div>
+
+<p>Then execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-f</span> commands.sed file.txt
+</code></pre></div></div>
+
+<p>Processing happens in order.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input
+ ↓
+insert HEADER
+ ↓
+delete ERROR lines
+ ↓
+replace apple → orange
+ ↓
+append FOOTER
+ ↓
+output
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-joining-lines">36. Joining Lines</h1>
+
+<p>By default, <code class="language-plaintext highlighter-rouge">sed</code> processes one input line at a time.</p>
+
+<p>Sometimes we want to read one additional line.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">N</code> command reads the next input line and appends it to the current pattern space.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'N'</span> file.txt
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+</code></pre></div></div>
+
+<p>The first cycle reads:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>N
+</code></pre></div></div>
+
+<p>reads the next line and pattern space becomes conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">sed</code> prints it.</p>
+
+<p>Output can look like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+four
+</code></pre></div></div>
+
+<p>but the important difference is that internally lines have been joined in the pattern space with a newline.</p>
+
+<hr />
+
+<h1 id="37-demonstrating-n">37. Demonstrating <code class="language-plaintext highlighter-rouge">N</code></h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s1">'%s\n'</span> one two three four | <span class="nb">sed</span> <span class="s1">'N;s/\n/ /'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one two
+three four
+</code></pre></div></div>
+
+<p>Step-by-step:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>read one
+   ↓
+N reads two
+   ↓
+pattern space:
+one
+two
+   ↓
+s/\n/ /
+   ↓
+one two
+</code></pre></div></div>
+
+<p>Then the next cycle reads:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>three
+four
+</code></pre></div></div>
+
+<p>and produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>three four
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-why-n-is-important">38. Why <code class="language-plaintext highlighter-rouge">N</code> Is Important</h1>
+
+<p><code class="language-plaintext highlighter-rouge">N</code> demonstrates an important <code class="language-plaintext highlighter-rouge">sed</code> concept:</p>
+
+<blockquote>
+  <p>The pattern space does not always have to contain exactly one input line.</p>
+</blockquote>
+
+<p>Normally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pattern space
+      ↓
+current line
+</code></pre></div></div>
+
+<p>After:</p>
+
+<div class="language-sed highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">N</span>
+</code></pre></div></div>
+
+<p>it can contain:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>current line
+next line
+</code></pre></div></div>
+
+<p>separated by a newline.</p>
+
+<p>This becomes important for:</p>
+
+<ul>
+  <li>Joining lines.</li>
+  <li>Multi-line pattern matching.</li>
+  <li>Processing records spanning multiple lines.</li>
+  <li>Advanced <code class="language-plaintext highlighter-rouge">sed</code> scripts.</li>
+</ul>
+
+<hr />
+
+<h1 id="39-useful-multi-line-commands">39. Useful Multi-Line Commands</h1>
+
+<p>The three important commands to know are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>N → read next line into pattern space
+
+D → delete through first newline and restart cycle
+
+P → print through first newline
+</code></pre></div></div>
+
+<p>For basic joining tasks, <code class="language-plaintext highlighter-rouge">N</code> is the key command.</p>
+
+<hr />
+
+<h1 id="40-debugging-sed">40. Debugging <code class="language-plaintext highlighter-rouge">sed</code></h1>
+
+<p>Debugging becomes important when a <code class="language-plaintext highlighter-rouge">sed</code> command contains:</p>
+
+<ul>
+  <li>Multiple addresses.</li>
+  <li>Several commands.</li>
+  <li>Regexes.</li>
+  <li>Ranges.</li>
+  <li>Loops.</li>
+  <li>Multi-line processing.</li>
+  <li>Script files.</li>
+</ul>
+
+<p>Start with a small input file.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s1">'%s\n'</span> <span class="se">\</span>
+<span class="s1">'one'</span> <span class="se">\</span>
+<span class="s1">'ERROR problem'</span> <span class="se">\</span>
+<span class="s1">'two'</span> <span class="se">\</span>
+<span class="s1">'three'</span> <span class="se">\</span>
+<span class="s1">'END'</span> <span class="se">\</span>
+<span class="s1">'four'</span> <span class="o">&gt;</span> test.txt
+</code></pre></div></div>
+
+<p>Then test the command separately.</p>
+
+<hr />
+
+<h1 id="41-debugging-strategy">41. Debugging Strategy</h1>
+
+<p>When a complex <code class="language-plaintext highlighter-rouge">sed</code> command does not work:</p>
+
+<h3 id="step-1--check-the-input">Step 1 — Check the input</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="nt">-n</span> test.txt
+</code></pre></div></div>
+
+<p>This makes line numbers visible.</p>
+
+<h3 id="step-2--test-the-address">Step 2 — Test the address</h3>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> test.txt
+</code></pre></div></div>
+
+<p>Check whether the regex actually matches.</p>
+
+<h3 id="step-3--test-the-command-separately">Step 3 — Test the command separately</h3>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/ERROR/WARNING/'</span> test.txt
+</code></pre></div></div>
+
+<h3 id="step-4--combine-them">Step 4 — Combine them</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/s/ERROR/WARNING/'</span> test.txt
+</code></pre></div></div>
+
+<h3 id="step-5--add--n-when-debugging-printing">Step 5 — Add <code class="language-plaintext highlighter-rouge">-n</code> when debugging printing</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> test.txt
+</code></pre></div></div>
+
+<p>This avoids confusion caused by automatic printing.</p>
+
+<hr />
+
+<h1 id="42-use-cat--n-while-debugging">42. Use <code class="language-plaintext highlighter-rouge">cat -n</code> While Debugging</h1>
+
+<p>A very useful command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="nt">-n</span> file.txt
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     1  one
+     2  two
+     3  ERROR
+     4  four
+</code></pre></div></div>
+
+<p>This helps verify whether:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3p
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,4d
+</code></pre></div></div>
+
+<p>is actually targeting the lines you expect.</p>
+
+<hr />
+
+<h1 id="43-common-sed-mistakes">43. Common <code class="language-plaintext highlighter-rouge">sed</code> Mistakes</h1>
+
+<h2 id="mistake-1--forgetting--n">Mistake 1 — Forgetting <code class="language-plaintext highlighter-rouge">-n</code></h2>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<p>usually use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<p>Otherwise line 3 is printed twice.</p>
+
+<hr />
+
+<h2 id="mistake-2--thinking-d-means-delete-from-the-original-file">Mistake 2 — Thinking <code class="language-plaintext highlighter-rouge">d</code> means delete from the original file</h2>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3d'</span> file.txt
+</code></pre></div></div>
+
+<p>does not modify <code class="language-plaintext highlighter-rouge">file.txt</code>.</p>
+
+<p>It only produces modified output.</p>
+
+<p>To save the result:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3d'</span> file.txt <span class="o">&gt;</span> newfile.txt
+</code></pre></div></div>
+
+<p>For in-place editing with GNU <code class="language-plaintext highlighter-rouge">sed</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">'3d'</span> file.txt
+</code></pre></div></div>
+
+<p>Use <code class="language-plaintext highlighter-rouge">-i</code> carefully.</p>
+
+<hr />
+
+<h2 id="mistake-3--confusing-i-and-a">Mistake 3 — Confusing <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">a</code></h2>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i → before
+a → after
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4--forgetting-that-regex-addresses-are-not-regex-substitutions">Mistake 4 — Forgetting that regex addresses are not regex substitutions</h2>
+
+<p>These are different:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> file.txt
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/ERROR/WARNING/'</span> file.txt
+</code></pre></div></div>
+
+<p>The first uses a regex as an <strong>address</strong>.</p>
+
+<p>The second uses a regex as the <strong>pattern being replaced</strong>.</p>
+
+<hr />
+
+<h1 id="44-important-address-types">44. Important Address Types</h1>
+
+<p>A <code class="language-plaintext highlighter-rouge">sed</code> address can be:</p>
+
+<h3 id="line-number">Line number</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5p'</span> file.txt
+</code></pre></div></div>
+
+<h3 id="last-line">Last line</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'$p'</span> file.txt
+</code></pre></div></div>
+
+<h3 id="regex">Regex</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> file.txt
+</code></pre></div></div>
+
+<h3 id="range">Range</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'2,5p'</span> file.txt
+</code></pre></div></div>
+
+<h3 id="regex-to-regex-range">Regex-to-regex range</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<h3 id="regex-plus-number">Regex plus number</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/,+2p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="45-important-sed-command-summary">45. Important <code class="language-plaintext highlighter-rouge">sed</code> Command Summary</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Print pattern space</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Delete pattern space and start next cycle</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Substitute</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Insert before</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>Append after</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Change/replace</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td>Print line number</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Read next line into pattern space</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Print through first newline</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>Delete through first newline and restart cycle</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="46-address--command-structure">46. Address + Command Structure</h1>
+
+<p>A powerful way to understand <code class="language-plaintext highlighter-rouge">sed</code> is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADDRESS COMMAND
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'3p'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3 → address
+p → command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ERROR/ → address
+d       → command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'2,5d'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5 → address range
+d   → command
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/START/,/END/ → address range
+p             → command
+</code></pre></div></div>
+
+<p>This model is fundamental:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              sed expression
+                    │
+             ┌──────┴──────┐
+             │             │
+          ADDRESS        COMMAND
+             │             │
+       "WHERE?"         "WHAT?"
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="47-practical-examples">47. Practical Examples</h1>
+
+<h2 id="print-line-10">Print line 10</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'10p'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="print-last-line">Print last line</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'$p'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="print-lines-510">Print lines 5–10</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5,10p'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="print-lines-containing-error">Print lines containing ERROR</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="delete-line-5">Delete line 5</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'5d'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="delete-lines-510">Delete lines 5–10</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'5,10d'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="delete-error-lines">Delete ERROR lines</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="replace-first-foo-with-bar">Replace first <code class="language-plaintext highlighter-rouge">foo</code> with <code class="language-plaintext highlighter-rouge">bar</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/foo/bar/'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="replace-all-foo-with-bar">Replace all <code class="language-plaintext highlighter-rouge">foo</code> with <code class="language-plaintext highlighter-rouge">bar</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/foo/bar/g'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="replace-only-on-line-5">Replace only on line 5</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'5s/foo/bar/'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="insert-before-line-3">Insert before line 3</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3i INSERTED'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="append-after-line-3">Append after line 3</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3a APPENDED'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="replace-line-3">Replace line 3</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3c REPLACED'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="print-lines-from-start-to-end">Print lines from START to END</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<h2 id="delete-lines-from-start-to-end">Delete lines from START to END</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/START/,/END/d'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-advanced-combined-examples">48. Advanced Combined Examples</h1>
+
+<h2 id="print-error-and-the-next-two-lines">Print ERROR and the next two lines</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/,+2p'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="delete-error-and-the-next-two-lines">Delete ERROR and the next two lines</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/,+2d'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="replace-text-only-inside-a-startend-section">Replace text only inside a START–END section</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/START/,/END/s/foo/bar/g'</span> file.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Find START
+   ↓
+until END
+   ↓
+inside that range
+   ↓
+replace foo → bar
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="delete-all-error-lines-and-add-a-footer">Delete all ERROR lines and add a footer</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d;$a FOOTER'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="print-only-lines-5-and-10">Print only lines 5 and 10</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5p;10p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-practice-questions">49. Practice Questions</h1>
+
+<h2 id="q1-print-only-line-7">Q1. Print only line 7</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input:
+one
+two
+three
+four
+five
+six
+seven
+eight
+</code></pre></div></div>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'7p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2-print-only-the-last-line">Q2. Print only the last line</h2>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'$p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3-delete-lines-3-through-6">Q3. Delete lines 3 through 6</h2>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3,6d'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4-print-every-line-containing-error">Q4. Print every line containing <code class="language-plaintext highlighter-rouge">ERROR</code></h2>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/p'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5-delete-every-line-containing-debug">Q5. Delete every line containing <code class="language-plaintext highlighter-rouge">DEBUG</code></h2>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/DEBUG/d'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6-replace-every-cat-with-dog">Q6. Replace every <code class="language-plaintext highlighter-rouge">cat</code> with <code class="language-plaintext highlighter-rouge">dog</code></h2>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'s/cat/dog/g'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7-print-lines-from-start-through-end">Q7. Print lines from <code class="language-plaintext highlighter-rouge">START</code> through <code class="language-plaintext highlighter-rouge">END</code></h2>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8-delete-everything-from-start-through-end">Q8. Delete everything from <code class="language-plaintext highlighter-rouge">START</code> through <code class="language-plaintext highlighter-rouge">END</code></h2>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/START/,/END/d'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9-print-the-line-containing-error-and-the-next-three-lines">Q9. Print the line containing <code class="language-plaintext highlighter-rouge">ERROR</code> and the next three lines</h2>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/ERROR/,+3p'</span> logfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10-insert-header-before-the-first-line">Q10. Insert <code class="language-plaintext highlighter-rouge">HEADER</code> before the first line</h2>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'1i HEADER'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q11-append-footer-after-the-last-line">Q11. Append <code class="language-plaintext highlighter-rouge">FOOTER</code> after the last line</h2>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'$a FOOTER'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q12-replace-line-5-with-hello">Q12. Replace line 5 with <code class="language-plaintext highlighter-rouge">HELLO</code></h2>
+
+<h3 id="solution-11">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'5c HELLO'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q13-replace-foo-with-bar-only-between-start-and-end">Q13. Replace <code class="language-plaintext highlighter-rouge">foo</code> with <code class="language-plaintext highlighter-rouge">bar</code> only between <code class="language-plaintext highlighter-rouge">START</code> and <code class="language-plaintext highlighter-rouge">END</code></h2>
+
+<h3 id="solution-12">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/START/,/END/s/foo/bar/g'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q14-print-only-odd-numbered-lines">Q14. Print only odd-numbered lines</h2>
+
+<p>A GNU <code class="language-plaintext highlighter-rouge">sed</code> solution is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'1~2p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q15-print-only-even-numbered-lines">Q15. Print only even-numbered lines</h2>
+
+<p>A GNU <code class="language-plaintext highlighter-rouge">sed</code> solution is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'0~2p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="50-exam-traps">50. Exam Traps</h1>
+
+<h3 id="trap-1">Trap 1</h3>
+
+<p>What happens?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'5p'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<p>Line 5 is printed <strong>twice</strong> because automatic printing is still enabled.</p>
+
+<p>Usually use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5p'</span> file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="trap-2">Trap 2</h3>
+
+<p>What does this mean?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'5!p'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<p>Print every line except line 5.</p>
+
+<hr />
+
+<h3 id="trap-3">Trap 3</h3>
+
+<p>What does this mean?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'$p'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<p>Print the last line.</p>
+
+<hr />
+
+<h3 id="trap-4">Trap 4</h3>
+
+<p>What does this mean?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'/ERROR/d'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<p>Delete matching lines from the output.</p>
+
+<p>It does not modify the original file unless <code class="language-plaintext highlighter-rouge">-i</code> is used.</p>
+
+<hr />
+
+<h3 id="trap-5">Trap 5</h3>
+
+<p>What does this mean?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'/START/,/END/p'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<p>Print the range beginning at <code class="language-plaintext highlighter-rouge">START</code> and ending at <code class="language-plaintext highlighter-rouge">END</code>, including both matching boundary lines.</p>
+
+<hr />
+
+<h3 id="trap-6">Trap 6</h3>
+
+<p>What is the difference?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3i HELLO'</span> file.txt
+</code></pre></div></div>
+
+<p>vs</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="s1">'3a HELLO'</span> file.txt
+</code></pre></div></div>
+
+<p>Answer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3i → HELLO before line 3
+3a → HELLO after line 3
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="51-final-mental-model">51. Final Mental Model</h1>
+
+<p>The most important thing to understand is that <code class="language-plaintext highlighter-rouge">sed</code> expressions are generally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADDRESS + COMMAND
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 3
+  ↓
+print
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5d
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 5
+  ↓
+delete
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ERROR/p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lines matching ERROR
+        ↓
+      print
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/ERROR/d
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lines matching ERROR
+        ↓
+      delete
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lines 2 through 5
+        ↓
+      print
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/START/,/END/p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START
+  ↓
+everything in between
+  ↓
+END
+  ↓
+print
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="52-final-cheat-sheet">52. Final Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed
+│
+├── Printing
+│   ├── p
+│   ├── -n '3p'
+│   ├── -n '$p'
+│   └── -n '/regex/p'
+│
+├── Addresses
+│   ├── 3
+│   ├── $
+│   ├── /regex/
+│   ├── 2,5
+│   ├── /START/,/END/
+│   └── /ERROR/,+2
+│
+├── Deletion
+│   ├── 3d
+│   ├── 2,5d
+│   └── /ERROR/d
+│
+├── Substitution
+│   ├── s/old/new/
+│   ├── s/old/new/g
+│   └── /regex/s/old/new/
+│
+├── Insert / Append
+│   ├── 3i TEXT
+│   ├── 3a TEXT
+│   ├── /regex/i TEXT
+│   └── /regex/a TEXT
+│
+├── Change
+│   ├── 3c TEXT
+│   └── /regex/c TEXT
+│
+├── Line number
+│   └── =
+│
+├── Multi-line processing
+│   └── N
+│
+└── Script file
+    └── sed -f script.sed file
+</code></pre></div></div>
+
+<p>The most important options:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-n
+→ suppress automatic printing
+
+-e
+→ specify a sed expression
+
+-E
+→ enable extended regular expressions
+
+-f
+→ read commands from a sed script file
+
+-i
+→ edit the input file in place
+</code></pre></div></div>
+
+<p>The most important commands:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p → print
+d → delete
+s → substitute
+i → insert before
+a → append after
+c → change
+= → print line number
+N → read next line
+</code></pre></div></div>
+
+<p>The most important distinction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed '3p'
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>→ print line 3 explicitly
+→ BUT automatic printing is also active
+→ line 3 appears twice
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -n '3p'
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>→ automatic printing disabled
+→ p explicitly prints line 3
+→ line 3 appears once
+</code></pre></div></div>
+
+<p>Therefore, one of the most important <code class="language-plaintext highlighter-rouge">sed</code> patterns to remember is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'ADDRESSp'</span> file
+</code></pre></div></div>
+
+<p>which means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>select the address
+      ↓
+explicitly print it
+      ↓
+do not automatically print anything else
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L8.1: Automating Scripts</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">9.1 - AWK Programming Part 1</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

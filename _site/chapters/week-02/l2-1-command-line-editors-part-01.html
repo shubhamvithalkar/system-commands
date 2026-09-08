@@ -1,0 +1,3417 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L2.1 - Command line editors - Part 01 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link active">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 2</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L2.1 - Command line editors - Part 01</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l21---command-line-editors---part-01">L2.1 - Command line editors - Part 01</h1>
+
+<h1 id="ed--the-unix-line-editor"><code class="language-plaintext highlighter-rouge">ed</code> — The Unix Line Editor</h1>
+
+<h2 id="1-different-text-editors">1. Different Text Editors</h2>
+
+<p>Linux provides many text editors. They can be broadly divided into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Terminal editors
+├── ed
+├── vi / vim
+├── nano
+└── emacs
+
+Graphical editors
+├── gedit
+├── Kate
+└── VS Code
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">ed</code> editor is historically important because it is one of the earliest Unix text editors.</p>
+
+<p>Unlike modern editors such as <code class="language-plaintext highlighter-rouge">nano</code> or <code class="language-plaintext highlighter-rouge">vim</code>, <code class="language-plaintext highlighter-rouge">ed</code> is <strong>line-oriented</strong>.</p>
+
+<p>Instead of displaying the entire document as a screen-based interface, you work with individual lines using commands.</p>
+
+<hr />
+
+<h1 id="2-what-is-ed">2. What Is <code class="language-plaintext highlighter-rouge">ed</code>?</h1>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> is a <strong>line-oriented text editor</strong>.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed
+</code></pre></div></div>
+
+<p>You will enter the <code class="language-plaintext highlighter-rouge">ed</code> environment.</p>
+
+<p>Unlike <code class="language-plaintext highlighter-rouge">nano</code>, you will not see a normal full-screen editor.</p>
+
+<p>The basic mental model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File
+ ↓
+Buffer
+ ↓
+Lines
+ ↓
+ed commands operate on lines
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1: Hello
+2: Linux
+3: Shell
+4: Commands
+</code></pre></div></div>
+
+<p>You can select specific lines and perform operations on them.</p>
+
+<hr />
+
+<h1 id="3-ed-documentation">3. <code class="language-plaintext highlighter-rouge">ed</code> Documentation</h1>
+
+<p>You can read the manual page:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man ed
+</code></pre></div></div>
+
+<p>You can also use GNU Info:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info ed
+</code></pre></div></div>
+
+<h3 id="man-vs-info"><code class="language-plaintext highlighter-rouge">man</code> vs <code class="language-plaintext highlighter-rouge">info</code></h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man ed
+   ↓
+manual-page documentation
+
+info ed
+   ↓
+GNU Info documentation
+</code></pre></div></div>
+
+<p>Both are useful for understanding the complete command syntax.</p>
+
+<hr />
+
+<h1 id="4-creating-a-file-with-ed">4. Creating a File with <code class="language-plaintext highlighter-rouge">ed</code></h1>
+
+<p>You can start <code class="language-plaintext highlighter-rouge">ed</code> with a filename:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed notes.txt
+</code></pre></div></div>
+
+<p>If the file does not exist, <code class="language-plaintext highlighter-rouge">ed</code> can create it when you write the buffer.</p>
+
+<p>A typical workflow is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed notes.txt
+</code></pre></div></div>
+
+<p>Then use <code class="language-plaintext highlighter-rouge">a</code> to append text:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Hello
+Linux
+Shell
+.
+</code></pre></div></div>
+
+<p>Then write:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+</code></pre></div></div>
+
+<p>Then quit:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<p>The resulting file contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Linux
+Shell
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-the-q-command--quit">5. The <code class="language-plaintext highlighter-rouge">q</code> Command — Quit</h1>
+
+<p>To quit <code class="language-plaintext highlighter-rouge">ed</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p>If you have modified the buffer but have not saved it, <code class="language-plaintext highlighter-rouge">ed</code> may refuse to quit normally and warn you about unsaved changes.</p>
+
+<p>The general workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edit
+ ↓
+w
+ ↓
+save
+ ↓
+q
+ ↓
+quit
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-p--enable-the-prompt">6. <code class="language-plaintext highlighter-rouge">P</code> — Enable the Prompt</h1>
+
+<p>By default, <code class="language-plaintext highlighter-rouge">ed</code> may not display a prompt.</p>
+
+<p>You can enable its prompt using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P
+</code></pre></div></div>
+
+<p>You may then see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>?
+</code></pre></div></div>
+
+<p>or another configured prompt depending on the implementation/options.</p>
+
+<p>On many GNU <code class="language-plaintext highlighter-rouge">ed</code> installations, the prompt is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*
+</code></pre></div></div>
+
+<p>The important idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P
+↓
+toggle prompt display
+</code></pre></div></div>
+
+<p>This makes interactive work easier because you can see when <code class="language-plaintext highlighter-rouge">ed</code> is waiting for your next command.</p>
+
+<hr />
+
+<h1 id="7-line-addresses-in-ed">7. Line Addresses in <code class="language-plaintext highlighter-rouge">ed</code></h1>
+
+<p>One of the most important concepts in <code class="language-plaintext highlighter-rouge">ed</code> is the <strong>line address</strong>.</p>
+
+<p>Commands can operate on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a specific line
+a range of lines
+the current line
+the last line
+the entire buffer
+</code></pre></div></div>
+
+<p>Common addresses include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1       → first line
+$       → last line
+.       → current line
+n       → line n
++n      → relative forward movement
+-n      → relative backward movement
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-1--go-to-line-1">8. <code class="language-plaintext highlighter-rouge">1</code> — Go to Line 1</h1>
+
+<p>Entering:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>makes line 1 the current line.</p>
+
+<p>Example buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  Shell
+4  Commands
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>The current line becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<p>In <code class="language-plaintext highlighter-rouge">ed</code>, entering a line address by itself selects that line.</p>
+
+<hr />
+
+<h1 id="9---go-to-the-last-line">9. <code class="language-plaintext highlighter-rouge">$</code> — Go to the Last Line</h1>
+
+<p>The special address:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>the last line of the buffer.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  Shell
+4  Commands
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>The current line becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Commands
+</code></pre></div></div>
+
+<h3 id="important-address-symbols">Important Address Symbols</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 → first line
+$ → last line
+. → current line
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-p--print-the-entire-buffer">10. <code class="language-plaintext highlighter-rouge">,p</code> — Print the Entire Buffer</h1>
+
+<p>The comma:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,
+</code></pre></div></div>
+
+<p>represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,$
+</code></pre></div></div>
+
+<p>which means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>first line through last line
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>prints the entire buffer.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Linux
+Shell
+Commands
+</code></pre></div></div>
+
+<h3 id="equivalent">Equivalent</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,$p
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>both print the complete buffer.</p>
+
+<hr />
+
+<h1 id="11-23p--print-lines-2-and-3">11. <code class="language-plaintext highlighter-rouge">2,3p</code> — Print Lines 2 and 3</h1>
+
+<p>The syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,3p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line 2 through line 3
+</code></pre></div></div>
+
+<p>where:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p = print
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  Shell
+4  Commands
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,3p
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+Shell
+</code></pre></div></div>
+
+<h3 id="general-syntax">General Syntax</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endcommand
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5p
+</code></pre></div></div>
+
+<p>prints lines 2 through 5.</p>
+
+<hr />
+
+<h1 id="12-hello--search-for-text">12. <code class="language-plaintext highlighter-rouge">/hello/</code> — Search for Text</h1>
+
+<p>The search address:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/hello/
+</code></pre></div></div>
+
+<p>searches forward for the next line containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Linux
+2  Hello World
+3  Shell
+4  hello again
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/hello/
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> searches for the next matching line and makes it the current line.</p>
+
+<h3 id="case-sensitivity">Case Sensitivity</h3>
+
+<p>Searches are normally case-sensitive.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/hello/
+</code></pre></div></div>
+
+<p>does not necessarily match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<p>because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello ≠ Hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-searching-and-printing">13. Searching and Printing</h1>
+
+<p>You can combine searching with commands.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/hello/p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Find the next line containing <code class="language-plaintext highlighter-rouge">hello</code> and print it.</p>
+</blockquote>
+
+<p>This is an important <code class="language-plaintext highlighter-rouge">ed</code> pattern:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/address/command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14--and----relative-line-movement">14. <code class="language-plaintext highlighter-rouge">+</code> and <code class="language-plaintext highlighter-rouge">-</code> — Relative Line Movement</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">+</code> address moves forward relative to the current line.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>means approximately:</p>
+
+<blockquote>
+  <p>move to the next line.</p>
+</blockquote>
+
+<p>Similarly:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>move to the previous line.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Apple
+2  Banana
+3  Cherry
+</code></pre></div></div>
+
+<p>If line 2 is current:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>moves to line 3.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-
+</code></pre></div></div>
+
+<p>moves back to line 2.</p>
+
+<h3 id="numeric-relative-movement">Numeric Relative Movement</h3>
+
+<p>You can also use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+2
+</code></pre></div></div>
+
+<p>to move two lines forward.</p>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-2
+</code></pre></div></div>
+
+<p>to move two lines backward.</p>
+
+<hr />
+
+<h1 id="15-p--print-from-current-line-to-end">15. <code class="language-plaintext highlighter-rouge">;p</code> — Print from Current Line to End</h1>
+
+<p>The semicolon:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;
+</code></pre></div></div>
+
+<p>is a special address separator.</p>
+
+<p>It represents:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>current line through last line
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;p
+</code></pre></div></div>
+
+<p>prints from the current line to the end of the buffer.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  A
+2  B
+3  C
+4  D
+5  E
+</code></pre></div></div>
+
+<p>and the current line is line 3.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;p
+</code></pre></div></div>
+
+<p>prints:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C
+D
+E
+</code></pre></div></div>
+
+<h3 id="compare">Compare</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>→ entire buffer</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;p
+</code></pre></div></div>
+
+<p>→ current line through last line</p>
+
+<hr />
+
+<h1 id="16-p--print-the-entire-buffer">16. <code class="language-plaintext highlighter-rouge">%p</code> — Print the Entire Buffer</h1>
+
+<p>The address:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%
+</code></pre></div></div>
+
+<p>is another convenient way of referring to the entire buffer.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<p>prints all lines.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Linux
+Shell
+Commands
+</code></pre></div></div>
+
+<h3 id="equivalent-concepts">Equivalent Concepts</h3>
+
+<p>These are commonly used to print the whole buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+%p
+1,$p
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17---current-line">17. <code class="language-plaintext highlighter-rouge">.</code> — Current Line</h1>
+
+<p>The dot:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>represents the <strong>current line</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  Shell
+</code></pre></div></div>
+
+<p>If line 2 is current:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>refers to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<p>You can print it with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<p>This prints only the current line.</p>
+
+<hr />
+
+<h1 id="18---execute-a-shell-command">18. <code class="language-plaintext highlighter-rouge">!</code> — Execute a Shell Command</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">!</code> command allows you to execute a shell command from inside <code class="language-plaintext highlighter-rouge">ed</code>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<p>This runs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>using the shell.</p>
+
+<p>You can run other commands too:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pwd
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!ls
+</code></pre></div></div>
+
+<h3 id="mental-model">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed
+ │
+ └── ! command
+          ↓
+       shell
+          ↓
+       command
+</code></pre></div></div>
+
+<p>After the command finishes, you return to <code class="language-plaintext highlighter-rouge">ed</code>.</p>
+
+<hr />
+
+<h1 id="19-r-date--insert-command-output">19. <code class="language-plaintext highlighter-rouge">r !date</code> — Insert Command Output</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">r</code> command normally reads a file into the buffer.</p>
+
+<p>When used with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !command
+</code></pre></div></div>
+
+<p>it can read the output of a shell command into the buffer.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<p>This executes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>and inserts its output into the <code class="language-plaintext highlighter-rouge">ed</code> buffer.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Linux
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<p>might produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Linux
+Tue Sep 8 14:00:00 IST 2026
+</code></pre></div></div>
+
+<p>The exact date/time depends on the system.</p>
+
+<h3 id="important-1">Important</h3>
+
+<p>The command:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<p>only <strong>executes</strong> <code class="language-plaintext highlighter-rouge">date</code>.</p>
+
+<p>The command:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<p><strong>reads the output of <code class="language-plaintext highlighter-rouge">date</code> into the buffer</strong>.</p>
+
+<hr />
+
+<h1 id="20-w--write-the-buffer-to-a-file">20. <code class="language-plaintext highlighter-rouge">w</code> — Write the Buffer to a File</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">w</code> command writes the current buffer to the associated file.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+</code></pre></div></div>
+
+<p>After successful writing, the contents of the buffer are saved.</p>
+
+<h3 id="write-to-another-filename">Write to another filename</h3>
+
+<p>You can also specify a filename:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w newfile.txt
+</code></pre></div></div>
+
+<p>This writes the buffer to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>newfile.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-q--quit-after-saving">21. <code class="language-plaintext highlighter-rouge">q</code> — Quit After Saving</h1>
+
+<p>A common workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+q
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w → save
+q → quit
+</code></pre></div></div>
+
+<p>This is one of the most important <code class="language-plaintext highlighter-rouge">ed</code> sequences to remember.</p>
+
+<hr />
+
+<h1 id="22-d--delete-the-current-line">22. <code class="language-plaintext highlighter-rouge">.d</code> — Delete the Current Line</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">d</code> command deletes lines.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.d
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Delete the current line.</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  Shell
+</code></pre></div></div>
+
+<p>If line 2 is current:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.d
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Shell
+</code></pre></div></div>
+
+<p>The old line 3 becomes the new line 2.</p>
+
+<hr />
+
+<h1 id="23-delete-a-range-of-lines">23. Delete a Range of Lines</h1>
+
+<p>The same concept works with ranges.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,4d
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Delete lines 2 through 4.</p>
+</blockquote>
+
+<p>General form:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endd
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1d
+</code></pre></div></div>
+
+<p>→ delete line 1.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ d
+</code></pre></div></div>
+
+<p>→ delete the last line.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,$d
+</code></pre></div></div>
+
+<p>→ delete the entire buffer.</p>
+
+<hr />
+
+<h1 id="24-a--append-text">24. <code class="language-plaintext highlighter-rouge">a</code> — Append Text</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">a</code> command means <strong>append</strong>.</p>
+
+<p>It starts inserting text <strong>after the current line</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Hello
+Linux
+.
+</code></pre></div></div>
+
+<p>The final:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>is <strong>not inserted as text</strong>.</p>
+
+<p>It tells <code class="language-plaintext highlighter-rouge">ed</code>:</p>
+
+<blockquote>
+  <p>Stop appending.</p>
+</blockquote>
+
+<h3 id="example">Example</h3>
+
+<p>Suppose the buffer contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Line 1
+Line 2
+</code></pre></div></div>
+
+<p>and line 1 is current.</p>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+New line
+Another line
+.
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Line 1
+New line
+Another line
+Line 2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-the--terminator-after-a">25. The <code class="language-plaintext highlighter-rouge">.</code> Terminator After <code class="language-plaintext highlighter-rouge">a</code></h1>
+
+<p>When using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> enters input mode.</p>
+
+<p>You finish the input by entering:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>on a line by itself.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Hello
+World
+.
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>append:
+Hello
+World
+
+stop appending
+</code></pre></div></div>
+
+<h3 id="important-2">Important</h3>
+
+<p>This is different from:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">.</code> is an address.</p>
+
+<p>In:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Hello
+.
+</code></pre></div></div>
+
+<p>the <code class="language-plaintext highlighter-rouge">.</code> terminates text input.</p>
+
+<hr />
+
+<h1 id="26-sab--substitute-text">26. <code class="language-plaintext highlighter-rouge">s/a/b/</code> — Substitute Text</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">s</code> command performs substitution.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/a/b/
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Replace the first matching <code class="language-plaintext highlighter-rouge">a</code> with <code class="language-plaintext highlighter-rouge">b</code> on the current line.</p>
+</blockquote>
+
+<p>Suppose the current line is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/a/b/
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cbt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-substitution-on-the-current-line">27. Substitution on the Current Line</h1>
+
+<p>By default:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>operates on the current line.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello Linux Linux
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/Linux/Unix/
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello Unix Linux
+</code></pre></div></div>
+
+<p>Only the first matching occurrence is replaced.</p>
+
+<hr />
+
+<h1 id="28-replacing-all-occurrences-on-a-line">28. Replacing All Occurrences on a Line</h1>
+
+<p>Use the <code class="language-plaintext highlighter-rouge">g</code> flag:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/Linux/Unix/g
+</code></pre></div></div>
+
+<p>For:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux Linux Linux
+</code></pre></div></div>
+
+<p>the result is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unix Unix Unix
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>→ first occurrence</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/g
+</code></pre></div></div>
+
+<p>→ all occurrences on the addressed line</p>
+
+<hr />
+
+<h1 id="29-f--show-the-current-filename">29. <code class="language-plaintext highlighter-rouge">f</code> — Show the Current Filename</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">f</code> command displays the current filename associated with the buffer.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f
+</code></pre></div></div>
+
+<p>might output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notes.txt
+</code></pre></div></div>
+
+<p>This is useful when you are unsure which file the current buffer belongs to.</p>
+
+<hr />
+
+<h1 id="30-56j--join-lines">30. <code class="language-plaintext highlighter-rouge">5,6j</code> — Join Lines</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">j</code> command means <strong>join</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5,6j
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Join lines 5 and 6.</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5  Hello
+6  World
+</code></pre></div></div>
+
+<p>After:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5,6j
+</code></pre></div></div>
+
+<p>they become one line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>The exact spacing behavior follows <code class="language-plaintext highlighter-rouge">ed</code>’s join operation.</p>
+
+<h3 id="general-form">General Form</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endj
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5j
+</code></pre></div></div>
+
+<p>joins lines 2 through 5 into one line.</p>
+
+<hr />
+
+<h1 id="31-m1--move-the-current-line">31. <code class="language-plaintext highlighter-rouge">m1</code> — Move the Current Line</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">m</code> command moves addressed lines.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>m1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Move the current line to after line 1.</p>
+</blockquote>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Apple
+2  Banana
+3  Cherry
+</code></pre></div></div>
+
+<p>Current line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3  Cherry
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>m1
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Apple
+2  Cherry
+3  Banana
+</code></pre></div></div>
+
+<p>The current line was moved to after line 1.</p>
+
+<hr />
+
+<h1 id="32-moving-a-range">32. Moving a Range</h1>
+
+<p>You can move multiple lines.</p>
+
+<p>General syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>start,endmdestination
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,4m1
+</code></pre></div></div>
+
+<p>moves lines 2 through 4 to after line 1.</p>
+
+<p>The exact resulting line numbering changes because the lines have been physically reordered.</p>
+
+<hr />
+
+<h1 id="33-u--undo">33. <code class="language-plaintext highlighter-rouge">u</code> — Undo</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">u</code> command undoes the most recent change.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>changes a line.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u
+</code></pre></div></div>
+
+<p>can undo that change.</p>
+
+<h3 id="important-3">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">u</code> is useful when you make a mistake during editing.</p>
+
+<p>However, do not assume it behaves exactly like the multi-level undo history of modern editors. Traditional <code class="language-plaintext highlighter-rouge">ed</code> has a much simpler undo model.</p>
+
+<hr />
+
+<h1 id="34-global-substitution">34. Global Substitution</h1>
+
+<p>A very important <code class="language-plaintext highlighter-rouge">ed</code> feature is performing substitutions across the entire buffer.</p>
+
+<p>The basic form is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/old/new/g
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">%</code> address means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>entire buffer
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">s</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>substitute
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/old/new/g
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>In every line, replace every occurrence of <code class="language-plaintext highlighter-rouge">old</code> with <code class="language-plaintext highlighter-rouge">new</code>.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="35-adding-a-prefix-to-every-line">35. Adding a Prefix to Every Line</h1>
+
+<p>Suppose the buffer contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+banana
+cherry
+</code></pre></div></div>
+
+<p>We want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PREFIX apple
+PREFIX banana
+PREFIX cherry
+</code></pre></div></div>
+
+<p>A simple command is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^/PREFIX /
+</code></pre></div></div>
+
+<p>Explanation:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%
+ ↓
+all lines
+
+s
+ ↓
+substitute
+
+^
+ ↓
+beginning of each line
+
+PREFIX 
+ ↓
+insert this text
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PREFIX apple
+PREFIX banana
+PREFIX cherry
+</code></pre></div></div>
+
+<p>This is usually the cleanest way to add a prefix to every line.</p>
+
+<hr />
+
+<h1 id="36-using-capture-groups-in-ed">36. Using Capture Groups in <code class="language-plaintext highlighter-rouge">ed</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> uses <strong>Basic Regular Expressions (BRE)</strong>.</p>
+
+<p>In BRE, a capture group is normally written using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(...\)
+</code></pre></div></div>
+
+<p>and referenced using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/^\(.*\)$/PREFIX \1/
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+ ↓
+start of line
+
+\(.*\)
+ ↓
+capture the entire line
+
+$
+ ↓
+end of line
+
+PREFIX \1
+ ↓
+put PREFIX before the captured line
+</code></pre></div></div>
+
+<p>For a line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>the result becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PREFIX hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="37-important-correction--alone-does-not-create-1">37. Important Correction: <code class="language-plaintext highlighter-rouge">.*</code> Alone Does Not Create <code class="language-plaintext highlighter-rouge">\1</code></h1>
+
+<p>A common mistake is writing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/.* /PREFIX \1/
+</code></pre></div></div>
+
+<p>and expecting <code class="language-plaintext highlighter-rouge">\1</code> to contain the matched text.</p>
+
+<p>That is incorrect.</p>
+
+<p>A backreference such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>requires a capturing group.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">ed</code> BRE syntax, use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(.*\)
+</code></pre></div></div>
+
+<p>not simply:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p>Therefore, a capture-group version for adding a prefix is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^\(.*\)$/PREFIX \1/
+</code></pre></div></div>
+
+<p>However, because the goal is only to add text at the beginning, the simpler and more direct command is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^/PREFIX /
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-understanding-sprefix-1">38. Understanding <code class="language-plaintext highlighter-rouge">%s/^\(.*\)$/PREFIX \1/</code></h1>
+
+<p>Break the command into pieces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^\(.*\)$/PREFIX \1/
+</code></pre></div></div>
+
+<h3><code class="language-plaintext highlighter-rouge">%</code></h3>
+
+<p>Address the entire buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%
+</code></pre></div></div>
+
+<h3 id="s"><code class="language-plaintext highlighter-rouge">s</code></h3>
+
+<p>Substitute:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s
+</code></pre></div></div>
+
+<h3 id="-1"><code class="language-plaintext highlighter-rouge">/</code></h3>
+
+<p>Delimiter:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/
+</code></pre></div></div>
+
+<h3 id="-2"><code class="language-plaintext highlighter-rouge">^</code></h3>
+
+<p>Beginning of line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<h3 id="-3"><code class="language-plaintext highlighter-rouge">\(.*\)</code></h3>
+
+<p>Capture the complete line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\(.*\)
+</code></pre></div></div>
+
+<h3 id="-4"><code class="language-plaintext highlighter-rouge">$</code></h3>
+
+<p>End of line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<h3 id="prefix-1"><code class="language-plaintext highlighter-rouge">PREFIX \1</code></h3>
+
+<p>Replacement text:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PREFIX 
+</code></pre></div></div>
+
+<p>followed by:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>which means:</p>
+
+<blockquote>
+  <p>Insert the text captured by the first group.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="39-example-of-capture-groups">39. Example of Capture Groups</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>John 25
+Alice 30
+Bob 22
+</code></pre></div></div>
+
+<p>We want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: John 25
+Name: Alice 30
+Name: Bob 22
+</code></pre></div></div>
+
+<p>Use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^\(.*\)$/Name: \1/
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name: John 25
+Name: Alice 30
+Name: Bob 22
+</code></pre></div></div>
+
+<p>Again, the simpler solution is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^/Name: /
+</code></pre></div></div>
+
+<p>The capture-group version is useful mainly for learning how <code class="language-plaintext highlighter-rouge">ed</code> regular expressions and backreferences work.</p>
+
+<hr />
+
+<h1 id="40-important-ed-address-reference">40. Important <code class="language-plaintext highlighter-rouge">ed</code> Address Reference</h1>
+
+<p>Memorize these:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Last line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>First line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>Line number <code class="language-plaintext highlighter-rouge">n</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Next line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Previous line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,</code></td>
+      <td>Entire buffer (<code class="language-plaintext highlighter-rouge">1,$</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">;</code></td>
+      <td>Current line through last line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Entire buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/regex/</code></td>
+      <td>Search forward</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?regex?</code></td>
+      <td>Search backward</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="41-important-ed-command-reference">41. Important <code class="language-plaintext highlighter-rouge">ed</code> Command Reference</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Print</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code></td>
+      <td>Delete</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>Append after current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Insert before current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>Change/replace addressed lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">s</code></td>
+      <td>Substitute</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Join</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m</code></td>
+      <td>Move</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Undo</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>Read file/command output into buffer</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">w</code></td>
+      <td>Write buffer to file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>Quit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">f</code></td>
+      <td>Show/set filename</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td>Execute shell command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Toggle prompt</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="42-important-ed-examples">42. Important <code class="language-plaintext highlighter-rouge">ed</code> Examples</h1>
+
+<h2 id="print-current-line">Print current line</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<h2 id="print-entire-buffer">Print entire buffer</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<h2 id="print-lines-25">Print lines 2–5</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5p
+</code></pre></div></div>
+
+<h2 id="delete-current-line">Delete current line</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.d
+</code></pre></div></div>
+
+<h2 id="delete-lines-24">Delete lines 2–4</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,4d
+</code></pre></div></div>
+
+<h2 id="append-after-current-line">Append after current line</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+New line
+.
+</code></pre></div></div>
+
+<h2 id="substitute-on-current-line">Substitute on current line</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<h2 id="substitute-all-occurrences-on-current-line">Substitute all occurrences on current line</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/g
+</code></pre></div></div>
+
+<h2 id="substitute-throughout-the-file">Substitute throughout the file</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/old/new/g
+</code></pre></div></div>
+
+<h2 id="join-lines">Join lines</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5,6j
+</code></pre></div></div>
+
+<h2 id="move-current-line-after-line-1">Move current line after line 1</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>m1
+</code></pre></div></div>
+
+<h2 id="undo">Undo</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u
+</code></pre></div></div>
+
+<h2 id="execute-shell-command">Execute shell command</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<h2 id="insert-shell-command-output">Insert shell command output</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<h2 id="save">Save</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+</code></pre></div></div>
+
+<h2 id="quit">Quit</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="43-complete-ed-practice-session">43. Complete <code class="language-plaintext highlighter-rouge">ed</code> Practice Session</h1>
+
+<p>Create a file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed practice.txt
+</code></pre></div></div>
+
+<p>Append some lines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Linux
+Shell
+AWK
+Sed
+Grep
+.
+</code></pre></div></div>
+
+<p>Print everything:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>,p
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+Shell
+AWK
+Sed
+Grep
+</code></pre></div></div>
+
+<p>Go to line 1:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>Move to next line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>Print current line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<p>Move to last line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>Print it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-search-practice">44. Search Practice</h1>
+
+<p>Search for <code class="language-plaintext highlighter-rouge">AWK</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/AWK/
+</code></pre></div></div>
+
+<p>Print the matching line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/AWK/p
+</code></pre></div></div>
+
+<p>Search for <code class="language-plaintext highlighter-rouge">Shell</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Shell/p
+</code></pre></div></div>
+
+<p>This makes the matching line current and prints it.</p>
+
+<hr />
+
+<h1 id="45-delete-practice">45. Delete Practice</h1>
+
+<p>Delete the current line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.d
+</code></pre></div></div>
+
+<p>Print the entire buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<p>Delete lines 2 and 3:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,3d
+</code></pre></div></div>
+
+<p>Print again:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="46-append-practice">46. Append Practice</h1>
+
+<p>Move to line 1:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>Append:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+New Line
+Another Line
+.
+</code></pre></div></div>
+
+<p>Print:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<p>You should see the new lines after line 1.</p>
+
+<hr />
+
+<h1 id="47-substitution-practice">47. Substitution Practice</h1>
+
+<p>Suppose the buffer contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux is powerful
+Linux is portable
+Linux is free
+</code></pre></div></div>
+
+<p>Go to the first line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>Replace:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/Linux/Unix/
+</code></pre></div></div>
+
+<p>Now the first line becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unix is powerful
+</code></pre></div></div>
+
+<p>To replace Linux with Unix throughout the buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/Linux/Unix/g
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unix is powerful
+Unix is portable
+Unix is free
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-prefix-practice">48. Prefix Practice</h1>
+
+<p>Suppose the buffer contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+Shell
+AWK
+Sed
+</code></pre></div></div>
+
+<p>Add <code class="language-plaintext highlighter-rouge">Topic: </code> to every line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^/Topic: /
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Topic: Linux
+Topic: Shell
+Topic: AWK
+Topic: Sed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-shell-command-practice">49. Shell Command Practice</h1>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">ed</code>, run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pwd
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!ls
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<p>These execute shell commands without leaving the editor.</p>
+
+<p>Now insert the current date into the buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<p>Print the buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="50-save-and-exit">50. Save and Exit</h1>
+
+<p>Once finished:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<p>The standard sequence is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w
+q
+</code></pre></div></div>
+
+<p>meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>write
+ ↓
+quit
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="51-ed-workflow-mental-model">51. <code class="language-plaintext highlighter-rouge">ed</code> Workflow Mental Model</h1>
+
+<p>Think of <code class="language-plaintext highlighter-rouge">ed</code> as manipulating a buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                   ed buffer
+                       │
+              ┌────────┼────────┐
+              │        │        │
+           Address   Command   Text
+              │        │        │
+           1, $, .    p,d,s    a/i
+              │        │        │
+              └────────┼────────┘
+                       │
+                    Result
+                       │
+                       ↓
+                       w
+                       │
+                    File
+</code></pre></div></div>
+
+<p>Most <code class="language-plaintext highlighter-rouge">ed</code> commands can be understood as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[address]command
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,5p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>address → lines 2 through 5
+command → print
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/Linux/Unix/g
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>address → entire buffer
+command → substitute
+pattern → Linux
+replacement → Unix
+flag → all occurrences
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="52-high-value-exam-questions">52. High-Value Exam Questions</h1>
+
+<h2 id="q1-what-type-of-editor-is-ed">Q1. What type of editor is <code class="language-plaintext highlighter-rouge">ed</code>?</h2>
+
+<p><strong>Answer:</strong> A line-oriented text editor.</p>
+
+<hr />
+
+<h2 id="q2-how-do-you-open-the-manual-for-ed">Q2. How do you open the manual for <code class="language-plaintext highlighter-rouge">ed</code>?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man ed
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3-how-do-you-open-gnu-info-documentation">Q3. How do you open GNU Info documentation?</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>info ed
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4-what-does-q-do">Q4. What does <code class="language-plaintext highlighter-rouge">q</code> do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>q
+</code></pre></div></div>
+
+<p>Quits <code class="language-plaintext highlighter-rouge">ed</code>.</p>
+
+<hr />
+
+<h2 id="q5-what-does-p-do">Q5. What does <code class="language-plaintext highlighter-rouge">P</code> do?</h2>
+
+<p><strong>Answer:</strong> Toggles the display of the <code class="language-plaintext highlighter-rouge">ed</code> prompt.</p>
+
+<hr />
+
+<h2 id="q6-what-does-address-1-mean">Q6. What does address <code class="language-plaintext highlighter-rouge">1</code> mean?</h2>
+
+<p><strong>Answer:</strong> First line.</p>
+
+<hr />
+
+<h2 id="q7-what-does--mean">Q7. What does <code class="language-plaintext highlighter-rouge">$</code> mean?</h2>
+
+<p><strong>Answer:</strong> Last line.</p>
+
+<hr />
+
+<h2 id="q8-what-does--mean">Q8. What does <code class="language-plaintext highlighter-rouge">.</code> mean?</h2>
+
+<p><strong>Answer:</strong> Current line.</p>
+
+<hr />
+
+<h2 id="q9-what-does--represent">Q9. What does <code class="language-plaintext highlighter-rouge">,</code> represent?</h2>
+
+<p><strong>Answer:</strong> The entire buffer, equivalent to <code class="language-plaintext highlighter-rouge">1,$</code>.</p>
+
+<hr />
+
+<h2 id="q10-what-does--represent">Q10. What does <code class="language-plaintext highlighter-rouge">%</code> represent?</h2>
+
+<p><strong>Answer:</strong> The entire buffer.</p>
+
+<hr />
+
+<h2 id="q11-what-does-this-command-do">Q11. What does this command do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,3p
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Prints lines 2 and 3.</p>
+
+<hr />
+
+<h2 id="q12-what-does-this-do">Q12. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/hello/
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Searches forward for the next line containing <code class="language-plaintext highlighter-rouge">hello</code> and makes that line current.</p>
+
+<hr />
+
+<h2 id="q13-what-does--do">Q13. What does <code class="language-plaintext highlighter-rouge">+</code> do?</h2>
+
+<p><strong>Answer:</strong> Moves to the next line relative to the current line.</p>
+
+<hr />
+
+<h2 id="q14-what-does---do">Q14. What does <code class="language-plaintext highlighter-rouge">-</code> do?</h2>
+
+<p><strong>Answer:</strong> Moves to the previous line.</p>
+
+<hr />
+
+<h2 id="q15-what-does-this-do">Q15. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;p
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Prints from the current line through the end of the buffer.</p>
+
+<hr />
+
+<h2 id="q16-what-does-this-do">Q16. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Executes <code class="language-plaintext highlighter-rouge">date</code> through the shell.</p>
+
+<hr />
+
+<h2 id="q17-what-does-this-do">Q17. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Executes <code class="language-plaintext highlighter-rouge">date</code> and reads its output into the current <code class="language-plaintext highlighter-rouge">ed</code> buffer.</p>
+
+<hr />
+
+<h2 id="q18-what-does-w-do">Q18. What does <code class="language-plaintext highlighter-rouge">w</code> do?</h2>
+
+<p><strong>Answer:</strong> Writes the buffer to the associated file.</p>
+
+<hr />
+
+<h2 id="q19-what-does-d-do">Q19. What does <code class="language-plaintext highlighter-rouge">.d</code> do?</h2>
+
+<p><strong>Answer:</strong> Deletes the current line.</p>
+
+<hr />
+
+<h2 id="q20-how-do-you-append-text-after-the-current-line">Q20. How do you append text after the current line?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+text
+.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q21-what-does-this-do">Q21. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/a/b/
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Replaces the first matching <code class="language-plaintext highlighter-rouge">a</code> with <code class="language-plaintext highlighter-rouge">b</code> on the current line.</p>
+
+<hr />
+
+<h2 id="q22-what-does-f-do">Q22. What does <code class="language-plaintext highlighter-rouge">f</code> do?</h2>
+
+<p><strong>Answer:</strong> Displays the current filename.</p>
+
+<hr />
+
+<h2 id="q23-what-does-this-do">Q23. What does this do?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5,6j
+</code></pre></div></div>
+
+<p><strong>Answer:</strong> Joins lines 5 and 6.</p>
+
+<hr />
+
+<h2 id="q24-what-does-m1-do">Q24. What does <code class="language-plaintext highlighter-rouge">m1</code> do?</h2>
+
+<p><strong>Answer:</strong> Moves the current line to after line 1.</p>
+
+<hr />
+
+<h2 id="q25-what-does-u-do">Q25. What does <code class="language-plaintext highlighter-rouge">u</code> do?</h2>
+
+<p><strong>Answer:</strong> Undoes the most recent change.</p>
+
+<hr />
+
+<h2 id="q26-how-do-you-substitute-text-throughout-the-entire-buffer">Q26. How do you substitute text throughout the entire buffer?</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/old/new/g
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="53-important-exam-traps">53. Important Exam Traps</h1>
+
+<h3 id="trap-1">Trap 1</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ed
+</code></pre></div></div>
+
+<p>are completely different commands.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> is an editor.</p>
+
+<hr />
+
+<h3 id="trap-2">Trap 2</h3>
+
+<p>In:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2,3p
+</code></pre></div></div>
+
+<p>the comma separates the starting and ending addresses.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 → starting line
+3 → ending line
+p → print
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="trap-3">Trap 3</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%
+</code></pre></div></div>
+
+<p>means the entire buffer.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%p
+</code></pre></div></div>
+
+<p>prints everything.</p>
+
+<hr />
+
+<h3 id="trap-4">Trap 4</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+</code></pre></div></div>
+
+<p>has multiple meanings depending on context.</p>
+
+<p>As an address:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.p
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>print current line</p>
+</blockquote>
+
+<p>After <code class="language-plaintext highlighter-rouge">a</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+Hello
+.
+</code></pre></div></div>
+
+<p>the dot means:</p>
+
+<blockquote>
+  <p>stop entering text</p>
+</blockquote>
+
+<hr />
+
+<h3 id="trap-5">Trap 5</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!date
+</code></pre></div></div>
+
+<p>does not insert the date into the buffer.</p>
+
+<p>It only executes the command.</p>
+
+<p>To insert the output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>r !date
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="trap-6">Trap 6</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/a/b/
+</code></pre></div></div>
+
+<p>normally replaces only the first match on the addressed line.</p>
+
+<p>To replace all matches on that line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/a/b/g
+</code></pre></div></div>
+
+<p>To replace all matches across the entire buffer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/a/b/g
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="trap-7">Trap 7</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ed</code> uses <strong>BRE-style regular expressions</strong>.</p>
+
+<p>A capturing group is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\( ... \)
+</code></pre></div></div>
+
+<p>and the first backreference is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\1
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^\(.*\)$/PREFIX \1/
+</code></pre></div></div>
+
+<p>uses a real capture group.</p>
+
+<p>Simply writing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.*
+</code></pre></div></div>
+
+<p>does not create <code class="language-plaintext highlighter-rouge">\1</code>.</p>
+
+<hr />
+
+<h1 id="54-final-cheat-sheet">54. Final Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EDITOR
+ed
+→ line-oriented text editor
+
+DOCUMENTATION
+man ed
+info ed
+
+QUIT
+q
+
+PROMPT
+P
+
+ADDRESSES
+.       current line
+1       first line
+$       last line
+,       entire buffer
+%       entire buffer
++       next line
+-       previous line
+/regex/ search forward
+?regex? search backward
+
+PRINT
+.p
+2,3p
+,p
+%p
+;p
+
+SHELL
+!date
+!pwd
+!ls
+
+READ COMMAND OUTPUT
+r !date
+
+WRITE
+w
+
+DELETE
+.d
+2,4d
+
+APPEND
+a
+text
+.
+
+SUBSTITUTE
+s/old/new/
+s/old/new/g
+%s/old/new/g
+
+FILENAME
+f
+
+JOIN
+5,6j
+
+MOVE
+m1
+
+UNDO
+u
+</code></pre></div></div>
+
+<h1 id="55-the-core-ed-mental-model">55. The Core <code class="language-plaintext highlighter-rouge">ed</code> Mental Model</h1>
+
+<p>The entire lesson can be reduced to this pattern:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    ed
+                     │
+             ┌───────┴───────┐
+             │               │
+          ADDRESS          COMMAND
+             │               │
+       ┌─────┼─────┐     ┌───┼────────┐
+       │     │     │     │   │        │
+       .     $     %     p   d        s
+     current last  all  print delete substitute
+       │
+       └──────────────────────────────┐
+                                      │
+                                  Buffer
+                                      │
+                         ┌────────────┼───────────┐
+                         │            │           │
+                         a            r           !
+                       append       read        shell
+                         │            │           │
+                         └────────────┼───────────┘
+                                      │
+                                      ↓
+                                      w
+                                      │
+                                   File
+                                      │
+                                      ↓
+                                      q
+</code></pre></div></div>
+
+<p>The most important commands for an exam are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1       → first line
+$       → last line
+.       → current line
+,       → entire buffer
+%       → entire buffer
++       → next line
+-       → previous line
+
+p       → print
+d       → delete
+a       → append
+s       → substitute
+j       → join
+m       → move
+u       → undo
+r       → read
+w       → write
+q       → quit
+f       → filename
+!       → shell command
+</code></pre></div></div>
+
+<p>The most important substitution patterns are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/
+</code></pre></div></div>
+
+<p>→ replace first match on current line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s/old/new/g
+</code></pre></div></div>
+
+<p>→ replace all matches on current line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/old/new/g
+</code></pre></div></div>
+
+<p>→ replace all matches throughout the entire buffer</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^/PREFIX /
+</code></pre></div></div>
+
+<p>→ add <code class="language-plaintext highlighter-rouge">PREFIX </code> to every line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%s/^\(.*\)$/PREFIX \1/
+</code></pre></div></div>
+
+<p>→ capture each complete line and put <code class="language-plaintext highlighter-rouge">PREFIX </code> before the captured text</p>
+
+<p>Finally, remember the fundamental <code class="language-plaintext highlighter-rouge">ed</code> workflow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OPEN
+ ↓
+ed file.txt
+
+SELECT
+ ↓
+1
+.
+$
+/pattern/
+
+MODIFY
+ ↓
+a
+d
+s
+j
+m
+u
+
+INSPECT
+ ↓
+p
+
+SHELL
+ ↓
+!
+
+SAVE
+ ↓
+w
+
+EXIT
+ ↓
+q
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">1.4 - Simple Commands in Linux - 2</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L2.2 - Command line editors - Part 02</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

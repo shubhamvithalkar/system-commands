@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L3.2 - Redirections | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link active">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 3</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L3.2 - Redirections</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l32---redirections">L3.2 - Redirections</h1>
+
+<h1 id="linux-shell-redirection-pipes-devnull-tee-and-diff">Linux Shell Redirection, Pipes, <code class="language-plaintext highlighter-rouge">/dev/null</code>, <code class="language-plaintext highlighter-rouge">tee</code>, and <code class="language-plaintext highlighter-rouge">diff</code></h1>
+
+<h2 id="1-redirecting-standard-error--2">1. Redirecting Standard Error — <code class="language-plaintext highlighter-rouge">2&gt;</code></h2>
+
+<h3 id="what-is-2">What is <code class="language-plaintext highlighter-rouge">2&gt;</code>?</h3>
+
+<p>In Linux, every command normally has three standard file descriptors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">File Descriptor</th>
+      <th>Name</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>stdin</td>
+      <td>Input</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>stdout</td>
+      <td>Normal output</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td>stderr</td>
+      <td>Error output</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The operator:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;
+</code></pre></div></div>
+
+<p>redirects <strong>standard error (<code class="language-plaintext highlighter-rouge">stderr</code>)</strong> to a file.</p>
+
+<h3 id="syntax">Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /does-not-exist 2&gt; error.txt
+</code></pre></div></div>
+
+<p>The error message will go into <code class="language-plaintext highlighter-rouge">error.txt</code> instead of appearing on the terminal.</p>
+
+<p>Check it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>error.txt
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">2&gt;</code> redirects <strong>only stderr</strong>.</p>
+
+<p>Normal output still appears on the terminal.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist 2&gt; error.txt
+</code></pre></div></div>
+
+<p>Possible behavior:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>normal /etc listing appears on terminal
+</code></pre></div></div>
+
+<p>while the error:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls: cannot access '/does-not-exist': No such file or directory
+</code></pre></div></div>
+
+<p>goes into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="2-redirect-stdout-and-stderr-to-different-files">2. Redirect stdout and stderr to Different Files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file1 2&gt; file2
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code> redirects stdout.</li>
+  <li><code class="language-plaintext highlighter-rouge">2&gt;</code> redirects stderr.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> output.txt 2&gt; error.txt
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>output.txt
+</code></pre></div></div>
+
+<p>contains normal output.</p>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error.txt
+</code></pre></div></div>
+
+<p>contains error output.</p>
+
+<h3 id="mental-model">Mental Model</h3>
+
+<p>Think of the command as having two output channels:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 ┌── stdout (1) ──&gt; output.txt
+command ─────────┤
+                 └── stderr (2) ──&gt; error.txt
+</code></pre></div></div>
+
+<p>This is useful when you want to keep successful output and errors separate.</p>
+
+<hr />
+
+<h1 id="3-redirecting-standard-input--">3. Redirecting Standard Input — <code class="language-plaintext highlighter-rouge">&lt;</code></h1>
+
+<p>The operator:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;
+</code></pre></div></div>
+
+<p>redirects a file into <strong>stdin</strong>.</p>
+
+<h3 id="syntax-1">Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> &lt; file
+</code></pre></div></div>
+
+<p>Instead of the command receiving input from the keyboard, it receives input from the file.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> &lt; students.txt
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>students.txt
+     ↓
+   stdin
+     ↓
+    cat
+     ↓
+  terminal
+</code></pre></div></div>
+
+<p>You could also write:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>students.txt
+</code></pre></div></div>
+
+<p>For <code class="language-plaintext highlighter-rouge">cat</code>, these produce similar visible output, but they demonstrate different mechanisms.</p>
+
+<hr />
+
+<h2 id="example-with-wc">Example with <code class="language-plaintext highlighter-rouge">wc</code></h2>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>students.txt
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice
+Bob
+Charlie
+David
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> &lt; students.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+</code></pre></div></div>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> students.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 students.txt
+</code></pre></div></div>
+
+<p>Why the difference?</p>
+
+<p>With:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> students.txt
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">wc</code> knows the filename.</p>
+
+<p>With:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> &lt; students.txt
+</code></pre></div></div>
+
+<p>the file is connected to stdin, so <code class="language-plaintext highlighter-rouge">wc</code> simply receives input and does not receive the filename as an argument.</p>
+
+<hr />
+
+<h1 id="4-redirect-stdout-and-stderr-to-the-same-file">4. Redirect stdout and stderr to the Same File</h1>
+
+<h2 id="-file-21"><code class="language-plaintext highlighter-rouge">&gt; file 2&gt;&amp;1</code></h2>
+
+<p>A very important pattern is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file1 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>This sends both:</p>
+
+<ul>
+  <li>stdout</li>
+  <li>stderr</li>
+</ul>
+
+<p>to the same file.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> result.txt 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>Now both normal output and error messages are stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result.txt
+</code></pre></div></div>
+
+<h3 id="how-does-it-work">How does it work?</h3>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file1 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>First:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> file1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout (1) → file1
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;&amp;1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stderr (2) → wherever stdout (1) is currently going
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout ───────┐
+              ├──&gt; file1
+stderr ───────┘
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="order-matters">Order Matters</h2>
+
+<p>These two commands are <strong>not equivalent</strong>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt;&amp;1 <span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<h3 id="correct-way-for-both-to-go-into-the-file">Correct way for both to go into the file</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>Why?</p>
+
+<p>Step 1:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<p>sets stdout to <code class="language-plaintext highlighter-rouge">file</code>.</p>
+
+<p>Step 2:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;&amp;1
+</code></pre></div></div>
+
+<p>makes stderr point to the current stdout destination.</p>
+
+<p>Therefore both go to <code class="language-plaintext highlighter-rouge">file</code>.</p>
+
+<hr />
+
+<h3 id="important-exam-trap">Important Exam Trap</h3>
+
+<p>Do not think:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;&amp;1
+</code></pre></div></div>
+
+<p>means “send stderr to stdout dynamically forever.”</p>
+
+<p>It means:</p>
+
+<blockquote>
+  <p>Make file descriptor 2 refer to the same current destination as file descriptor 1 at that point in the command.</p>
+</blockquote>
+
+<p>Therefore order matters.</p>
+
+<hr />
+
+<h1 id="5-the-pipe-operator--">5. The Pipe Operator — <code class="language-plaintext highlighter-rouge">|</code></h1>
+
+<p>The pipe is one of the most important concepts in Linux.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|
+</code></pre></div></div>
+
+<p>connects the <strong>stdout of one command</strong> to the <strong>stdin of another command</strong>.</p>
+
+<h3 id="syntax-2">Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1
+   │
+   │ stdout
+   ↓
+  pipe
+   │
+   │ stdin
+   ↓
+command2
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+ ↓
+pipe
+ ↓
+wc -l
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ls</code> produces a list.</p>
+
+<p><code class="language-plaintext highlighter-rouge">wc -l</code> counts the lines it receives.</p>
+
+<hr />
+
+<h2 id="example">Example</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>students.txt | <span class="nb">grep</span> <span class="s2">"Alice"</span>
+</code></pre></div></div>
+
+<p>Flow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>students.txt
+     ↓
+    cat
+     ↓
+   stdout
+     ↓
+     |
+     ↓
+   grep
+     ↓
+   output
+</code></pre></div></div>
+
+<p>However, remember that many commands can read files directly.</p>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>students.txt | <span class="nb">grep</span> <span class="s2">"Alice"</span>
+</code></pre></div></div>
+
+<p>prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"Alice"</span> students.txt
+</code></pre></div></div>
+
+<p>The first version is useful for learning pipes, but the second is generally simpler.</p>
+
+<hr />
+
+<h1 id="6-pipe--redirection">6. Pipe + Redirection</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2 <span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<p>This is extremely important.</p>
+
+<p>The pipe connects:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 stdout → command2 stdin
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<p>redirects the stdout of <code class="language-plaintext highlighter-rouge">command2</code> into the file.</p>
+
+<h3 id="mental-model-1">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1
+   │
+   │ stdout
+   ↓
+   |
+   ↓
+command2
+   │
+   │ stdout
+   ↓
+ file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc | <span class="nb">grep</span> <span class="s2">"^a"</span> <span class="o">&gt;</span> result.txt
+</code></pre></div></div>
+
+<p>What happens?</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">ls /etc</code> generates output.</li>
+  <li>Its stdout goes through the pipe.</li>
+  <li><code class="language-plaintext highlighter-rouge">grep "^a"</code> receives that output as stdin.</li>
+  <li><code class="language-plaintext highlighter-rouge">grep</code> keeps matching lines.</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code> redirects grep’s stdout to <code class="language-plaintext highlighter-rouge">result.txt</code>.</li>
+</ol>
+
+<hr />
+
+<h1 id="7-devnull">7. <code class="language-plaintext highlighter-rouge">/dev/null</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">/dev/null</code> is a special device file.</p>
+
+<p>Anything written to it is discarded.</p>
+
+<p>Think of it as:</p>
+
+<blockquote>
+  <p>A black hole for data.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null
+</code></pre></div></div>
+
+<p>Normal output is discarded.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command
+   │
+   ↓
+stdout
+   │
+   ↓
+/dev/null
+   │
+   ↓
+discarded
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="discard-errors">Discard Errors</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null
+</code></pre></div></div>
+
+<p>This discards stderr.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist 2&gt; /dev/null
+</code></pre></div></div>
+
+<p>The error is suppressed.</p>
+
+<hr />
+
+<h2 id="discard-everything">Discard Everything</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>This discards both stdout and stderr.</p>
+
+<p>Equivalent Bash shorthand:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> &amp;&gt; /dev/null
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>some_command <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>The terminal stays silent.</p>
+
+<hr />
+
+<h2 id="why-is-devnull-useful">Why is <code class="language-plaintext highlighter-rouge">/dev/null</code> Useful?</h2>
+
+<p>It is commonly used when you do not care about output.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null
+</code></pre></div></div>
+
+<p>can suppress expected errors.</p>
+
+<p>It is also useful in scripts where unwanted output should not clutter the terminal.</p>
+
+<hr />
+
+<h1 id="8-tee">8. <code class="language-plaintext highlighter-rouge">tee</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">tee</code> command is extremely useful when working with pipes.</p>
+
+<p>Normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<p>sends the output of <code class="language-plaintext highlighter-rouge">command1</code> only into <code class="language-plaintext highlighter-rouge">command2</code>.</p>
+
+<p>But sometimes you want to:</p>
+
+<ol>
+  <li>See/save the output.</li>
+  <li>Continue sending the same output through the pipeline.</li>
+</ol>
+
+<p>That’s what <code class="language-plaintext highlighter-rouge">tee</code> does.</p>
+
+<h3 id="basic-syntax">Basic Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> | <span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> | <span class="nb">tee </span>output.txt
+</code></pre></div></div>
+
+<p>The output:</p>
+
+<ul>
+  <li>appears on the terminal</li>
+  <li>is also written to <code class="language-plaintext highlighter-rouge">output.txt</code></li>
+</ul>
+
+<h3 id="mental-model-2">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             ┌──&gt; terminal
+             │
+command ──&gt; tee
+             │
+             └──&gt; output.txt
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">tee</code> splits the stream.</p>
+
+<hr />
+
+<h1 id="9-tee-with-multiple-files">9. <code class="language-plaintext highlighter-rouge">tee</code> with Multiple Files</h1>
+
+<p>You can write the same output to multiple files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> | <span class="nb">tee </span>file1 file2
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> | <span class="nb">tee </span>output1.txt output2.txt
+</code></pre></div></div>
+
+<p>The same output goes to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>terminal
+output1.txt
+output2.txt
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  ┌──&gt; terminal
+                  │
+command ──&gt; tee ──┼──&gt; file1
+                  │
+                  └──&gt; file2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-tee-in-the-middle-of-a-pipeline">10. <code class="language-plaintext highlighter-rouge">tee</code> in the Middle of a Pipeline</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | <span class="nb">tee </span>file | command2
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">command1</code> produces output.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> receives it.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> writes a copy to <code class="language-plaintext highlighter-rouge">file</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> also sends the same output to <code class="language-plaintext highlighter-rouge">command2</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">command2</code> processes it.</li>
+</ol>
+
+<h3 id="mental-model-3">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  ┌──&gt; file
+                  │
+command1 ──&gt; tee ─┤
+                  │
+                  ↓
+              command2
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> | <span class="nb">tee </span>listing.txt | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ls</code> generates the listing.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> saves it to <code class="language-plaintext highlighter-rouge">listing.txt</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> passes it onward.</li>
+  <li><code class="language-plaintext highlighter-rouge">wc -l</code> counts the lines.</li>
+  <li>The count is displayed.</li>
+</ul>
+
+<p>This is useful for <strong>logging intermediate pipeline data</strong>.</p>
+
+<hr />
+
+<h1 id="11-tee-append-mode">11. <code class="language-plaintext highlighter-rouge">tee</code> Append Mode</h1>
+
+<p>By default:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>overwrites the file.</p>
+
+<p>To append:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tee</span> <span class="nt">-a</span> file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span> | <span class="nb">tee</span> <span class="nt">-a</span> log.txt
+</code></pre></div></div>
+
+<p>Each execution adds the date to the end of <code class="language-plaintext highlighter-rouge">log.txt</code>.</p>
+
+<p>Compare:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tee</span> <span class="nt">-a</span> file
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tee file</code></td>
+      <td>Overwrite file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tee -a file</code></td>
+      <td>Append to file</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="12-diff">12. <code class="language-plaintext highlighter-rouge">diff</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">diff</code> compares files and reports their differences.</p>
+
+<h3 id="basic-syntax-1">Basic Syntax</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff file1 file2
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff old.txt new.txt
+</code></pre></div></div>
+
+<p>If the files are identical, <code class="language-plaintext highlighter-rouge">diff</code> normally produces no output.</p>
+
+<p>If they differ, <code class="language-plaintext highlighter-rouge">diff</code> reports the changes needed to transform one file into the other.</p>
+
+<hr />
+
+<h2 id="example-1">Example</h2>
+
+<p>Suppose:</p>
+
+<h3 id="file1"><code class="language-plaintext highlighter-rouge">file1</code></h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice
+Bob
+Charlie
+</code></pre></div></div>
+
+<h3 id="file2"><code class="language-plaintext highlighter-rouge">file2</code></h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alice
+Bob
+David
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff file1 file2
+</code></pre></div></div>
+
+<p>You may see output similar to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3c3
+&lt; Charlie
+---
+&gt; David
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<ul>
+  <li>line 3 differs</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code> shows content from the first file</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code> shows content from the second file</li>
+</ul>
+
+<hr />
+
+<h2 id="useful-diff-options">Useful <code class="language-plaintext highlighter-rouge">diff</code> Options</h2>
+
+<h3 id="unified-format">Unified format</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>diff <span class="nt">-u</span> file1 file2
+</code></pre></div></div>
+
+<p>This is commonly easier to read.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--- file1
++++ file2
+@@
+ Alice
+ Bob
+-Charlie
++David
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 
+</code></pre></div></div>
+
+<p>means removed/old content.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+
+</code></pre></div></div>
+
+<p>means added/new content.</p>
+
+<hr />
+
+<h1 id="13-complex-pipeline-with-tee">13. Complex Pipeline with <code class="language-plaintext highlighter-rouge">tee</code></h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<p>Let’s break it down.</p>
+
+<h3 id="step-1">Step 1</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1
+</code></pre></div></div>
+
+<p>produces stdout.</p>
+
+<h3 id="step-2">Step 2</h3>
+
+<p>Pipe sends that stdout to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tee </span>file1 file2
+</code></pre></div></div>
+
+<h3 id="step-3">Step 3</h3>
+
+<p><code class="language-plaintext highlighter-rouge">tee</code> creates/writes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file1
+file2
+</code></pre></div></div>
+
+<h3 id="step-4">Step 4</h3>
+
+<p><code class="language-plaintext highlighter-rouge">tee</code> also sends the same output through its stdout.</p>
+
+<h3 id="step-5">Step 5</h3>
+
+<p>The next pipe sends that output to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command2
+</code></pre></div></div>
+
+<h3 id="complete-flow">Complete Flow</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                     ┌──&gt; file1
+                     │
+command1 ──&gt; tee ────┼──&gt; file2
+                     │
+                     ↓
+                 command2
+</code></pre></div></div>
+
+<p>This is a powerful pattern for:</p>
+
+<blockquote>
+  <p>Save intermediate output while continuing to process it.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="14-important-redirection--pipe-trap">14. Important Redirection + Pipe Trap</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<p>At first glance, you might think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 → /dev/null → tee → command2
+</code></pre></div></div>
+
+<p>But that is <strong>not what happens</strong>.</p>
+
+<p>The redirection:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> /dev/null
+</code></pre></div></div>
+
+<p>redirects <code class="language-plaintext highlighter-rouge">command1</code>’s stdout directly to <code class="language-plaintext highlighter-rouge">/dev/null</code>.</p>
+
+<p>Therefore there is nothing for the pipe to pass from <code class="language-plaintext highlighter-rouge">command1</code> to <code class="language-plaintext highlighter-rouge">tee</code>.</p>
+
+<p>The flow is effectively:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 stdout
+      │
+      ↓
+ /dev/null
+      │
+      X
+     no data
+      │
+      ↓
+     tee
+      │
+      ├──&gt; file1
+      └──&gt; file2
+      │
+      ↓
+  command2
+</code></pre></div></div>
+
+<p>Since <code class="language-plaintext highlighter-rouge">tee</code> receives no input, it has no normal data to write to <code class="language-plaintext highlighter-rouge">file1</code> or <code class="language-plaintext highlighter-rouge">file2</code>, and it sends no normal data to <code class="language-plaintext highlighter-rouge">command2</code>.</p>
+
+<hr />
+
+<h1 id="15-correct-interpretation-of-redirection-precedence">15. Correct Interpretation of Redirection Precedence</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<p>The important rule is:</p>
+
+<blockquote>
+  <p>A pipe connects stdout to stdin, but an explicit stdout redirection on the command overrides the pipe connection.</p>
+</blockquote>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&gt;</span> /dev/null
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 stdout → /dev/null
+</code></pre></div></div>
+
+<p>not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 stdout → tee
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-what-about-stderr">16. What About stderr?</h1>
+
+<p>This is different:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 2&gt; /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<p>Here only <strong>stderr</strong> is discarded.</p>
+
+<p>The stdout of <code class="language-plaintext highlighter-rouge">command1</code> still goes into the pipe.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                  stdout
+command1 ─────────────────&gt; tee
+    │
+    │ stderr
+    ↓
+/dev/null
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 2&gt; /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<p>means:</p>
+
+<ul>
+  <li>discard errors from <code class="language-plaintext highlighter-rouge">command1</code></li>
+  <li>preserve normal output</li>
+  <li>send normal output to <code class="language-plaintext highlighter-rouge">tee</code></li>
+  <li>save it in <code class="language-plaintext highlighter-rouge">file1</code> and <code class="language-plaintext highlighter-rouge">file2</code></li>
+  <li>continue it to <code class="language-plaintext highlighter-rouge">command2</code></li>
+</ul>
+
+<p>This is very different from:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17--vs-2-vs--vs-">17. <code class="language-plaintext highlighter-rouge">&gt;</code> vs <code class="language-plaintext highlighter-rouge">2&gt;</code> vs <code class="language-plaintext highlighter-rouge">&lt;</code> vs <code class="language-plaintext highlighter-rouge">|</code></h1>
+
+<p>Memorize this table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>Redirect stdout</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1&gt;</code></td>
+      <td>Redirect stdout explicitly</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;</code></td>
+      <td>Append stdout</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2&gt;</code></td>
+      <td>Redirect stderr</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2&gt;&gt;</code></td>
+      <td>Append stderr</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Redirect stdin</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2&gt;&amp;1</code></td>
+      <td>Send stderr to stdout’s current destination</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>stdout of left command → stdin of right command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/dev/null</code></td>
+      <td>Discard input</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tee</code></td>
+      <td>Copy input to file(s) and stdout</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="18-combining-everything">18. Combining Everything</h1>
+
+<p>Suppose you want:</p>
+
+<ul>
+  <li>normal output saved to <code class="language-plaintext highlighter-rouge">output.txt</code></li>
+  <li>errors saved to <code class="language-plaintext highlighter-rouge">error.txt</code></li>
+</ul>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> output.txt 2&gt; error.txt
+</code></pre></div></div>
+
+<p>If you want both in the same file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> output.txt 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>If you want errors discarded:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null
+</code></pre></div></div>
+
+<p>If you want normal output discarded:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null
+</code></pre></div></div>
+
+<p>If you want everything discarded:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>If you want output passed to another command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<p>If you want output saved and passed onward:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | <span class="nb">tee </span>file | command2
+</code></pre></div></div>
+
+<p>If you want output saved to two files and passed onward:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-practical-example">19. Practical Example</h1>
+
+<p>Create test files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s2">"apple</span><span class="se">\n</span><span class="s2">banana</span><span class="se">\n</span><span class="s2">apple</span><span class="se">\n</span><span class="s2">orange</span><span class="se">\n</span><span class="s2">"</span> <span class="o">&gt;</span> fruits.txt
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>fruits.txt | <span class="nb">grep</span> <span class="s2">"apple"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+apple
+</code></pre></div></div>
+
+<p>Save it while continuing the pipeline:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>fruits.txt | <span class="nb">grep</span> <span class="s2">"apple"</span> | <span class="nb">tee </span>apples.txt | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>apples.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple
+apple
+</code></pre></div></div>
+
+<p>Flow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fruits.txt
+    ↓
+   cat
+    ↓
+  grep
+    ↓
+   tee ─────&gt; apples.txt
+    ↓
+  wc -l
+    ↓
+    2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-practical-error-example">20. Practical Error Example</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist
+</code></pre></div></div>
+
+<p>You get:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>normal listing...
+ls: cannot access '/does-not-exist': No such file or directory
+</code></pre></div></div>
+
+<p>Separate them:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> output.txt 2&gt; error.txt
+</code></pre></div></div>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>output.txt
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>error.txt
+</code></pre></div></div>
+
+<p>Combine them:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> all.txt 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>Discard errors:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist 2&gt; /dev/null
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-exam-level-mental-model">21. Exam-Level Mental Model</h1>
+
+<p>Always ask:</p>
+
+<h3 id="question-1-what-stream-is-involved">Question 1: What stream is involved?</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 → stdin
+1 → stdout
+2 → stderr
+</code></pre></div></div>
+
+<h3 id="question-2-where-is-it-going">Question 2: Where is it going?</h3>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout → file
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt; file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stderr → file
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file → stdin
+</code></pre></div></div>
+
+<h3 id="question-3-is-there-a-pipe">Question 3: Is there a pipe?</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 stdout → command2 stdin
+</code></pre></div></div>
+
+<h3 id="question-4-is-there-an-explicit-redirection">Question 4: Is there an explicit redirection?</h3>
+
+<p>If yes, pay attention to which command it belongs to.</p>
+
+<hr />
+
+<h1 id="22-common-mistakes">22. Common Mistakes</h1>
+
+<h2 id="mistake-1">Mistake 1</h2>
+
+<p>Thinking:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file
+</code></pre></div></div>
+
+<p>captures errors.</p>
+
+<p>It does not.</p>
+
+<p>Only stdout is redirected.</p>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> file 2&gt;&amp;1
+</code></pre></div></div>
+
+<p>for both.</p>
+
+<hr />
+
+<h2 id="mistake-2">Mistake 2</h2>
+
+<p>Thinking <code class="language-plaintext highlighter-rouge">2&gt;</code> means redirect stdout.</p>
+
+<p>Wrong.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stderr
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3">Mistake 3</h2>
+
+<p>Thinking <code class="language-plaintext highlighter-rouge">|</code> sends both stdout and stderr.</p>
+
+<p>Normally it does not.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2
+</code></pre></div></div>
+
+<p>connects stdout of <code class="language-plaintext highlighter-rouge">command1</code> to stdin of <code class="language-plaintext highlighter-rouge">command2</code>.</p>
+
+<p>stderr normally remains connected to the terminal.</p>
+
+<hr />
+
+<h2 id="mistake-4">Mistake 4</h2>
+
+<p>Confusing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null | command2
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null | command2
+</code></pre></div></div>
+
+<p>They are completely different.</p>
+
+<h3 id="first">First</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null | command2
+</code></pre></div></div>
+
+<p>stdout is discarded, so <code class="language-plaintext highlighter-rouge">command2</code> receives no stdout from <code class="language-plaintext highlighter-rouge">command</code>.</p>
+
+<h3 id="second">Second</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null | command2
+</code></pre></div></div>
+
+<p>stderr is discarded, but stdout still flows into <code class="language-plaintext highlighter-rouge">command2</code>.</p>
+
+<hr />
+
+<h1 id="23-quick-reference">23. Quick Reference</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># stdout → file</span>
+<span class="nb">command</span> <span class="o">&gt;</span> file
+
+<span class="c"># stdout append</span>
+<span class="nb">command</span> <span class="o">&gt;&gt;</span> file
+
+<span class="c"># stderr → file</span>
+<span class="nb">command </span>2&gt; file
+
+<span class="c"># stderr append</span>
+<span class="nb">command </span>2&gt;&gt; file
+
+<span class="c"># stdin ← file</span>
+<span class="nb">command</span> &lt; file
+
+<span class="c"># stdout → file, stderr → same file</span>
+<span class="nb">command</span> <span class="o">&gt;</span> file 2&gt;&amp;1
+
+<span class="c"># discard stdout</span>
+<span class="nb">command</span> <span class="o">&gt;</span> /dev/null
+
+<span class="c"># discard stderr</span>
+<span class="nb">command </span>2&gt; /dev/null
+
+<span class="c"># discard stdout + stderr</span>
+<span class="nb">command</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1
+
+<span class="c"># pipe stdout</span>
+command1 | command2
+
+<span class="c"># pipe and save output</span>
+command1 | <span class="nb">tee </span>file | command2
+
+<span class="c"># save to multiple files and continue pipeline</span>
+command1 | <span class="nb">tee </span>file1 file2 | command2
+
+<span class="c"># append using tee</span>
+command1 | <span class="nb">tee</span> <span class="nt">-a</span> file
+
+<span class="c"># compare files</span>
+diff file1 file2
+
+<span class="c"># easier-to-read diff</span>
+diff <span class="nt">-u</span> file1 file2
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-practice-questions">24. Practice Questions</h1>
+
+<h2 id="q1--separate-stdout-and-stderr">Q1 — Separate stdout and stderr</h2>
+
+<p>Write a command that executes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist
+</code></pre></div></div>
+
+<p>and stores:</p>
+
+<ul>
+  <li>stdout → <code class="language-plaintext highlighter-rouge">out.txt</code></li>
+  <li>stderr → <code class="language-plaintext highlighter-rouge">err.txt</code></li>
+</ul>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> out.txt 2&gt; err.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2--save-everything-in-one-file">Q2 — Save everything in one file</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist
+</code></pre></div></div>
+
+<p>Save both stdout and stderr into:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result.txt
+</code></pre></div></div>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist <span class="o">&gt;</span> result.txt 2&gt;&amp;1
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3--discard-errors">Q3 — Discard errors</h2>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist
+</code></pre></div></div>
+
+<p>but hide the error message.</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc /does-not-exist 2&gt; /dev/null
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4--count-matching-lines">Q4 — Count matching lines</h2>
+
+<p>Count how many processes contain the word <code class="language-plaintext highlighter-rouge">bash</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">grep </span>bash
+</code></pre></div></div>
+
+<p>Modify the command so that only the number of matching lines is displayed.</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">grep </span>bash | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q5--save-and-continue">Q5 — Save and continue</h2>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>Save its output to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>processes.txt
+</code></pre></div></div>
+
+<p>while simultaneously counting the number of lines.</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">tee </span>processes.txt | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6--save-to-two-files">Q6 — Save to two files</h2>
+
+<p>Save the output of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>to both:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>processes1.txt
+processes2.txt
+</code></pre></div></div>
+
+<p>while also displaying it on the terminal.</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> | <span class="nb">tee </span>processes1.txt processes2.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7--save-intermediate-output">Q7 — Save intermediate output</h2>
+
+<p>Find all lines containing <code class="language-plaintext highlighter-rouge">root</code> in <code class="language-plaintext highlighter-rouge">/etc/passwd</code>, save them to <code class="language-plaintext highlighter-rouge">root.txt</code>, and count them.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"root"</span> /etc/passwd | <span class="nb">tee </span>root.txt | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8--understand-this-command">Q8 — Understand this command</h2>
+
+<p>Explain:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">command</code>’s stderr is discarded.</li>
+  <li><code class="language-plaintext highlighter-rouge">command</code>’s stdout goes through the pipe.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> saves the stdout into <code class="language-plaintext highlighter-rouge">file1</code> and <code class="language-plaintext highlighter-rouge">file2</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">tee</code> also sends the same stdout to <code class="language-plaintext highlighter-rouge">command2</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">command2</code> receives it through stdin.</li>
+</ul>
+
+<p>Flow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              stderr ─────&gt; /dev/null
+
+command
+   │
+   │ stdout
+   ↓
+  tee
+  ├────&gt; file1
+  ├────&gt; file2
+  ↓
+command2
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9--trick-question">Q9 — Trick Question</h2>
+
+<p>What happens here?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file1 file2 | command2
+</code></pre></div></div>
+
+<h3 id="answer-1">Answer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">command</code>’s stdout is redirected to <code class="language-plaintext highlighter-rouge">/dev/null</code>.</p>
+
+<p>Therefore the pipe receives no stdout from <code class="language-plaintext highlighter-rouge">command</code>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command
+   │
+   ↓
+/dev/null
+
+tee receives no stdout
+</code></pre></div></div>
+
+<p>The important rule is:</p>
+
+<blockquote>
+  <p>An explicit stdout redirection overrides the normal stdout-to-pipe connection.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="q10--compare-these">Q10 — Compare These</h2>
+
+<p>Explain the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null | <span class="nb">tee </span>file
+</code></pre></div></div>
+
+<h3 id="answer-2">Answer</h3>
+
+<h4 id="first-1">First</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command</span> <span class="o">&gt;</span> /dev/null | <span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>stdout is discarded.</p>
+
+<p>Therefore <code class="language-plaintext highlighter-rouge">tee</code> receives no stdout from <code class="language-plaintext highlighter-rouge">command</code>.</p>
+
+<h4 id="second-1">Second</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>2&gt; /dev/null | <span class="nb">tee </span>file
+</code></pre></div></div>
+
+<p>stderr is discarded.</p>
+
+<p>stdout is still sent through the pipe to <code class="language-plaintext highlighter-rouge">tee</code>.</p>
+
+<p>This distinction is extremely important for shell exams.</p>
+
+<hr />
+
+<h1 id="25-master-mental-model">25. Master Mental Model</h1>
+
+<p>The entire topic can be reduced to this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 stdin (0)
+                    ↑
+                    │
+             ┌─────────────┐
+             │   command   │
+             └─────────────┘
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+     stdout (1)          stderr (2)
+          │                   │
+          ↓                   ↓
+        pipe |             2&gt; file
+          │
+          ↓
+     next command
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout → file
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt; file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stderr → file
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; file
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file → stdin
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stdout → stdin
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2&gt;&amp;1
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stderr → current stdout destination
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/null
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>discard the data
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tee
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>receive data
+   │
+   ├──&gt; save a copy
+   │
+   └──&gt; continue sending data
+</code></pre></div></div>
+
+<p>Once you understand <strong>file descriptors + redirection + pipes</strong>, almost every complex shell command in this topic becomes a matter of tracing where <strong>stdin, stdout, and stderr</strong> are going.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L3.1 - Combining commands and files</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L3.3: Software Management - Part 01</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

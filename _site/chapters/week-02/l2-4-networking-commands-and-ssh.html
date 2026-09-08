@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L2.4: Networking Commands and SSH | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link active">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 2</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L2.4: Networking Commands and SSH</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l24-networking-commands-and-ssh">L2.4: Networking Commands and SSH</h1>
+
+<h1 id="remote-access-networking-ip-addresses-ports-ssh-and-selinux">Remote Access, Networking, IP Addresses, Ports, SSH, and SELinux</h1>
+
+<h2 id="1-overview-of-remote-machine-access">1. Overview of Remote Machine Access</h2>
+
+<p>Modern Linux systems frequently need to communicate with other computers.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Computer
+     |
+     | Network
+     ↓
+Remote Linux Server
+</code></pre></div></div>
+
+<p>You may want to:</p>
+
+<ul>
+  <li>Log in to another machine</li>
+  <li>Copy files</li>
+  <li>Run commands remotely</li>
+  <li>Access a web server</li>
+  <li>Access a database</li>
+  <li>Connect to cloud servers</li>
+  <li>Manage virtual machines</li>
+  <li>Connect machines inside a private network</li>
+  <li>Connect to the Internet</li>
+</ul>
+
+<p>The foundation of remote access is <strong>networking</strong>.</p>
+
+<hr />
+
+<h1 id="2-private-networks-and-the-internet">2. Private Networks and the Internet</h1>
+
+<p>A machine can communicate with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Private Network
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Public Internet
+</code></pre></div></div>
+
+<h3 id="private-network">Private Network</h3>
+
+<p>A private network is a network whose addresses are intended for internal communication.</p>
+
+<p>Common private IPv4 ranges are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10.0.0.0/8
+172.16.0.0/12
+192.168.0.0/16
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.10
+192.168.1.20
+192.168.1.50
+</code></pre></div></div>
+
+<p>These addresses are commonly used inside homes, offices, labs, and cloud/private networks.</p>
+
+<hr />
+
+<h2 id="3-public-ip-address">3. Public IP Address</h2>
+
+<p>A machine that needs to be directly reachable from the Internet may have a <strong>public IP address</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>203.0.113.10
+</code></pre></div></div>
+
+<p>This is an example/documentation address.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    Internet
+                       |
+                Public IP
+                       |
+                 Router/Firewall
+                       |
+             ---------------------
+             |        |          |
+          PC       Server      VM
+       192.168.1.10  .20       .30
+</code></pre></div></div>
+
+<p>The private addresses are used internally, while the router/firewall controls communication between the private network and the Internet.</p>
+
+<hr />
+
+<h1 id="4-hierarchical-addressing">4. Hierarchical Addressing</h1>
+
+<p>IP addressing is hierarchical.</p>
+
+<p>Instead of every computer on Earth needing to know the location of every other computer directly, addresses are organized into networks and subnets.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.0/24
+</code></pre></div></div>
+
+<p>represents a network containing addresses in the range:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.0
+192.168.1.1
+...
+192.168.1.255
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">/24</code> is the <strong>prefix length</strong>.</p>
+
+<p>It indicates how many bits identify the network portion.</p>
+
+<hr />
+
+<h1 id="5-network-prefix-and-host-portion">5. Network Prefix and Host Portion</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.25/24
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Network portion     Host portion
+192.168.1           25
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">/24</code> means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>24 bits → network
+8 bits  → host
+</code></pre></div></div>
+
+<p>because IPv4 contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>32 bits
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>32 - 24 = 8
+</code></pre></div></div>
+
+<p>host bits.</p>
+
+<hr />
+
+<h1 id="6-why-hierarchical-addressing-is-useful">6. Why Hierarchical Addressing Is Useful</h1>
+
+<p>Without hierarchical addressing, routers would have to maintain enormous amounts of information about individual machines.</p>
+
+<p>With hierarchical addressing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Internet
+   |
+   +-- Network A
+   |      |
+   |      +-- Host 1
+   |      +-- Host 2
+   |
+   +-- Network B
+          |
+          +-- Host 1
+          +-- Host 2
+</code></pre></div></div>
+
+<p>Routers can make decisions based on network prefixes.</p>
+
+<p>This makes routing more scalable.</p>
+
+<hr />
+
+<h1 id="7-routing">7. Routing</h1>
+
+<p>A <strong>router</strong> decides where network packets should go.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Source
+  |
+  | packet
+  ↓
+Router
+  |
+  +----→ Network A
+  |
+  +----→ Network B
+  |
+  +----→ Internet
+</code></pre></div></div>
+
+<p>A Linux machine also has a routing table.</p>
+
+<p>You can inspect it using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip route
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default via 192.168.1.1 dev eth0
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.10
+</code></pre></div></div>
+
+<p>This tells the machine how to reach different networks.</p>
+
+<hr />
+
+<h1 id="8-default-route">8. Default Route</h1>
+
+<p>A particularly important routing rule is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default via 192.168.1.1 dev eth0
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<blockquote>
+  <p>If there is no more specific route for the destination, send the packet through <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.</p>
+</blockquote>
+
+<p>Usually this is the local router/gateway.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Unknown destination
+       ↓
+Default Gateway
+       ↓
+      Router
+       ↓
+    Internet
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-standard-port-numbers">9. Standard Port Numbers</h1>
+
+<p>An IP address identifies a <strong>machine/interface</strong>.</p>
+
+<p>A port identifies a <strong>network service/application endpoint</strong> on that machine.</p>
+
+<p>Think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP address → Which machine?
+Port       → Which service?
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.20:22
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Machine = 192.168.1.20
+Port    = 22
+</code></pre></div></div>
+
+<p>Port 22 commonly corresponds to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SSH
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-common-network-ports">10. Common Network Ports</h1>
+
+<p>Some important standard ports:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Port</th>
+      <th>Common Service</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">20</code></td>
+      <td>FTP data</td>
+      <td>FTP data channel</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">21</code></td>
+      <td>FTP</td>
+      <td>File Transfer Protocol</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">22</code></td>
+      <td>SSH</td>
+      <td>Secure remote login</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">23</code></td>
+      <td>Telnet</td>
+      <td>Remote login, insecure</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">25</code></td>
+      <td>SMTP</td>
+      <td>Mail transfer</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">53</code></td>
+      <td>DNS</td>
+      <td>Domain Name System</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">67</code></td>
+      <td>DHCP</td>
+      <td>DHCP server</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">68</code></td>
+      <td>DHCP</td>
+      <td>DHCP client</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">80</code></td>
+      <td>HTTP</td>
+      <td>Web traffic</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">110</code></td>
+      <td>POP3</td>
+      <td>Email retrieval</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">143</code></td>
+      <td>IMAP</td>
+      <td>Email retrieval</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">443</code></td>
+      <td>HTTPS</td>
+      <td>Secure web traffic</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">3306</code></td>
+      <td>MySQL</td>
+      <td>Database service</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">5432</code></td>
+      <td>PostgreSQL</td>
+      <td>PostgreSQL</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">6379</code></td>
+      <td>Redis</td>
+      <td>Redis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These are conventional/default ports. A service can often be configured to listen on a different port.</p>
+
+<hr />
+
+<h1 id="11-ip-address--port">11. IP Address + Port</h1>
+
+<p>Suppose a server has:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP = 192.168.1.50
+</code></pre></div></div>
+
+<p>and SSH listens on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.50:22
+</code></pre></div></div>
+
+<p>identifies the SSH endpoint.</p>
+
+<p>A web server may be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.50:80
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.50:443
+</code></pre></div></div>
+
+<p>Therefore the same machine can provide multiple services:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.50:22   → SSH
+192.168.1.50:80   → HTTP
+192.168.1.50:443  → HTTPS
+192.168.1.50:5432 → PostgreSQL
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-server-security--multiple-layers">12. Server Security — Multiple Layers</h1>
+
+<p>A secure server should not depend on only one security mechanism.</p>
+
+<p>Think of security as layers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 Internet
+                    ↓
+              ┌───────────┐
+              │ Firewall  │
+              └─────┬─────┘
+                    ↓
+              ┌───────────┐
+              │   SSH     │
+              │ Security  │
+              └─────┬─────┘
+                    ↓
+              ┌───────────┐
+              │ File      │
+              │ Permissions│
+              └─────┬─────┘
+                    ↓
+              ┌───────────┐
+              │ SELinux   │
+              └─────┬─────┘
+                    ↓
+                Resources
+</code></pre></div></div>
+
+<p>Different layers protect against different types of mistakes and attacks.</p>
+
+<hr />
+
+<h1 id="13-traditional-linux-permissions">13. Traditional Linux Permissions</h1>
+
+<p>Linux files have permissions for:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User
+Group
+Other
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rwxr-x---
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User  → rwx
+Group → r-x
+Other → ---
+</code></pre></div></div>
+
+<p>These permissions provide a basic access-control mechanism.</p>
+
+<p>However, traditional Unix permissions are not the only security layer.</p>
+
+<hr />
+
+<h1 id="14-selinux">14. SELinux</h1>
+
+<h2 id="what-is-selinux">What is SELinux?</h2>
+
+<p>SELinux stands for:</p>
+
+<blockquote>
+  <p>Security-Enhanced Linux</p>
+</blockquote>
+
+<p>It provides an additional access-control mechanism.</p>
+
+<p>SELinux was developed to provide <strong>Mandatory Access Control (MAC)</strong> capabilities.</p>
+
+<p>Traditional Unix permissions are generally <strong>Discretionary Access Control (DAC)</strong>.</p>
+
+<hr />
+
+<h1 id="15-dac-vs-mac">15. DAC vs MAC</h1>
+
+<h3 id="dac">DAC</h3>
+
+<p>Traditional permissions such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rwx
+</code></pre></div></div>
+
+<p>are discretionary.</p>
+
+<p>The owner generally controls permissions for their files.</p>
+
+<h3 id="mac">MAC</h3>
+
+<p>Mandatory Access Control introduces additional security policies that can restrict what a process is allowed to access.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Normal permissions:
+"Does this user have permission?"
+
+SELinux:
+"Is this process allowed to perform this action under the security policy?"
+</code></pre></div></div>
+
+<p>This provides an additional security layer.</p>
+
+<hr />
+
+<h1 id="16-selinux-modes">16. SELinux Modes</h1>
+
+<p>SELinux commonly has three modes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enforcing
+Permissive
+Disabled
+</code></pre></div></div>
+
+<h3 id="enforcing">Enforcing</h3>
+
+<p>SELinux policy is actively enforced.</p>
+
+<p>Violations can be blocked.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Policy violation
+      ↓
+     DENY
+</code></pre></div></div>
+
+<h3 id="permissive">Permissive</h3>
+
+<p>Policy violations are logged, but access is generally not blocked by SELinux.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Policy violation
+      ↓
+     LOG
+      ↓
+  operation continues
+</code></pre></div></div>
+
+<h3 id="disabled">Disabled</h3>
+
+<p>SELinux is not active.</p>
+
+<hr />
+
+<h1 id="17-checking-selinux-status">17. Checking SELinux Status</h1>
+
+<p>On systems using SELinux, a common command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>getenforce
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enforcing
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Permissive
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disabled
+</code></pre></div></div>
+
+<p>Another useful command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sestatus
+</code></pre></div></div>
+
+<p>which provides more detailed SELinux information.</p>
+
+<hr />
+
+<h1 id="18-essential-networking-commands">18. Essential Networking Commands</h1>
+
+<p>Linux provides several commands for inspecting network configuration and activity.</p>
+
+<hr />
+
+<h2 id="ip"><code class="language-plaintext highlighter-rouge">ip</code></h2>
+
+<p>The modern general-purpose networking command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip
+</code></pre></div></div>
+
+<p>For addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip a
+</code></pre></div></div>
+
+<p>This shows network interfaces and their IP addresses.</p>
+
+<hr />
+
+<h2 id="ip-route"><code class="language-plaintext highlighter-rouge">ip route</code></h2>
+
+<p>Display routing information:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip route
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>default via 192.168.1.1 dev enp3s0
+192.168.1.0/24 dev enp3s0 proto kernel scope link src 192.168.1.20
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="ip-link"><code class="language-plaintext highlighter-rouge">ip link</code></h2>
+
+<p>Show network interfaces:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip <span class="nb">link</span>
+</code></pre></div></div>
+
+<p>It provides information such as:</p>
+
+<ul>
+  <li>Interface names</li>
+  <li>Interface state</li>
+  <li>MAC addresses</li>
+  <li>Link status</li>
+</ul>
+
+<hr />
+
+<h1 id="19-ping">19. <code class="language-plaintext highlighter-rouge">ping</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ping</code> tests network reachability using ICMP.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping 8.8.8.8
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>64 bytes from 8.8.8.8: icmp_seq=1 ttl=... time=...
+</code></pre></div></div>
+
+<p>This can help determine whether a host is reachable.</p>
+
+<p>However, failure to respond to <code class="language-plaintext highlighter-rouge">ping</code> does <strong>not necessarily mean the host is down</strong>. Firewalls may block ICMP.</p>
+
+<hr />
+
+<h1 id="20-ss">20. <code class="language-plaintext highlighter-rouge">ss</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ss</code> displays socket/network connection information.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ss <span class="nt">-tuln</span>
+</code></pre></div></div>
+
+<p>Common options:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-t → TCP
+-u → UDP
+-l → listening sockets
+-n → don't resolve names; show numeric values
+</code></pre></div></div>
+
+<p>This is useful for finding services listening on ports.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LISTEN 0 128 0.0.0.0:22 0.0.0.0:*
+</code></pre></div></div>
+
+<p>This indicates something is listening on TCP port 22.</p>
+
+<hr />
+
+<h1 id="21-curl">21. <code class="language-plaintext highlighter-rouge">curl</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">curl</code> can communicate with network services, especially HTTP/HTTPS servers.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://example.com
+</code></pre></div></div>
+
+<p>It can be useful for checking whether a web server responds.</p>
+
+<p>For headers:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-I</span> https://example.com
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-hostname">22. <code class="language-plaintext highlighter-rouge">hostname</code></h1>
+
+<p>Display the machine’s hostname:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu-server
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-hostname--i">23. <code class="language-plaintext highlighter-rouge">hostname -I</code></h1>
+
+<p>Display the machine’s assigned IP addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span> <span class="nt">-I</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.20 10.0.0.5
+</code></pre></div></div>
+
+<p>A machine can have multiple addresses.</p>
+
+<hr />
+
+<h1 id="24-public-ip-address">24. Public IP Address</h1>
+
+<p>Your local/private address is not necessarily your public Internet address.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Private IP:
+192.168.1.20
+</code></pre></div></div>
+
+<p>The router may have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Public IP:
+203.0.113.50
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Laptop
+192.168.1.20
+      |
+      ↓
+Router
+Public IP 203.0.113.50
+      |
+      ↓
+Internet
+</code></pre></div></div>
+
+<p>Network Address Translation (NAT) is commonly used to allow many private machines to share a public IPv4 address.</p>
+
+<hr />
+
+<h1 id="25-multiple-ip-addresses-on-one-machine">25. Multiple IP Addresses on One Machine</h1>
+
+<p>A remote machine can have multiple IP addresses.</p>
+
+<p>This is completely normal.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Machine
+├── 192.168.1.10
+├── 10.0.0.5
+└── 172.17.0.1
+</code></pre></div></div>
+
+<p>These may correspond to different interfaces or network environments.</p>
+
+<hr />
+
+<h1 id="26-why-virtual-machines-have-multiple-ip-addresses">26. Why Virtual Machines Have Multiple IP Addresses</h1>
+
+<p>Suppose you have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Host
+     |
+     +-- Virtual Machine
+</code></pre></div></div>
+
+<p>The host may have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.10
+</code></pre></div></div>
+
+<p>while the VM has:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.122.50
+</code></pre></div></div>
+
+<p>The VM may communicate through a virtual network interface.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Network
+       |
+    Host OS
+       |
+ Virtual Network
+       |
+      VM
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-containers-and-ip-addresses">27. Containers and IP Addresses</h1>
+
+<p>Containers commonly create additional network interfaces and private networks.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host
+ |
+ +-- Container A → 172.17.0.2
+ |
+ +-- Container B → 172.17.0.3
+</code></pre></div></div>
+
+<p>Docker commonly creates a bridge network such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker0
+</code></pre></div></div>
+
+<p>with addresses in a private subnet.</p>
+
+<p>Therefore a machine running containers may have several networking layers:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Internet
+   ↓
+Host network
+   ↓
+Container network
+   ↓
+Container
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-private-network-setup">28. Private Network Setup</h1>
+
+<p>A common private-network arrangement is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    Internet
+                       |
+                    Router
+                       |
+              192.168.1.1
+                       |
+        -----------------------------
+        |             |             |
+      Host A        Host B        Host C
+   192.168.1.10  192.168.1.20  192.168.1.30
+</code></pre></div></div>
+
+<p>Machines within the same private network can communicate directly if:</p>
+
+<ul>
+  <li>They have appropriate IP configuration.</li>
+  <li>Routing exists.</li>
+  <li>Firewalls allow the traffic.</li>
+  <li>The required service is listening.</li>
+</ul>
+
+<hr />
+
+<h1 id="29-ip-address-aliases">29. IP Address Aliases</h1>
+
+<p>An interface can have multiple IP addresses.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eth0
+ ├── 192.168.1.10
+ └── 192.168.1.11
+</code></pre></div></div>
+
+<p>The additional address can be considered an <strong>IP alias</strong> or secondary address.</p>
+
+<p>Modern Linux generally manages this using the <code class="language-plaintext highlighter-rouge">ip</code> command.</p>
+
+<p>View addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr show
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="adding-an-additional-ip-address">Adding an Additional IP Address</h2>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>ip addr add 192.168.1.11/24 dev eth0
+</code></pre></div></div>
+
+<p>This adds another address to <code class="language-plaintext highlighter-rouge">eth0</code>.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr show dev eth0
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p>Changes made directly with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr add
+</code></pre></div></div>
+
+<p>are typically runtime configuration and may not survive a reboot.</p>
+
+<p>Persistent network configuration depends on the Linux distribution and networking system in use.</p>
+
+<hr />
+
+<h1 id="30-reverse-dns-lookup">30. Reverse DNS Lookup</h1>
+
+<p>Normally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hostname → IP address
+</code></pre></div></div>
+
+<p>is called a forward lookup.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server.example.com
+        ↓
+192.168.1.20
+</code></pre></div></div>
+
+<p>A reverse lookup goes in the opposite direction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP address
+    ↓
+hostname
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.20
+      ↓
+server.example.com
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="reverse-lookup-with-dig">Reverse Lookup with <code class="language-plaintext highlighter-rouge">dig</code></h2>
+
+<p>If <code class="language-plaintext highlighter-rouge">dig</code> is installed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig <span class="nt">-x</span> 8.8.8.8
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-x</code> option performs a reverse lookup.</p>
+
+<p>Another command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host 8.8.8.8
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-important-distinction-reverse-dns-is-not-guaranteed">31. Important Distinction: Reverse DNS Is Not Guaranteed</h1>
+
+<p>Not every IP address has a useful reverse DNS record.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP → hostname
+</code></pre></div></div>
+
+<p>may:</p>
+
+<ul>
+  <li>Return a hostname</li>
+  <li>Return multiple names</li>
+  <li>Return no useful hostname</li>
+</ul>
+
+<p>Reverse DNS is controlled through DNS records and does not automatically exist for every IP address.</p>
+
+<hr />
+
+<h1 id="32-ssh--secure-remote-login">32. SSH — Secure Remote Login</h1>
+
+<h2 id="what-is-ssh">What is SSH?</h2>
+
+<p>SSH stands for:</p>
+
+<blockquote>
+  <p>Secure Shell</p>
+</blockquote>
+
+<p>It is commonly used to securely connect to remote Linux machines.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh username@hostname
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@192.168.1.20
+</code></pre></div></div>
+
+<p>The connection normally uses TCP port:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-ssh-with-a-specific-port">33. SSH with a Specific Port</h1>
+
+<p>If SSH is listening on a non-standard port:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-p</span> 2222 user@server
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-p 2222
+</code></pre></div></div>
+
+<p>specifies port 2222.</p>
+
+<hr />
+
+<h1 id="34-connecting-to-multiple-machines">34. Connecting to Multiple Machines</h1>
+
+<p>Suppose you have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server1
+server2
+server3
+</code></pre></div></div>
+
+<p>You can connect individually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@server1
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@server2
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@server3
+</code></pre></div></div>
+
+<p>Each SSH session establishes a connection to a remote machine.</p>
+
+<hr />
+
+<h1 id="35-ssh-mental-model">35. SSH Mental Model</h1>
+
+<p>Think of SSH as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Terminal
+     |
+     | encrypted SSH connection
+     ↓
+Remote SSH Server
+     |
+     ↓
+Remote Shell
+</code></pre></div></div>
+
+<p>Once connected, commands such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd
+ls
+cd
+</span>ps
+ip addr
+</code></pre></div></div>
+
+<p>execute on the remote machine.</p>
+
+<hr />
+
+<h1 id="36-ssh-and-authentication">36. SSH and Authentication</h1>
+
+<p>SSH can authenticate users using methods such as:</p>
+
+<ul>
+  <li>Password authentication</li>
+  <li>SSH public/private keys</li>
+  <li>Other configured authentication mechanisms</li>
+</ul>
+
+<p>SSH keys are commonly preferred for automated and administrative access.</p>
+
+<p>The basic idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Private Key → stays with you
+Public Key  → installed/authorized on server
+</code></pre></div></div>
+
+<p>Never share your private key.</p>
+
+<hr />
+
+<h1 id="37-free-ubuntu-linux-machines">37. Free Ubuntu Linux Machines</h1>
+
+<p>Ubuntu Linux itself is available as free/open-source software.</p>
+
+<p>You can run Ubuntu:</p>
+
+<ul>
+  <li>On your own computer</li>
+  <li>Inside a virtual machine</li>
+  <li>In containers</li>
+  <li>On various cloud platforms</li>
+  <li>On remote servers that provide free tiers or temporary environments</li>
+</ul>
+
+<p>The exact availability and terms of remote free machines depend on the provider.</p>
+
+<p>The important networking concept is the same:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your computer
+      |
+      | SSH
+      ↓
+Remote Ubuntu machine
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-web-server-access">38. Web Server Access</h1>
+
+<p>A web server usually listens on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>80 → HTTP
+443 → HTTPS
+</code></pre></div></div>
+
+<p>Suppose a remote machine has:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.20
+</code></pre></div></div>
+
+<p>and a web server is listening on port 80.</p>
+
+<p>You can access:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://192.168.1.20
+</code></pre></div></div>
+
+<p>or test it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://192.168.1.20
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-checking-whether-a-web-server-is-listening">39. Checking Whether a Web Server Is Listening</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ss <span class="nt">-tuln</span>
+</code></pre></div></div>
+
+<p>Look for:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:80
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:443
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LISTEN 0 128 0.0.0.0:80 0.0.0.0:*
+</code></pre></div></div>
+
+<p>This indicates a service is listening on TCP port 80.</p>
+
+<hr />
+
+<h1 id="40-listening-address-matters">40. Listening Address Matters</h1>
+
+<p>A service can listen on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1:80
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.0.0.0:80
+</code></pre></div></div>
+
+<p>These are very different.</p>
+
+<h3 id="127001"><code class="language-plaintext highlighter-rouge">127.0.0.1</code></h3>
+
+<p>The service is reachable only through the local loopback interface.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remote machine
+     X
+     |
+127.0.0.1
+</code></pre></div></div>
+
+<p>Other machines generally cannot directly access it.</p>
+
+<h3 id="0000"><code class="language-plaintext highlighter-rouge">0.0.0.0</code></h3>
+
+<p>For an IPv4 listening socket, this generally means the service is listening on all available IPv4 interfaces.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eth0
+  \
+   +---- Service :80
+  /
+other interface
+</code></pre></div></div>
+
+<p>Firewall rules can still prevent remote access.</p>
+
+<hr />
+
+<h1 id="41-file-system-protection-and-selinux">41. File System Protection and SELinux</h1>
+
+<p>SELinux can protect resources even when traditional Unix permissions appear to allow access.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Web Server Process
+       |
+       | tries to access
+       ↓
+     File
+</code></pre></div></div>
+
+<p>Traditional permissions may say:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALLOW
+</code></pre></div></div>
+
+<p>but SELinux policy may say:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DENY
+</code></pre></div></div>
+
+<p>The result can be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Access blocked
+</code></pre></div></div>
+
+<p>This is an important concept in server security.</p>
+
+<hr />
+
+<h1 id="42-selinux-security-contexts">42. SELinux Security Contexts</h1>
+
+<p>SELinux associates security information with objects and processes.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-Z</span>
+</code></pre></div></div>
+
+<p>can display SELinux security contexts on systems where SELinux is enabled.</p>
+
+<p>You may see information resembling:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>system_u:object_r:httpd_sys_content_t:s0
+</code></pre></div></div>
+
+<p>The exact context depends on the system.</p>
+
+<p>A web server may be allowed to access files with an appropriate SELinux type, while access to other files may be denied.</p>
+
+<hr />
+
+<h1 id="43-why-selinux-is-useful-for-web-servers">43. Why SELinux Is Useful for Web Servers</h1>
+
+<p>Suppose an attacker compromises a web application.</p>
+
+<p>Without additional restrictions, the compromised process might attempt to access sensitive files.</p>
+
+<p>SELinux can restrict what that web-server process is allowed to access.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Web Server
+     |
+     | compromised process
+     ↓
+SELinux Policy
+     |
+     +---- allowed resource
+     |
+     +---- DENIED resource
+</code></pre></div></div>
+
+<p>This follows the principle of <strong>least privilege</strong>.</p>
+
+<hr />
+
+<h1 id="44-checking-selinux-during-troubleshooting">44. Checking SELinux During Troubleshooting</h1>
+
+<p>If an application cannot access a file, do not immediately assume ordinary permissions are the only problem.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> filename
+</code></pre></div></div>
+
+<p>Then, on an SELinux system:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-Z</span> filename
+</code></pre></div></div>
+
+<p>Check SELinux status:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>getenforce
+</code></pre></div></div>
+
+<p>For detailed status:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sestatus
+</code></pre></div></div>
+
+<p>This helps determine whether SELinux is involved.</p>
+
+<hr />
+
+<h1 id="45-useful-networking-command-cheat-sheet">45. Useful Networking Command Cheat Sheet</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+</code></pre></div></div>
+
+<p>→ Show IP addresses/interfaces.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip <span class="nb">link</span>
+</code></pre></div></div>
+
+<p>→ Show network interfaces.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip route
+</code></pre></div></div>
+
+<p>→ Show routing table.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span>
+</code></pre></div></div>
+
+<p>→ Show hostname.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span> <span class="nt">-I</span>
+</code></pre></div></div>
+
+<p>→ Show assigned IP addresses.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping HOST
+</code></pre></div></div>
+
+<p>→ Test ICMP reachability.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ss <span class="nt">-tuln</span>
+</code></pre></div></div>
+
+<p>→ Show listening TCP/UDP sockets numerically.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl URL
+</code></pre></div></div>
+
+<p>→ Make an HTTP/HTTPS request.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig <span class="nt">-x</span> IP
+</code></pre></div></div>
+
+<p>→ Reverse DNS lookup.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host IP
+</code></pre></div></div>
+
+<p>→ Perform DNS lookup/reverse lookup.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@host
+</code></pre></div></div>
+
+<p>→ Connect to remote machine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-p</span> PORT user@host
+</code></pre></div></div>
+
+<p>→ SSH using a specified port.</p>
+
+<hr />
+
+<h1 id="46-network-troubleshooting-mental-model">46. Network Troubleshooting Mental Model</h1>
+
+<p>When a remote service does not work, troubleshoot layer by layer.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Does the machine have an IP?
+          ↓
+      ip addr
+
+2. Is routing configured?
+          ↓
+      ip route
+
+3. Is the destination reachable?
+          ↓
+      ping
+
+4. Is the service listening?
+          ↓
+      ss -tuln
+
+5. Is the correct port reachable?
+          ↓
+      Test the service
+
+6. Is a firewall blocking it?
+          ↓
+      Check firewall rules
+
+7. Is SELinux blocking access?
+          ↓
+      getenforce
+      ls -Z
+</code></pre></div></div>
+
+<p>This approach is much better than randomly changing configurations.</p>
+
+<hr />
+
+<h1 id="47-important-networking-relationships">47. Important Networking Relationships</h1>
+
+<p>Remember these distinctions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP Address
+    ↓
+Identifies a network endpoint/interface
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Port
+    ↓
+Identifies a service endpoint
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Routing
+    ↓
+Determines where packets should go
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DNS
+    ↓
+Maps names and addresses
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SSH
+    ↓
+Secure remote shell access
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Firewall
+    ↓
+Controls network traffic
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELinux
+    ↓
+Controls access according to security policy
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="48-example-complete-remote-server-scenario">48. Example: Complete Remote Server Scenario</h1>
+
+<p>Suppose you have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Your Laptop
+192.168.1.10
+       |
+       |
+       ↓
+Router
+192.168.1.1
+       |
+       ↓
+Ubuntu Server
+192.168.1.20
+</code></pre></div></div>
+
+<p>The Ubuntu server runs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SSH  → 22
+HTTP → 80
+</code></pre></div></div>
+
+<p>You can connect using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@192.168.1.20
+</code></pre></div></div>
+
+<p>You can test the web server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://192.168.1.20
+</code></pre></div></div>
+
+<p>Check server addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+</code></pre></div></div>
+
+<p>Check routing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip route
+</code></pre></div></div>
+
+<p>Check listening services:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ss <span class="nt">-tuln</span>
+</code></pre></div></div>
+
+<p>Check SELinux if applicable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>getenforce
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="49-example-server-with-vm-and-containers">49. Example: Server With VM and Containers</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    Internet
+                       |
+                    Router
+                       |
+                Physical Host
+                192.168.1.10
+                       |
+              -----------------
+              |               |
+             VM            Containers
+        192.168.122.10    172.17.0.2
+                           172.17.0.3
+</code></pre></div></div>
+
+<p>The physical host can therefore have multiple network addresses/interfaces.</p>
+
+<p>This is normal because:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical network
++
+Virtual network
++
+Container network
+</code></pre></div></div>
+
+<p>can coexist on the same machine.</p>
+
+<hr />
+
+<h1 id="50-exam-oriented-questions">50. Exam-Oriented Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>What is the difference between an IP address and a port?</p>
+
+<h3 id="answer">Answer</h3>
+
+<p>An IP address identifies the network endpoint/machine interface, while a port identifies a particular service/application endpoint on that machine.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.1.20:22
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP   → 192.168.1.20
+Port → 22 (SSH)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>What is the default SSH port?</p>
+
+<h3 id="answer-1">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>22
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>What are the common HTTP and HTTPS ports?</p>
+
+<h3 id="answer-2">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP  → 80
+HTTPS → 443
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>What command shows the routing table?</p>
+
+<h3 id="answer-3">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip route
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>What command shows network interfaces and addresses?</p>
+
+<h3 id="answer-4">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip a
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@192.168.1.20
+</code></pre></div></div>
+
+<h3 id="answer-5">Answer</h3>
+
+<p>It attempts to establish an SSH session to the machine at <code class="language-plaintext highlighter-rouge">192.168.1.20</code> as user <code class="language-plaintext highlighter-rouge">user</code>.</p>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-p</span> 2222 user@server
+</code></pre></div></div>
+
+<h3 id="answer-6">Answer</h3>
+
+<p>It connects to <code class="language-plaintext highlighter-rouge">server</code> using SSH on TCP port <code class="language-plaintext highlighter-rouge">2222</code>.</p>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">ss -tuln</code> show?</p>
+
+<h3 id="answer-7">Answer</h3>
+
+<p>It displays listening TCP/UDP sockets using numeric addresses and port numbers.</p>
+
+<hr />
+
+<h2 id="question-9">Question 9</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">getenforce</code> tell you?</p>
+
+<h3 id="answer-8">Answer</h3>
+
+<p>It reports the current SELinux mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enforcing
+Permissive
+Disabled
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-10">Question 10</h2>
+
+<p>What is SELinux?</p>
+
+<h3 id="answer-9">Answer</h3>
+
+<p>SELinux is <strong>Security-Enhanced Linux</strong>, a mandatory access-control system that provides an additional security policy layer beyond traditional Unix file permissions.</p>
+
+<hr />
+
+<h2 id="question-11">Question 11</h2>
+
+<p>What is the difference between Enforcing and Permissive SELinux modes?</p>
+
+<h3 id="answer-10">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enforcing  → policy is enforced; violations can be blocked
+Permissive → violations are logged but generally not blocked by SELinux
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-12">Question 12</h2>
+
+<p>Why can one machine have multiple IP addresses?</p>
+
+<h3 id="answer-11">Answer</h3>
+
+<p>A machine can have multiple physical or virtual network interfaces and can participate in multiple networks. Virtual machines and containers can add additional virtual networking.</p>
+
+<hr />
+
+<h2 id="question-13">Question 13</h2>
+
+<p>What is reverse DNS?</p>
+
+<h3 id="answer-12">Answer</h3>
+
+<p>Reverse DNS maps an IP address to a hostname.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP → hostname
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dig <span class="nt">-x</span> 8.8.8.8
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-14">Question 14</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1:80
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.0.0.0:80
+</code></pre></div></div>
+
+<h3 id="answer-13">Answer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">127.0.0.1:80</code> generally means the service is listening only on the local loopback interface.</p>
+
+<p><code class="language-plaintext highlighter-rouge">0.0.0.0:80</code> for IPv4 generally means the service is listening on all IPv4 interfaces.</p>
+
+<hr />
+
+<h1 id="51-final-master-summary">51. Final Master Summary</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PRIVATE NETWORK
+    ↓
+Private IP addresses
+    ↓
+Routing
+    ↓
+Gateway
+    ↓
+Internet
+
+IP ADDRESS
+    ↓
+Identifies network endpoint
+
+PORT
+    ↓
+Identifies service
+
+22  → SSH
+80  → HTTP
+443 → HTTPS
+53  → DNS
+
+NETWORK COMMANDS
+    ↓
+ip addr     → addresses
+ip link     → interfaces
+ip route    → routing
+ping        → reachability
+ss          → sockets/listening ports
+curl        → web requests
+hostname    → hostname
+hostname -I → IP addresses
+dig -x      → reverse DNS
+ssh         → remote login
+
+REMOTE ACCESS
+    ↓
+ssh user@host
+
+SECURITY
+    ↓
+Firewall
+    ↓
+Linux permissions
+    ↓
+SELinux
+    ↓
+Mandatory Access Control
+
+SELINUX
+    ↓
+getenforce
+    ↓
+Enforcing
+Permissive
+Disabled
+
+VIRTUALIZATION
+    ↓
+Physical host
+    ↓
+Virtual machines
+    ↓
+Containers
+    ↓
+Multiple networks/IP addresses
+</code></pre></div></div>
+
+<h2 id="commands-to-memorize">Commands to Memorize</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip addr
+ip <span class="nb">link
+</span>ip route
+
+<span class="nb">hostname
+hostname</span> <span class="nt">-I</span>
+
+ping HOST
+
+ss <span class="nt">-tuln</span>
+
+curl http://HOST
+
+ssh user@HOST
+ssh <span class="nt">-p</span> PORT user@HOST
+
+dig <span class="nt">-x</span> IP
+host IP
+
+getenforce
+sestatus
+<span class="nb">ls</span> <span class="nt">-Z</span>
+</code></pre></div></div>
+
+<p>The key mental model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WHO?
+  ↓
+IP address
+
+WHICH SERVICE?
+  ↓
+Port
+
+HOW DOES THE PACKET GET THERE?
+  ↓
+Routing
+
+IS THE SERVICE LISTENING?
+  ↓
+ss
+
+CAN I REACH THE MACHINE?
+  ↓
+ping / actual service test
+
+IS TRAFFIC BLOCKED?
+  ↓
+Firewall
+
+IS ACCESS BLOCKED AFTER NETWORKING SUCCEEDS?
+  ↓
+File permissions / SELinux
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L2.3 - Command line editors - Part 03</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L3.1 - Combining commands and files</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

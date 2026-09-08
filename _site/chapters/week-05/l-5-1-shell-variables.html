@@ -1,0 +1,3066 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L 5.1 - $hell variables | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link active">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 5</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L 5.1 - $hell variables</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l-51---hell-variables">L 5.1 - $hell variables</h1>
+
+<h1 id="shell-variables-special-variables-echo-environment-path-and-ps">Shell Variables, Special Variables, <code class="language-plaintext highlighter-rouge">echo</code>, Environment, <code class="language-plaintext highlighter-rouge">PATH</code>, and <code class="language-plaintext highlighter-rouge">ps</code></h1>
+
+<h2 id="1-introduction">1. Introduction</h2>
+
+<p>A <strong>shell variable</strong> is a variable maintained by the shell that stores information which can be used by commands and shell scripts.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$USER</span>
+</code></pre></div></div>
+
+<p>may produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shubham
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">USER</code> is the variable name.</li>
+  <li><code class="language-plaintext highlighter-rouge">$USER</code> means “expand the value stored in <code class="language-plaintext highlighter-rouge">USER</code>”.</li>
+  <li><code class="language-plaintext highlighter-rouge">echo</code> prints that value.</li>
+</ul>
+
+<p>Shell variables are extremely important in Bash scripting because they allow scripts to work with:</p>
+
+<ul>
+  <li>usernames</li>
+  <li>home directories</li>
+  <li>paths</li>
+  <li>process IDs</li>
+  <li>command-line arguments</li>
+  <li>exit statuses</li>
+  <li>shell options</li>
+  <li>environment configuration</li>
+</ul>
+
+<hr />
+
+<h1 id="2-frequently-used-shell-variables">2. Frequently Used Shell Variables</h1>
+
+<p>Some variables are already provided by the shell/environment.</p>
+
+<p>The most commonly encountered ones are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$USER</code></td>
+      <td>Current username</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$HOME</code></td>
+      <td>Current user’s home directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$PATH</code></td>
+      <td>Directories searched for executable commands</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$PWD</code></td>
+      <td>Current working directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$HOSTNAME</code></td>
+      <td>System hostname</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="21-user">2.1 <code class="language-plaintext highlighter-rouge">$USER</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$USER</code> usually contains the current username.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$USER</span>
+</code></pre></div></div>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shubham
+</code></pre></div></div>
+
+<p>You can also write:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Current user: </span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Current user: shubham
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="22-home">2.2 <code class="language-plaintext highlighter-rouge">$HOME</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$HOME</code> contains the path of the current user’s home directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$HOME</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<p>Instead of hardcoding:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /home/shubham
+</code></pre></div></div>
+
+<p>you can write:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>This is better because the script works for different users.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"My home directory is </span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="23-pwd">2.3 <code class="language-plaintext highlighter-rouge">$PWD</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$PWD</code> contains the current working directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$PWD</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+</code></pre></div></div>
+
+<p>You can compare it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd</span>
+</code></pre></div></div>
+
+<p>Both normally show the current working directory.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pwd
+echo</span> <span class="nv">$PWD</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham/projects
+/home/shubham/projects
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="24-hostname">2.4 <code class="language-plaintext highlighter-rouge">$HOSTNAME</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$HOSTNAME</code> usually contains the hostname of the machine.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hostname</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-path">3. <code class="language-plaintext highlighter-rouge">$PATH</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">$PATH</code> is one of the most important shell variables.</p>
+
+<p>It tells the shell <strong>where to search for executable commands</strong>.</p>
+
+<p>Check it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$PATH</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+</code></pre></div></div>
+
+<p>The directories are separated by <code class="language-plaintext highlighter-rouge">:</code>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$PATH
+
+/usr/local/sbin
+        ↓
+/usr/local/bin
+        ↓
+/usr/sbin
+        ↓
+/usr/bin
+        ↓
+/sbin
+        ↓
+/bin
+</code></pre></div></div>
+
+<p>When you type:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>the shell searches directories listed in <code class="language-plaintext highlighter-rouge">$PATH</code> until it finds an executable named <code class="language-plaintext highlighter-rouge">date</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/bin/date     ← maybe
+/usr/bin/date           ← found
+</code></pre></div></div>
+
+<p>Then the shell executes it.</p>
+
+<hr />
+
+<h2 id="31-why-path-is-useful">3.1 Why <code class="language-plaintext highlighter-rouge">$PATH</code> Is Useful</h2>
+
+<p>Without <code class="language-plaintext highlighter-rouge">$PATH</code>, you would often need to specify the complete path of commands.</p>
+
+<p>Instead of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>you can normally type:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>because <code class="language-plaintext highlighter-rouge">/usr/bin</code> is usually present in <code class="language-plaintext highlighter-rouge">$PATH</code>.</p>
+
+<p>Check where a command comes from:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which <span class="nb">date</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type date</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>date is /usr/bin/date
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-special-shell-variables">4. Special Shell Variables</h1>
+
+<p>Shell provides several variables with special meanings.</p>
+
+<p>Some important ones are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$0</code></td>
+      <td>Name/path used to invoke the script or shell context</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$1</code> … <code class="language-plaintext highlighter-rouge">$9</code></td>
+      <td>First through ninth positional arguments</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$#</code></td>
+      <td>Number of positional arguments</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$-</code></td>
+      <td>Current shell flags/options</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$@</code></td>
+      <td>All positional arguments</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$?</code></td>
+      <td>Exit status of previous command</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$$</code></td>
+      <td>PID of the current shell</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These are particularly important in shell scripting.</p>
+
+<hr />
+
+<h1 id="5---pid-of-the-current-shell">5. <code class="language-plaintext highlighter-rouge">$$</code> — PID of the Current Shell</h1>
+
+<p><code class="language-plaintext highlighter-rouge">$$</code> contains the process ID (<strong>PID</strong>) of the current shell.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>24531
+</code></pre></div></div>
+
+<p>The exact number will be different on every system.</p>
+
+<p>You can verify it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>The shell itself is a process, so it has a PID.</p>
+
+<hr />
+
+<h2 id="51-what-is-a-pid">5.1 What Is a PID?</h2>
+
+<p>PID means:</p>
+
+<blockquote>
+  <p>Process ID</p>
+</blockquote>
+
+<p>Every running process is normally assigned a unique process ID by the operating system.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash       → PID 24531
+firefox    → PID 5321
+sleep      → PID 8124
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">$$</code> lets the shell tell you its own PID.</p>
+
+<hr />
+
+<h2 id="52-example">5.2 Example</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"My shell PID is </span><span class="nv">$$</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My shell PID is 24531
+</code></pre></div></div>
+
+<p>This is useful in shell scripts for:</p>
+
+<ul>
+  <li>identifying the current shell</li>
+  <li>creating unique temporary filenames</li>
+  <li>debugging processes</li>
+  <li>understanding parent/child processes</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"log-</span><span class="nv">$$</span><span class="s2">.txt"</span>
+</code></pre></div></div>
+
+<p>could produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>log-24531.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6---exit-status-of-the-last-command">6. <code class="language-plaintext highlighter-rouge">$?</code> — Exit Status of the Last Command</h1>
+
+<p><code class="language-plaintext highlighter-rouge">$?</code> contains the exit status of the <strong>most recently executed command</strong>.</p>
+
+<p>This is extremely important in shell scripting.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">0</code> normally means:</p>
+
+<blockquote>
+  <p>Success</p>
+</blockquote>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<p>A non-zero value normally indicates:</p>
+
+<blockquote>
+  <p>Failure or another non-success condition</p>
+</blockquote>
+
+<hr />
+
+<h1 id="7-exit-status-examples">7. Exit Status Examples</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+0
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">echo</code> succeeded, so its exit status is <code class="language-plaintext highlighter-rouge">0</code>.</p>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /does-not-exist
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls: cannot access '/does-not-exist': No such file or directory
+2
+</code></pre></div></div>
+
+<p>The exact non-zero status depends on the command.</p>
+
+<hr />
+
+<h2 id="71-important-rule">7.1 Important Rule</h2>
+
+<p><code class="language-plaintext highlighter-rouge">$?</code> changes after every command.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="s2">"Hello"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>The final <code class="language-plaintext highlighter-rouge">$?</code> is the status of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello"</span>
+</code></pre></div></div>
+
+<p>not <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>Therefore, if you want to save an exit status:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+</span><span class="nv">status</span><span class="o">=</span><span class="nv">$?</span>
+
+<span class="nb">echo</span> <span class="s2">"Status was: </span><span class="nv">$status</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Status was: 1
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-using--in-scripts">8. Using <code class="language-plaintext highlighter-rouge">$?</code> in Scripts</h1>
+
+<p>Exit statuses are heavily used in conditional logic.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir test
+</span><span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory created"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Failed"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>A more common and cleaner approach is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="nb">mkdir test</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Directory created"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"Failed"</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<p>The shell automatically checks the command’s exit status.</p>
+
+<hr />
+
+<h1 id="9----shell-flags">9. <code class="language-plaintext highlighter-rouge">$-</code> — Shell Flags</h1>
+
+<p><code class="language-plaintext highlighter-rouge">$-</code> contains the current shell’s option/flag characters.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$-</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>himBH
+</code></pre></div></div>
+
+<p>The exact characters depend on the shell and its configuration.</p>
+
+<p>Common Bash flags include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Interactive shell</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Hashall</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m</code></td>
+      <td>Monitor mode</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">B</code></td>
+      <td>Brace expansion</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">H</code></td>
+      <td>History expansion</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="91-checking-whether-shell-is-interactive">9.1 Checking Whether Shell Is Interactive</h2>
+
+<p>You may see:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$-</span>
+</code></pre></div></div>
+
+<p>If the output contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>the shell is interactive.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>himBH
+</code></pre></div></div>
+
+<p>contains <code class="language-plaintext highlighter-rouge">i</code>, so this is an interactive shell.</p>
+
+<hr />
+
+<h1 id="10-0-1-to-9--">10. <code class="language-plaintext highlighter-rouge">$0</code>, <code class="language-plaintext highlighter-rouge">$1</code> to <code class="language-plaintext highlighter-rouge">$9</code>, <code class="language-plaintext highlighter-rouge">$#</code>, <code class="language-plaintext highlighter-rouge">$@</code></h1>
+
+<p>These variables are particularly important when writing shell scripts.</p>
+
+<p>Suppose we create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script.sh
+</code></pre></div></div>
+
+<p>and run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh apple banana cherry
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$0       → ./script.sh
+$1       → apple
+$2       → banana
+$3       → cherry
+$#       → 3
+$@       → apple banana cherry
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="101-0">10.1 <code class="language-plaintext highlighter-rouge">$0</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$0</code> represents how the script or shell was invoked.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"Script name: </span><span class="nv">$0</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh
+</code></pre></div></div>
+
+<p>Output may be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Script name: ./script.sh
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="102-1-to-9">10.2 <code class="language-plaintext highlighter-rouge">$1</code> to <code class="language-plaintext highlighter-rouge">$9</code></h2>
+
+<p>These represent positional arguments.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="nb">echo</span> <span class="s2">"First: </span><span class="nv">$1</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Second: </span><span class="nv">$2</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Third: </span><span class="nv">$3</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh apple banana cherry
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>First: apple
+Second: banana
+Third: cherry
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="103-">10.3 <code class="language-plaintext highlighter-rouge">$#</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$#</code> tells you how many positional arguments were supplied.</p>
+
+<p>Script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Number of arguments: $#"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh apple banana cherry
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Number of arguments: 3
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="104-">10.4 <code class="language-plaintext highlighter-rouge">$@</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">$@</code> represents all positional arguments.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./script.sh apple banana cherry
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apple banana cherry
+</code></pre></div></div>
+
+<p>A very important practical form is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>arg <span class="k">in</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>This processes each argument separately.</p>
+
+<hr />
+
+<h1 id="11-echo-command">11. <code class="language-plaintext highlighter-rouge">echo</code> Command</h1>
+
+<p><code class="language-plaintext highlighter-rouge">echo</code> prints text or expanded variable values to standard output.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="o">[</span>options] <span class="o">[</span>arguments]
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>Hello
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-echo-with-multiple-arguments">12. <code class="language-plaintext highlighter-rouge">echo</code> with Multiple Arguments</h1>
+
+<p>You can provide multiple arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>Hello World
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>Linux Shell Programming
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux Shell Programming
+</code></pre></div></div>
+
+<p>The shell passes multiple arguments to <code class="language-plaintext highlighter-rouge">echo</code>, and <code class="language-plaintext highlighter-rouge">echo</code> normally separates them with spaces in its output.</p>
+
+<hr />
+
+<h1 id="13-echo-with-quotes">13. <code class="language-plaintext highlighter-rouge">echo</code> with Quotes</h1>
+
+<p>Quotes control how the shell interprets text.</p>
+
+<h2 id="double-quotes">Double quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello World"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>Double quotes allow variable expansion:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"User: </span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User: shubham
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="single-quotes">Single quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'Hello World'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello World
+</code></pre></div></div>
+
+<p>Single quotes preserve the text literally.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$USER'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$USER
+</code></pre></div></div>
+
+<p>The variable is <strong>not expanded</strong>.</p>
+
+<hr />
+
+<h1 id="14-single-quotes-vs-double-quotes">14. Single Quotes vs Double Quotes</h1>
+
+<p>This distinction is extremely important.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shubham
+</code></pre></div></div>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$USER'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$USER
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"$USER"
+   ↓
+expand variable
+   ↓
+shubham
+</code></pre></div></div>
+
+<p>Whereas:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'$USER'
+   ↓
+treat everything literally
+   ↓
+$USER
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-escaping--with-">15. Escaping <code class="language-plaintext highlighter-rouge">$</code> with <code class="language-plaintext highlighter-rouge">\$</code></h1>
+
+<p>A backslash can prevent <code class="language-plaintext highlighter-rouge">$</code> from being interpreted as variable expansion.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="se">\$</span>USER
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$USER
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"The variable is </span><span class="se">\$</span><span class="s2">USER"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The variable is $USER
+</code></pre></div></div>
+
+<p>Normally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"The variable is </span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>might produce:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The variable is shubham
+</code></pre></div></div>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"The variable is </span><span class="se">\$</span><span class="s2">USER"</span>
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The variable is $USER
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-nested-quotes-and-echo">16. Nested Quotes and <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<p>Quotes can become confusing when different types are combined.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'hello "world"'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello "world"
+</code></pre></div></div>
+
+<p>The double quotes are literal characters because the entire string is inside single quotes.</p>
+
+<p>Similarly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"hello 'world'"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello 'world'
+</code></pre></div></div>
+
+<p>The single quotes are literal characters because the string is inside double quotes.</p>
+
+<hr />
+
+<h2 id="161-example">16.1 Example</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'hello "world"'</span>
+</code></pre></div></div>
+
+<p>The shell sees:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'hello "world"'
+</code></pre></div></div>
+
+<p>The outer single quotes define the shell string.</p>
+
+<p>Therefore the inner double quotes are simply characters.</p>
+
+<hr />
+
+<h1 id="17-multi-line-echo">17. Multi-line <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<p>A shell command can contain escaped newline characters.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"Hello</span><span class="se">\n</span><span class="s2">World"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+World
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-e</code> tells some implementations of <code class="language-plaintext highlighter-rouge">echo</code> to interpret escape sequences such as <code class="language-plaintext highlighter-rouge">\n</code>.</p>
+
+<p>However, <code class="language-plaintext highlighter-rouge">echo</code> behavior for options and escape sequences can vary between shells.</p>
+
+<p>For portable scripting, <code class="language-plaintext highlighter-rouge">printf</code> is generally preferred.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printf</span> <span class="s2">"Hello</span><span class="se">\n</span><span class="s2">World</span><span class="se">\n</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+World
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18-expanding-variables-with-echo">18. Expanding Variables with <code class="language-plaintext highlighter-rouge">echo</code></h1>
+
+<p>You can use <code class="language-plaintext highlighter-rouge">echo</code> to inspect variables.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$USER</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$HOME</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$PATH</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$PWD</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$HOSTNAME</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"User: </span><span class="nv">$USER</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Home: </span><span class="nv">$HOME</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Directory: </span><span class="nv">$PWD</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Host: </span><span class="nv">$HOSTNAME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User: shubham
+Home: /home/shubham
+Directory: /home/shubham/projects
+Host: ubuntu
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-printenv">19. <code class="language-plaintext highlighter-rouge">printenv</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">printenv</code> displays environment variables.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printenv</span>
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER=shubham
+HOME=/home/shubham
+PATH=/usr/local/bin:/usr/bin:/bin
+PWD=/home/shubham
+HOSTNAME=ubuntu
+...
+</code></pre></div></div>
+
+<p>You can request a specific variable:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printenv </span>USER
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shubham
+</code></pre></div></div>
+
+<p>Or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printenv </span>HOME
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/shubham
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-env">20. <code class="language-plaintext highlighter-rouge">env</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">env</code> can display the current environment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">env</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER=shubham
+HOME=/home/shubham
+PATH=/usr/local/bin:/usr/bin:/bin
+...
+</code></pre></div></div>
+
+<p>It can also be used to run a command with a modified environment.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">env </span><span class="nv">VAR</span><span class="o">=</span>hello bash
+</code></pre></div></div>
+
+<p>This starts a shell with <code class="language-plaintext highlighter-rouge">VAR</code> set in its environment.</p>
+
+<p>Inside that shell:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$VAR</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-set">21. <code class="language-plaintext highlighter-rouge">set</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">set</code> is different from <code class="language-plaintext highlighter-rouge">printenv</code>.</p>
+
+<p>In Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span>
+</code></pre></div></div>
+
+<p>displays shell variables, functions, and other shell state.</p>
+
+<p>Because the output can be very large:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span> | less
+</code></pre></div></div>
+
+<p>is often easier to inspect.</p>
+
+<hr />
+
+<h2 id="211-important-difference">21.1 Important Difference</h2>
+
+<p>Think of these commands like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>printenv
+   ↓
+environment variables
+
+env
+   ↓
+environment variables / run command with modified environment
+
+set
+   ↓
+shell variables + functions + shell state
+</code></pre></div></div>
+
+<p>A shell variable does not automatically become an environment variable.</p>
+
+<hr />
+
+<h1 id="22-shell-variables-vs-environment-variables">22. Shell Variables vs Environment Variables</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MYVAR</span><span class="o">=</span><span class="s2">"hello"</span>
+</code></pre></div></div>
+
+<p>This creates a shell variable.</p>
+
+<p>Check:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$MYVAR</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>But to export it to child processes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span>MYVAR
+</code></pre></div></div>
+
+<p>Now <code class="language-plaintext highlighter-rouge">MYVAR</code> is part of the environment inherited by child processes.</p>
+
+<p>You can combine creation and export:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">MYVAR</span><span class="o">=</span><span class="s2">"hello"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">printenv </span>MYVAR
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shell
+  |
+  |-- shell variables
+  |
+  |-- environment variables
+          |
+          ↓
+     inherited by child processes
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-date">23. <code class="language-plaintext highlighter-rouge">date</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">date</code> command displays the current date and time.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tue Sep  8 09:30:12 IST 2026
+</code></pre></div></div>
+
+<p>The exact output depends on your system’s timezone and configuration.</p>
+
+<hr />
+
+<h1 id="24-date--r">24. <code class="language-plaintext highlighter-rouge">date -R</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-R</code> displays the date in RFC-style format.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span> <span class="nt">-R</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tue, 08 Sep 2026 09:30:12 +0530
+</code></pre></div></div>
+
+<p>This format includes:</p>
+
+<ul>
+  <li>day of week</li>
+  <li>day</li>
+  <li>month</li>
+  <li>year</li>
+  <li>time</li>
+  <li>timezone offset</li>
+</ul>
+
+<hr />
+
+<h1 id="25-running-an-unaliased-command">25. Running an Unaliased Command</h1>
+
+<p>Sometimes a command has been aliased.</p>
+
+<p>For example, someone may create:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias date</span><span class="o">=</span><span class="s1">'date --iso-8601=seconds'</span>
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>runs through the alias.</p>
+
+<p>To bypass an alias, you can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\d</span>ate
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\d</span>ate
+</code></pre></div></div>
+
+<p>The backslash tells the shell not to use the alias for that command name.</p>
+
+<hr />
+
+<h2 id="251-using-the-full-path">25.1 Using the Full Path</h2>
+
+<p>Another way is to specify the executable’s full path:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>This directly invokes that executable.</p>
+
+<p>So if:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias date</span><span class="o">=</span><span class="s1">'something'</span>
+</code></pre></div></div>
+
+<p>exists:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>may use the alias.</p>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\d</span>ate
+</code></pre></div></div>
+
+<p>bypasses the alias.</p>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>directly invokes <code class="language-plaintext highlighter-rouge">/usr/bin/date</code>.</p>
+
+<hr />
+
+<h2 id="252-finding-the-full-path">25.2 Finding the Full Path</h2>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which <span class="nb">date</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>Or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type date</span>
+</code></pre></div></div>
+
+<p>If an alias exists, <code class="language-plaintext highlighter-rouge">type</code> can reveal it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>date is aliased to `date --iso-8601=seconds`
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-understanding-path-in-detail">26. Understanding <code class="language-plaintext highlighter-rouge">$PATH</code> in Detail</h1>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$PATH</span>
+</code></pre></div></div>
+
+<p>returns:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/bin:/usr/bin:/bin
+</code></pre></div></div>
+
+<p>When you execute:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">date</span>
+</code></pre></div></div>
+
+<p>the shell effectively searches:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/bin/date
+        ↓
+/usr/bin/date
+        ↓
+/bin/date
+</code></pre></div></div>
+
+<p>It stops when it finds a suitable executable.</p>
+
+<p>This is why commands can normally be executed without typing their full paths.</p>
+
+<hr />
+
+<h1 id="27-special-variables-quick-table">27. Special Variables Quick Table</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$0</code></td>
+      <td>Script/command invocation name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$1</code></td>
+      <td>First argument</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$2</code></td>
+      <td>Second argument</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$3</code></td>
+      <td>Third argument</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$1 ... $9</code></td>
+      <td>Positional arguments 1–9</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$#</code></td>
+      <td>Number of positional arguments</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$@</code></td>
+      <td>All positional arguments</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$?</code></td>
+      <td>Previous command’s exit status</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$$</code></td>
+      <td>Current shell PID</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$-</code></td>
+      <td>Current shell flags</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="28-ps--process-status">28. <code class="language-plaintext highlighter-rouge">ps</code> — Process Status</h1>
+
+<p><code class="language-plaintext highlighter-rouge">ps</code> is used to display information about running processes.</p>
+
+<p>Basic command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    PID TTY          TIME CMD
+  24531 pts/0    00:00:00 bash
+  24710 pts/0    00:00:00 ps
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PID</td>
+      <td>Process ID</td>
+    </tr>
+    <tr>
+      <td>TTY</td>
+      <td>Terminal associated with process</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>CPU time used</td>
+    </tr>
+    <tr>
+      <td>CMD</td>
+      <td>Command</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice something interesting:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>itself becomes a process while it runs.</p>
+
+<p>Therefore, you may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+ps
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-ps---forest">29. <code class="language-plaintext highlighter-rouge">ps --forest</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ps --forest</code> displays processes in a tree-like hierarchy.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">--forest</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID TTY          TIME CMD
+24531 pts/0  00:00:00 bash
+24720 pts/0  00:00:00  \_ ps
+</code></pre></div></div>
+
+<p>The tree helps visualize parent-child relationships.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+ ├── command
+ ├── command
+ └── ps
+</code></pre></div></div>
+
+<p>A process can create child processes.</p>
+
+<hr />
+
+<h1 id="30-ps--f">30. <code class="language-plaintext highlighter-rouge">ps -f</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-f</code> means <strong>full-format listing</strong>.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-f</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID        PID  PPID  C STIME TTY          TIME CMD
+shubham  24531 24500  0 09:20 pts/0    00:00:00 bash
+shubham  24800 24531  0 09:30 pts/0    00:00:00 ps -f
+</code></pre></div></div>
+
+<p>Important columns include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UID</td>
+      <td>User running process</td>
+    </tr>
+    <tr>
+      <td>PID</td>
+      <td>Process ID</td>
+    </tr>
+    <tr>
+      <td>PPID</td>
+      <td>Parent Process ID</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>CPU utilization indicator</td>
+    </tr>
+    <tr>
+      <td>STIME</td>
+      <td>Start time</td>
+    </tr>
+    <tr>
+      <td>TTY</td>
+      <td>Terminal</td>
+    </tr>
+    <tr>
+      <td>TIME</td>
+      <td>CPU time</td>
+    </tr>
+    <tr>
+      <td>CMD</td>
+      <td>Command</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="31-pid-vs-ppid">31. PID vs PPID</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID     PPID
+24531   24000
+24800   24531
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Process 24000
+      |
+      └── Process 24531
+                |
+                └── Process 24800
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">PPID</code> means:</p>
+
+<blockquote>
+  <p>Parent Process ID</p>
+</blockquote>
+
+<p>This is useful for understanding process hierarchy.</p>
+
+<hr />
+
+<h1 id="32-ps--e">32. <code class="language-plaintext highlighter-rouge">ps -e</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ps -e</code> displays processes from all sessions.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-e</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    PID TTY          TIME CMD
+      1 ?        00:00:03 systemd
+      2 ?        00:00:00 kthreadd
+    500 ?        00:00:01 NetworkManager
+  24531 pts/0    00:00:00 bash
+  24900 pts/0    00:00:00 ps
+</code></pre></div></div>
+
+<p>Unlike plain:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>which normally focuses on processes associated with the current terminal/session, <code class="language-plaintext highlighter-rouge">ps -e</code> shows a much broader process list.</p>
+
+<hr />
+
+<h1 id="33-ps--ef">33. <code class="language-plaintext highlighter-rouge">ps -ef</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">ps -ef</code> combines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-e
++
+-f
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Show processes broadly/all processes using full-format information.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 09:00 ?        00:00:03 /sbin/init
+root         500       1  0 09:01 ?        00:00:01 /usr/sbin/NetworkManager
+shubham    24531   24000  0 09:20 pts/0    00:00:00 bash
+shubham    24910   24531  0 09:30 pts/0    00:00:00 ps -ef
+</code></pre></div></div>
+
+<p>This is one of the most commonly used <code class="language-plaintext highlighter-rouge">ps</code> forms.</p>
+
+<hr />
+
+<h1 id="34-comparing-ps-ps--f-ps--e-and-ps--ef">34. Comparing <code class="language-plaintext highlighter-rouge">ps</code>, <code class="language-plaintext highlighter-rouge">ps -f</code>, <code class="language-plaintext highlighter-rouge">ps -e</code>, and <code class="language-plaintext highlighter-rouge">ps -ef</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps</code></td>
+      <td>Processes associated with current session/terminal</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps -f</code></td>
+      <td>Same basic scope, more detailed format</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps -e</code></td>
+      <td>Processes from all sessions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps -ef</code></td>
+      <td>All processes + full-format information</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ps --forest</code></td>
+      <td>Process hierarchy/tree view</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A useful mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+ ↓
+basic process information
+
+ps -f
+ ↓
+more details
+
+ps -e
+ ↓
+all processes
+
+ps -ef
+ ↓
+all processes + details
+
+ps --forest
+ ↓
+process hierarchy
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-connecting--with-ps">35. Connecting <code class="language-plaintext highlighter-rouge">$$</code> with <code class="language-plaintext highlighter-rouge">ps</code></h1>
+
+<p>Now we can connect two concepts.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>24531
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-f</span>
+</code></pre></div></div>
+
+<p>may show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UID       PID    PPID  C STIME TTY      TIME CMD
+shubham   24531  24000 0 09:20 pts/0 00:00:00 bash
+</code></pre></div></div>
+
+<p>Notice:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$$
+ ↓
+24531
+ ↓
+PID of current shell
+</code></pre></div></div>
+
+<p>This demonstrates that the shell itself is a process.</p>
+
+<hr />
+
+<h1 id="36-practical-experiment">36. Practical Experiment</h1>
+
+<p>Run these commands one by one:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"USER = </span><span class="nv">$USER</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"HOME = </span><span class="nv">$HOME</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"PATH = </span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"PWD = </span><span class="nv">$PWD</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"HOSTNAME = </span><span class="nv">$HOSTNAME</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"PID = </span><span class="nv">$$</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"FLAGS = </span><span class="nv">$-</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-f</span>
+</code></pre></div></div>
+
+<p>Find the row corresponding to your shell.</p>
+
+<p>The PID shown by:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<p>should correspond to your shell process.</p>
+
+<hr />
+
+<h1 id="37-practical-experiment-exit-status">37. Practical Experiment: Exit Status</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="s2">"Exit status = </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="s2">"Exit status = </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /
+<span class="nb">echo</span> <span class="s2">"Exit status = </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /does-not-exist
+<span class="nb">echo</span> <span class="s2">"Exit status = </span><span class="nv">$?</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Observe:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0     → success
+nonzero → failure/other non-success condition
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-practical-experiment-quotes">38. Practical Experiment: Quotes</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$USER'</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">USER"</span>
+</code></pre></div></div>
+
+<p>You should understand the difference:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"$USER"    → variable expands
+'$USER'    → literal $USER
+"\$USER"   → literal $USER
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-practical-experiment-path">39. Practical Experiment: PATH</h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$PATH</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which <span class="nb">date</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type date</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/date
+</code></pre></div></div>
+
+<p>Finally:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\d</span>ate
+</code></pre></div></div>
+
+<p>This demonstrates the relationship between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias
+   ↓
+command lookup
+   ↓
+PATH
+   ↓
+executable
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="40-common-mistakes">40. Common Mistakes</h1>
+
+<h2 id="mistake-1-forgetting-">Mistake 1: Forgetting <code class="language-plaintext highlighter-rouge">$</code></h2>
+
+<p>Incorrect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>USER
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>USER
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$USER</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2-expecting-expansion-inside-single-quotes">Mistake 2: Expecting expansion inside single quotes</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$HOME'</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$HOME
+</code></pre></div></div>
+
+<p>Correct when expansion is wanted:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$HOME</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3-using--too-late">Mistake 3: Using <code class="language-plaintext highlighter-rouge">$?</code> too late</h2>
+
+<p>Incorrect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+echo</span> <span class="s2">"Something"</span>
+<span class="nb">echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<p>The final <code class="language-plaintext highlighter-rouge">$?</code> belongs to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Something"</span>
+</code></pre></div></div>
+
+<p>not <code class="language-plaintext highlighter-rouge">false</code>.</p>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">false
+</span><span class="nv">status</span><span class="o">=</span><span class="nv">$?</span>
+<span class="nb">echo</span> <span class="s2">"Status = </span><span class="nv">$status</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-4-confusing-pid-and-ppid">Mistake 4: Confusing PID and PPID</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PID  → this process
+PPID → parent process
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-5-confusing-home-and-pwd">Mistake 5: Confusing <code class="language-plaintext highlighter-rouge">$HOME</code> and <code class="language-plaintext highlighter-rouge">$PWD</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$HOME
+ ↓
+your home directory
+
+$PWD
+ ↓
+your current working directory
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HOME = /home/shubham
+PWD  = /home/shubham/projects
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-exam-oriented-questions">41. Exam-Oriented Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>What does this print?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$USER'</span>
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$USER
+</code></pre></div></div>
+
+<p>Because variables are not expanded inside single quotes.</p>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>What does this normally print?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">true
+echo</span> <span class="nv">$?</span>
+</code></pre></div></div>
+
+<h3 id="answer-1">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>What does this represent?</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nv">$$</span>
+</code></pre></div></div>
+
+<h3 id="answer-2">Answer</h3>
+
+<p>The PID of the current shell.</p>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">$#</code> represent inside a shell script?</p>
+
+<h3 id="answer-3">Answer</h3>
+
+<p>The number of positional arguments supplied to the script.</p>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>If a script is executed as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./test.sh apple banana
+</code></pre></div></div>
+
+<p>what are <code class="language-plaintext highlighter-rouge">$1</code> and <code class="language-plaintext highlighter-rouge">$2</code>?</p>
+
+<h3 id="answer-4">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$1 = apple
+$2 = banana
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">$-</code> contain?</p>
+
+<h3 id="answer-5">Answer</h3>
+
+<p>The current shell’s option/flag characters.</p>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">$PATH</code> contain?</p>
+
+<h3 id="answer-6">Answer</h3>
+
+<p>A colon-separated list of directories where the shell searches for executable commands.</p>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$USER</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'$USER'</span>
+</code></pre></div></div>
+
+<h3 id="answer-7">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"$USER"  → expands USER
+'$USER'  → prints literal $USER
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-9">Question 9</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>
+</code></pre></div></div>
+
+<h3 id="answer-8">Answer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">ps</code> normally shows processes associated with the current session/terminal.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ps -ef</code> shows a broad/all-process listing in full format.</p>
+
+<hr />
+
+<h2 id="question-10">Question 10</h2>
+
+<p>What does <code class="language-plaintext highlighter-rouge">PPID</code> mean?</p>
+
+<h3 id="answer-9">Answer</h3>
+
+<p>Parent Process ID.</p>
+
+<hr />
+
+<h1 id="42-important-cheat-sheet">42. Important Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Frequently Used Variables
+────────────────────────────────────────────
+$USER       → current username
+$HOME       → home directory
+$PATH       → executable search path
+$PWD        → current working directory
+$HOSTNAME   → system hostname
+
+
+Special Variables
+────────────────────────────────────────────
+$0          → script/command invocation name
+$1-$9       → positional arguments
+$#          → number of positional arguments
+$@          → all positional arguments
+$-          → shell flags
+$?          → previous command exit status
+$$          → current shell PID
+
+
+Commands
+────────────────────────────────────────────
+echo        → print text/values
+printenv    → display environment variables
+env         → display/use environment
+set         → display shell variables/functions/state
+date        → current date/time
+date -R     → RFC-style date/time
+ps          → process information
+ps -f       → full format
+ps -e       → all processes
+ps -ef      → all processes + full format
+ps --forest → process hierarchy
+
+
+Quoting
+────────────────────────────────────────────
+"$USER"     → variable expansion
+'$USER'     → literal $USER
+"\$USER"    → literal $USER
+
+
+Exit Status
+────────────────────────────────────────────
+0           → success
+non-zero    → failure/other non-success condition
+
+
+Process
+────────────────────────────────────────────
+PID         → Process ID
+PPID        → Parent Process ID
+$$          → PID of current shell
+</code></pre></div></div>
+
+<h1 id="43-final-mental-model">43. Final Mental Model</h1>
+
+<p>Think of the shell as a running program that has its own information:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    SHELL
+                      |
+        ┌─────────────┼──────────────┐
+        ↓             ↓              ↓
+    Variables      Processes      Commands
+        |             |              |
+        ↓             ↓              ↓
+ USER HOME PATH     PID/PPID      echo/date/ps
+ PWD HOSTNAME
+        |
+        ↓
+ Special Variables
+        |
+ ┌──────┼───────────────────────┐
+ ↓      ↓       ↓       ↓       ↓
+$0    $1-$9     $#      $?      $$
+                         ↓       ↓
+                    exit status  PID
+</code></pre></div></div>
+
+<p>The most important concepts to remember are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$USER       → Who am I?
+$HOME       → Where is my home?
+$PWD        → Where am I?
+$PATH       → Where should the shell search for commands?
+$HOSTNAME   → Which machine am I on?
+
+$$          → What is my shell's PID?
+$?          → Did the previous command succeed?
+$-          → What shell flags are active?
+
+$0          → How was the script invoked?
+$1-$9       → What arguments were supplied?
+$#          → How many arguments?
+$@          → What are all the arguments?
+
+ps          → What processes are running?
+ps -f       → Give me more process details.
+ps -e       → Show all processes.
+ps -ef      → Show all processes with full details.
+ps --forest → Show the process hierarchy.
+</code></pre></div></div>
+
+<p>These variables and commands form the foundation for understanding <strong>Bash scripting, process management, command execution, debugging, and automation</strong>.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">T4.1 What is find?</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L 5.2 - Shell Variables - Part 1</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

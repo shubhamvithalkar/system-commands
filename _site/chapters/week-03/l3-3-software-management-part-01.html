@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L3.3: Software Management - Part 01 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link active">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 3</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L3.3: Software Management - Part 01</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l33-software-management---part-01">L3.3: Software Management - Part 01</h1>
+
+<h1 id="linux-operating-system-kernel-package-management-and-checksums">Linux Operating System, Kernel, Package Management, and Checksums</h1>
+
+<h2 id="1-checking-the-type-of-operating-system">1. Checking the Type of Operating System</h2>
+
+<p>When working on a Linux system, it is useful to know:</p>
+
+<ul>
+  <li>Which operating system/distribution is running.</li>
+  <li>Which Linux kernel is running.</li>
+  <li>Whether the system is 32-bit or 64-bit.</li>
+  <li>Which package manager is available.</li>
+</ul>
+
+<p>There are several ways to identify the operating system.</p>
+
+<hr />
+
+<h2 id="2-etcos-release">2. <code class="language-plaintext highlighter-rouge">/etc/os-release</code></h2>
+
+<p>The most common modern method is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+</code></pre></div></div>
+
+<p>On Ubuntu, you may see something like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PRETTY_NAME="Ubuntu 24.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.3 LTS (Noble Numbat)"
+ID=ubuntu
+ID_LIKE=debian
+...
+</code></pre></div></div>
+
+<p>The important fields include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NAME</code></td>
+      <td>Operating system name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PRETTY_NAME</code></td>
+      <td>Human-readable OS name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">VERSION_ID</code></td>
+      <td>Version number</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ID</code></td>
+      <td>Distribution identifier</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ID_LIKE</code></td>
+      <td>Related distribution family</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ID=ubuntu
+ID_LIKE=debian
+</code></pre></div></div>
+
+<p>tells us that the system is Ubuntu and belongs to the Debian family.</p>
+
+<hr />
+
+<h2 id="3-lsb_release">3. <code class="language-plaintext highlighter-rouge">lsb_release</code></h2>
+
+<p>Another command commonly used to identify Linux distributions is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsb_release <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Distributor ID: Ubuntu
+Description:    Ubuntu 24.04.3 LTS
+Release:        24.04
+Codename:       noble
+</code></pre></div></div>
+
+<p>You can also use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsb_release <span class="nt">-d</span>
+</code></pre></div></div>
+
+<p>to display only the distribution description.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Description:    Ubuntu 24.04.3 LTS
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<p><code class="language-plaintext highlighter-rouge">lsb_release</code> may not be installed on every minimal Linux installation.</p>
+
+<p>In that case:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+</code></pre></div></div>
+
+<p>is generally the more dependable modern approach.</p>
+
+<hr />
+
+<h1 id="4-checking-the-kernel-type-and-architecture">4. Checking the Kernel Type and Architecture</h1>
+
+<p>The operating system and the kernel are related but <strong>not the same thing</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System → Ubuntu
+Kernel           → Linux
+Architecture    → x86_64
+</code></pre></div></div>
+
+<p>Ubuntu is a Linux distribution.</p>
+
+<p>Linux itself is the kernel.</p>
+
+<hr />
+
+<h2 id="5-uname">5. <code class="language-plaintext highlighter-rouge">uname</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">uname</code> command provides information about the kernel.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>Typical output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<p>This tells you the kernel name.</p>
+
+<hr />
+
+<h2 id="6-uname--s">6. <code class="language-plaintext highlighter-rouge">uname -s</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-s</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-s</code> means:</p>
+
+<blockquote>
+  <p>Print the kernel name.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="7-uname--r">7. <code class="language-plaintext highlighter-rouge">uname -r</code></h2>
+
+<p>To check the kernel release:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6.8.0-90-generic
+</code></pre></div></div>
+
+<p>This tells you the running kernel release.</p>
+
+<hr />
+
+<h2 id="8-uname--m">8. <code class="language-plaintext highlighter-rouge">uname -m</code></h2>
+
+<p>To check the machine architecture:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>Possible output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64
+</code></pre></div></div>
+
+<p>This indicates a 64-bit x86 architecture.</p>
+
+<p>Common values include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Output</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x86_64</code></td>
+      <td>64-bit x86/AMD64 architecture</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">aarch64</code></td>
+      <td>64-bit ARM architecture</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">armv7l</code></td>
+      <td>32-bit ARM architecture</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i686</code></td>
+      <td>32-bit x86 architecture</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="9-uname--a">9. <code class="language-plaintext highlighter-rouge">uname -a</code></h2>
+
+<p>For a complete summary:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux mycomputer 6.8.0-90-generic #91-Ubuntu SMP ... x86_64 x86_64 x86_64 GNU/Linux
+</code></pre></div></div>
+
+<p>This can contain:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kernel name
+Hostname
+Kernel release
+Kernel version/build information
+Machine architecture
+Processor information
+Hardware platform
+Operating system
+</code></pre></div></div>
+
+<p>The exact fields can vary between systems.</p>
+
+<hr />
+
+<h1 id="10-arch">10. <code class="language-plaintext highlighter-rouge">arch</code></h1>
+
+<p>Another simple command for architecture is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">arch</span>
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64
+</code></pre></div></div>
+
+<p>This is generally equivalent to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>for determining the machine architecture.</p>
+
+<hr />
+
+<h1 id="11-os-vs-kernel-vs-architecture">11. OS vs Kernel vs Architecture</h1>
+
+<p>Do not confuse these three concepts.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ubuntu
+  ↓
+Operating System / Linux Distribution
+
+Linux
+  ↓
+Kernel
+
+x86_64
+  ↓
+Machine Architecture
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+</code></pre></div></div>
+
+<p>might tell you:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ubuntu 24.04
+</code></pre></div></div>
+
+<p>while:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-r</span>
+</code></pre></div></div>
+
+<p>might tell you:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6.8.0-90-generic
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>might tell you:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-apt">12. <code class="language-plaintext highlighter-rouge">apt</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">apt</code> is a command-line package management tool commonly used on Debian-based distributions such as:</p>
+
+<ul>
+  <li>Ubuntu</li>
+  <li>Debian</li>
+  <li>Linux Mint</li>
+  <li>Pop!_OS</li>
+  <li>and other Debian-based systems</li>
+</ul>
+
+<p>A package is a collection of files and metadata distributed together for installing software.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap
+curl
+git
+vim
+python3
+</code></pre></div></div>
+
+<p>can be installed as packages.</p>
+
+<hr />
+
+<h1 id="13-what-does-a-package-manager-do">13. What Does a Package Manager Do?</h1>
+
+<p>Without a package manager, installing software manually might require:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>download source/binary
+        ↓
+resolve dependencies
+        ↓
+compile/install
+        ↓
+configure
+        ↓
+track installed files
+        ↓
+update software
+</code></pre></div></div>
+
+<p>A package manager automates much of this.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 APT
+                  │
+        ┌─────────┼─────────┐
+        ↓         ↓         ↓
+     Search    Install    Update
+        │         │         │
+        ↓         ↓         ↓
+    packages   software   packages
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-basic-apt-syntax">14. Basic <code class="language-plaintext highlighter-rouge">apt</code> Syntax</h1>
+
+<p>General form:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt <span class="o">[</span>options] <span class="nb">command</span>
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+apt <span class="nb">install </span>package
+apt remove package
+apt search package
+apt show package
+</code></pre></div></div>
+
+<p>Some operations require administrator privileges:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>package
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="15-apt-update">15. <code class="language-plaintext highlighter-rouge">apt update</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>This updates the local package information from configured repositories.</p>
+
+<p>It does <strong>not normally upgrade all installed packages</strong>.</p>
+
+<p>Think of it as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Internet repositories
+        ↓
+     apt update
+        ↓
+local package information
+</code></pre></div></div>
+
+<p>After updating package information, you can install or upgrade packages using the available metadata.</p>
+
+<hr />
+
+<h1 id="16-apt-upgrade">16. <code class="language-plaintext highlighter-rouge">apt upgrade</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<p>This upgrades installed packages when newer versions are available.</p>
+
+<p>Typical workflow:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<p>The distinction is important:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+    ↓
+refresh package information
+
+apt upgrade
+    ↓
+actually upgrade installed packages
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-installing-a-package">17. Installing a Package</h1>
+
+<p>Syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>package_name
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nmap
+</code></pre></div></div>
+
+<p>APT determines dependencies and installs the required packages.</p>
+
+<hr />
+
+<h1 id="18-removing-a-package">18. Removing a Package</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt remove nmap
+</code></pre></div></div>
+
+<p>This removes the package while generally leaving configuration files behind.</p>
+
+<p>To remove the package and associated configuration files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt purge nmap
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="19-apt-cache">19. <code class="language-plaintext highlighter-rouge">apt-cache</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">apt-cache</code> is a command used to query and inspect information stored in APT’s package cache.</p>
+
+<p>It is particularly useful for:</p>
+
+<ul>
+  <li>Searching packages.</li>
+  <li>Listing package names.</li>
+  <li>Viewing package information.</li>
+  <li>Inspecting package metadata.</li>
+</ul>
+
+<hr />
+
+<h1 id="20-searching-packages--apt-cache-search">20. Searching Packages — <code class="language-plaintext highlighter-rouge">apt-cache search</code></h1>
+
+<p>Syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search keyword
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search nmap
+</code></pre></div></div>
+
+<p>APT searches package information for the specified term.</p>
+
+<p>You might see results such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap - The Network Mapper
+nmap-common - Architecture independent data for nmap
+</code></pre></div></div>
+
+<p>The search can match package names and descriptions.</p>
+
+<hr />
+
+<h1 id="21-apt-cache-pkgnames">21. <code class="language-plaintext highlighter-rouge">apt-cache pkgnames</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames
+</code></pre></div></div>
+
+<p>lists package names known to APT’s package cache.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accountsservice
+acl
+adduser
+adwaita-icon-theme
+...
+</code></pre></div></div>
+
+<h3 id="important-correction">Important Correction</h3>
+
+<p><code class="language-plaintext highlighter-rouge">apt-cache pkgnames</code> does <strong>not mean “all packages installed on the system.”</strong></p>
+
+<p>It lists package names known from the configured APT package information/cache, which can include packages that are <strong>not installed</strong>.</p>
+
+<p>To see packages actually installed, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt list <span class="nt">--installed</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>This distinction is important.</p>
+
+<hr />
+
+<h1 id="22-filtering-apt-cache-pkgnames">22. Filtering <code class="language-plaintext highlighter-rouge">apt-cache pkgnames</code></h1>
+
+<p>Suppose you want package names beginning with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nm
+</code></pre></div></div>
+
+<p>You can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames nm
+</code></pre></div></div>
+
+<p>This filters package names using the supplied prefix.</p>
+
+<p>Possible output may include packages such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nm-tray
+nmap
+...
+</code></pre></div></div>
+
+<p>The exact output depends on the repositories configured on your system.</p>
+
+<p>Another general technique is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames | <span class="nb">grep</span> <span class="s1">'^nm'</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames
+        ↓
+      grep
+        ↓
+names beginning with nm
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-apt-cache-show">23. <code class="language-plaintext highlighter-rouge">apt-cache show</code></h1>
+
+<p>To display detailed information about a package:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache show nmap
+</code></pre></div></div>
+
+<p>You may see information such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package: nmap
+Architecture: amd64
+Version: ...
+Priority: optional
+Section: net
+Maintainer: ...
+Description: The Network Mapper
+...
+</code></pre></div></div>
+
+<p>The information can include:</p>
+
+<ul>
+  <li>Package name</li>
+  <li>Version</li>
+  <li>Architecture</li>
+  <li>Dependencies</li>
+  <li>Maintainer</li>
+  <li>Description</li>
+  <li>Package size</li>
+  <li>Installed size</li>
+  <li>Repository information</li>
+</ul>
+
+<hr />
+
+<h1 id="24-apt-show">24. <code class="language-plaintext highlighter-rouge">apt show</code></h1>
+
+<p>Modern APT also provides:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt show nmap
+</code></pre></div></div>
+
+<p>This is often more convenient for human-readable package information.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt show nmap
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package: nmap
+Version: ...
+Architecture: amd64
+Depends: ...
+Description: The Network Mapper
+...
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-installed-packages-vs-available-packages">25. Installed Packages vs Available Packages</h1>
+
+<p>This distinction is extremely important.</p>
+
+<h3 id="packages-known-to-apt">Packages known to APT</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames
+</code></pre></div></div>
+
+<p>These are package names available in the package metadata/cache.</p>
+
+<h3 id="packages-actually-installed">Packages actually installed</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt list <span class="nt">--installed</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>APT repositories
+      ↓
+package metadata
+      ↓
+apt-cache
+      ↓
+available/known packages
+
+
+Installed packages
+      ↓
+dpkg database
+      ↓
+apt list --installed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-package-management-cheat-sheet">26. Package Management Cheat Sheet</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Refresh package information</span>
+<span class="nb">sudo </span>apt update
+
+<span class="c"># Upgrade installed packages</span>
+<span class="nb">sudo </span>apt upgrade
+
+<span class="c"># Install package</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>package
+
+<span class="c"># Remove package</span>
+<span class="nb">sudo </span>apt remove package
+
+<span class="c"># Remove package + configuration</span>
+<span class="nb">sudo </span>apt purge package
+
+<span class="c"># Search packages</span>
+apt search keyword
+
+<span class="c"># Search using apt-cache</span>
+apt-cache search keyword
+
+<span class="c"># List package names known to APT</span>
+apt-cache pkgnames
+
+<span class="c"># Package names beginning with prefix</span>
+apt-cache pkgnames nm
+
+<span class="c"># Show package details</span>
+apt-cache show nmap
+
+<span class="c"># Modern equivalent for displaying package information</span>
+apt show nmap
+
+<span class="c"># List installed packages</span>
+apt list <span class="nt">--installed</span>
+
+<span class="c"># Query installed package database</span>
+dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-checksums">27. Checksums</h1>
+
+<p>A checksum is a value calculated from data.</p>
+
+<p>It is used to help determine whether data has changed or been corrupted.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File
+ ↓
+Checksum algorithm
+ ↓
+Checksum value
+</code></pre></div></div>
+
+<p>If the file changes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>File
+ ↓
+Checksum algorithm
+ ↓
+Different checksum
+</code></pre></div></div>
+
+<p>Therefore, comparing checksums can help verify file integrity.</p>
+
+<hr />
+
+<h1 id="28-why-are-checksums-useful">28. Why Are Checksums Useful?</h1>
+
+<p>Suppose you download:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu.iso
+</code></pre></div></div>
+
+<p>The downloaded file could potentially be:</p>
+
+<ul>
+  <li>corrupted during transfer</li>
+  <li>incomplete</li>
+  <li>modified</li>
+  <li>different from the expected file</li>
+</ul>
+
+<p>The publisher may provide an expected checksum.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected:
+abc123...
+</code></pre></div></div>
+
+<p>You calculate the checksum of your downloaded file:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Calculated:
+abc123...
+</code></pre></div></div>
+
+<p>If they match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected == Calculated
+</code></pre></div></div>
+
+<p>the checksum confirms that the file contents match the data represented by that checksum.</p>
+
+<hr />
+
+<h1 id="29-md5sum">29. <code class="language-plaintext highlighter-rouge">md5sum</code></h1>
+
+<p>One common checksum command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">md5sum </span>file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">md5sum </span>example.txt
+</code></pre></div></div>
+
+<p>Output looks like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d41d8cd98f00b204e9800998ecf8427e  example.txt
+</code></pre></div></div>
+
+<p>The long hexadecimal value is the MD5 digest.</p>
+
+<hr />
+
+<h1 id="30-sha1sum">30. <code class="language-plaintext highlighter-rouge">sha1sum</code></h1>
+
+<p>Another algorithm is SHA-1:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha1sum </span>file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha1sum </span>example.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;40-character hexadecimal digest&gt;  example.txt
+</code></pre></div></div>
+
+<p>SHA-1 is historically important, but it is considered cryptographically weak for security-sensitive applications.</p>
+
+<hr />
+
+<h1 id="31-sha256sum">31. <code class="language-plaintext highlighter-rouge">sha256sum</code></h1>
+
+<p>A commonly preferred checksum algorithm today is SHA-256:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>file
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>example.iso
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;64-character hexadecimal digest&gt;  example.iso
+</code></pre></div></div>
+
+<p>The digest has:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>256 bits
+</code></pre></div></div>
+
+<p>which corresponds to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>32 bytes
+</code></pre></div></div>
+
+<p>and is normally represented as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>64 hexadecimal characters
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-comparing-checksums">32. Comparing Checksums</h1>
+
+<p>Suppose a website gives you:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EXPECTED_SHA256
+</code></pre></div></div>
+
+<p>Calculate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>example.iso
+</code></pre></div></div>
+
+<p>Then compare the two values.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected:
+ABC123...
+
+Calculated:
+ABC123...
+</code></pre></div></div>
+
+<p>If they are exactly the same:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MATCH
+</code></pre></div></div>
+
+<p>If they differ:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MISMATCH
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-why-does-a-small-change-matter">33. Why Does a Small Change Matter?</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<p>contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Calculate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>file.txt
+</code></pre></div></div>
+
+<p>Now change it:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello!
+</code></pre></div></div>
+
+<p>Calculate the checksum again:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>file.txt
+</code></pre></div></div>
+
+<p>The resulting hash will be completely different.</p>
+
+<p>This is known as the <strong>avalanche effect</strong> in cryptographic hash functions: a small input change can produce a drastically different digest.</p>
+
+<hr />
+
+<h1 id="34-checksum-is-not-encryption">34. Checksum Is Not Encryption</h1>
+
+<p>This is an important distinction.</p>
+
+<p>A checksum/hash:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file → hash
+</code></pre></div></div>
+
+<p>does not mean:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file → encrypted file
+</code></pre></div></div>
+
+<p>A hash is designed as a one-way digest, not as a way to recover the original file.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+   ↓
+SHA-256
+   ↓
+digest
+</code></pre></div></div>
+
+<p>You do not normally decrypt the digest to obtain:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-checksum-vs-hash">35. Checksum vs Hash</h1>
+
+<p>The terms are sometimes used loosely, but the concepts have different contexts.</p>
+
+<p>A checksum can be used primarily for detecting accidental corruption.</p>
+
+<p>Cryptographic hash functions such as SHA-256 are designed with stronger properties useful for integrity and security applications.</p>
+
+<p>Examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">md5sum </span>file
+<span class="nb">sha1sum </span>file
+<span class="nb">sha256sum </span>file
+</code></pre></div></div>
+
+<p>For modern integrity verification, SHA-256 is generally a better choice than MD5 or SHA-1.</p>
+
+<hr />
+
+<h1 id="36-checksum-files">36. Checksum Files</h1>
+
+<p>Sometimes a project provides a checksum file such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SHA256SUMS
+</code></pre></div></div>
+
+<p>It may contain:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abc123...  ubuntu.iso
+def456...  another.iso
+</code></pre></div></div>
+
+<p>You can verify files using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<p>If the checksum matches, you may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu.iso: OK
+</code></pre></div></div>
+
+<p>This is much easier than manually comparing long hash strings.</p>
+
+<hr />
+
+<h1 id="37-sha256sum--c">37. <code class="language-plaintext highlighter-rouge">sha256sum -c</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-c</code> option means to read checksum information from a file and verify the listed files.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SHA256SUMS
+    │
+    ├── expected hash
+    └── filename
+          ↓
+      sha256sum -c
+          ↓
+       calculate
+          ↓
+       compare
+          ↓
+       OK / FAILED
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-practical-checksum-exercise">38. Practical Checksum Exercise</h1>
+
+<p>Create a file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello Linux"</span> <span class="o">&gt;</span> test.txt
+</code></pre></div></div>
+
+<p>Calculate its SHA-256:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>test.txt
+</code></pre></div></div>
+
+<p>Now modify the file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Hello Linux!"</span> <span class="o">&gt;</span> test.txt
+</code></pre></div></div>
+
+<p>Calculate it again:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>test.txt
+</code></pre></div></div>
+
+<p>Compare the two values.</p>
+
+<p>They should be different.</p>
+
+<hr />
+
+<h1 id="39-creating-a-checksum-verification-file">39. Creating a Checksum Verification File</h1>
+
+<p>Generate a SHA-256 checksum file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>test.txt <span class="o">&gt;</span> SHA256SUMS
+</code></pre></div></div>
+
+<p>View it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>SHA256SUMS
+</code></pre></div></div>
+
+<p>You should see something like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;hash&gt;  test.txt
+</code></pre></div></div>
+
+<p>Now verify:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<p>Expected result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>test.txt: OK
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="40-what-happens-if-the-file-changes">40. What Happens If the File Changes?</h1>
+
+<p>Modify the file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Modified"</span> <span class="o">&gt;</span> test.txt
+</code></pre></div></div>
+
+<p>Then run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<p>You should get a failure such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>test.txt: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+</code></pre></div></div>
+
+<p>This demonstrates the primary purpose of checksum verification:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected file
+      ↓
+Expected checksum
+
+Actual file
+      ↓
+Calculated checksum
+
+Compare
+      ↓
+MATCH / MISMATCH
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="41-important-security-note">41. Important Security Note</h1>
+
+<p>A matching checksum proves that the file matches the checksum value you were given.</p>
+
+<p>It does <strong>not automatically prove that the file is trustworthy</strong>.</p>
+
+<p>For example, if an attacker changes both:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>checksum
+</code></pre></div></div>
+
+<p>then the two could still match.</p>
+
+<p>For stronger authenticity guarantees, projects may publish signed checksum files using digital signatures.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Checksum → integrity comparison
+Digital signature → integrity + authenticity
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="42-common-exam-traps">42. Common Exam Traps</h1>
+
+<h2 id="trap-1-os-vs-kernel">Trap 1: OS vs Kernel</h2>
+
+<p>Wrong:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ubuntu = kernel
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ubuntu = Linux distribution
+Linux = kernel
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="trap-2-uname">Trap 2: <code class="language-plaintext highlighter-rouge">uname</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span>
+</code></pre></div></div>
+
+<p>typically outputs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux
+</code></pre></div></div>
+
+<p>It does not tell you that your distribution is Ubuntu.</p>
+
+<p>For the distribution:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="trap-3-architecture">Trap 3: Architecture</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>checks machine architecture.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x86_64
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="trap-4-apt-cache-pkgnames">Trap 4: <code class="language-plaintext highlighter-rouge">apt-cache pkgnames</code></h2>
+
+<p>Do not say:</p>
+
+<blockquote>
+  <p>It lists all installed packages.</p>
+</blockquote>
+
+<p>It lists package names known in APT’s package cache.</p>
+
+<p>For installed packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt list <span class="nt">--installed</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="trap-5-apt-update">Trap 5: <code class="language-plaintext highlighter-rouge">apt update</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>does not mean:</p>
+
+<blockquote>
+  <p>Upgrade all installed software.</p>
+</blockquote>
+
+<p>It refreshes package metadata.</p>
+
+<p>Upgrade with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="trap-6-apt-cache-search">Trap 6: <code class="language-plaintext highlighter-rouge">apt-cache search</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search pkg
+</code></pre></div></div>
+
+<p>searches package information for matching terms.</p>
+
+<p>It does not install anything.</p>
+
+<hr />
+
+<h2 id="trap-7-checksum-vs-encryption">Trap 7: Checksum vs Encryption</h2>
+
+<p>A SHA-256 digest is not an encrypted version of the file.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hash ≠ Encryption
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="43-exam-practice-questions">43. Exam Practice Questions</h1>
+
+<h2 id="q1">Q1</h2>
+
+<p>Which command displays the Linux distribution information?</p>
+
+<h3 id="solution">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q2">Q2</h2>
+
+<p>Which command displays the running kernel release?</p>
+
+<h3 id="solution-1">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-r</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q3">Q3</h2>
+
+<p>Which command displays the machine architecture?</p>
+
+<h3 id="solution-2">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">arch</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q4">Q4</h2>
+
+<p>What does:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="solution-3">Solution</h3>
+
+<p>It displays a broad summary of kernel and system information, including the kernel name, hostname, kernel release/version, and machine architecture.</p>
+
+<hr />
+
+<h2 id="q5">Q5</h2>
+
+<p>Search the APT package database for packages related to <code class="language-plaintext highlighter-rouge">nmap</code>.</p>
+
+<h3 id="solution-4">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search nmap
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q6">Q6</h2>
+
+<p>Display detailed information about the <code class="language-plaintext highlighter-rouge">nmap</code> package.</p>
+
+<h3 id="solution-5">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache show nmap
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt show nmap
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q7">Q7</h2>
+
+<p>List package names known to APT.</p>
+
+<h3 id="solution-6">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache pkgnames
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q8">Q8</h2>
+
+<p>List installed packages.</p>
+
+<h3 id="solution-7">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt list <span class="nt">--installed</span>
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q9">Q9</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h3 id="solution-8">Solution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+    ↓
+refresh package information
+
+apt upgrade
+    ↓
+upgrade installed packages
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q10">Q10</h2>
+
+<p>Calculate the SHA-256 checksum of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file.txt
+</code></pre></div></div>
+
+<h3 id="solution-9">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum </span>file.txt
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="q11">Q11</h2>
+
+<p>Verify checksums listed in <code class="language-plaintext highlighter-rouge">SHA256SUMS</code>.</p>
+
+<h3 id="solution-10">Solution</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="44-final-quick-reference">44. Final Quick Reference</h1>
+
+<h2 id="operating-system">Operating System</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+lsb_release <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h2 id="kernel">Kernel</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname
+uname</span> <span class="nt">-s</span>
+<span class="nb">uname</span> <span class="nt">-r</span>
+<span class="nb">uname</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<h2 id="architecture">Architecture</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-m</span>
+<span class="nb">arch</span>
+</code></pre></div></div>
+
+<h2 id="apt">APT</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+<span class="nb">sudo </span>apt <span class="nb">install </span>package
+<span class="nb">sudo </span>apt remove package
+<span class="nb">sudo </span>apt purge package
+apt search keyword
+apt show package
+</code></pre></div></div>
+
+<h2 id="apt-cache">APT Cache</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-cache search keyword
+apt-cache pkgnames
+apt-cache pkgnames nm
+apt-cache show nmap
+</code></pre></div></div>
+
+<h2 id="installed-packages">Installed Packages</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt list <span class="nt">--installed</span>
+dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<h2 id="checksums">Checksums</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">md5sum </span>file
+<span class="nb">sha1sum </span>file
+<span class="nb">sha256sum </span>file
+</code></pre></div></div>
+
+<h2 id="verify-a-checksum-file">Verify a checksum file</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="45-master-mental-model">45. Master Mental Model</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 LINUX SYSTEM
+                      │
+        ┌─────────────┼──────────────┐
+        ↓             ↓              ↓
+       OS           Kernel       Architecture
+        │             │              │
+ Ubuntu/Debian      Linux          x86_64
+        │             │              │
+        └─────────────┴──────────────┘
+
+
+                 PACKAGE MANAGEMENT
+                         │
+                        APT
+                         │
+          ┌──────────────┼──────────────┐
+          ↓              ↓              ↓
+       Search         Install        Upgrade
+          │              │              │
+    apt-cache       apt install    apt upgrade
+
+
+                    FILE INTEGRITY
+                         │
+                        File
+                         ↓
+                    Hash algorithm
+                         ↓
+                      Digest
+                         ↓
+                  Compare with
+                  expected digest
+                         ↓
+                  MATCH / MISMATCH
+</code></pre></div></div>
+
+<p>The most important commands to remember from this lesson are:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/os-release
+<span class="nb">uname</span> <span class="nt">-a</span>
+<span class="nb">uname</span> <span class="nt">-r</span>
+<span class="nb">uname</span> <span class="nt">-m</span>
+apt-cache search keyword
+apt-cache pkgnames
+apt-cache show package
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+apt list <span class="nt">--installed</span>
+<span class="nb">sha256sum </span>file
+<span class="nb">sha256sum</span> <span class="nt">-c</span> SHA256SUMS
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-03/l3-2-redirections.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L3.2 - Redirections</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L3.4: Software Management - Part 02</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

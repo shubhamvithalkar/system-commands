@@ -1,0 +1,3073 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L2.2 - Command line editors - Part 02 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link active">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 2</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L2.2 - Command line editors - Part 02</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l22---command-line-editors---part-02">L2.2 - Command line editors - Part 02</h1>
+
+<h1 id="linux-text-editors-readlink-nano-and-vivim">Linux Text Editors, <code class="language-plaintext highlighter-rouge">readlink</code>, Nano, and Vi/Vim</h1>
+
+<h2 id="1-readlink--f--find-the-final-target-of-a-symbolic-link">1. <code class="language-plaintext highlighter-rouge">readlink -f</code> — Find the Final Target of a Symbolic Link</h2>
+
+<h3 id="what-is-readlink">What is <code class="language-plaintext highlighter-rouge">readlink</code>?</h3>
+
+<p><code class="language-plaintext highlighter-rouge">readlink</code> is used to read the target of a symbolic (soft) link.</p>
+
+<p>Basic syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">readlink </span>link_name
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> /home/user/project project_link
+
+<span class="nb">readlink </span>project_link
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/project
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="readlink--f"><code class="language-plaintext highlighter-rouge">readlink -f</code></h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">-f</code> option means <strong>follow the entire chain of symbolic links and print the final resolved path</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">readlink</span> <span class="nt">-f</span> <span class="nb">dir</span>
+</code></pre></div></div>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link1 → link2 → link3 → /home/user/project
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">readlink</span> <span class="nt">-f</span> link1
+</code></pre></div></div>
+
+<p>produces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/user/project
+</code></pre></div></div>
+
+<p>So <code class="language-plaintext highlighter-rouge">readlink -f</code> is useful when there are <strong>multiple levels of soft links</strong>.</p>
+
+<h3 id="mental-model">Mental Model</h3>
+
+<p>Think of symbolic links as arrows:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>link1
+  ↓
+link2
+  ↓
+link3
+  ↓
+real_directory
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">readlink</code> can tell you where an arrow points.</p>
+
+<p><code class="language-plaintext highlighter-rouge">readlink -f</code> follows all the arrows until it reaches the <strong>final destination</strong>.</p>
+
+<h3 id="useful-command">Useful command</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">readlink</span> <span class="nt">-f</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>This can also be used to obtain the absolute, canonical path of the current directory.</p>
+
+<hr />
+
+<h1 id="2-nano-editor">2. Nano Editor</h1>
+
+<h2 id="what-is-nano">What is Nano?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">nano</code> is a simple, beginner-friendly terminal text editor.</p>
+
+<p>It is useful for:</p>
+
+<ul>
+  <li>Creating files</li>
+  <li>Editing configuration files</li>
+  <li>Writing shell scripts</li>
+  <li>Quickly modifying text files</li>
+  <li>Editing files directly from the terminal</li>
+</ul>
+
+<p>Start Nano with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano filename
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano demo.txt
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">demo.txt</code> does not exist, Nano creates it when you save it.</p>
+
+<hr />
+
+<h2 id="nano-interface">Nano Interface</h2>
+
+<p>At the bottom of Nano you commonly see commands such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^G Help
+^O Write Out
+^W Where Is
+^K Cut
+^U Paste
+^X Exit
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">^</code> symbol means <strong>Ctrl</strong>.</p>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^O
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl + O
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^X
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl + X
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="important-nano-commands">Important Nano Commands</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + O</code></td>
+      <td>Save/write file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + X</code></td>
+      <td>Exit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + W</code></td>
+      <td>Search</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + K</code></td>
+      <td>Cut current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + U</code></td>
+      <td>Paste previously cut text</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + G</code></td>
+      <td>Help</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + C</code></td>
+      <td>Show cursor position</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl + _</code></td>
+      <td>Go to a specific line/column</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="saving-a-nano-file">Saving a Nano File</h2>
+
+<p>Suppose:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nano demo.txt
+</code></pre></div></div>
+
+<p>After editing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl + O
+</code></pre></div></div>
+
+<p>Nano asks for the filename.</p>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter
+</code></pre></div></div>
+
+<p>Then exit:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Ctrl + X
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="nano-mental-model">Nano Mental Model</h2>
+
+<p>Nano is designed to be <strong>modeless</strong>.</p>
+
+<p>You generally type text immediately.</p>
+
+<p>There is no separate:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COMMAND MODE
+INSERT MODE
+</code></pre></div></div>
+
+<p>like in <code class="language-plaintext highlighter-rouge">vi</code>.</p>
+
+<p>This is one reason Nano is easier for beginners.</p>
+
+<hr />
+
+<h1 id="3-vi-editor">3. <code class="language-plaintext highlighter-rouge">vi</code> Editor</h1>
+
+<h2 id="what-is-vi">What is <code class="language-plaintext highlighter-rouge">vi</code>?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">vi</code> is a powerful terminal-based text editor.</p>
+
+<p>It is one of the traditional Unix/Linux editors and is available on many systems.</p>
+
+<p>Modern systems often provide <strong>Vim (Vi Improved)</strong>, which is compatible with many <code class="language-plaintext highlighter-rouge">vi</code> commands.</p>
+
+<p>Start it with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi filename
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi demo.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-the-most-important-concept-in-vi-modes">4. The Most Important Concept in <code class="language-plaintext highlighter-rouge">vi</code>: Modes</h1>
+
+<p>Unlike Nano, <code class="language-plaintext highlighter-rouge">vi</code> is <strong>modal</strong>.</p>
+
+<p>This means the same keyboard key can perform different actions depending on the current mode.</p>
+
+<p>The most important modes are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COMMAND MODE
+     |
+     | i / a
+     ↓
+INSERT MODE
+     |
+     | Esc
+     ↓
+COMMAND MODE
+</code></pre></div></div>
+
+<h3 id="command-mode">Command Mode</h3>
+
+<p>Used for:</p>
+
+<ul>
+  <li>Moving around</li>
+  <li>Deleting</li>
+  <li>Copying</li>
+  <li>Pasting</li>
+  <li>Searching</li>
+  <li>Running editor commands</li>
+</ul>
+
+<h3 id="insert-mode">Insert Mode</h3>
+
+<p>Used for:</p>
+
+<ul>
+  <li>Typing text</li>
+  <li>Inserting text</li>
+  <li>Editing text normally</li>
+</ul>
+
+<h3 id="returning-to-command-mode">Returning to Command Mode</h3>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<p>This is one of the most important <code class="language-plaintext highlighter-rouge">vi</code> habits.</p>
+
+<p>If you are unsure what mode you are in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Press Esc
+</code></pre></div></div>
+
+<p>Then you are normally back in Command mode.</p>
+
+<hr />
+
+<h1 id="5-movement-in-vi">5. Movement in <code class="language-plaintext highlighter-rouge">vi</code></h1>
+
+<p>When <code class="language-plaintext highlighter-rouge">vi</code> starts, it normally opens in <strong>Command mode</strong>.</p>
+
+<p>You can move the cursor using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h    left
+j    down
+k    up
+l    right
+</code></pre></div></div>
+
+<h3 id="mental-model-1">Mental Model</h3>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      k
+      ↑
+h ←       → l
+      ↓
+      j
+</code></pre></div></div>
+
+<p>So:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">h</code> → left</li>
+  <li><code class="language-plaintext highlighter-rouge">j</code> → down</li>
+  <li><code class="language-plaintext highlighter-rouge">k</code> → up</li>
+  <li><code class="language-plaintext highlighter-rouge">l</code> → right</li>
+</ul>
+
+<p>These are extremely important <code class="language-plaintext highlighter-rouge">vi</code> movement keys.</p>
+
+<hr />
+
+<h2 id="arrow-keys">Arrow Keys</h2>
+
+<p>Modern Vim usually supports arrow keys:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>↑
+↓
+←
+→
+</code></pre></div></div>
+
+<p>However, learning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h j k l
+</code></pre></div></div>
+
+<p>is valuable because these are fundamental <code class="language-plaintext highlighter-rouge">vi</code>/Vim movement keys.</p>
+
+<hr />
+
+<h1 id="6-moving-to-specific-positions">6. Moving to Specific Positions</h1>
+
+<p><code class="language-plaintext highlighter-rouge">vi</code> provides commands for quickly moving the cursor.</p>
+
+<h3 id="beginning-of-current-line">Beginning of Current Line</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<p>Moves to the beginning of the current line.</p>
+
+<hr />
+
+<h3 id="first-non-blank-character">First Non-Blank Character</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>^
+</code></pre></div></div>
+
+<p>Moves to the first non-whitespace character of the current line.</p>
+
+<hr />
+
+<h3 id="end-of-current-line">End of Current Line</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>Moves to the end of the current line.</p>
+
+<hr />
+
+<h3 id="beginning-of-file">Beginning of File</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gg
+</code></pre></div></div>
+
+<p>Moves to the first line.</p>
+
+<hr />
+
+<h3 id="end-of-file">End of File</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>G
+</code></pre></div></div>
+
+<p>Moves to the last line.</p>
+
+<hr />
+
+<h3 id="specific-line">Specific Line</h3>
+
+<p>You can use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:n
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">n</code> is the line number.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:10
+</code></pre></div></div>
+
+<p>moves to line 10.</p>
+
+<p>Another common form is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10G
+</code></pre></div></div>
+
+<p>which also moves to line 10.</p>
+
+<hr />
+
+<h1 id="7-insert-mode--i">7. Insert Mode — <code class="language-plaintext highlighter-rouge">i</code></h1>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>in Command mode.</p>
+
+<p>This enters <strong>Insert mode</strong>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COMMAND MODE
+     |
+     | i
+     ↓
+INSERT MODE
+</code></pre></div></div>
+
+<p>Now you can type text normally.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world
+</code></pre></div></div>
+
+<p>After pressing <code class="language-plaintext highlighter-rouge">i</code>, you can insert text at the cursor position.</p>
+
+<hr />
+
+<h1 id="8-returning-to-command-mode--esc">8. Returning to Command Mode — <code class="language-plaintext highlighter-rouge">Esc</code></h1>
+
+<p>While in Insert mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<p>returns to Command mode.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>→ Insert mode</p>
+
+<p>Type:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<p>→ Command mode</p>
+
+<h3 id="important-rule">Important Rule</h3>
+
+<p>If you want to use commands such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+dw
+x
+p
+yyyy
+</code></pre></div></div>
+
+<p>you should be in <strong>Command mode</strong>.</p>
+
+<hr />
+
+<h1 id="9-insert-after-cursor--a">9. Insert After Cursor — <code class="language-plaintext highlighter-rouge">a</code></h1>
+
+<p>The command:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>means <strong>append</strong>.</p>
+
+<p>It enters Insert mode <strong>after the current cursor position</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Suppose the cursor is on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>Now typing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X
+</code></pre></div></div>
+
+<p>places <code class="language-plaintext highlighter-rouge">X</code> after the cursor.</p>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hXello
+</code></pre></div></div>
+
+<p>Compare:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>Insert <strong>before</strong> the cursor.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>Insert <strong>after</strong> the cursor.</p>
+
+<hr />
+
+<h1 id="10-delete-a-line--dd">10. Delete a Line — <code class="language-plaintext highlighter-rouge">dd</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>deletes the current line.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+</code></pre></div></div>
+
+<p>Place the cursor on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>two
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+three
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="dd-is-also-a-cut-operation"><code class="language-plaintext highlighter-rouge">dd</code> Is Also a Cut Operation</h2>
+
+<p>In <code class="language-plaintext highlighter-rouge">vi</code>, deleting text usually places it into a register.</p>
+
+<p>Therefore, you can delete a line and then paste it somewhere else.</p>
+
+<p>This makes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>behave somewhat like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cut line
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-paste--p">11. Paste — <code class="language-plaintext highlighter-rouge">p</code></h1>
+
+<p>After deleting a line with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>you can paste it using:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<h3 id="example">Example</h3>
+
+<p>Original:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+B
+C
+</code></pre></div></div>
+
+<p>Place cursor on <code class="language-plaintext highlighter-rouge">B</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+C
+</code></pre></div></div>
+
+<p>Move to <code class="language-plaintext highlighter-rouge">C</code> and press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+C
+B
+</code></pre></div></div>
+
+<p>The deleted line has been pasted after the current line.</p>
+
+<hr />
+
+<h2 id="p-vs-p"><code class="language-plaintext highlighter-rouge">P</code> vs <code class="language-plaintext highlighter-rouge">p</code></h2>
+
+<p>Two useful commands are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+P
+</code></pre></div></div>
+
+<p>Generally:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>pastes <strong>after</strong> the cursor.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P
+</code></pre></div></div>
+
+<p>pastes <strong>before</strong> the cursor.</p>
+
+<hr />
+
+<h1 id="12-save-and-quit--wq">12. Save and Quit — <code class="language-plaintext highlighter-rouge">:wq</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:wq
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w → write/save
+q → quit
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:wq
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Save the file and exit <code class="language-plaintext highlighter-rouge">vi</code>.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi demo.txt
+</code></pre></div></div>
+
+<p>Edit the file.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+:wq
+Enter
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="save-without-quitting">Save Without Quitting</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:w
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>write/save
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="quit-without-saving">Quit Without Saving</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:q!
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>quit and discard changes
+</code></pre></div></div>
+
+<h3 id="important">Important</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:q
+</code></pre></div></div>
+
+<p>works only when there are no unsaved changes.</p>
+
+<p>If changes exist, <code class="language-plaintext highlighter-rouge">vi</code> may show an error.</p>
+
+<p>Use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:q!
+</code></pre></div></div>
+
+<p>to discard changes.</p>
+
+<hr />
+
+<h1 id="13-delete-a-word--dw">13. Delete a Word — <code class="language-plaintext highlighter-rouge">dw</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dw
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>delete word
+</code></pre></div></div>
+
+<p>It deletes text starting from the cursor through the word movement.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Linux is powerful
+</code></pre></div></div>
+
+<p>Place the cursor at the beginning of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>is
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dw
+</code></pre></div></div>
+
+<p>removes the word region.</p>
+
+<hr />
+
+<h2 id="2dw--delete-two-words"><code class="language-plaintext highlighter-rouge">2dw</code> — Delete Two Words</h2>
+
+<p>Commands in <code class="language-plaintext highlighter-rouge">vi</code> can often be preceded by a <strong>count</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2dw
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 × dw
+</code></pre></div></div>
+
+<p>Therefore, it deletes two word movements.</p>
+
+<p>Similarly:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3dw
+</code></pre></div></div>
+
+<p>performs the operation three times.</p>
+
+<h3 id="general-pattern">General Pattern</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[count][command]
+</code></pre></div></div>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2dd
+3x
+5dw
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-delete-a-character--x">14. Delete a Character — <code class="language-plaintext highlighter-rouge">x</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x
+</code></pre></div></div>
+
+<p>deletes the character under the cursor.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello
+</code></pre></div></div>
+
+<p>Cursor on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hllo
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="multiple-characters">Multiple Characters</h2>
+
+<p>Because <code class="language-plaintext highlighter-rouge">vi</code> supports counts:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3x
+</code></pre></div></div>
+
+<p>deletes three characters.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x
+</code></pre></div></div>
+
+<p>→ delete one character</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3x
+</code></pre></div></div>
+
+<p>→ delete three characters</p>
+
+<hr />
+
+<h1 id="15-moving-right-character-by-character">15. Moving Right Character by Character</h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>l
+</code></pre></div></div>
+
+<p>moves the cursor one character to the right.</p>
+
+<p>You can repeatedly press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>l
+</code></pre></div></div>
+
+<p>to move right.</p>
+
+<p>The spacebar can also move right in traditional <code class="language-plaintext highlighter-rouge">vi</code> behavior, but <strong><code class="language-plaintext highlighter-rouge">l</code> is the standard movement command and should be preferred</strong>.</p>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h → left
+j → down
+k → up
+l → right
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-show-current-file-name--f">16. Show Current File Name — <code class="language-plaintext highlighter-rouge">:f</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:f
+</code></pre></div></div>
+
+<p>displays information about the current file.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"demo.txt" line 5 of 20 --25%--
+</code></pre></div></div>
+
+<p>The exact output depends on the <code class="language-plaintext highlighter-rouge">vi</code>/Vim implementation.</p>
+
+<p>It can show information such as:</p>
+
+<ul>
+  <li>Current filename</li>
+  <li>Current line</li>
+  <li>Total number of lines</li>
+  <li>Position in the file</li>
+</ul>
+
+<hr />
+
+<h1 id="17-show-line-numbers--se-nu">17. Show Line Numbers — <code class="language-plaintext highlighter-rouge">:se nu</code></h1>
+
+<p>In <code class="language-plaintext highlighter-rouge">vi</code>, you can enable line numbers with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:se nu
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set number
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1  Hello
+2  Linux
+3  World
+4  Unix
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="hide-line-numbers">Hide Line Numbers</h2>
+
+<p>Use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:se nonu
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set nonumber
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set number
+</code></pre></div></div>
+
+<p>→ show line numbers</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set nonumber
+</code></pre></div></div>
+
+<p>→ hide line numbers</p>
+
+<hr />
+
+<h1 id="18-copy-lines--yy">18. Copy Lines — <code class="language-plaintext highlighter-rouge">yy</code></h1>
+
+<p>In Command mode:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yy
+</code></pre></div></div>
+
+<p>copies the current line.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+three
+</code></pre></div></div>
+
+<p>Place the cursor on:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>two
+</code></pre></div></div>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yy
+</code></pre></div></div>
+
+<p>The line is copied.</p>
+
+<p>Then move somewhere else and press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>one
+two
+two
+three
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="yyyy"><code class="language-plaintext highlighter-rouge">yyyy</code></h2>
+
+<p>The lecture notation:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yyyy
+</code></pre></div></div>
+
+<p>is commonly understood as repeated <code class="language-plaintext highlighter-rouge">yy</code> operations, but the important standard command is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yy
+</code></pre></div></div>
+
+<p>to copy one line.</p>
+
+<p>For multiple lines, use a count:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3yy
+</code></pre></div></div>
+
+<p>This copies three lines.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>pastes them.</p>
+
+<hr />
+
+<h1 id="19-search-and-replace">19. Search and Replace</h1>
+
+<p>One of the most powerful features of <code class="language-plaintext highlighter-rouge">vi</code> is substitution.</p>
+
+<p>General syntax:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:[range]s/old/new/[flags]
+</code></pre></div></div>
+
+<p>Where:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>range
+</code></pre></div></div>
+
+<p>specifies which lines are affected.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s
+</code></pre></div></div>
+
+<p>means substitute.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>old
+</code></pre></div></div>
+
+<p>is the text to search for.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>new
+</code></pre></div></div>
+
+<p>is the replacement.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>flags
+</code></pre></div></div>
+
+<p>modify the behavior.</p>
+
+<hr />
+
+<h1 id="20-replace-first-occurrence-on-every-selected-line">20. Replace First Occurrence on Every Selected Line</h1>
+
+<p>Consider:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line one line
+line two line
+line three line
+line four
+line five line
+line six line
+</code></pre></div></div>
+
+<p>Suppose we execute:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/
+</code></pre></div></div>
+
+<p>Break it down:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5
+</code></pre></div></div>
+
+<p>Select lines 1 through 5.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s
+</code></pre></div></div>
+
+<p>Substitute.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/line/
+</code></pre></div></div>
+
+<p>Search for <code class="language-plaintext highlighter-rouge">line</code>.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/LINE/
+</code></pre></div></div>
+
+<p>Replace it with <code class="language-plaintext highlighter-rouge">LINE</code>.</p>
+
+<p>Because there is <strong>no <code class="language-plaintext highlighter-rouge">g</code> flag</strong>, only the <strong>first matching occurrence on each selected line</strong> is replaced.</p>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line one line
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LINE one line
+</code></pre></div></div>
+
+<p>not:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LINE one LINE
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-replace-all-occurrences-on-every-selected-line">21. Replace All Occurrences on Every Selected Line</h1>
+
+<p>Use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<p>The important difference is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">g</code> flag means replace <strong>all matching occurrences on each selected line</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>line one line
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LINE one LINE
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="compare">Compare</h2>
+
+<p>Without <code class="language-plaintext highlighter-rouge">g</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/
+</code></pre></div></div>
+
+<p>Only the first occurrence on each selected line is replaced.</p>
+
+<p>With <code class="language-plaintext highlighter-rouge">g</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<p>Every occurrence on each selected line is replaced.</p>
+
+<hr />
+
+<h1 id="22-replace-throughout-the-entire-file--">22. Replace Throughout the Entire File — <code class="language-plaintext highlighter-rouge">%</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">%</code> address means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>all lines
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/hello/hola/g
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>In the entire buffer, replace every occurrence of <code class="language-plaintext highlighter-rouge">hello</code> with <code class="language-plaintext highlighter-rouge">hola</code>.</p>
+</blockquote>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world
+hello Linux
+say hello
+hello again
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/hello/hola/g
+</code></pre></div></div>
+
+<p>Result:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hola world
+hola Linux
+say hola
+hola again
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-understanding-15slinelineg">23. Understanding <code class="language-plaintext highlighter-rouge">:1,5s/line/LINE/g</code></h1>
+
+<p>This command is extremely important for exams.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<p>Break it into pieces:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:
+</code></pre></div></div>
+
+<p>Enter an Ex command.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,5
+</code></pre></div></div>
+
+<p>Line range: lines 1 through 5.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s
+</code></pre></div></div>
+
+<p>Substitute.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/line/
+</code></pre></div></div>
+
+<p>Search pattern.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/LINE/
+</code></pre></div></div>
+
+<p>Replacement.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>g
+</code></pre></div></div>
+
+<p>Replace all matches on each selected line.</p>
+
+<h3 id="mental-model-2">Mental Model</h3>
+
+<p>Think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:[WHERE]s/[SEARCH]/[REPLACE]/[HOW]
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<p>becomes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WHERE   = lines 1–5
+SEARCH  = line
+REPLACE = LINE
+HOW     = all occurrences
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-important-vi-commands-cheat-sheet">24. Important <code class="language-plaintext highlighter-rouge">vi</code> Commands Cheat Sheet</h1>
+
+<h2 id="modes">Modes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>Insert before cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>Insert after cursor</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Esc</code></td>
+      <td>Return to Command mode</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="movement">Movement</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">j</code></td>
+      <td>Down</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">k</code></td>
+      <td>Up</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>Right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>Beginning of line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>First non-blank character</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>End of line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gg</code></td>
+      <td>First line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">G</code></td>
+      <td>Last line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nG</code></td>
+      <td>Go to line <code class="language-plaintext highlighter-rouge">n</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:n</code></td>
+      <td>Go to line <code class="language-plaintext highlighter-rouge">n</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="editing">Editing</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x</code></td>
+      <td>Delete character</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dw</code></td>
+      <td>Delete word</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2dw</code></td>
+      <td>Delete two word operations</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dd</code></td>
+      <td>Delete current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2dd</code></td>
+      <td>Delete two lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yy</code></td>
+      <td>Copy current line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">3yy</code></td>
+      <td>Copy three lines</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>Paste after</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>Paste before</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>Undo</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="file-commands">File Commands</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:w</code></td>
+      <td>Save</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:q</code></td>
+      <td>Quit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:wq</code></td>
+      <td>Save and quit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:q!</code></td>
+      <td>Quit without saving</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:f</code></td>
+      <td>Show file information</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="display">Display</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set number</code></td>
+      <td>Show line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set nonumber</code></td>
+      <td>Hide line numbers</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:se nu</code></td>
+      <td>Short form of <code class="language-plaintext highlighter-rouge">:set number</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:se nonu</code></td>
+      <td>Short form of <code class="language-plaintext highlighter-rouge">:set nonumber</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="substitution">Substitution</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:1,5s/a/b/</code></td>
+      <td>First <code class="language-plaintext highlighter-rouge">a</code> → <code class="language-plaintext highlighter-rouge">b</code> on each line 1–5</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:1,5s/a/b/g</code></td>
+      <td>All <code class="language-plaintext highlighter-rouge">a</code> → <code class="language-plaintext highlighter-rouge">b</code> on lines 1–5</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:%s/a/b/g</code></td>
+      <td>All <code class="language-plaintext highlighter-rouge">a</code> → <code class="language-plaintext highlighter-rouge">b</code> throughout file</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="25-vi-vs-nano">25. <code class="language-plaintext highlighter-rouge">vi</code> vs Nano</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Nano</th>
+      <th>vi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Beginner-friendly</td>
+      <td>Very high</td>
+      <td>Lower initially</td>
+    </tr>
+    <tr>
+      <td>Modal</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Insert mode</td>
+      <td>Not separate</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Command mode</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Keyboard-driven editing</td>
+      <td>Basic</td>
+      <td>Extremely powerful</td>
+    </tr>
+    <tr>
+      <td>Search/replace</td>
+      <td>Available</td>
+      <td>Very powerful</td>
+    </tr>
+    <tr>
+      <td>Server usage</td>
+      <td>Common</td>
+      <td>Extremely common</td>
+    </tr>
+    <tr>
+      <td>Complex editing</td>
+      <td>Limited compared with Vim</td>
+      <td>Very powerful</td>
+    </tr>
+    <tr>
+      <td>Learning curve</td>
+      <td>Easy</td>
+      <td>Steeper</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="mental-model-3">Mental Model</h3>
+
+<p>Think of:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nano
+</code></pre></div></div>
+
+<p>as:</p>
+
+<blockquote>
+  <p>Open the file and start typing.</p>
+</blockquote>
+
+<p>While:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi
+</code></pre></div></div>
+
+<p>is:</p>
+
+<blockquote>
+  <p>Enter a mode, use commands to navigate/edit, then return to insert mode when you need to type.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="26-practical-workflow">26. Practical Workflow</h1>
+
+<p>Create a practice file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span> practice.txt <span class="o">&lt;&lt;</span><span class="sh">'</span><span class="no">EOF</span><span class="sh">'
+hello world
+hello linux
+this is line three
+this is line four
+hello world again
+line six
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<p>Open it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi practice.txt
+</code></pre></div></div>
+
+<p>You start in Command mode.</p>
+
+<h3 id="task-1--move">Task 1 — Move</h3>
+
+<p>Practice:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>h
+j
+k
+l
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+$
+gg
+G
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-2--insert">Task 2 — Insert</h3>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>Type some text.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-3--append">Task 3 — Append</h3>
+
+<p>Move to a character and press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>Type something.</p>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-4--delete-a-line">Task 4 — Delete a Line</h3>
+
+<p>Move to a line and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-5--paste">Task 5 — Paste</h3>
+
+<p>After deleting:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>move elsewhere and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-6--copy">Task 6 — Copy</h3>
+
+<p>Move to a line:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yy
+</code></pre></div></div>
+
+<p>Move somewhere else:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-7--delete-words">Task 7 — Delete Words</h3>
+
+<p>Practice:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dw
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2dw
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-8--delete-characters">Task 8 — Delete Characters</h3>
+
+<p>Practice:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3x
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-9--line-numbers">Task 9 — Line Numbers</h3>
+
+<p>Show:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set number
+</code></pre></div></div>
+
+<p>Hide:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set nonumber
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="task-10--search-and-replace">Task 10 — Search and Replace</h3>
+
+<p>Replace the first occurrence of <code class="language-plaintext highlighter-rouge">hello</code> on lines 1–5:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/hello/HELLO/
+</code></pre></div></div>
+
+<p>Replace all occurrences of <code class="language-plaintext highlighter-rouge">hello</code> on lines 1–5:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/hello/HELLO/g
+</code></pre></div></div>
+
+<p>Replace all occurrences throughout the file:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/hello/HELLO/g
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-exam-oriented-questions">27. Exam-Oriented Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<p>It searches lines 1 through 5 and replaces the <strong>first occurrence</strong> of <code class="language-plaintext highlighter-rouge">line</code> on each line with <code class="language-plaintext highlighter-rouge">LINE</code>.</p>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<h3 id="answer-1">Answer</h3>
+
+<p>Without <code class="language-plaintext highlighter-rouge">g</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/
+</code></pre></div></div>
+
+<p>replaces only the first occurrence on each selected line.</p>
+
+<p>With <code class="language-plaintext highlighter-rouge">g</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/line/LINE/g
+</code></pre></div></div>
+
+<p>replaces every occurrence on each selected line.</p>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>What does this command do?</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/hello/hola/g
+</code></pre></div></div>
+
+<h3 id="answer-2">Answer</h3>
+
+<p>It replaces every occurrence of <code class="language-plaintext highlighter-rouge">hello</code> with <code class="language-plaintext highlighter-rouge">hola</code> throughout the entire file.</p>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>How do you save and exit <code class="language-plaintext highlighter-rouge">vi</code>?</p>
+
+<h3 id="answer-3">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:wq
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>How do you exit without saving changes?</p>
+
+<h3 id="answer-4">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:q!
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-5">Answer</h3>
+
+<p>Deletes the current line.</p>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yy
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-6">Answer</h3>
+
+<p>Copies the current line.</p>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-7">Answer</h3>
+
+<p>Pastes the previously deleted/copied text after the current position.</p>
+
+<hr />
+
+<h2 id="question-9">Question 9</h2>
+
+<p>What is the difference between <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">a</code>?</p>
+
+<h3 id="answer-8">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>enters Insert mode before the cursor.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a
+</code></pre></div></div>
+
+<p>enters Insert mode after the cursor.</p>
+
+<hr />
+
+<h2 id="question-10">Question 10</h2>
+
+<p>How do you show line numbers?</p>
+
+<h3 id="answer-9">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set number
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:se nu
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-11">Question 11</h2>
+
+<p>How do you hide line numbers?</p>
+
+<h3 id="answer-10">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:set nonumber
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:se nonu
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-12">Question 12</h2>
+
+<p>What does:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>readlink -f link
+</code></pre></div></div>
+
+<p>do?</p>
+
+<h3 id="answer-11">Answer</h3>
+
+<p>It follows symbolic links and resolves the path to its final canonical destination.</p>
+
+<hr />
+
+<h1 id="28-common-beginner-mistakes">28. Common Beginner Mistakes</h1>
+
+<h3 id="mistake-1-typing-commands-in-insert-mode">Mistake 1: Typing commands in Insert mode</h3>
+
+<p>Suppose you want:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>but you are still in Insert mode.</p>
+
+<p>You may accidentally type:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<p>into the file.</p>
+
+<h3 id="fix">Fix</h3>
+
+<p>Press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Esc
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="mistake-2-forgetting-enter">Mistake 2: Forgetting <code class="language-plaintext highlighter-rouge">Enter</code></h3>
+
+<p>After:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:wq
+</code></pre></div></div>
+
+<p>press:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">:</code> commands are entered on the command line.</p>
+
+<hr />
+
+<h3 id="mistake-3-confusing-p-and-p">Mistake 3: Confusing <code class="language-plaintext highlighter-rouge">p</code> and <code class="language-plaintext highlighter-rouge">P</code></h3>
+
+<p>Remember:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p → paste after
+P → paste before
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="mistake-4-assuming-s-replaces-every-occurrence">Mistake 4: Assuming <code class="language-plaintext highlighter-rouge">s</code> replaces every occurrence</h3>
+
+<p>This:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:s/old/new/
+</code></pre></div></div>
+
+<p>does <strong>not</strong> replace every occurrence on the line.</p>
+
+<p>Use:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:s/old/new/g
+</code></pre></div></div>
+
+<p>for all occurrences on that line.</p>
+
+<hr />
+
+<h3 id="mistake-5-confusing--with-">Mistake 5: Confusing <code class="language-plaintext highlighter-rouge">%</code> with <code class="language-plaintext highlighter-rouge">$</code></h3>
+
+<p>In substitution:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%
+</code></pre></div></div>
+
+<p>means the <strong>entire file/all lines</strong>.</p>
+
+<p>But:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>usually refers to the <strong>end of a line</strong> in an address/pattern context.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/hello/hola/g
+</code></pre></div></div>
+
+<p>means the entire buffer.</p>
+
+<hr />
+
+<h1 id="29-core-mental-model">29. Core Mental Model</h1>
+
+<p>The most important thing to remember about <code class="language-plaintext highlighter-rouge">vi</code> is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                 ┌───────────────┐
+                 │ COMMAND MODE  │
+                 └───────┬───────┘
+                         │
+                    i / a│
+                         ↓
+                 ┌───────────────┐
+                 │  INSERT MODE  │
+                 └───────┬───────┘
+                         │
+                        Esc
+                         │
+                         ↓
+                 ┌───────────────┐
+                 │ COMMAND MODE  │
+                 └───────────────┘
+</code></pre></div></div>
+
+<h3 id="command-mode-1">Command Mode</h3>
+
+<p>Think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MOVE
+DELETE
+COPY
+PASTE
+SEARCH
+SAVE
+QUIT
+</code></pre></div></div>
+
+<h3 id="insert-mode-1">Insert Mode</h3>
+
+<p>Think:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TYPE TEXT
+</code></pre></div></div>
+
+<h3 id="excolon-commands">Ex/Colon Commands</h3>
+
+<p>Commands beginning with <code class="language-plaintext highlighter-rouge">:</code> are used for things such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:w
+:q
+:wq
+:set number
+:f
+:%s/old/new/g
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-final-quick-reference">30. Final Quick Reference</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>readlink -f link       → resolve final symbolic-link destination
+
+nano file              → open file in Nano
+
+vi file                → open file in vi
+
+i                      → Insert before cursor
+a                      → Insert after cursor
+Esc                    → Command mode
+
+h                      → left
+j                      → down
+k                      → up
+l                      → right
+
+0                      → beginning of line
+^                      → first non-blank character
+$                      → end of line
+gg                     → first line
+G                      → last line
+:n                     → go to line n
+
+x                      → delete character
+dw                     → delete word
+2dw                    → delete two word operations
+dd                     → delete line
+2dd                    → delete two lines
+
+yy                     → copy line
+3yy                    → copy three lines
+p                      → paste after
+P                      → paste before
+u                      → undo
+
+:f                     → show file information
+
+:set number            → show line numbers
+:set nonumber          → hide line numbers
+
+:w                     → save
+:q                     → quit
+:wq                    → save and quit
+:q!                    → quit without saving
+
+:1,5s/line/LINE/       → first match on lines 1–5
+:1,5s/line/LINE/g      → all matches on lines 1–5
+:%s/hello/hola/g       → all matches in entire file
+</code></pre></div></div>
+
+<h2 id="the-three-things-to-master-first">The Three Things to Master First</h2>
+
+<p>If you are preparing for a Linux/System Commands exam, memorize these three areas first:</p>
+
+<h3 id="1-modes">1. Modes</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i / a → Insert mode
+Esc   → Command mode
+</code></pre></div></div>
+
+<h3 id="2-editing">2. Editing</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd → delete
+yy → copy
+p  → paste
+x  → character delete
+dw → word delete
+</code></pre></div></div>
+
+<h3 id="3-substitution">3. Substitution</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:s/old/new/
+</code></pre></div></div>
+
+<p>→ first occurrence on current line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:s/old/new/g
+</code></pre></div></div>
+
+<p>→ all occurrences on current line</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:1,5s/old/new/g
+</code></pre></div></div>
+
+<p>→ all occurrences on lines 1–5</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:%s/old/new/g
+</code></pre></div></div>
+
+<p>→ all occurrences in the entire file</p>
+
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L2.1 - Command line editors - Part 01</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L2.3 - Command line editors - Part 03</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

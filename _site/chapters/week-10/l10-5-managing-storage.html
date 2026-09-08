@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L10.5: Managing Storage | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link active">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 10</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L10.5: Managing Storage</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l105-managing-storage">L10.5: Managing Storage</h1>
+
+<h1 id="linux-logical-volume-management-and-raid">Linux Logical Volume Management and RAID</h1>
+
+<p>Linux provides technologies such as <strong>Logical Volume Management (LVM)</strong> and <strong>RAID</strong> to make storage easier to manage, expand, optimize, and protect against disk failures.</p>
+
+<p>These technologies solve different but related problems:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LVM
+→ Flexible disk-space management
+
+RAID
+→ Data availability, performance, and fault tolerance
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="1-logical-volume-management-lvm">1. Logical Volume Management (LVM)</h1>
+
+<p><strong>Logical Volume Management (LVM)</strong> is a storage-management system that allows physical disks or partitions to be combined into flexible storage pools and then divided into logical volumes.</p>
+
+<p>Traditional partitioning creates relatively fixed partitions:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk
+│
+├── Partition 1
+├── Partition 2
+└── Partition 3
+</code></pre></div></div>
+
+<p>LVM introduces an additional abstraction layer:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Disks
+      ↓
+Physical Volumes (PV)
+      ↓
+Volume Group (VG)
+      ↓
+Logical Volumes (LV)
+      ↓
+Filesystem
+      ↓
+Mount Point
+</code></pre></div></div>
+
+<p>This makes it easier to resize and reorganize storage.</p>
+
+<hr />
+
+<h1 id="2-lvm-components">2. LVM Components</h1>
+
+<h2 id="physical-volume--pv">Physical Volume — PV</h2>
+
+<p>A <strong>Physical Volume</strong> is a disk or partition prepared for use by LVM.</p>
+
+<p>Examples:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda2
+/dev/sdb1
+</code></pre></div></div>
+
+<p>Create a physical volume:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>pvcreate /dev/sdb1
+</code></pre></div></div>
+
+<p>View physical volumes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>pvs
+</code></pre></div></div>
+
+<p>or:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>pvdisplay
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="volume-group--vg">Volume Group — VG</h2>
+
+<p>A <strong>Volume Group</strong> combines one or more physical volumes into a single storage pool.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda2 ──┐
+            ├── Volume Group
+/dev/sdb1 ──┘
+</code></pre></div></div>
+
+<p>Create a volume group:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vgcreate vgdata /dev/sdb1 /dev/sdc1
+</code></pre></div></div>
+
+<p>View volume groups:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vgs
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="logical-volume--lv">Logical Volume — LV</h2>
+
+<p>A <strong>Logical Volume</strong> is created from free space inside a volume group.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Volume Group
+     |
+     +── Logical Volume 1
+     |
+     +── Logical Volume 2
+     |
+     +── Logical Volume 3
+</code></pre></div></div>
+
+<p>Create a logical volume:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>lvcreate <span class="nt">-L</span> 20G <span class="nt">-n</span> lvdata vgdata
+</code></pre></div></div>
+
+<p>View logical volumes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>lvs
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-lvm-storage-model">3. LVM Storage Model</h1>
+
+<p>Consider two disks:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sdb1 → 500 GB
+/dev/sdc1 → 500 GB
+</code></pre></div></div>
+
+<p>Create physical volumes:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PV1 = 500 GB
+PV2 = 500 GB
+</code></pre></div></div>
+
+<p>Combine them:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PV1 ──┐
+      ├── VG = 1 TB
+PV2 ──┘
+</code></pre></div></div>
+
+<p>Logical volumes can then be created from the pool:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VG = 1 TB
+
+├── lv-data    400 GB
+├── lv-backup  300 GB
+└── free       300 GB
+</code></pre></div></div>
+
+<p>This is much more flexible than permanently assigning every byte to traditional partitions.</p>
+
+<hr />
+
+<h1 id="4-why-use-lvm">4. Why Use LVM?</h1>
+
+<p>LVM provides flexibility in disk-space allocation.</p>
+
+<h3 id="traditional-partitioning">Traditional partitioning</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk
+├── /       100 GB
+├── /home   300 GB
+└── /data   100 GB
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">/data</code> becomes full while <code class="language-plaintext highlighter-rouge">/home</code> has lots of free space, reallocating space can be difficult.</p>
+
+<h3 id="lvm">LVM</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Volume Group
+├── /        Logical Volume
+├── /home    Logical Volume
+└── /data    Logical Volume
+</code></pre></div></div>
+
+<p>Logical volumes can often be resized more conveniently.</p>
+
+<hr />
+
+<h1 id="5-raid">5. RAID</h1>
+
+<p><strong>RAID</strong> stands for:</p>
+
+<blockquote>
+  <p><strong>Redundant Array of Independent Disks</strong></p>
+</blockquote>
+
+<p>RAID combines multiple physical disks into a storage system.</p>
+
+<p>Depending on the RAID level, it can provide:</p>
+
+<ul>
+  <li>Data redundancy</li>
+  <li>Fault tolerance</li>
+  <li>Improved performance</li>
+  <li>Better storage utilization</li>
+  <li>Protection against disk failures</li>
+</ul>
+
+<hr />
+
+<h1 id="6-why-raid-is-needed">6. Why RAID Is Needed</h1>
+
+<p>A single disk can fail.</p>
+
+<p>Without redundancy:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk
+ ↓
+Failure
+ ↓
+Data unavailable
+</code></pre></div></div>
+
+<p>With a suitable RAID configuration:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Multiple Disks
+      ↓
+RAID
+      ↓
+Disk failure
+      ↓
+Data remains accessible
+</code></pre></div></div>
+
+<p>The exact protection depends on the RAID level.</p>
+
+<hr />
+
+<h1 id="7-raid-controllers">7. RAID Controllers</h1>
+
+<p>A <strong>RAID controller</strong> manages how data is distributed across multiple disks.</p>
+
+<p>It can be implemented as:</p>
+
+<h3 id="hardware-raid">Hardware RAID</h3>
+
+<p>A dedicated RAID controller handles RAID operations.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System
+       ↓
+RAID Controller
+       ↓
++-----+-----+-----+
+| Disk| Disk| Disk|
++-----+-----+-----+
+</code></pre></div></div>
+
+<h3 id="software-raid">Software RAID</h3>
+
+<p>The operating system manages RAID.</p>
+
+<p>Linux provides software RAID functionality through technologies such as:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mdadm
+</code></pre></div></div>
+
+<p>The general idea is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Operating System
+       ↓
+Software RAID
+       ↓
+Multiple Disks
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-raid-levels">8. RAID Levels</h1>
+
+<p>Different RAID levels use different strategies for distributing and protecting data.</p>
+
+<p>Common RAID configurations include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 0
+RAID 1
+RAID 5
+RAID 6
+RAID 10
+</code></pre></div></div>
+
+<p>They provide different combinations of:</p>
+
+<ul>
+  <li>Performance</li>
+  <li>Capacity</li>
+  <li>Redundancy</li>
+  <li>Fault tolerance</li>
+</ul>
+
+<hr />
+
+<h1 id="9-raid-0--striping">9. RAID 0 — Striping</h1>
+
+<p>RAID 0 distributes data across multiple disks.</p>
+
+<p>This technique is called <strong>striping</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data: A B C D
+
+Disk 1: A   C
+Disk 2:   B   D
+</code></pre></div></div>
+
+<h3 id="advantages">Advantages</h3>
+
+<ul>
+  <li>High performance</li>
+  <li>Full combined capacity</li>
+</ul>
+
+<h3 id="disadvantage">Disadvantage</h3>
+
+<p>There is <strong>no redundancy</strong>.</p>
+
+<p>If one disk fails:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1 → FAILED
+       ↓
+RAID 0 data becomes unavailable
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 0
+→ Performance
+→ No fault tolerance
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-raid-1--mirroring">10. RAID 1 — Mirroring</h1>
+
+<p>RAID 1 duplicates data across disks.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data: A B C D
+
+Disk 1: A B C D
+Disk 2: A B C D
+</code></pre></div></div>
+
+<p>Disk 2 is a mirror of Disk 1.</p>
+
+<h3 id="advantages-1">Advantages</h3>
+
+<ul>
+  <li>Excellent redundancy</li>
+  <li>One disk can fail without losing the mirrored data</li>
+</ul>
+
+<h3 id="disadvantage-1">Disadvantage</h3>
+
+<p>Approximately half of the raw capacity is available when using two equal-sized disks.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 × 1 TB disks
+
+Raw capacity = 2 TB
+Usable capacity ≈ 1 TB
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="11-raid-5--distributed-parity">11. RAID 5 — Distributed Parity</h1>
+
+<p>RAID 5 uses:</p>
+
+<ul>
+  <li>Striping</li>
+  <li>Distributed parity</li>
+</ul>
+
+<p>Parity information is distributed across the disks rather than being stored on only one dedicated parity disk.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1     Disk 2     Disk 3
+--------   --------   --------
+Data       Data       Parity
+Data       Parity     Data
+Parity     Data       Data
+</code></pre></div></div>
+
+<p>RAID 5 can generally tolerate:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 disk failure
+</code></pre></div></div>
+
+<h3 id="minimum-disks">Minimum disks</h3>
+
+<p>RAID 5 requires at least:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3 disks
+</code></pre></div></div>
+
+<h3 id="usable-capacity">Usable capacity</h3>
+
+<p>For <code class="language-plaintext highlighter-rouge">N</code> disks of equal capacity:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usable capacity ≈ (N - 1) × disk capacity
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 × 2 TB disks
+
+Usable ≈ (4 - 1) × 2 TB
+       ≈ 6 TB
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="12-distributed-parity">12. Distributed Parity</h1>
+
+<p><strong>Parity</strong> is additional information that allows missing data to be reconstructed after a disk failure.</p>
+
+<p>Instead of keeping all parity on one disk, RAID 5 and RAID 6 distribute parity across the array.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1    Disk 2    Disk 3    Disk 4
+--------  --------  --------  --------
+Data      Data      Data      Parity
+Data      Data      Parity    Data
+Data      Parity    Data      Data
+Parity    Data      Data      Data
+</code></pre></div></div>
+
+<p>This distribution helps balance parity storage and avoids having one dedicated parity disk.</p>
+
+<hr />
+
+<h1 id="13-raid-6">13. RAID 6</h1>
+
+<p>RAID 6 extends the RAID 5 concept by using <strong>dual distributed parity</strong>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1    Disk 2    Disk 3    Disk 4
+--------  --------  --------  --------
+Data      Data      P1        P2
+Data      P1        P2        Data
+P1        P2        Data      Data
+</code></pre></div></div>
+
+<p>RAID 6 can generally tolerate:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 simultaneous disk failures
+</code></pre></div></div>
+
+<h3 id="minimum-disks-1">Minimum disks</h3>
+
+<p>RAID 6 requires at least:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 disks
+</code></pre></div></div>
+
+<h3 id="usable-capacity-1">Usable capacity</h3>
+
+<p>For <code class="language-plaintext highlighter-rouge">N</code> equal-sized disks:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Usable capacity ≈ (N - 2) × disk capacity
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6 × 2 TB disks
+
+Usable ≈ (6 - 2) × 2 TB
+       ≈ 8 TB
+</code></pre></div></div>
+
+<p>The remaining capacity is used for dual parity.</p>
+
+<hr />
+
+<h1 id="14-raid-5-vs-raid-6">14. RAID 5 vs RAID 6</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>RAID 5</th>
+      <th>RAID 6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Striping</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Distributed parity</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Parity blocks</td>
+      <td>One set</td>
+      <td>Two sets</td>
+    </tr>
+    <tr>
+      <td>Disk failures tolerated</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Minimum disks</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Storage efficiency</td>
+      <td>Higher</td>
+      <td>Lower</td>
+    </tr>
+    <tr>
+      <td>Fault tolerance</td>
+      <td>Good</td>
+      <td>Better</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="mental-model">Mental model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 5
+→ Survive 1 disk failure
+
+RAID 6
+→ Survive 2 disk failures
+</code></pre></div></div>
+
+<p>RAID 6 is particularly useful when large storage arrays need stronger protection against multiple disk failures.</p>
+
+<hr />
+
+<h1 id="15-raid-10">15. RAID 10</h1>
+
+<p>RAID 10 combines:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 1 → Mirroring
+RAID 0 → Striping
+</code></pre></div></div>
+
+<p>It is often represented as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 10
+  ↓
+Mirroring + Striping
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        RAID 0
+     /          \
+ RAID 1        RAID 1
+ /   \          /   \
+D1   D2        D3   D4
+</code></pre></div></div>
+
+<p>RAID 10 can provide:</p>
+
+<ul>
+  <li>High performance</li>
+  <li>Disk redundancy</li>
+  <li>Good read/write performance</li>
+</ul>
+
+<p>It requires at least:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 disks
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-raid-configuration-overview">16. RAID Configuration Overview</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>RAID</th>
+      <th>Technique</th>
+      <th style="text-align: right">Fault Tolerance</th>
+      <th>Main Benefit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RAID 0</td>
+      <td>Striping</td>
+      <td style="text-align: right">None</td>
+      <td>Performance</td>
+    </tr>
+    <tr>
+      <td>RAID 1</td>
+      <td>Mirroring</td>
+      <td style="text-align: right">1 disk in a 2-disk mirror</td>
+      <td>Redundancy</td>
+    </tr>
+    <tr>
+      <td>RAID 5</td>
+      <td>Striping + distributed parity</td>
+      <td style="text-align: right">1 disk</td>
+      <td>Capacity + protection</td>
+    </tr>
+    <tr>
+      <td>RAID 6</td>
+      <td>Striping + dual distributed parity</td>
+      <td style="text-align: right">2 disks</td>
+      <td>Stronger protection</td>
+    </tr>
+    <tr>
+      <td>RAID 10</td>
+      <td>Mirroring + striping</td>
+      <td style="text-align: right">Depends on failure pattern</td>
+      <td>Performance + redundancy</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="17-combining-multiple-hard-disks-into-one-large-volume">17. Combining Multiple Hard Disks into One Large Volume</h1>
+
+<p>One important goal of storage technologies is to make multiple physical disks appear as a larger logical storage system.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1 → 2 TB
+Disk 2 → 2 TB
+Disk 3 → 2 TB
+Disk 4 → 2 TB
+</code></pre></div></div>
+
+<p>Instead of managing each disk separately:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sdb
+/dev/sdc
+/dev/sdd
+/dev/sde
+</code></pre></div></div>
+
+<p>a storage layer can combine them into a logical storage system.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+--------+  +--------+  +--------+  +--------+
+| Disk 1 |  | Disk 2 |  | Disk 3 |  | Disk 4 |
+|  2 TB  |  |  2 TB  |  |  2 TB  |  |  2 TB  |
++--------+  +--------+  +--------+  +--------+
+      \          |          |          /
+       \         |          |         /
+        +---------------------------+
+        |       Storage Layer       |
+        +---------------------------+
+                    |
+                    ↓
+             Logical Storage
+</code></pre></div></div>
+
+<p>The exact usable capacity depends on the technology and RAID level.</p>
+
+<hr />
+
+<h1 id="18-lvm-vs-raid">18. LVM vs RAID</h1>
+
+<p>LVM and RAID are <strong>not the same thing</strong>.</p>
+
+<h3 id="raid">RAID</h3>
+
+<p>Primarily addresses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk redundancy
+Performance
+Fault tolerance
+</code></pre></div></div>
+
+<h3 id="lvm-1">LVM</h3>
+
+<p>Primarily addresses:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Flexible storage allocation
+Logical volumes
+Resizing
+Storage pooling
+</code></pre></div></div>
+
+<p>They can also be used together.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Physical Disks
+      ↓
+     RAID
+      ↓
+ RAID virtual device
+      ↓
+     LVM
+      ↓
+Volume Group
+      ↓
+Logical Volumes
+      ↓
+Filesystem
+</code></pre></div></div>
+
+<p>This provides both:</p>
+
+<ul>
+  <li>RAID-level disk protection</li>
+  <li>LVM-level storage flexibility</li>
+</ul>
+
+<hr />
+
+<h1 id="19-example-storage-architecture">19. Example Storage Architecture</h1>
+
+<p>Suppose a server has four disks:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sdb → 2 TB
+/dev/sdc → 2 TB
+/dev/sdd → 2 TB
+/dev/sde → 2 TB
+</code></pre></div></div>
+
+<p>A RAID 6 array could be created conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 × 2 TB disks
+       ↓
+     RAID 6
+       ↓
+Approximately 4 TB usable
+       ↓
+      LVM
+       ↓
+  Volume Group
+       ↓
++-------------+
+| Logical Vol |
++-------------+
+       ↓
+   Filesystem
+       ↓
+   /data
+</code></pre></div></div>
+
+<p>This provides a single logical <code class="language-plaintext highlighter-rouge">/data</code> storage area while RAID handles disk-level redundancy.</p>
+
+<hr />
+
+<h1 id="20-important-terminology">20. Important Terminology</h1>
+
+<h3 id="striping">Striping</h3>
+
+<p>Splitting data across multiple disks.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data
+ ↓
+A B C D
+
+Disk 1 → A C
+Disk 2 → B D
+</code></pre></div></div>
+
+<p>Used by:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 0
+RAID 5
+RAID 6
+RAID 10
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="mirroring">Mirroring</h3>
+
+<p>Keeping duplicate copies of data.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk 1 → A B C D
+Disk 2 → A B C D
+</code></pre></div></div>
+
+<p>Used by:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 1
+RAID 10
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="parity">Parity</h3>
+
+<p>Additional information used to reconstruct missing data after disk failure.</p>
+
+<p>Used by:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID 5 → Single parity
+RAID 6 → Dual parity
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="fault-tolerance">Fault Tolerance</h3>
+
+<p>The ability of a storage system to continue operating despite one or more component failures.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Disk failure
+     ↓
+Redundant data/parity
+     ↓
+System continues operating
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="21-key-mental-model">21. Key Mental Model</h1>
+
+<p>Remember the technologies using this simple model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID
+ │
+ ├── RAID 0 → Speed
+ │
+ ├── RAID 1 → Mirror
+ │
+ ├── RAID 5 → 1-disk protection + parity
+ │
+ ├── RAID 6 → 2-disk protection + dual parity
+ │
+ └── RAID 10 → Speed + mirroring
+
+
+LVM
+ │
+ ├── PV → Physical storage
+ │
+ ├── VG → Storage pool
+ │
+ └── LV → Logical storage
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-final-cheat-sheet">22. Final Cheat Sheet</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LVM
+→ Logical Volume Management
+→ Flexible disk-space allocation
+→ PV → VG → LV
+
+RAID
+→ Redundant Array of Independent Disks
+→ Combines multiple disks
+→ Can provide redundancy and/or performance
+
+RAID 0
+→ Striping
+→ Fast
+→ No redundancy
+
+RAID 1
+→ Mirroring
+→ Redundancy
+→ Lower usable capacity
+
+RAID 5
+→ Striping + distributed parity
+→ Survives 1 disk failure
+
+RAID 6
+→ Striping + dual distributed parity
+→ Survives 2 disk failures
+
+RAID 10
+→ Mirroring + striping
+→ Performance + redundancy
+</code></pre></div></div>
+
+<p>The central distinction is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RAID
+→ "How should data be distributed and protected across disks?"
+
+LVM
+→ "How should available storage be organized and allocated logically?"
+</code></pre></div></div>
+<p>```</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L10.4 : Prompt String</span>
+              </a>
+            
+
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

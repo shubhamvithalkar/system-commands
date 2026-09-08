@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T4.1 What is find? | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link ">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link active">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 4</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>T4.1 What is find?</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="t41-what-is-find">T4.1 What is find?</h1>
+
+<h1 id="introduction-to-the-find-command">Introduction to the <code class="language-plaintext highlighter-rouge">find</code> Command</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">find</code> command is a powerful Unix/Linux utility used to <strong>search for files and directories</strong> inside a directory tree based on specified criteria.</p>
+
+<p>It can do much more than simply search. After finding matching files, <code class="language-plaintext highlighter-rouge">find</code> can also perform actions such as:</p>
+
+<ul>
+  <li>Printing matched paths</li>
+  <li>Deleting files</li>
+  <li>Executing commands</li>
+  <li>Searching by file type</li>
+  <li>Searching by filename</li>
+  <li>Limiting search depth</li>
+  <li>Searching using timestamps</li>
+  <li>Searching by file size</li>
+  <li>Searching using regular expressions</li>
+  <li>Combining multiple conditions</li>
+</ul>
+
+<hr />
+
+<h1 id="1-basic-syntax">1. Basic Syntax</h1>
+
+<p>The general syntax is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find &lt;path&gt; &lt;conditions&gt; &lt;actions&gt;
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Breakdown:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.                  → Start searching from current directory
+-type f            → Look for regular files
+-name "*.txt"      → Filename must end in .txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-what-does-find-actually-do">2. What Does <code class="language-plaintext highlighter-rouge">find</code> Actually Do?</h1>
+
+<p>Suppose we have:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── README.md
+├── notes.txt
+├── src/
+│   ├── main.py
+│   └── test.py
+└── docs/
+    ├── guide.md
+    └── notes.txt
+</code></pre></div></div>
+
+<p>If we run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find project
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> recursively walks through the directory tree.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project
+  ↓
+README.md
+notes.txt
+src
+  ↓
+main.py
+test.py
+docs
+  ↓
+guide.md
+notes.txt
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project
+project/README.md
+project/notes.txt
+project/src
+project/src/main.py
+project/src/test.py
+project/docs
+project/docs/guide.md
+project/docs/notes.txt
+</code></pre></div></div>
+
+<p>The important idea is:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">find</code> searches recursively by default.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="3-if-no-path-is-provided">3. If No Path Is Provided</h1>
+
+<p>If the starting path is omitted, <code class="language-plaintext highlighter-rouge">find</code> normally searches the current directory.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+</code></pre></div></div>
+
+<p>is effectively:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">.</code> means:</p>
+
+<blockquote>
+  <p>current directory</p>
+</blockquote>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>starts searching from the current directory.</p>
+
+<hr />
+
+<h1 id="4--type">4. <code class="language-plaintext highlighter-rouge">-type</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">-type</code> condition filters results according to their filesystem type.</p>
+
+<p>Common values are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-type f</code></td>
+      <td>Regular file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-type d</code></td>
+      <td>Directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-type l</code></td>
+      <td>Symbolic link</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="41-find-regular-files">4.1 Find Regular Files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>This finds all regular files below the current directory.</p>
+
+<p>Example output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./README.md
+./notes.txt
+./src/main.py
+./src/test.py
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="42-find-directories">4.2 Find Directories</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> d
+</code></pre></div></div>
+
+<p>This finds directories.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+./src
+./docs
+./images
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="43-find-symbolic-links">4.3 Find Symbolic Links</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> l
+</code></pre></div></div>
+
+<p>This finds symbolic links.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./latest
+./config
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5--name">5. <code class="language-plaintext highlighter-rouge">-name</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-name</code> matches filenames using a <strong>case-sensitive shell-style pattern</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Meaning:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.           → search from current directory
+-type f     → only regular files
+-name       → filename condition
+"*.txt"     → filename ending with .txt
+</code></pre></div></div>
+
+<p>Example directory:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── notes.txt
+├── README.md
+├── data.txt
+└── src/
+    └── test.txt
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find project <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/notes.txt
+project/data.txt
+project/src/test.txt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-why-do-we-quote-txt">6. Why Do We Quote <code class="language-plaintext highlighter-rouge">"*.txt"</code>?</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>rather than:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="k">*</span>.txt
+</code></pre></div></div>
+
+<p>The quotes prevent the <strong>shell</strong> from expanding <code class="language-plaintext highlighter-rouge">*.txt</code> before <code class="language-plaintext highlighter-rouge">find</code> receives it.</p>
+
+<p>Without quotes, if the current directory contains:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a.txt
+b.txt
+</code></pre></div></div>
+
+<p>the shell might transform:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">*</span>.txt
+</code></pre></div></div>
+
+<p>into:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a.txt b.txt
+</code></pre></div></div>
+
+<p>before <code class="language-plaintext highlighter-rouge">find</code> runs.</p>
+
+<p>With quotes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>the pattern is passed directly to <code class="language-plaintext highlighter-rouge">find</code>.</p>
+
+<h3 id="rule">Rule</h3>
+
+<p>When using wildcard patterns with <code class="language-plaintext highlighter-rouge">find</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Prefer quoting the pattern.</p>
+
+<hr />
+
+<h1 id="7--iname">7. <code class="language-plaintext highlighter-rouge">-iname</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-iname</code> works like <code class="language-plaintext highlighter-rouge">-name</code>, but matching is <strong>case-insensitive</strong>.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"readme*"</span>
+</code></pre></div></div>
+
+<p>This can match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>README
+README.md
+readme
+readme.txt
+ReadMe.md
+README.MD
+</code></pre></div></div>
+
+<p>depending on the filename.</p>
+
+<h3 id="difference">Difference</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-name</span>
+</code></pre></div></div>
+
+<p>is case-sensitive.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-iname</span>
+</code></pre></div></div>
+
+<p>is case-insensitive.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"README.md"</span>
+</code></pre></div></div>
+
+<p>does not normally match:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>README.MD
+</code></pre></div></div>
+
+<p>But:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-iname</span> <span class="s2">"README.md"</span>
+</code></pre></div></div>
+
+<p>can match both:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>README.md
+README.MD
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8--mindepth">8. <code class="language-plaintext highlighter-rouge">-mindepth</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-mindepth</code> specifies the minimum search depth.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mindepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>This prevents the starting point itself from being considered.</p>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Search only one level below the current directory and find regular files.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="9-understanding-search-depth">9. Understanding Search Depth</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── file1.txt
+├── src/
+│   └── file2.txt
+└── src/
+    └── tests/
+        └── file3.txt
+</code></pre></div></div>
+
+<p>Think of depth like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.                         depth 0
+├── file1.txt             depth 1
+├── src                    depth 1
+│   └── file2.txt         depth 2
+└── src/tests              depth 2
+    └── file3.txt         depth 3
+</code></pre></div></div>
+
+<p>The exact displayed paths may vary, but the important mental model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting directory → depth 0
+Its contents       → depth 1
+Their contents     → depth 2
+and so on...
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10--maxdepth">10. <code class="language-plaintext highlighter-rouge">-maxdepth</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-maxdepth</code> limits how deep <code class="language-plaintext highlighter-rouge">find</code> is allowed to search.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-maxdepth</span> 2 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Search only up to depth 2.</p>
+</blockquote>
+
+<p>It will not descend further into depth 3, 4, etc.</p>
+
+<hr />
+
+<h1 id="11-combining--mindepth-and--maxdepth">11. Combining <code class="language-plaintext highlighter-rouge">-mindepth</code> and <code class="language-plaintext highlighter-rouge">-maxdepth</code></h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minimum depth = 1
+maximum depth = 1
+</code></pre></div></div>
+
+<p>Therefore only direct children of the current directory are considered.</p>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── a.txt
+├── b.txt
+└── src/
+    └── c.txt
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find project <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>Output:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/a.txt
+project/b.txt
+</code></pre></div></div>
+
+<p>It does not find:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/src/c.txt
+</code></pre></div></div>
+
+<p>because that file is deeper.</p>
+
+<hr />
+
+<h1 id="12--print">12. <code class="language-plaintext highlighter-rouge">-print</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-print</code> prints the path of every matched item.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Output might be:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./README.md
+./docs/guide.md
+./notes/lesson.md
+</code></pre></div></div>
+
+<p>In most normal <code class="language-plaintext highlighter-rouge">find</code> implementations, when there is no explicit action such as <code class="language-plaintext highlighter-rouge">-print</code> or <code class="language-plaintext highlighter-rouge">-exec</code>, <code class="language-plaintext highlighter-rouge">-print</code> is the default action.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>normally produce the same visible results.</p>
+
+<hr />
+
+<h1 id="13--exec">13. <code class="language-plaintext highlighter-rouge">-exec</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">-exec</code> allows us to execute another command for every matched item.</p>
+
+<p>General syntax:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find &lt;path&gt; &lt;conditions&gt; <span class="nt">-exec</span> &lt;<span class="nb">command</span><span class="o">&gt;</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}    → replaced by the current matched pathname
+\;    → marks the end of the -exec command
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-basic--exec-example">14. Basic <code class="language-plaintext highlighter-rouge">-exec</code> Example</h1>
+
+<p>Suppose we want to display information about every <code class="language-plaintext highlighter-rouge">.txt</code> file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span> <span class="nt">-exec</span> <span class="nb">ls</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>For each matching file, <code class="language-plaintext highlighter-rouge">find</code> effectively runs something similar to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-l</span> ./file1.txt
+<span class="nb">ls</span> <span class="nt">-l</span> ./file2.txt
+<span class="nb">ls</span> <span class="nt">-l</span> ./docs/file3.txt
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">{}</code> is replaced by the matching pathname.</p>
+
+<hr />
+
+<h1 id="15-understanding-">15. Understanding <code class="language-plaintext highlighter-rouge">{}</code></h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span> <span class="nt">-exec</span> <span class="nb">wc</span> <span class="nt">-l</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Suppose matches are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./a.txt
+./b.txt
+./docs/c.txt
+</code></pre></div></div>
+
+<p>Conceptually, <code class="language-plaintext highlighter-rouge">find</code> executes:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">wc</span> <span class="nt">-l</span> ./a.txt
+<span class="nb">wc</span> <span class="nt">-l</span> ./b.txt
+<span class="nb">wc</span> <span class="nt">-l</span> ./docs/c.txt
+</code></pre></div></div>
+
+<p>So:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>The current file found by <code class="language-plaintext highlighter-rouge">find</code>.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="16-">16. <code class="language-plaintext highlighter-rouge">\;</code></h1>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="se">\;</span>
+</code></pre></div></div>
+
+<p>terminates the <code class="language-plaintext highlighter-rouge">-exec</code> expression.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">echo</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>The backslash prevents the shell from interpreting <code class="language-plaintext highlighter-rouge">;</code> as the end of the entire shell command.</p>
+
+<p>Without the backslash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">echo</span> <span class="o">{}</span> <span class="p">;</span>
+</code></pre></div></div>
+
+<p>the shell would interpret <code class="language-plaintext highlighter-rouge">;</code> itself before <code class="language-plaintext highlighter-rouge">find</code> receives it.</p>
+
+<hr />
+
+<h1 id="17--exec----vs--exec---">17. <code class="language-plaintext highlighter-rouge">-exec ... {} \;</code> vs <code class="language-plaintext highlighter-rouge">-exec ... {} +</code></h1>
+
+<p>There are two important forms:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span> <span class="nb">command</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span> <span class="nb">command</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<h3><code class="language-plaintext highlighter-rouge">\;</code></h3>
+
+<p>Runs the command separately for each match.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>file1
+<span class="nb">command </span>file2
+<span class="nb">command </span>file3
+</code></pre></div></div>
+
+<h3 id="-1"><code class="language-plaintext highlighter-rouge">+</code></h3>
+
+<p>Batches multiple matched files into fewer command executions.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">command </span>file1 file2 file3
+</code></pre></div></div>
+
+<p>The exact batch size is chosen by <code class="language-plaintext highlighter-rouge">find</code> based on command-line limits.</p>
+
+<hr />
+
+<h1 id="18-example-of-">18. Example of <code class="language-plaintext highlighter-rouge">\;</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip</span> ./a.log
+<span class="nb">gzip</span> ./b.log
+<span class="nb">gzip</span> ./server.log
+</code></pre></div></div>
+
+<p>One command execution per file.</p>
+
+<hr />
+
+<h1 id="19-example-of-">19. Example of <code class="language-plaintext highlighter-rouge">+</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gzip</span> ./a.log ./b.log ./server.log
+</code></pre></div></div>
+
+<p>or multiple batches if there are many files.</p>
+
+<h3 id="general-rule">General rule</h3>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span> <span class="nb">command</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>when you specifically need one execution per file.</p>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-exec</span> <span class="nb">command</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>when the command can accept multiple files and batching is appropriate.</p>
+
+<p><code class="language-plaintext highlighter-rouge">+</code> is often more efficient.</p>
+
+<hr />
+
+<h1 id="20-finding-and-deleting-tmp-files">20. Finding and Deleting <code class="language-plaintext highlighter-rouge">.tmp</code> Files</h1>
+
+<p>Lecture example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.             → search from current directory
+-type f       → regular files only
+-name "*.tmp" → filenames ending in .tmp
+-exec         → execute a command
+rm -i         → interactively remove
+{}            → current matched file
+\;            → end -exec
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-i</code> option asks for confirmation before deletion.</p>
+
+<p>This is safer than immediately deleting everything.</p>
+
+<hr />
+
+<h1 id="21-example">21. Example</h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── a.tmp
+├── b.txt
+└── logs/
+    └── old.tmp
+</code></pre></div></div>
+
+<p>Command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find project <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> identifies:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/a.tmp
+project/logs/old.tmp
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">rm -i</code> asks for confirmation for each matched file.</p>
+
+<hr />
+
+<h1 id="22-finding-and-compressing-log-files">22. Finding and Compressing <code class="language-plaintext highlighter-rouge">.log</code> Files</h1>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /tmp <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>This finds regular files ending in <code class="language-plaintext highlighter-rouge">.log</code> and passes them to <code class="language-plaintext highlighter-rouge">gzip</code>.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+ ↓
+find *.log
+ ↓
+collect matching files
+ ↓
+gzip them
+</code></pre></div></div>
+
+<p>Because <code class="language-plaintext highlighter-rouge">+</code> is used, multiple files can be passed to <code class="language-plaintext highlighter-rouge">gzip</code> in batches.</p>
+
+<hr />
+
+<h1 id="23-combining-multiple-conditions">23. Combining Multiple Conditions</h1>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> allows multiple conditions.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.py"</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>regular file
+AND
+filename matches *.py
+</code></pre></div></div>
+
+<p>This is essentially an AND relationship.</p>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"*.jpg"</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>regular file
+AND
+case-insensitive filename match
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="24-example-directory-tree">24. Example Directory Tree</h1>
+
+<p>Create a practice structure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> find-demo/src/tests find-demo/docs find-demo/images
+<span class="nb">touch </span>find-demo/README.md
+<span class="nb">touch </span>find-demo/notes.txt
+<span class="nb">touch </span>find-demo/src/main.py
+<span class="nb">touch </span>find-demo/src/test.py
+<span class="nb">touch </span>find-demo/src/tests/test_main.py
+<span class="nb">touch </span>find-demo/docs/guide.md
+<span class="nb">touch </span>find-demo/images/photo.jpg
+<span class="nb">touch </span>find-demo/temp.tmp
+</code></pre></div></div>
+
+<p>Now the structure is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find-demo/
+├── README.md
+├── notes.txt
+├── temp.tmp
+├── src/
+│   ├── main.py
+│   ├── test.py
+│   └── tests/
+│       └── test_main.py
+├── docs/
+│   └── guide.md
+└── images/
+    └── photo.jpg
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="25-practice-find-commands">25. Practice <code class="language-plaintext highlighter-rouge">find</code> Commands</h1>
+
+<h2 id="find-everything">Find everything</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-regular-files">Find regular files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-directories">Find directories</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> d
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-all-txt-files">Find all <code class="language-plaintext highlighter-rouge">.txt</code> files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-all-markdown-files">Find all Markdown files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-python-files">Find Python files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.py"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-files-case-insensitively">Find files case-insensitively</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"*.PY"</span>
+</code></pre></div></div>
+
+<p>This can find:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>main.py
+test.py
+test_main.py
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-only-direct-files-inside-find-demo">Find only direct files inside <code class="language-plaintext highlighter-rouge">find-demo</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>Expected:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find-demo/README.md
+find-demo/notes.txt
+find-demo/temp.tmp
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="search-only-up-to-depth-2">Search only up to depth 2</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-maxdepth</span> 2 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<p>This does not descend into files/directories deeper than the specified maximum depth.</p>
+
+<hr />
+
+<h2 id="find-and-print-markdown-files">Find and print Markdown files</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="find-tmp-files-interactively">Find <code class="language-plaintext highlighter-rouge">.tmp</code> files interactively</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find find-demo <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-find-search-mental-model">26. <code class="language-plaintext highlighter-rouge">find</code> Search Mental Model</h1>
+
+<p>Think about <code class="language-plaintext highlighter-rouge">find</code> as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START
+  ↓
+Where should I search?
+  ↓
+PATH
+  ↓
+What should I match?
+  ↓
+CONDITIONS
+  ↓
+What should I do with matches?
+  ↓
+ACTION
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /var/log <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<p>Mental parsing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>START
+ ↓
+/var/log
+
+FILTER
+ ↓
+-type f
+ ↓
+-name "*.log"
+
+ACTION
+ ↓
+-print
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="27-find-syntax-patterns-to-memorize">27. <code class="language-plaintext highlighter-rouge">find</code> Syntax Patterns to Memorize</h1>
+
+<h3 id="search-everything-from-current-directory">Search everything from current directory</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span>
+</code></pre></div></div>
+
+<h3 id="find-regular-files-1">Find regular files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<h3 id="find-directories-1">Find directories</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> d
+</code></pre></div></div>
+
+<h3 id="find-symbolic-links">Find symbolic links</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> l
+</code></pre></div></div>
+
+<h3 id="find-txt-files">Find <code class="language-plaintext highlighter-rouge">.txt</code> files</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<h3 id="case-insensitive-filename-search">Case-insensitive filename search</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"readme*"</span>
+</code></pre></div></div>
+
+<h3 id="search-only-direct-children">Search only direct children</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<h3 id="search-up-to-depth-2">Search up to depth 2</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-maxdepth</span> 2 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<h3 id="explicitly-print-matches">Explicitly print matches</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<h3 id="execute-once-per-match">Execute once per match</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<h3 id="execute-in-batches">Execute in batches</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<h3 id="find-and-interactively-delete">Find and interactively delete</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-common-mistakes">28. Common Mistakes</h1>
+
+<h2 id="mistake-1--forgetting-quotes-around-wildcards">Mistake 1 — Forgetting quotes around wildcards</h2>
+
+<p>Avoid:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="k">*</span>.txt
+</code></pre></div></div>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2--forgetting--type">Mistake 2 — Forgetting <code class="language-plaintext highlighter-rouge">-type</code></h2>
+
+<p>This:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>can find matching directories as well as files.</p>
+
+<p>If you specifically want regular files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-3--confusing--name-and--iname">Mistake 3 — Confusing <code class="language-plaintext highlighter-rouge">-name</code> and <code class="language-plaintext highlighter-rouge">-iname</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-name</span>
+</code></pre></div></div>
+
+<p>is case-sensitive.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-iname</span>
+</code></pre></div></div>
+
+<p>is case-insensitive.</p>
+
+<hr />
+
+<h2 id="mistake-4--forgetting-">Mistake 4 — Forgetting <code class="language-plaintext highlighter-rouge">{}</code></h2>
+
+<p>Incorrect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">rm</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">rm</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">{}</code> represents the current matched pathname.</p>
+
+<hr />
+
+<h2 id="mistake-5--forgetting-">Mistake 5 — Forgetting <code class="language-plaintext highlighter-rouge">\;</code></h2>
+
+<p>Incorrect:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">echo</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">echo</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-6--accidentally-deleting-files">Mistake 6 — Accidentally deleting files</h2>
+
+<p>Be careful with:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">rm</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>It can delete every regular file under the starting path.</p>
+
+<p>A safer approach for testing is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">echo rm</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<p>This only prints what would conceptually be executed.</p>
+
+<p>Even safer for interactive deletion:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-find-vs-grep">29. <code class="language-plaintext highlighter-rouge">find</code> vs <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<p>These commands are often confused.</p>
+
+<h3 id="find"><code class="language-plaintext highlighter-rouge">find</code></h3>
+
+<p>Primarily searches the <strong>filesystem structure</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p>Question:</p>
+
+<blockquote>
+  <p>Which files exist that satisfy these filesystem conditions?</p>
+</blockquote>
+
+<h3 id="grep"><code class="language-plaintext highlighter-rouge">grep</code></h3>
+
+<p>Primarily searches <strong>content</strong>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s2">"ERROR"</span> logfile.txt
+</code></pre></div></div>
+
+<p>Question:</p>
+
+<blockquote>
+  <p>Which lines contain <code class="language-plaintext highlighter-rouge">ERROR</code>?</p>
+</blockquote>
+
+<h3 id="combining-them">Combining them</h3>
+
+<p>You can use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">grep</span> <span class="nt">-l</span> <span class="s2">"ERROR"</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>This means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+ ↓
+find all .log files
+ ↓
+grep their contents
+ ↓
+-l → print filenames containing ERROR
+</code></pre></div></div>
+
+<p>This is a very useful real-world pattern.</p>
+
+<hr />
+
+<h1 id="30-find-vs-locate">30. <code class="language-plaintext highlighter-rouge">find</code> vs <code class="language-plaintext highlighter-rouge">locate</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">find</code> searches the filesystem tree directly.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /path <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">locate</code> normally searches a prebuilt database.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>locate notes.txt
+</code></pre></div></div>
+
+<p>General distinction:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+→ flexible
+→ real-time filesystem traversal
+→ many conditions/actions
+
+locate
+→ often much faster
+→ database-based
+→ may not immediately know about newly created files
+</code></pre></div></div>
+
+<p>For learning <code class="language-plaintext highlighter-rouge">find</code>, focus on its ability to combine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>path
++
+conditions
++
+actions
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="31-exam-oriented-examples">31. Exam-Oriented Examples</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>Find all regular <code class="language-plaintext highlighter-rouge">.txt</code> files from the current directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>Find all directories named <code class="language-plaintext highlighter-rouge">assets</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /var/www <span class="nt">-type</span> d <span class="nt">-name</span> <span class="s2">"assets"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>Find files named <code class="language-plaintext highlighter-rouge">README</code> regardless of case.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-iname</span> <span class="s2">"readme"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>Search only one level below the current directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-mindepth</span> 1 <span class="nt">-maxdepth</span> 1 <span class="nt">-type</span> f
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>Find Python files up to depth 2.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /project <span class="nt">-maxdepth</span> 2 <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.py"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>Find <code class="language-plaintext highlighter-rouge">.md</code> files and explicitly print them.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.md"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>Find <code class="language-plaintext highlighter-rouge">.tmp</code> files and interactively delete them.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>Find <code class="language-plaintext highlighter-rouge">.log</code> files and compress them.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-advanced-mental-model">32. Advanced Mental Model</h1>
+
+<p>A useful way to read a <code class="language-plaintext highlighter-rouge">find</code> command is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find
+ │
+ ├── WHERE?
+ │      └── starting path
+ │
+ ├── WHAT?
+ │      ├── -type
+ │      ├── -name
+ │      ├── -iname
+ │      ├── -mindepth
+ │      └── -maxdepth
+ │
+ └── THEN WHAT?
+        ├── -print
+        └── -exec
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find /tmp <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.log"</span> <span class="nt">-exec</span> <span class="nb">gzip</span> <span class="o">{}</span> +
+</code></pre></div></div>
+
+<p>Read it naturally:</p>
+
+<blockquote>
+  <p>Starting at <code class="language-plaintext highlighter-rouge">/tmp</code>, find regular files whose names end in <code class="language-plaintext highlighter-rouge">.log</code>, then execute <code class="language-plaintext highlighter-rouge">gzip</code> on the matched files in batches.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="33-one-line-summary-of-every-important-option">33. One-Line Summary of Every Important Option</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-type f
+→ regular files
+
+-type d
+→ directories
+
+-type l
+→ symbolic links
+
+-name
+→ case-sensitive filename pattern
+
+-iname
+→ case-insensitive filename pattern
+
+-mindepth N
+→ don't consider anything shallower than N
+
+-maxdepth N
+→ don't search deeper than N
+
+-print
+→ print matched paths
+
+-exec command {} \;
+→ execute once per match
+
+-exec command {} +
+→ execute using batches of matches
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-final-cheat-sheet">34. Final Cheat Sheet</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find .</code></td>
+      <td>Search from current directory</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find /path</code></td>
+      <td>Search from <code class="language-plaintext highlighter-rouge">/path</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f</code></td>
+      <td>Find regular files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type d</code></td>
+      <td>Find directories</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type l</code></td>
+      <td>Find symbolic links</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -name "*.txt"</code></td>
+      <td>Find <code class="language-plaintext highlighter-rouge">.txt</code> files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -iname "readme*"</code></td>
+      <td>Case-insensitive filename search</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -mindepth 1</code></td>
+      <td>Minimum search depth 1</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -maxdepth 2</code></td>
+      <td>Maximum search depth 2</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f -name "*.md" -print</code></td>
+      <td>Find and print Markdown files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f -exec ls -l {} \;</code></td>
+      <td>Run <code class="language-plaintext highlighter-rouge">ls -l</code> for each match</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f -exec ls -l {} +</code></td>
+      <td>Run <code class="language-plaintext highlighter-rouge">ls -l</code> in batches</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f -name "*.tmp" -exec rm -i {} \;</code></td>
+      <td>Interactively delete <code class="language-plaintext highlighter-rouge">.tmp</code> files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">find . -type f -name "*.log" -exec gzip {} +</code></td>
+      <td>Compress <code class="language-plaintext highlighter-rouge">.log</code> files</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="35-the-most-important-pattern-to-remember">35. The Most Important Pattern to Remember</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find &lt;WHERE&gt; &lt;WHAT_TO_FIND&gt; &lt;WHAT_TO_DO&gt;
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.txt"</span> <span class="nt">-print</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WHERE
+↓
+.
+
+WHAT
+↓
+-type f
+-name "*.txt"
+
+ACTION
+↓
+-print
+</code></pre></div></div>
+
+<p>And:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find <span class="nb">.</span> <span class="nt">-type</span> f <span class="nt">-name</span> <span class="s2">"*.tmp"</span> <span class="nt">-exec</span> <span class="nb">rm</span> <span class="nt">-i</span> <span class="o">{}</span> <span class="se">\;</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WHERE
+↓
+.
+
+WHAT
+↓
+regular files
+whose names end in .tmp
+
+ACTION
+↓
+rm -i each matched file
+</code></pre></div></div>
+
+<p>Once you understand this three-part model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH → CONDITIONS → ACTION
+</code></pre></div></div>
+
+<p>you can build and understand most <code class="language-plaintext highlighter-rouge">find</code> commands.</p>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L4.2: Pattern Matching - Part 02</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L 5.1 - $hell variables</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>

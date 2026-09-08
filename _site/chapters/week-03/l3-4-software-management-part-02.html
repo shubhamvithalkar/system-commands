@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L3.4: Software Management - Part 02 | System Commands Handbook</title>
+  <meta name="description" content="Comprehensive 10-Week System Commands Handbook">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/system-commands/assets/css/style.css?v=1788890935">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <button id="mobile-sidebar-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a class="site-brand" href="/system-commands/">
+          <div class="brand-logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5"></polyline>
+              <line x1="12" y1="19" x2="20" y2="19"></line>
+            </svg>
+          </div>
+          <span class="brand-title">System Commands Handbook</span>
+        </a>
+      </div>
+
+      <!-- Center Search Pill -->
+      <div class="nav-center">
+        <button id="search-input" class="search-box-btn" aria-label="Search documentation">
+          <div class="search-box-left">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </div>
+          <kbd class="search-kbd">Ctrl K</kbd>
+        </button>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="nav-right">
+        <!-- Theme Dropdown -->
+        <div class="theme-select-wrapper">
+          <button id="theme-select-btn" class="theme-btn" aria-label="Select theme">
+            <span id="theme-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+            </span>
+            <span id="theme-label">Auto</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div id="theme-dropdown" class="theme-dropdown">
+            <button class="theme-option" onclick="setTheme('light')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+              </svg>
+              <span>Light</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('dark')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <span>Dark</span>
+            </button>
+            <button class="theme-option" onclick="setTheme('auto')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 3a9 9 0 0 0 0 18v-18z" fill="currentColor"></path>
+              </svg>
+              <span>Auto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <a href="https://github.com/shubhamvithalkar/system-commands" target="_blank" rel="noopener noreferrer" class="github-link" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- 3-Column Docs Layout -->
+  <div class="docs-layout">
+    <!-- Left Navigation Sidebar -->
+    <aside class="left-sidebar" id="sidebar">
+      <a href="/system-commands/" class="sidebar-home-link ">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 1</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+                   class="nav-link ">
+                  1.1 - Launching a Linux Virtual Machine
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-2-command-line-environment.html"
+                   class="nav-link ">
+                  1.2 - Command line environment
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+                   class="nav-link ">
+                  1.3 - Simple Commands in Linux - 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+                   class="nav-link ">
+                  1.4 - Simple Commands in Linux - 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 2</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+                   class="nav-link ">
+                  L2.1 - Command line editors - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+                   class="nav-link ">
+                  L2.2 - Command line editors - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+                   class="nav-link ">
+                  L2.3 - Command line editors - Part 03
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+                   class="nav-link ">
+                  L2.4: Networking Commands and SSH
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 3</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+                   class="nav-link ">
+                  L3.1 - Combining commands and files
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-2-redirections.html"
+                   class="nav-link ">
+                  L3.2 - Redirections
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+                   class="nav-link ">
+                  L3.3: Software Management - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+                   class="nav-link active">
+                  L3.4: Software Management - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+                   class="nav-link ">
+                  L3.5 - Linux process management
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 4</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+                   class="nav-link ">
+                  L4.1: Pattern Matching - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+                   class="nav-link ">
+                  L4.2: Pattern Matching - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-04/t4-1-what-is-find.html"
+                   class="nav-link ">
+                  T4.1 What is find?
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 5</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+                   class="nav-link ">
+                  L 5.1 - $hell variables
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+                   class="nav-link ">
+                  L 5.2 - Shell Variables - Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+                   class="nav-link ">
+                  L 5.3 - Shell Variables - Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 6</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+                   class="nav-link ">
+                  L6.1: Some Command line Utilities
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+                   class="nav-link ">
+                  L6.2 - Overview of Shell Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+                   class="nav-link ">
+                  L6.3 - Bash Scripts - Part 01
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 7</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+                   class="nav-link ">
+                  L7.1 - Bash scripts - Part 2A
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+                   class="nav-link ">
+                  L5.4 - Bash scripts - Part 2B
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+                   class="nav-link ">
+                  L7..3 - Bash scripts - Part 2C
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 8</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+                   class="nav-link ">
+                  L8.1: Automating Scripts
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+                   class="nav-link ">
+                  L 8.2 - Stream editor sed
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 9</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+                   class="nav-link ">
+                  9.1 - AWK Programming Part 1
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+                   class="nav-link ">
+                  9.2 - AWK Programming Part 2
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+        <div class="week-group">
+          <button class="week-header" type="button">
+            <div class="week-header-left">
+              <span>Week 10</span>
+            </div>
+            <svg class="week-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <ul class="topic-list">
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+                   class="nav-link ">
+                  L10.1 - Version Control - Part 01
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+                   class="nav-link ">
+                  L10.2 - Version Control - Part 02
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+                   class="nav-link ">
+                  L10.3 - Knowing your Hardware
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-4-prompt-string.html"
+                   class="nav-link ">
+                  L10.4 : Prompt String
+                </a>
+              </li>
+            
+              <li>
+                <a href="/system-commands/chapters/week-10/l10-5-managing-storage.html"
+                   class="nav-link ">
+                  L10.5: Managing Storage
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      
+    </aside>
+
+    <!-- Center Main Content -->
+    <main class="main-wrapper">
+      <article class="content-wrapper">
+        <!-- Breadcrumbs -->
+        
+        
+
+        
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="/system-commands/">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span>Week 3</span>
+            <span class="breadcrumb-separator">›</span>
+            <span>L3.4: Software Management - Part 02</span>
+          </nav>
+        
+
+        <!-- Markdown Document Content -->
+        <h1 id="l34-software-management---part-02">L3.4: Software Management - Part 02</h1>
+
+<h1 id="linux-package-management-apt-dpkg-repositories-and-deb-packages">Linux Package Management: APT, <code class="language-plaintext highlighter-rouge">dpkg</code>, Repositories, and <code class="language-plaintext highlighter-rouge">.deb</code> Packages</h1>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<p>By the end of this lesson, you should be able to:</p>
+
+<ul>
+  <li>Understand what package management is.</li>
+  <li>Access and safely understand the <code class="language-plaintext highlighter-rouge">sudoers</code> configuration.</li>
+  <li>Understand the purpose of <code class="language-plaintext highlighter-rouge">/var/log</code>.</li>
+  <li>Understand APT configuration inside <code class="language-plaintext highlighter-rouge">/etc/apt</code>.</li>
+  <li>Understand <code class="language-plaintext highlighter-rouge">sources.list</code> and <code class="language-plaintext highlighter-rouge">sources.list.d</code>.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">apt update</code>.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">apt upgrade</code>.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">apt autoremove</code>.</li>
+  <li>Install, remove, and reinstall packages.</li>
+  <li>Understand the difference between <code class="language-plaintext highlighter-rouge">apt</code> and <code class="language-plaintext highlighter-rouge">dpkg</code>.</li>
+  <li>Understand <code class="language-plaintext highlighter-rouge">/var/lib/dpkg</code>.</li>
+  <li>Search installed packages using <code class="language-plaintext highlighter-rouge">dpkg -l</code>.</li>
+  <li>Find files belonging to a package using <code class="language-plaintext highlighter-rouge">dpkg -L</code>.</li>
+  <li>View package metadata using <code class="language-plaintext highlighter-rouge">dpkg -s</code>.</li>
+  <li>Find which package owns a file using <code class="language-plaintext highlighter-rouge">dpkg -S</code>.</li>
+  <li>Create custom package listings using <code class="language-plaintext highlighter-rouge">dpkg-query</code>.</li>
+  <li>Combine <code class="language-plaintext highlighter-rouge">dpkg-query</code> with <code class="language-plaintext highlighter-rouge">less</code>, <code class="language-plaintext highlighter-rouge">sort</code>, and <code class="language-plaintext highlighter-rouge">grep</code>.</li>
+  <li>Install local <code class="language-plaintext highlighter-rouge">.deb</code> packages.</li>
+</ul>
+
+<hr />
+
+<h1 id="1-what-is-package-management">1. What Is Package Management?</h1>
+
+<p>A <strong>package</strong> is a bundle containing software and information needed to install and manage it.</p>
+
+<p>For example, when you install:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>curl
+</code></pre></div></div>
+
+<p>you are not manually downloading source code, compiling it, and copying files into system directories.</p>
+
+<p>Instead, the package manager handles the process.</p>
+
+<p>A simplified model is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Repository
+    ↓
+Package Manager
+    ↓
+Download Package
+    ↓
+Check Dependencies
+    ↓
+Install Files
+    ↓
+Configure Software
+    ↓
+Software Ready
+</code></pre></div></div>
+
+<p>On Debian and Ubuntu systems, two important package management components are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">apt</code></li>
+  <li><code class="language-plaintext highlighter-rouge">dpkg</code></li>
+</ul>
+
+<hr />
+
+<h1 id="2-apt-vs-dpkg">2. <code class="language-plaintext highlighter-rouge">apt</code> vs <code class="language-plaintext highlighter-rouge">dpkg</code></h1>
+
+<p>This distinction is extremely important.</p>
+
+<h2 id="dpkg"><code class="language-plaintext highlighter-rouge">dpkg</code></h2>
+
+<p><code class="language-plaintext highlighter-rouge">dpkg</code> is the lower-level Debian package management system.</p>
+
+<p>It manages <code class="language-plaintext highlighter-rouge">.deb</code> packages and keeps track of installed packages.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<h2 id="apt"><code class="language-plaintext highlighter-rouge">apt</code></h2>
+
+<p>APT is a higher-level package management tool.</p>
+
+<p>It can:</p>
+
+<ul>
+  <li>Search repositories.</li>
+  <li>Download packages.</li>
+  <li>Resolve dependencies.</li>
+  <li>Install packages.</li>
+  <li>Upgrade packages.</li>
+  <li>Remove packages.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nmap
+</code></pre></div></div>
+
+<h2 id="mental-model">Mental Model</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    User
+                      │
+                      ▼
+                     APT
+                      │
+         ┌────────────┼────────────┐
+         │            │            │
+         ▼            ▼            ▼
+   Repositories   Dependencies    Downloads
+                      │
+                      ▼
+                     dpkg
+                      │
+                      ▼
+              Installed Packages
+</code></pre></div></div>
+
+<p>Think of it like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>APT  → Smart package manager
+dpkg → Low-level package installer/database manager
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-accessing-the-sudoers-file">3. Accessing the <code class="language-plaintext highlighter-rouge">sudoers</code> File</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">sudoers</code> configuration controls who can use <code class="language-plaintext highlighter-rouge">sudo</code>.</p>
+
+<p>The main configuration file is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/sudoers
+</code></pre></div></div>
+
+<p>You can view it using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo cat</span> /etc/sudoers
+</code></pre></div></div>
+
+<p>However, you should generally <strong>not edit <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> directly using a normal editor</strong>.</p>
+
+<p>Instead, use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>visudo
+</code></pre></div></div>
+
+<h2 id="why-use-visudo">Why Use <code class="language-plaintext highlighter-rouge">visudo</code>?</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">sudoers</code> file is sensitive.</p>
+
+<p>A syntax mistake can cause problems with <code class="language-plaintext highlighter-rouge">sudo</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">visudo</code> checks the syntax before saving.</p>
+
+<h3 id="mental-model-1">Mental Model</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/sudoers
+       │
+       ▼
+Who can use sudo?
+       │
+       ▼
+What commands are allowed?
+       │
+       ▼
+Under what permissions?
+</code></pre></div></div>
+
+<h3 id="common-mistake">Common Mistake</h3>
+
+<p>Do not casually do:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>nano /etc/sudoers
+</code></pre></div></div>
+
+<p>It may work, but <code class="language-plaintext highlighter-rouge">visudo</code> is safer because it validates the configuration.</p>
+
+<hr />
+
+<h1 id="4-varlog">4. <code class="language-plaintext highlighter-rouge">/var/log</code></h1>
+
+<p>Linux stores many system and application logs inside:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/log
+</code></pre></div></div>
+
+<p>Check the directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /var/log
+</code></pre></div></div>
+
+<p>You may see files or directories such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auth.log
+syslog
+kern.log
+apt/
+dpkg.log
+journal/
+</code></pre></div></div>
+
+<p>The exact files depend on your Linux distribution and configuration.</p>
+
+<h2 id="what-are-logs">What Are Logs?</h2>
+
+<p>Logs are records of events happening on your system.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User logs in
+      ↓
+Authentication event
+      ↓
+System records event
+      ↓
+Log file
+      ↓
+/var/log
+</code></pre></div></div>
+
+<p>Logs are useful for:</p>
+
+<ul>
+  <li>Debugging.</li>
+  <li>Troubleshooting.</li>
+  <li>Security analysis.</li>
+  <li>Checking service activity.</li>
+  <li>Investigating errors.</li>
+</ul>
+
+<h3 id="example">Example</h3>
+
+<p>To inspect package management logs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less /var/log/dpkg.log
+</code></pre></div></div>
+
+<p>To inspect APT-related logs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /var/log/apt
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-etcapt">5. <code class="language-plaintext highlighter-rouge">/etc/apt</code></h1>
+
+<p>APT configuration is primarily stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt
+</code></pre></div></div>
+
+<p>Inspect it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /etc/apt
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt.conf.d/
+sources.list
+sources.list.d/
+trusted.gpg.d/
+</code></pre></div></div>
+
+<p>Some modern Ubuntu systems use repository configuration files such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/sources.list.d/ubuntu.sources
+</code></pre></div></div>
+
+<p>So the exact layout may differ.</p>
+
+<hr />
+
+<h1 id="6-sourceslist">6. <code class="language-plaintext highlighter-rouge">sources.list</code></h1>
+
+<p>APT needs to know where packages are located.</p>
+
+<p>Traditionally, repository definitions are stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/sources.list
+</code></pre></div></div>
+
+<p>You can view it using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /etc/apt/sources.list
+</code></pre></div></div>
+
+<p>A repository entry may look conceptually like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deb http://repository-url distribution component
+</code></pre></div></div>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deb http://archive.ubuntu.com/ubuntu noble main universe
+</code></pre></div></div>
+
+<p>The exact repository depends on your system version and configuration.</p>
+
+<h2 id="mental-model-2">Mental Model</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sources.list
+      │
+      ▼
+Repository Addresses
+      │
+      ▼
+APT knows where to search
+      │
+      ▼
+Packages become available
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-sourceslistd">7. <code class="language-plaintext highlighter-rouge">sources.list.d</code></h1>
+
+<p>Additional repository configurations can be stored in:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/sources.list.d/
+</code></pre></div></div>
+
+<p>Navigate there:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /etc/apt/sources.list.d
+</code></pre></div></div>
+
+<p>Then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>You may see files representing additional repositories.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker.list
+google-chrome.list
+some-repository.sources
+</code></pre></div></div>
+
+<p>These are examples; your system may contain different files.</p>
+
+<h2 id="why-does-sourceslistd-exist">Why Does <code class="language-plaintext highlighter-rouge">sources.list.d</code> Exist?</h2>
+
+<p>Instead of putting every repository into one huge file:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sources.list
+</code></pre></div></div>
+
+<p>Linux allows repositories to be separated.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/
+│
+├── sources.list
+│
+└── sources.list.d/
+    ├── repository1.list
+    ├── repository2.list
+    └── repository3.sources
+</code></pre></div></div>
+
+<p>This makes repository management easier.</p>
+
+<hr />
+
+<h1 id="8-apt-update">8. <code class="language-plaintext highlighter-rouge">apt update</code></h1>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>This command updates your <strong>local package information</strong>.</p>
+
+<p>It checks configured repositories and downloads the latest package metadata.</p>
+
+<h2 id="important-rule">Important Rule</h2>
+
+<p><code class="language-plaintext highlighter-rouge">apt update</code> does <strong>not</strong> normally upgrade all your installed software.</p>
+
+<p>Instead:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Repository
+    │
+    ▼
+Latest package information
+    │
+    ▼
+sudo apt update
+    │
+    ▼
+Local package metadata updated
+</code></pre></div></div>
+
+<p>Then APT knows:</p>
+
+<ul>
+  <li>Which packages are available.</li>
+  <li>Which versions are available.</li>
+  <li>Which updates exist.</li>
+</ul>
+
+<h3 id="common-workflow">Common Workflow</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-apt-upgrade">9. <code class="language-plaintext highlighter-rouge">apt upgrade</code></h1>
+
+<p>To upgrade installed packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<p>This installs newer versions of installed packages when available.</p>
+
+<h2 id="difference-between-update-and-upgrade">Difference Between <code class="language-plaintext highlighter-rouge">update</code> and <code class="language-plaintext highlighter-rouge">upgrade</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+    │
+    └── Refresh information about packages
+
+
+apt upgrade
+    │
+    └── Upgrade installed packages
+</code></pre></div></div>
+
+<p>A common exam question is:</p>
+
+<blockquote>
+  <p>Does <code class="language-plaintext highlighter-rouge">apt update</code> install software updates?</p>
+</blockquote>
+
+<p>Answer:</p>
+
+<p><strong>No. It refreshes package metadata.</strong></p>
+
+<hr />
+
+<h1 id="10-apt-autoremove">10. <code class="language-plaintext highlighter-rouge">apt autoremove</code></h1>
+
+<p>Over time, packages may be installed automatically as dependencies.</p>
+
+<p>Later, those dependencies may no longer be needed.</p>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt autoremove
+</code></pre></div></div>
+
+<p>APT will remove automatically installed packages that are no longer required.</p>
+
+<h2 id="example-1">Example</h2>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Program A
+    │
+    └── requires Library B
+</code></pre></div></div>
+
+<p>APT installs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Program A
+Library B
+</code></pre></div></div>
+
+<p>Later:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Program A
+</code></pre></div></div>
+
+<p>is removed.</p>
+
+<p>If nothing else needs:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Library B
+</code></pre></div></div>
+
+<p>then:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt autoremove
+</code></pre></div></div>
+
+<p>may remove it.</p>
+
+<h3 id="important-rule-1">Important Rule</h3>
+
+<p>Always inspect the list of packages APT wants to remove before confirming.</p>
+
+<hr />
+
+<h1 id="11-removing-a-package">11. Removing a Package</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt remove package
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt remove nmap
+</code></pre></div></div>
+
+<p>This removes the package.</p>
+
+<p>Some configuration files may remain.</p>
+
+<hr />
+
+<h1 id="12-remove-vs-purge">12. <code class="language-plaintext highlighter-rouge">remove</code> vs <code class="language-plaintext highlighter-rouge">purge</code></h1>
+
+<p>Although the lecture focuses on removing packages, it is important to know the related <code class="language-plaintext highlighter-rouge">purge</code> command.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt remove package
+</code></pre></div></div>
+
+<p>removes the package but may keep package configuration files.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt purge package
+</code></pre></div></div>
+
+<p>removes the package and package configuration files managed by the package system.</p>
+
+<h2 id="comparison">Comparison</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">apt remove package</code></td>
+      <td>Removes package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">apt purge package</code></td>
+      <td>Removes package and package configuration</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt remove nginx
+</code></pre></div></div>
+
+<p>versus:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt purge nginx
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="13-installing-a-package">13. Installing a Package</h1>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>package
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>nmap
+</code></pre></div></div>
+
+<p>APT will generally:</p>
+
+<ol>
+  <li>Locate the package.</li>
+  <li>Check dependencies.</li>
+  <li>Download required packages.</li>
+  <li>Install them.</li>
+  <li>Configure them.</li>
+</ol>
+
+<h2 id="mental-model-3">Mental Model</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nmap
+          │
+          ▼
+Find package
+          │
+          ▼
+Check dependencies
+          │
+          ▼
+Download packages
+          │
+          ▼
+dpkg installs packages
+          │
+          ▼
+Software installed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="14-reinstalling-a-package">14. Reinstalling a Package</h1>
+
+<p>Sometimes a package is already installed but you want to install its package files again.</p>
+
+<p>Use:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--reinstall</span> package
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--reinstall</span> nmap
+</code></pre></div></div>
+
+<p>This can be useful when package files may be corrupted or accidentally removed.</p>
+
+<hr />
+
+<h1 id="15-package-management-command-summary">15. Package Management Command Summary</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Update package metadata</span>
+<span class="nb">sudo </span>apt update
+
+<span class="c"># Upgrade installed packages</span>
+<span class="nb">sudo </span>apt upgrade
+
+<span class="c"># Remove unused dependencies</span>
+<span class="nb">sudo </span>apt autoremove
+
+<span class="c"># Remove package</span>
+<span class="nb">sudo </span>apt remove package
+
+<span class="c"># Remove package and configuration</span>
+<span class="nb">sudo </span>apt purge package
+
+<span class="c"># Install package</span>
+<span class="nb">sudo </span>apt <span class="nb">install </span>package
+
+<span class="c"># Reinstall package</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--reinstall</span> package
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="16-varlibdpkg">16. <code class="language-plaintext highlighter-rouge">/var/lib/dpkg</code></h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">dpkg</code> package management system stores its database under:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/lib/dpkg
+</code></pre></div></div>
+
+<p>Inspect it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /var/lib/dpkg
+</code></pre></div></div>
+
+<p>This directory contains important information about packages installed on the system.</p>
+
+<p>A key file is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/lib/dpkg/status
+</code></pre></div></div>
+
+<p>This stores package status information.</p>
+
+<h2 id="mental-model-4">Mental Model</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package installed
+       │
+       ▼
+dpkg updates package database
+       │
+       ▼
+/var/lib/dpkg/
+       │
+       ▼
+System knows what is installed
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="17-dpkg--l-pattern">17. <code class="language-plaintext highlighter-rouge">dpkg -l pattern</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span>
+</code></pre></div></div>
+
+<p>lists package information.</p>
+
+<p>You can also search using a pattern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> pattern
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> <span class="s1">'python*'</span>
+</code></pre></div></div>
+
+<p>This searches package names matching the pattern.</p>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> <span class="s1">'*curl*'</span>
+</code></pre></div></div>
+
+<h2 id="why-use-quotes">Why Use Quotes?</h2>
+
+<p>Without quotes, the shell may expand <code class="language-plaintext highlighter-rouge">*</code> before passing it to <code class="language-plaintext highlighter-rouge">dpkg</code>.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> <span class="s1">'*python*'</span>
+</code></pre></div></div>
+
+<p>is safer than:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> <span class="k">*</span>python<span class="k">*</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="18-understanding-dpkg--l-output">18. Understanding <code class="language-plaintext highlighter-rouge">dpkg -l</code> Output</h1>
+
+<p>You may see output similar to:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ii  bash        5.x   amd64   GNU Bourne Again SHell
+ii  coreutils   9.x   amd64   GNU core utilities
+</code></pre></div></div>
+
+<p>The first characters represent package status.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ii
+</code></pre></div></div>
+
+<p>generally indicates:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Desired state: Install
+Current state: Installed
+</code></pre></div></div>
+
+<p>Therefore:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ii
+</code></pre></div></div>
+
+<p>usually means:</p>
+
+<blockquote>
+  <p>The package is installed.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="19-dpkg--l-package">19. <code class="language-plaintext highlighter-rouge">dpkg -L package</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-L</span> package
+</code></pre></div></div>
+
+<p>lists files belonging to a package.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-L</span> bash
+</code></pre></div></div>
+
+<p>You may see paths such as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bin/bash
+/usr/share/doc/bash/
+/usr/share/man/
+</code></pre></div></div>
+
+<p>The exact output depends on the package.</p>
+
+<h2 id="mental-model-5">Mental Model</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package
+   │
+   ▼
+dpkg -L
+   │
+   ▼
+Which files belong to this package?
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="20-dpkg--s-package">20. <code class="language-plaintext highlighter-rouge">dpkg -s package</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-s</span> package
+</code></pre></div></div>
+
+<p>shows package status and metadata.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-s</span> bash
+</code></pre></div></div>
+
+<p>You may see:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package:
+Status:
+Priority:
+Section:
+Installed-Size:
+Maintainer:
+Architecture:
+Version:
+Depends:
+Description:
+</code></pre></div></div>
+
+<p>This is useful when you want detailed information about an installed package.</p>
+
+<hr />
+
+<h1 id="21-dpkg--s-pattern">21. <code class="language-plaintext highlighter-rouge">dpkg -S pattern</code></h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> pattern
+</code></pre></div></div>
+
+<p>searches for which installed package owns a particular file or matching path.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> /usr/bin/ls
+</code></pre></div></div>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/ls
+      │
+      ▼
+dpkg -S
+      │
+      ▼
+Which package owns this file?
+</code></pre></div></div>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> /usr/bin/bash
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="22-dpkg--l-vs-dpkg--s">22. <code class="language-plaintext highlighter-rouge">dpkg -L</code> vs <code class="language-plaintext highlighter-rouge">dpkg -S</code></h1>
+
+<p>This is an important distinction.</p>
+
+<h2 id="dpkg--l-package"><code class="language-plaintext highlighter-rouge">dpkg -L package</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-L</span> bash
+</code></pre></div></div>
+
+<p>Question:</p>
+
+<blockquote>
+  <p>What files belong to the <code class="language-plaintext highlighter-rouge">bash</code> package?</p>
+</blockquote>
+
+<h2 id="dpkg--s-file"><code class="language-plaintext highlighter-rouge">dpkg -S file</code></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> /usr/bin/bash
+</code></pre></div></div>
+
+<p>Question:</p>
+
+<blockquote>
+  <p>Which package owns <code class="language-plaintext highlighter-rouge">/usr/bin/bash</code>?</p>
+</blockquote>
+
+<h2 id="comparison-table">Comparison Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -L package</code></td>
+      <td>List files belonging to a package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -S file</code></td>
+      <td>Find package owning a file</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Memory trick:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-L → List files
+
+-S → Search owner
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="23-dpkg-query">23. <code class="language-plaintext highlighter-rouge">dpkg-query</code></h1>
+
+<p><code class="language-plaintext highlighter-rouge">dpkg-query</code> is used to query the dpkg package database.</p>
+
+<p>One powerful feature is custom formatting.</p>
+
+<p>The lecture command is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span>
+</code></pre></div></div>
+
+<p>Let’s break it down.</p>
+
+<hr />
+
+<h1 id="24-understanding--w">24. Understanding <code class="language-plaintext highlighter-rouge">-W</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-W</span>
+</code></pre></div></div>
+
+<p>is used to query packages and display information.</p>
+
+<hr />
+
+<h1 id="25-understanding--f">25. Understanding <code class="language-plaintext highlighter-rouge">-f</code></h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-f</span>
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>Use a custom output format.</p>
+</blockquote>
+
+<p>The format used is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>${Section} ${binary:Package}\n
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="26-section">26. <code class="language-plaintext highlighter-rouge">${Section}</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>${Section}
+</code></pre></div></div>
+
+<p>prints the package section.</p>
+
+<p>Examples may include:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin
+devel
+libs
+net
+utils
+</code></pre></div></div>
+
+<p>The exact values depend on package metadata.</p>
+
+<hr />
+
+<h1 id="27-binarypackage">27. <code class="language-plaintext highlighter-rouge">${binary:Package}</code></h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>${binary:Package}
+</code></pre></div></div>
+
+<p>prints the binary package name.</p>
+
+<p>For example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash
+curl
+vim
+nmap
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="28-n">28. <code class="language-plaintext highlighter-rouge">\n</code></h1>
+
+<p>The:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\n
+</code></pre></div></div>
+
+<p>creates a new line.</p>
+
+<p>Therefore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span>
+</code></pre></div></div>
+
+<p>can produce output conceptually like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>admin adduser
+shells bash
+net curl
+utils coreutils
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="29-viewing-output-with-less">29. Viewing Output with <code class="language-plaintext highlighter-rouge">less</code></h1>
+
+<p>The lecture command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | less
+</code></pre></div></div>
+
+<p>uses a pipe.</p>
+
+<p>The output of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query
+</code></pre></div></div>
+
+<p>becomes the input of:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less
+</code></pre></div></div>
+
+<h2 id="flow">Flow</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query
+     │
+     ▼
+    pipe
+     │
+     ▼
+    less
+</code></pre></div></div>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">less</code>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Space → Next page
+b     → Previous page
+/word → Search
+q     → Quit
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="30-sorting-package-information">30. Sorting Package Information</h1>
+
+<p>The command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">sort</span> | less
+</code></pre></div></div>
+
+<p>works like this:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query
+     │
+     ▼
+Generate package information
+     │
+     ▼
+sort
+     │
+     ▼
+Sort alphabetically
+     │
+     ▼
+less
+     │
+     ▼
+Browse output
+</code></pre></div></div>
+
+<p>This is useful when there are many packages.</p>
+
+<hr />
+
+<h1 id="31-filtering-package-information-with-grep">31. Filtering Package Information with <code class="language-plaintext highlighter-rouge">grep</code></h1>
+
+<p>The lecture command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">grep </span>pattern
+</code></pre></div></div>
+
+<p>filters the package output.</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">grep </span>python
+</code></pre></div></div>
+
+<p>Only lines containing:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python
+</code></pre></div></div>
+
+<p>will be displayed.</p>
+
+<p>Another example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">grep</span> <span class="s1">'^net '</span>
+</code></pre></div></div>
+
+<p>This searches for lines beginning with:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="32-pipeline-mental-model">32. Pipeline Mental Model</h1>
+
+<p>Consider:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command1 | command2 | command3
+</code></pre></div></div>
+
+<p>The output flows from left to right.</p>
+
+<p>For the lecture example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">sort</span> | less
+</code></pre></div></div>
+
+<p>the flow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Package Database
+       │
+       ▼
+dpkg-query
+       │
+       ▼
+Package Information
+       │
+       ▼
+sort
+       │
+       ▼
+Sorted Information
+       │
+       ▼
+less
+       │
+       ▼
+You
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="33-installing-a-deb-package">33. Installing a <code class="language-plaintext highlighter-rouge">.deb</code> Package</h1>
+
+<p>Debian and Ubuntu packages commonly use the:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.deb
+</code></pre></div></div>
+
+<p>extension.</p>
+
+<p>Example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program.deb
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="34-installing-a-deb-using-dpkg">34. Installing a <code class="language-plaintext highlighter-rouge">.deb</code> Using <code class="language-plaintext highlighter-rouge">dpkg</code></h1>
+
+<p>The traditional method is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dpkg <span class="nt">-i</span> package.deb
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dpkg <span class="nt">-i</span> program.deb
+</code></pre></div></div>
+
+<p>Here:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-i
+</code></pre></div></div>
+
+<p>means:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="35-dependency-problems-with-dpkg--i">35. Dependency Problems with <code class="language-plaintext highlighter-rouge">dpkg -i</code></h1>
+
+<p>Suppose:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program.deb
+</code></pre></div></div>
+
+<p>requires:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>library-A
+library-B
+</code></pre></div></div>
+
+<p>If those dependencies are missing:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dpkg <span class="nt">-i</span> program.deb
+</code></pre></div></div>
+
+<p>may leave dependency problems.</p>
+
+<p>Mental model:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>program.deb
+     │
+     ├── requires library-A
+     │
+     └── requires library-B
+
+Missing dependencies
+     │
+     ▼
+Installation problem
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="36-installing-a-local-deb-using-apt">36. Installing a Local <code class="language-plaintext highlighter-rouge">.deb</code> Using APT</h1>
+
+<p>A convenient modern approach is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> ./package.deb
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> ./program.deb
+</code></pre></div></div>
+
+<p>The:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./
+</code></pre></div></div>
+
+<p>means:</p>
+
+<blockquote>
+  <p>The file is located in the current directory.</p>
+</blockquote>
+
+<p>APT can attempt to resolve required dependencies.</p>
+
+<hr />
+
+<h1 id="37-dpkg--i-vs-apt-install-packagedeb">37. <code class="language-plaintext highlighter-rouge">dpkg -i</code> vs <code class="language-plaintext highlighter-rouge">apt install ./package.deb</code></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo dpkg -i package.deb</code></td>
+      <td>Install <code class="language-plaintext highlighter-rouge">.deb</code> directly using dpkg</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt install ./package.deb</code></td>
+      <td>Install local <code class="language-plaintext highlighter-rouge">.deb</code> using APT and resolve dependencies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For many users, this is convenient:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> ./package.deb
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="38-fixing-broken-dependencies">38. Fixing Broken Dependencies</h1>
+
+<p>If a <code class="language-plaintext highlighter-rouge">.deb</code> installation leaves missing dependencies, you can often run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">--fix-broken</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>This tells APT to attempt to fix dependency problems.</p>
+
+<p>A common sequence is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dpkg <span class="nt">-i</span> package.deb
+<span class="nb">sudo </span>apt <span class="nt">--fix-broken</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="39-important-real-world-examples">39. Important Real-World Examples</h1>
+
+<h2 id="example-1-update-and-upgrade">Example 1: Update and Upgrade</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<p>Use this when you want to refresh package information and install available upgrades.</p>
+
+<hr />
+
+<h2 id="example-2-search-installed-packages">Example 2: Search Installed Packages</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-l</span> <span class="s1">'*python*'</span>
+</code></pre></div></div>
+
+<p>Use this to check Python-related packages known to dpkg.</p>
+
+<hr />
+
+<h2 id="example-3-find-files-installed-by-a-package">Example 3: Find Files Installed by a Package</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-L</span> bash
+</code></pre></div></div>
+
+<p>Use this when you want to know what files belong to the <code class="language-plaintext highlighter-rouge">bash</code> package.</p>
+
+<hr />
+
+<h2 id="example-4-find-which-package-owns-a-file">Example 4: Find Which Package Owns a File</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> /usr/bin/ls
+</code></pre></div></div>
+
+<p>Use this when you discover a file and want to know which installed package provided it.</p>
+
+<hr />
+
+<h2 id="example-5-inspect-package-metadata">Example 5: Inspect Package Metadata</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-s</span> curl
+</code></pre></div></div>
+
+<p>Use this to inspect the installed version, dependencies, status, architecture, and description.</p>
+
+<hr />
+
+<h2 id="example-6-browse-packages-by-section">Example 6: Browse Packages by Section</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | less
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="example-7-sort-package-sections">Example 7: Sort Package Sections</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">sort</span> | less
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="example-8-filter-packages">Example 8: Filter Packages</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">grep </span>python
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="40-common-mistakes">40. Common Mistakes</h1>
+
+<h2 id="mistake-1-confusing-update-with-upgrade">Mistake 1: Confusing <code class="language-plaintext highlighter-rouge">update</code> with <code class="language-plaintext highlighter-rouge">upgrade</code></h2>
+
+<p>Wrong assumption:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update installs updates
+</code></pre></div></div>
+
+<p>Correct:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+→ refreshes package metadata
+
+apt upgrade
+→ upgrades installed packages
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="mistake-2-forgetting--for-a-local-deb">Mistake 2: Forgetting <code class="language-plaintext highlighter-rouge">./</code> for a Local <code class="language-plaintext highlighter-rouge">.deb</code></h2>
+
+<p>If the package is in the current directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> ./package.deb
+</code></pre></div></div>
+
+<p>The:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./
+</code></pre></div></div>
+
+<p>tells APT that you are referring to a local file.</p>
+
+<hr />
+
+<h2 id="mistake-3-confusing-dpkg--l-and-dpkg--s">Mistake 3: Confusing <code class="language-plaintext highlighter-rouge">dpkg -L</code> and <code class="language-plaintext highlighter-rouge">dpkg -S</code></h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg -L package
+</code></pre></div></div>
+
+<p>asks:</p>
+
+<blockquote>
+  <p>What files belong to this package?</p>
+</blockquote>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg -S file
+</code></pre></div></div>
+
+<p>asks:</p>
+
+<blockquote>
+  <p>Which package owns this file?</p>
+</blockquote>
+
+<hr />
+
+<h2 id="mistake-4-running-autoremove-without-checking">Mistake 4: Running <code class="language-plaintext highlighter-rouge">autoremove</code> Without Checking</h2>
+
+<p>Before confirming removal, read the list of packages APT proposes to remove.</p>
+
+<hr />
+
+<h2 id="mistake-5-editing-etcsudoers-directly">Mistake 5: Editing <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> Directly</h2>
+
+<p>Prefer:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>visudo
+</code></pre></div></div>
+
+<p>instead of directly editing the file.</p>
+
+<hr />
+
+<h1 id="41-exam-focused-command-table">41. Exam-Focused Command Table</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo visudo</code></td>
+      <td>Safely edit sudoers configuration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls /var/log</code></td>
+      <td>View system logs</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls /etc/apt</code></td>
+      <td>View APT configuration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cat /etc/apt/sources.list</code></td>
+      <td>View traditional repository configuration</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cd /etc/apt/sources.list.d</code></td>
+      <td>Access additional repository definitions</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt update</code></td>
+      <td>Refresh package metadata</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt upgrade</code></td>
+      <td>Upgrade installed packages</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt autoremove</code></td>
+      <td>Remove unused automatic dependencies</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt remove pkg</code></td>
+      <td>Remove package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt install pkg</code></td>
+      <td>Install package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt install --reinstall pkg</code></td>
+      <td>Reinstall package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ls /var/lib/dpkg</code></td>
+      <td>View dpkg database files</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -l pattern</code></td>
+      <td>List/query packages matching pattern</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -L package</code></td>
+      <td>List files belonging to package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -s package</code></td>
+      <td>Show package status/details</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg -S pattern</code></td>
+      <td>Find package owning a file/path</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dpkg-query -W -f='...'</code></td>
+      <td>Query package database with custom format</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo dpkg -i file.deb</code></td>
+      <td>Install <code class="language-plaintext highlighter-rouge">.deb</code> package</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt install ./file.deb</code></td>
+      <td>Install local <code class="language-plaintext highlighter-rouge">.deb</code> with APT</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt --fix-broken install</code></td>
+      <td>Attempt to fix broken dependencies</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="42-practice-questions">42. Practice Questions</h1>
+
+<h2 id="question-1">Question 1</h2>
+
+<p>What is the difference between:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+</code></pre></div></div>
+
+<p>and:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt upgrade
+</code></pre></div></div>
+
+<h3 id="answer">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+→ Refreshes package information.
+
+apt upgrade
+→ Installs available upgrades for installed packages.
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-2">Question 2</h2>
+
+<p>Where is the <code class="language-plaintext highlighter-rouge">dpkg</code> package database stored?</p>
+
+<h3 id="answer-1">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/var/lib/dpkg
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-3">Question 3</h2>
+
+<p>Which command lists files belonging to the <code class="language-plaintext highlighter-rouge">bash</code> package?</p>
+
+<h3 id="answer-2">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-L</span> bash
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-4">Question 4</h2>
+
+<p>Which command finds the package that owns:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/bin/ls
+</code></pre></div></div>
+
+<h3 id="answer-3">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg <span class="nt">-S</span> /usr/bin/ls
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-5">Question 5</h2>
+
+<p>How do you reinstall <code class="language-plaintext highlighter-rouge">curl</code>?</p>
+
+<h3 id="answer-4">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--reinstall</span> curl
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-6">Question 6</h2>
+
+<p>How do you install a local package named:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app.deb
+</code></pre></div></div>
+
+<p>using <code class="language-plaintext highlighter-rouge">dpkg</code>?</p>
+
+<h3 id="answer-5">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>dpkg <span class="nt">-i</span> app.deb
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-7">Question 7</h2>
+
+<p>How can you install the same package using APT?</p>
+
+<h3 id="answer-6">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> ./app.deb
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-8">Question 8</h2>
+
+<p>What command attempts to fix broken package dependencies?</p>
+
+<h3 id="answer-7">Answer</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">--fix-broken</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="question-9">Question 9</h2>
+
+<p>Explain:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">sort</span> | less
+</code></pre></div></div>
+
+<h3 id="answer-8">Answer</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-query
+→ Gets package information.
+
+-f
+→ Specifies custom output format.
+
+${Section}
+→ Prints package section.
+
+${binary:Package}
+→ Prints package name.
+
+\n
+→ Prints a new line.
+
+sort
+→ Sorts the output.
+
+less
+→ Allows interactive viewing.
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="43-final-revision-diagram">43. Final Revision Diagram</h1>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                         PACKAGE MANAGEMENT
+                                  │
+                  ┌───────────────┴───────────────┐
+                  │                               │
+                 APT                             dpkg
+                  │                               │
+        High-level package tool           Low-level package system
+                  │                               │
+        ┌─────────┼─────────┐                     │
+        │         │         │                     │
+     update    install    upgrade              .deb files
+        │         │         │                     │
+        └─────────┼─────────┘                     │
+                  │                               │
+                  └───────────────┬───────────────┘
+                                  │
+                                  ▼
+                         Installed Packages
+                                  │
+                                  ▼
+                           /var/lib/dpkg
+</code></pre></div></div>
+
+<p>Repository configuration:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/
+│
+├── sources.list
+│
+└── sources.list.d/
+        │
+        ▼
+    Repositories
+        │
+        ▼
+       APT
+</code></pre></div></div>
+
+<p>Package investigation:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg -l
+    │
+    ▼
+List packages
+
+dpkg -L package
+    │
+    ▼
+List files belonging to package
+
+dpkg -s package
+    │
+    ▼
+Show package details
+
+dpkg -S file
+    │
+    ▼
+Find package owning file
+
+dpkg-query
+    │
+    ▼
+Create custom package queries
+</code></pre></div></div>
+
+<h2 id="final-commands-to-memorize">Final Commands to Memorize</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>visudo
+
+<span class="nb">ls</span> /var/log
+
+<span class="nb">ls</span> /etc/apt
+<span class="nb">cat</span> /etc/apt/sources.list
+<span class="nb">cd</span> /etc/apt/sources.list.d
+
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade
+<span class="nb">sudo </span>apt autoremove
+<span class="nb">sudo </span>apt remove package
+<span class="nb">sudo </span>apt <span class="nb">install </span>package
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--reinstall</span> package
+
+<span class="nb">ls</span> /var/lib/dpkg
+
+dpkg <span class="nt">-l</span> pattern
+dpkg <span class="nt">-L</span> package
+dpkg <span class="nt">-s</span> package
+dpkg <span class="nt">-S</span> pattern
+
+dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span>
+
+dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | less
+
+dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">sort</span> | less
+
+dpkg-query <span class="nt">-W</span> <span class="nt">-f</span><span class="o">=</span><span class="s1">'${Section} ${binary:Package}\n'</span> | <span class="nb">grep </span>pattern
+
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> package.deb
+<span class="nb">sudo </span>apt <span class="nb">install</span> ./package.deb
+<span class="nb">sudo </span>apt <span class="nt">--fix-broken</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+
+        <!-- Previous / Next Chapter Cards -->
+        
+        
+        
+        
+
+        
+
+        
+          <div class="chapter-pagination">
+            
+              <a href="/system-commands/chapters/week-03/l3-3-software-management-part-01.html" class="pagination-card prev">
+                <span class="pagination-label">← Previous</span>
+                <span class="pagination-title">L3.3: Software Management - Part 01</span>
+              </a>
+            
+
+            
+              <a href="/system-commands/chapters/week-03/l3-5-linux-process-management.html" class="pagination-card next">
+                <span class="pagination-label">Next →</span>
+                <span class="pagination-title">L3.5 - Linux process management</span>
+              </a>
+            
+          </div>
+        
+      </article>
+    </main>
+
+    <!-- Right Sidebar ("On this page" TOC) -->
+    <aside class="right-sidebar">
+      <h3 class="toc-title">On this page</h3>
+      <div id="on-this-page-toc"></div>
+    </aside>
+  </div>
+
+  <!-- Search Modal -->
+  <div id="search-modal" class="search-modal-backdrop">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="modal-search-input" class="modal-search-input" placeholder="Search documentation..." autocomplete="off">
+        <button id="search-modal-close" class="search-modal-close" aria-label="Close search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results-container">
+        <div class="search-empty-prompt">Type to search system commands, chapters, or topics...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expose navigation data for live search -->
+  <script>
+    window.__NAVIGATION_DATA__ = [
+      
+      {
+        week: "Week 1",
+        topics: [
+          
+          {
+            title: "1.1 - Launching a Linux Virtual Machine",
+            url: "/system-commands/chapters/week-01/1-1-launching-a-linux-virtual-machine.html"
+          },
+          
+          {
+            title: "1.2 - Command line environment",
+            url: "/system-commands/chapters/week-01/1-2-command-line-environment.html"
+          },
+          
+          {
+            title: "1.3 - Simple Commands in Linux - 1",
+            url: "/system-commands/chapters/week-01/1-3-simple-commands-in-linux-1.html"
+          },
+          
+          {
+            title: "1.4 - Simple Commands in Linux - 2",
+            url: "/system-commands/chapters/week-01/1-4-simple-commands-in-linux-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 2",
+        topics: [
+          
+          {
+            title: "L2.1 - Command line editors - Part 01",
+            url: "/system-commands/chapters/week-02/l2-1-command-line-editors-part-01.html"
+          },
+          
+          {
+            title: "L2.2 - Command line editors - Part 02",
+            url: "/system-commands/chapters/week-02/l2-2-command-line-editors-part-02.html"
+          },
+          
+          {
+            title: "L2.3 - Command line editors - Part 03",
+            url: "/system-commands/chapters/week-02/l2-3-command-line-editors-part-03.html"
+          },
+          
+          {
+            title: "L2.4: Networking Commands and SSH",
+            url: "/system-commands/chapters/week-02/l2-4-networking-commands-and-ssh.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 3",
+        topics: [
+          
+          {
+            title: "L3.1 - Combining commands and files",
+            url: "/system-commands/chapters/week-03/l3-1-combining-commands-and-files.html"
+          },
+          
+          {
+            title: "L3.2 - Redirections",
+            url: "/system-commands/chapters/week-03/l3-2-redirections.html"
+          },
+          
+          {
+            title: "L3.3: Software Management - Part 01",
+            url: "/system-commands/chapters/week-03/l3-3-software-management-part-01.html"
+          },
+          
+          {
+            title: "L3.4: Software Management - Part 02",
+            url: "/system-commands/chapters/week-03/l3-4-software-management-part-02.html"
+          },
+          
+          {
+            title: "L3.5 - Linux process management",
+            url: "/system-commands/chapters/week-03/l3-5-linux-process-management.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 4",
+        topics: [
+          
+          {
+            title: "L4.1: Pattern Matching - Part 01",
+            url: "/system-commands/chapters/week-04/l4-1-pattern-matching-part-01.html"
+          },
+          
+          {
+            title: "L4.2: Pattern Matching - Part 02",
+            url: "/system-commands/chapters/week-04/l4-2-pattern-matching-part-02.html"
+          },
+          
+          {
+            title: "T4.1 What is find?",
+            url: "/system-commands/chapters/week-04/t4-1-what-is-find.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 5",
+        topics: [
+          
+          {
+            title: "L 5.1 - $hell variables",
+            url: "/system-commands/chapters/week-05/l-5-1-shell-variables.html"
+          },
+          
+          {
+            title: "L 5.2 - Shell Variables - Part 1",
+            url: "/system-commands/chapters/week-05/l-5-2-shell-variables-part-1.html"
+          },
+          
+          {
+            title: "L 5.3 - Shell Variables - Part 2",
+            url: "/system-commands/chapters/week-05/l-5-3-shell-variables-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 6",
+        topics: [
+          
+          {
+            title: "L6.1: Some Command line Utilities",
+            url: "/system-commands/chapters/week-06/l6-1-some-command-line-utilities.html"
+          },
+          
+          {
+            title: "L6.2 - Overview of Shell Scripts",
+            url: "/system-commands/chapters/week-06/l6-2-overview-of-shell-scripts.html"
+          },
+          
+          {
+            title: "L6.3 - Bash Scripts - Part 01",
+            url: "/system-commands/chapters/week-06/l6-3-bash-scripts-part-01.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 7",
+        topics: [
+          
+          {
+            title: "L7.1 - Bash scripts - Part 2A",
+            url: "/system-commands/chapters/week-07/l7-1-bash-scripts-part-2a.html"
+          },
+          
+          {
+            title: "L5.4 - Bash scripts - Part 2B",
+            url: "/system-commands/chapters/week-07/l5-4-bash-scripts-part-2b.html"
+          },
+          
+          {
+            title: "L7..3 - Bash scripts - Part 2C",
+            url: "/system-commands/chapters/week-07/l7-3-bash-scripts-part-2c.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 8",
+        topics: [
+          
+          {
+            title: "L8.1: Automating Scripts",
+            url: "/system-commands/chapters/week-08/l8-1-automating-scripts.html"
+          },
+          
+          {
+            title: "L 8.2 - Stream editor sed",
+            url: "/system-commands/chapters/week-08/l-8-2-stream-editor-sed.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 9",
+        topics: [
+          
+          {
+            title: "9.1 - AWK Programming Part 1",
+            url: "/system-commands/chapters/week-09/9-1-awk-programming-part-1.html"
+          },
+          
+          {
+            title: "9.2 - AWK Programming Part 2",
+            url: "/system-commands/chapters/week-09/9-2-awk-programming-part-2.html"
+          }
+          
+        ]
+      },
+      
+      {
+        week: "Week 10",
+        topics: [
+          
+          {
+            title: "L10.1 - Version Control - Part 01",
+            url: "/system-commands/chapters/week-10/l10-1-version-control-part-01.html"
+          },
+          
+          {
+            title: "L10.2 - Version Control - Part 02",
+            url: "/system-commands/chapters/week-10/l10-2-version-control-part-02.html"
+          },
+          
+          {
+            title: "L10.3 - Knowing your Hardware",
+            url: "/system-commands/chapters/week-10/l10-3-knowing-your-hardware.html"
+          },
+          
+          {
+            title: "L10.4 : Prompt String",
+            url: "/system-commands/chapters/week-10/l10-4-prompt-string.html"
+          },
+          
+          {
+            title: "L10.5: Managing Storage",
+            url: "/system-commands/chapters/week-10/l10-5-managing-storage.html"
+          }
+          
+        ]
+      }
+      
+    ];
+  </script>
+
+  <script src="/system-commands/assets/js/main.js?v=1788890935"></script>
+</body>
+</html>
